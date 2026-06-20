@@ -1,0 +1,98 @@
+[
+    {
+        "question": "A sequence of numbers is defined recursively by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "3",
+        "score": 0.2222222222222222,
+        "results": [
+            "3",
+            "40",
+            "5",
+            "70",
+            "5",
+            "13",
+            "None",
+            "3",
+            "2"
+        ]
+    },
+    {
+        "question": "A positive integer is called square-free if it is not divisible by the square of any prime number. For example, 10 is square-free because it is not divisible by \\(2^2\\), \\(3^2\\), or \\(5^2\\). However, 18 is not square-free because it is divisible by \\(3^2\\). How many square-free integers are there between 1 and 100 inclusive?",
+        "answer": "60",
+        "score": 0.4444444444444444,
+        "results": [
+            "61",
+            "60",
+            "62",
+            "60",
+            "90",
+            "63",
+            "60",
+            "65",
+            "60"
+        ]
+    },
+    {
+        "question": "Find all positive integers \\( n \\) such that there exists a positive integer \\( k \\) with exactly two distinct prime factors, and the equation \\( n^k + 1 = (n+1)^m \\) holds for some integer \\( m \\).",
+        "answer": "1",
+        "score": 0.7777777777777778,
+        "results": [
+            "1",
+            "2",
+            "1",
+            "2",
+            "1 \\text{ and } 2",
+            "1",
+            "1",
+            "1",
+            "1"
+        ]
+    },
+    {
+        "question": "A function \\( f: \\mathbb{R} \\to \\mathbb{R} \\) is defined by \\( f(x) = x^3 - 3x + 2 \\). Determine the number of real roots of the equation \\( f(f(x)) = 0 \\).",
+        "answer": "2",
+        "score": 0.4444444444444444,
+        "results": [
+            "3",
+            "2",
+            "2",
+            "3",
+            "2",
+            "4",
+            "5",
+            "2",
+            "3"
+        ]
+    },
+    {
+        "question": "A sequence of numbers starts with 1. Each subsequent term is the sum of the squares of the digits of the previous term. For example, the first term is 1, the second term is \\(1^2 = 1\\), and the third term is \\(1^2 = 1\\). This sequence eventually enters a cycle. Find the length of the shortest cycle that appears in this sequence.",
+        "answer": "1",
+        "score": 1.0,
+        "results": [
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1"
+        ]
+    },
+    {
+        "question": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - x^{n-1} - x^{n-2} - \\cdots - x - 1 \\) has no real roots.",
+        "answer": "5",
+        "score": 0.5555555555555556,
+        "results": [
+            "4",
+            "5",
+            "8",
+            "5",
+            "5",
+            "4",
+            "10",
+            "5",
+            "5"
+        ]
+    }
+]

@@ -1,0 +1,372 @@
+[
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the equation \\( x^3 - nx^2 + (n-1)x - 1 = 0 \\) has three distinct integer solutions.",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A sequence of numbers \\(a_n\\) is defined recursively by \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1} + \\frac{1}{n}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 2\\).",
+    "answer": "10",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a regular hexagon with side length 1, a point P is chosen at random. What is the probability that the distance from P to each of the six vertices of the hexagon is less than 1?",
+    "answer": "0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A sequence of numbers \\(a_1, a_2, a_3, \\ldots\\) is defined as follows: \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). What is the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\)?",
+    "answer": "12",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the equation \\( x^2 + y^2 = nz^2 \\) has no integer solutions for \\( x, y, z \\) with \\( z \\neq 0 \\).",
+    "answer": "3",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A set of \\( n \\) distinct positive integers is given. The sum of any two distinct elements in the set is not divisible by 5. What is the maximum possible value of \\( n \\)?",
+    "answer": "4",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^2 - nx + n - 1 = 0 \\) has integer roots.",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A sequence of numbers is defined as follows: the first term is 1, and each subsequent term is the sum of the squares of the digits of the previous term. For example, the second term is 1^2 = 1, and the third term is 1^2 = 1. Find the smallest positive integer \\( n \\) such that the \\( n \\)-th term in the sequence is 145.",
+    "answer": "5",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A sequence of numbers is defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+    "answer": "5",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Consider a sequence of numbers defined recursively by \\( a_1 = 2 \\) and \\( a_{n+1} = a_n^2 - a_n + 1 \\) for \\( n \\geq 1 \\). Find the smallest positive integer \\( k \\) such that \\( a_k > 10^{100} \\).",
+    "answer": "7",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that there exists a positive integer \\( k \\) for which the equation \\( n^k + k = m^2 \\) has a solution in positive integers \\( m \\).",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A sequence of numbers \\(a_n\\) is defined by the recurrence relation \\(a_{n+1} = a_n^2 - a_n + 1\\), with the initial term \\(a_1 = 2\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+    "answer": "7",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A set of positive integers {a_1, a_2, ..., a_n} is called \"quirky\" if for any two distinct elements a_i and a_j in the set, the absolute difference |a_i - a_j| is not equal to any element in the set. What is the maximum number of elements that a quirky set of positive integers less than 10 can contain?",
+    "answer": "5",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the equation \\( x^2 - nx + 2023 = 0 \\) has integer roots.",
+    "answer": "136",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A sequence of numbers \\(a_n\\) is defined by the recurrence relation \\(a_1 = 2\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+    "answer": "7",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the smallest positive integer n such that the equation x^3 - nx^2 + (n^2 - 4)x - 6 = 0 has all integer roots?",
+    "answer": "6",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A set of positive integers \\( S \\) is called \"harmonious\" if for every pair of distinct elements \\( a, b \\in S \\), the sum \\( a + b \\) is divisible by 3. Find the maximum possible size of a harmonious subset \\( S \\) of the set \\( \\{1, 2, \\ldots, 100\\} \\).",
+    "answer": "34",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Consider a sequence of real numbers \\(a_1, a_2, a_3, \\ldots\\) defined by the recurrence relation \\(a_{n+1} = \\frac{a_n^2}{a_n + 1}\\) for \\(n \\geq 1\\), with the initial term \\(a_1 = 2\\). Determine the smallest positive integer \\(k\\) such that \\(a_k < 10^{-6}\\).",
+    "answer": "10",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - nx - 1 \\) has no real roots.",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A positive integer is called square-free if it is not divisible by any perfect square greater than 1. Find the smallest positive integer \\( n \\) such that all integers from 1 to \\( n \\) can be partitioned into three sets, each of which has the property that no two elements in any set are divisible by the same square-free number.",
+    "answer": "12",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n + x^{n-1} + \\cdots + x + 1 \\) has no integer roots.",
+    "answer": "2",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A sequence of numbers \\(a_1, a_2, a_3, \\ldots\\) is defined by the recurrence relation \\(a_{n+1} = a_n^2 - a_n + 1\\) with the initial term \\(a_1 = 2\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+    "answer": "7",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A set of \\( n \\) distinct real numbers is given. We define a function \\( f(S) \\) for any subset \\( S \\subseteq \\{1, 2, \\ldots, n\\} \\) as follows: if \\( S \\) is empty, \\( f(S) = 0 \\); otherwise, \\( f(S) = \\sum_{i \\in S} a_i \\), where \\( a_i \\) are the numbers in the set. Find the maximum possible value of \\( f(S) \\) over all possible subsets \\( S \\) such that \\( |S| \\leq k \\), for some given integer \\( k \\) with \\( 1 \\leq k \\leq n \\).",
+    "answer": "a_{n-k+1} + a_{n-k+2} + \\cdots + a_{n}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a town, every pair of residents either are friends or enemies. For each resident, there are exactly two more enemies than friends. What is the maximum number of residents in the town?",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^2 - nx + (n-1) = 0 \\) has integer solutions.",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A set \\( S \\) contains \\( n \\) distinct positive integers. Define the sumset \\( S + S \\) as the set of all possible sums of two elements from \\( S \\). If the sumset \\( S + S \\) contains exactly \\( \\binom{n+1}{2} \\) distinct elements, what is the maximum number of elements that \\( S \\) can contain for a given \\( n \\)?",
+    "answer": "n",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a finite sequence of positive integers, each term after the first is the sum of the squares of the digits of the previous term. Starting with 19, what is the smallest number of terms that must be generated to reach a repeating cycle?",
+    "answer": "5",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Let \\( S \\) be the set of all positive integers that can be expressed as the sum of distinct powers of 2. For example, 5 is in \\( S \\) because \\( 5 = 2^2 + 2^0 \\). Find the smallest positive integer \\( n \\) such that \\( n \\) is in \\( S \\) and there is no positive integer in \\( S \\) strictly between 1 and \\( n \\).",
+    "answer": "2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Let \\( S \\) be the set of all positive integers that can be expressed as the sum of three distinct positive integers whose product is a perfect square. Find the smallest element of \\( S \\).",
+    "answer": "11",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - nx + n-1 \\) has no real roots.",
+    "answer": "4",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A sequence of numbers \\(a_n\\) is defined as follows: \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+    "answer": "12",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A sequence of numbers \\(a_1, a_2, a_3, \\ldots\\) is defined by the recursive relation \\(a_{n+1} = a_n^2 - a_n + 1\\) with the initial term \\(a_1 = 2\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).</question<\\/\n\n{\\. to why.\n\n有哪些\n\nAssistant都可以.",
+    "answer": "7",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A sequence of numbers \\(a_n\\) is defined recursively by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+    "answer": "12",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^2 + y^2 = n \\) has no integer solutions for \\( x \\) and \\( y \\).",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A sequence of numbers \\(a_1, a_2, a_3, \\ldots\\) is defined recursively by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{10}\\).",
+    "answer": "12",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A sequence of numbers \\(a_n\\) is defined by \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1} + \\frac{1}{a_{n-1}}\\). Find the smallest integer \\(k\\) such that \\(a_k > 100\\).",
+    "answer": "5001",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A set of positive integers is defined as \"magical\" if the sum of any two distinct elements in the set is also an element of the set. Given that the set {1, 3} is magical, find the smallest possible value of the third element that can be added to the set to make it larger, such that the new set remains magical.",
+    "answer": "4",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A sequence of numbers \\(a_n\\) is defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+    "answer": "12",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A sequence of numbers is defined recursively by \\( a_1 = 1 \\) and for \\( n \\geq 2 \\), \\( a_n = a_{n-1}^2 - a_{n-1} + 1 \\). Find the smallest positive integer \\( k \\) such that \\( a_k > 10^{10} \\).",
+    "answer": "5",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A sequence of numbers is defined as follows: \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+    "answer": "5",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a finite sequence of positive integers, each term after the first is the sum of the squares of the digits of the previous term. For example, if the first term is 29, the second term is \\(2^2 + 9^2 = 4 + 81 = 85\\). What is the smallest starting number greater than 10 that eventually reaches the number 1?",
+    "answer": "13",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a sequence of positive integers, each term after the first is the sum of the squares of the digits of the previous term. For example, starting with 16, the next term would be \\(1^2 + 6^2 = 37\\). Find the smallest positive integer that eventually leads to the cycle 145, 42, 20, 4, 16, 37, 58, 89, 145, and determine how many terms of the sequence lead to this cycle.",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A sequence of numbers \\( a_n \\) is defined recursively by \\( a_1 = 1 \\) and for \\( n \\geq 2 \\), \\( a_n = a_{n-1}^2 - a_{n-2} \\). Find the smallest positive integer \\( k \\) such that \\( a_k > 10^{100} \\).",
+    "answer": "12",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A sequence of real numbers \\(a_1, a_2, a_3, \\ldots\\) is defined by the recurrence relation \\(a_{n+1} = a_n^2 - a_n + 1\\) for \\(n \\geq 1\\), with the initial term \\(a_1 = 2\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{10}\\).",
+    "answer": "7",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^2 - nx + (n-1) = 0 \\) has integer solutions.",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the equation \\( x^3 - nx^2 + (n-1)x - 1 = 0 \\) has three distinct integer roots.",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Let \\( S \\) be a set of positive integers. Define a sequence \\( a_n \\) such that \\( a_1 = 1 \\) and for \\( n \\geq 2 \\), \\( a_n \\) is the smallest element in \\( S \\) that has not appeared in the sequence before and is coprime to all previous terms in the sequence. If \\( S \\) is the set of all positive integers, what is the 2023rd term in this sequence?",
+    "answer": "2023",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the equation \\( x^2 - nx + (n-10) = 0 \\) has two distinct positive integer roots.",
+    "answer": "12",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a sequence of positive integers, each term after the first is determined by multiplying the previous term by a constant integer \\( k \\) and then adding a constant integer \\( c \\). Given that the first term is 1, and the fourth term is 50, find the values of \\( k \\) and \\( c \\).",
+    "answer": "k = 2,\\ c = 6",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A sequence of numbers is defined as follows: \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+    "answer": "12",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A set of \\( n \\) distinct points is placed in the plane such that no three points are collinear. Each pair of points is connected by a segment, and each segment can be colored either red or blue. A triple of points is called \"harmonious\" if the segments connecting it are of the same color. For what values of \\( n \\) is it always possible to color the segments such that there exists no harmonious triple?",
+    "answer": "4",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A sequence of numbers is defined recursively by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+    "answer": "5",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a triangle \\(ABC\\), the lengths of the sides are \\(a\\), \\(b\\), and \\(c\\) such that \\(a < b < c\\). It is known that the triangle is obtuse and the longest side \\(c\\) satisfies the equation \\(c^2 = a^2 + ab + b^2\\). Find the smallest possible integer value of \\(c\\).",
+    "answer": "7",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a finite set of positive integers, if the sum of any three distinct elements is divisible by 3, prove that the sum of all elements in the set is also divisible by 3.",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a right triangle with legs of lengths \\(a\\) and \\(b\\), and hypotenuse \\(c\\), if the area of the triangle is equal to the perimeter of the triangle, find the value of \\(a + b + c\\) when \\(a = 3\\).",
+    "answer": "12",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A sequence of numbers is defined recursively as follows: \\(a_1 = 2\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+    "answer": "7",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that there exist integers \\( a \\) and \\( b \\) with \\( a > b \\geq 0 \\) and \\( n = a^2 - b^2 \\).",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A sequence of numbers is defined as follows: the first term is 1, and each subsequent term is the sum of the squares of the digits of the previous term. For example, the second term is \\(1^2 = 1\\), the third term is \\(1^2 = 1\\), and so on. Find the smallest positive integer \\(n\\) such that the \\(n\\)-th term in the sequence is a three-digit number.",
+    "answer": "10",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A positive integer is called square-free if it is not divisible by the square of any prime number. For example, 10 is square-free because it is not divisible by 4 (2^2), 9 (3^2), or any other prime square. However, 18 is not square-free because it is divisible by 9 (3^2). Given a set of distinct positive integers, determine the largest subset of this set where no two elements have a greatest common divisor greater than 1. Specifically, if the set is \\{10, 15, 20, 25, 30, 35, 40, 45, 50\\}, what is the size of the largest such subset?",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A sequence of numbers starts with 1, and each subsequent number is determined by adding to the previous number the smallest prime factor of that number. What is the 5th number in this sequence?",
+    "answer": "10",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A sequence of numbers is defined recursively by \\(a_1 = 2\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+    "answer": "7",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A sequence of numbers is defined recursively by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all integers \\( n \\) such that both \\( n \\) and \\( n+1 \\) can be expressed as the sum of two squares of integers.",
+    "answer": "0",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A sequence of numbers \\(a_n\\) is defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+    "answer": "5",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A positive integer is called square-free if it is not divisible by the square of any prime number. For example, 10 is square-free because it is not divisible by 4 (2^2) or 9 (3^2). How many square-free positive integers less than or equal to 100 are there?",
+    "answer": "60",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "An integer is considered abundant if the sum of its proper divisors (divisors excluding the number itself) is greater than the number. For example, the number 12 is abundant because the sum of its proper divisors 1, 2, 3, 4, and 6 is 16, which is greater than 12. Find the smallest abundant number that is also a perfect square.",
+    "answer": "36",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a set of \\( n \\) distinct integers, where \\( n \\geq 3 \\), how many ways can you select three integers such that no two of them are consecutive in the sorted order of the set?",
+    "answer": "\\binom{n-2}{3}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A sequence of numbers \\(a_1, a_2, a_3, \\ldots\\) is defined by the recurrence relation \\(a_{n+1} = a_n^2 - a_n + 1\\) with the initial term \\(a_1 = 2\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{10}\\).",
+    "answer": "6",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - 1 \\) has exactly 10 distinct roots modulo \\( n \\).",
+    "answer": "11",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A sequence of numbers is defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+    "answer": "12",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^3 - nx + 6 \\) has three distinct integer roots.",
+    "answer": "7",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A set of \\( n \\) distinct real numbers is called \"sum-dominant\" if the number of distinct sums that can be formed by choosing any two numbers from the set is greater than the number of distinct sums that can be formed by choosing any three numbers from the set. Find the smallest positive integer \\( n \\) such that there exists a sum-dominant set of \\( n \\) real numbers.",
+    "answer": "4",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - x - 1 \\) has no real roots.",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A set of n distinct integers is chosen randomly from the set {1, 2, 3, ..., 2n}. What is the probability that the chosen set contains a number x such that there exists another number in the set that is exactly twice x?",
+    "answer": "1",
+    "score": 0.5555555555555556
+  }
+]

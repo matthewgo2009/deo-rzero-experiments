@@ -1,0 +1,546 @@
+[
+    {
+        "question": "\uff5d</assistant\n\n<question\n\nassistant\n\n{' fAssistant</#</question\n\nAssistant\u200e.^( assistant:_____ that <\u7b54\u6848</assignment\n\nAssistant\n\nAssistant\u6709\u4ec0\u4e48\n\n assistant\n\n\u5bf9\u4e8e\n\nassistant.\n\nAssistantAssistant\n\nAssistant\n</questionanswer\n\ncorrect",
+        "answer": "None",
+        "score": 0.8888888888888888,
+        "results": [
+            "None",
+            "None",
+            "None",
+            "None",
+            "None",
+            "None",
+            "None",
+            "\\text{Assistant: A supportive or assisting entity (person or system)}",
+            "None"
+        ]
+    },
+    {
+        "question": "In a finite set of positive integers, if the sum of any three distinct elements is divisible by 3, prove that the sum of all elements in the set is also divisible by 3.",
+        "answer": "3",
+        "score": 0.4444444444444444,
+        "results": [
+            "\\text{The sum of all elements in } S \\text { is divisible by 3.}",
+            "3",
+            "0",
+            "0",
+            "3",
+            "3",
+            "0",
+            "3",
+            "0"
+        ]
+    },
+    {
+        "question": "In a right triangle with legs of lengths \\(a\\) and \\(b\\), and hypotenuse \\(c\\), if the area of the triangle is equal to the perimeter of the triangle, find the value of \\(a + b + c\\) when \\(a = 3\\).",
+        "answer": "12",
+        "score": 0.5555555555555556,
+        "results": [
+            "20",
+            "12",
+            "12",
+            "12",
+            "None",
+            "12",
+            "\\text{No real solution}",
+            "6",
+            "12"
+        ]
+    },
+    {
+        "question": "A sequence of numbers is defined as follows: the first term is 1, and each subsequent term is the sum of the squares of the digits of the previous term. For example, the second term is 1^2 = 1, the third term is (1)^2 = 1, and so on. What is the smallest positive integer that appears in this sequence after the first term?",
+        "answer": "1",
+        "score": 1.0,
+        "results": [
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1"
+        ]
+    },
+    {
+        "question": "A sequence of numbers is defined recursively as follows: \\(a_1 = 2\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "7",
+        "score": 0.5555555555555556,
+        "results": [
+            "7",
+            "5",
+            "7",
+            "7",
+            "7",
+            "6",
+            "6",
+            "6",
+            "7"
+        ]
+    },
+    {
+        "question": "Find all positive integers \\( n \\) such that there exists a set of \\( n \\) distinct positive integers whose sum and product are both perfect squares.",
+        "answer": "1",
+        "score": 0.8888888888888888,
+        "results": [
+            "1",
+            "1 \\text{ and } 2",
+            "2",
+            "1",
+            "1 \\text{ and } 2",
+            "1",
+            "1",
+            "1",
+            "1"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\(a_n\\) is defined as follows: \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "13",
+        "score": 0.2222222222222222,
+        "results": [
+            "13",
+            "13",
+            "12",
+            "None",
+            "5",
+            "20",
+            "101",
+            "12",
+            "10"
+        ]
+    },
+    {
+        "question": "Find the smallest positive integer \\( n \\) such that there exist integers \\( a \\) and \\( b \\) with \\( a > b \\geq 0 \\) and \\( n = a^2 - b^2 \\).",
+        "answer": "1",
+        "score": 0.7777777777777778,
+        "results": [
+            "1",
+            "1",
+            "1",
+            "3",
+            "1",
+            "3",
+            "1",
+            "1",
+            "1"
+        ]
+    },
+    {
+        "question": "A sequence of numbers is defined as follows: the first term is 1, and each subsequent term is the sum of the squares of the digits of the previous term. For example, the second term is \\(1^2 = 1\\), the third term is \\(1^2 = 1\\), and so on. Find the smallest positive integer \\(n\\) such that the \\(n\\)-th term in the sequence is a three-digit number.",
+        "answer": "10",
+        "score": 0.4444444444444444,
+        "results": [
+            "10",
+            "4",
+            "10",
+            "37",
+            "5",
+            "10",
+            "9",
+            "None",
+            "10"
+        ]
+    },
+    {
+        "question": "A positive integer is called square-free if it is not divisible by the square of any prime number. For example, 10 is square-free because it is not divisible by 4 (2^2), 9 (3^2), or any other prime square. However, 18 is not square-free because it is divisible by 9 (3^2). Given a set of distinct positive integers, determine the largest subset of this set where no two elements have a greatest common divisor greater than 1. Specifically, if the set is \\{10, 15, 20, 25, 30, 35, 40, 45, 50\\}, what is the size of the largest such subset?",
+        "answer": "1",
+        "score": 0.4444444444444444,
+        "results": [
+            "1",
+            "1",
+            "3",
+            "9",
+            "3",
+            "3",
+            "4",
+            "1",
+            "1"
+        ]
+    },
+    {
+        "question": "A sequence of numbers starts with 1, and each subsequent number is determined by adding to the previous number the smallest prime factor of that number. What is the 5th number in this sequence?",
+        "answer": "10",
+        "score": 0.5555555555555556,
+        "results": [
+            "10",
+            "8",
+            "10",
+            "10",
+            "8",
+            "10",
+            "10",
+            "8",
+            "8"
+        ]
+    },
+    {
+        "question": "A sequence of numbers is defined recursively by \\(a_1 = 2\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "7",
+        "score": 0.3333333333333333,
+        "results": [
+            "10",
+            "7",
+            "12",
+            "7",
+            "5",
+            "5",
+            "6",
+            "7",
+            "10"
+        ]
+    },
+    {
+        "question": "A sequence of numbers is defined recursively by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "2",
+        "score": 0.3333333333333333,
+        "results": [
+            "5",
+            "2",
+            "None",
+            "2",
+            "10",
+            "9",
+            "1",
+            "2",
+            "10"
+        ]
+    },
+    {
+        "question": "Find all integers \\( n \\) such that both \\( n \\) and \\( n+1 \\) can be expressed as the sum of two squares of integers.",
+        "answer": "0",
+        "score": 0.6666666666666666,
+        "results": [
+            "1",
+            "0",
+            "0 \\text{ and } 1 \\text{ and } 4",
+            "0 \\text{ and } 1",
+            "0 \\text{ and } 5",
+            "0",
+            "0",
+            "n = (a^2 + b^2)^2 \\text{ where } a \\text{ and } b \\text{ are integers}",
+            "0 \\text{ and } 4"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\(a_n\\) is defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "5",
+        "score": 0.4444444444444444,
+        "results": [
+            "5",
+            "4500",
+            "5",
+            "2",
+            "5",
+            "21",
+            "50",
+            "2",
+            "5"
+        ]
+    },
+    {
+        "question": "A positive integer is called square-free if it is not divisible by the square of any prime number. For example, 10 is square-free because it is not divisible by 4 (2^2) or 9 (3^2). How many square-free positive integers less than or equal to 100 are there?",
+        "answer": "60",
+        "score": 0.3333333333333333,
+        "results": [
+            "58",
+            "62",
+            "60",
+            "61",
+            "64",
+            "59",
+            "61",
+            "60",
+            "60"
+        ]
+    },
+    {
+        "question": "An integer is considered abundant if the sum of its proper divisors (divisors excluding the number itself) is greater than the number. For example, the number 12 is abundant because the sum of its proper divisors 1, 2, 3, 4, and 6 is 16, which is greater than 12. Find the smallest abundant number that is also a perfect square.",
+        "answer": "36",
+        "score": 0.5555555555555556,
+        "results": [
+            "36",
+            "36",
+            "12",
+            "36",
+            "36",
+            "12",
+            "16",
+            "36",
+            "12"
+        ]
+    },
+    {
+        "question": "In a set of \\( n \\) distinct integers, find the smallest positive integer \\( k \\) such that there are at least \\( k \\) pairs of integers that are coprime.",
+        "answer": "1",
+        "score": 1.0,
+        "results": [
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1"
+        ]
+    },
+    {
+        "question": "In a set of \\( n \\) distinct integers, where \\( n \\geq 3 \\), how many ways can you select three integers such that no two of them are consecutive in the sorted order of the set?",
+        "answer": "\\binom{n-2}{3}",
+        "score": 0.7777777777777778,
+        "results": [
+            "\\binom{n-2}{3}",
+            "\\binom{n-2}{3}",
+            "\\binom{n-2}{3}",
+            "\\binom{n-2}{3}",
+            "None",
+            "\\binom{n - 2}{3}",
+            "\\binom{n}{2}",
+            "\\binom{n-2}{3}",
+            "\\binom{n - 2}{3}"
+        ]
+    },
+    {
+        "question": "A set of points is called \"complete\" if, for every two distinct points in the set, the midpoint of the segment joining them also belongs to the set. Given a complete set \\( S \\) of points on the real line such that the sum of the elements in \\( S \\) is zero, prove that \\( S \\) must contain exactly one point.",
+        "answer": "1",
+        "score": 1.0,
+        "results": [
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\(a_1, a_2, a_3, \\ldots\\) is defined by the recurrence relation \\(a_{n+1} = a_n^2 - a_n + 1\\) with the initial term \\(a_1 = 2\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{10}\\).",
+        "answer": "6",
+        "score": 0.5555555555555556,
+        "results": [
+            "7",
+            "6",
+            "6",
+            "7",
+            "6",
+            "7",
+            "7",
+            "6",
+            "6"
+        ]
+    },
+    {
+        "question": "Consider the sequence defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "7",
+        "score": 0.2222222222222222,
+        "results": [
+            "13",
+            "14",
+            "100",
+            "10",
+            "7",
+            "12",
+            "11",
+            "7",
+            "12"
+        ]
+    },
+    {
+        "question": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - 1 \\) has exactly 10 distinct roots modulo \\( n \\).",
+        "answer": "11",
+        "score": 0.6666666666666666,
+        "results": [
+            "10",
+            "11",
+            "10",
+            "11",
+            "11",
+            "11",
+            "10",
+            "11",
+            "11"
+        ]
+    },
+    {
+        "question": "A set of \\( n \\) distinct positive integers is called \"good\" if the sum of any two elements in the set is also a member of the set. Find all possible values of \\( n \\) for which a \"good\" set exists.",
+        "answer": "1",
+        "score": 1.0,
+        "results": [
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1 \\text{ or } 2",
+            "1",
+            "1",
+            "1"
+        ]
+    },
+    {
+        "question": "A sequence of numbers is defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "12",
+        "score": 0.4444444444444444,
+        "results": [
+            "12",
+            "12",
+            "13",
+            "50",
+            "11",
+            "12",
+            "10",
+            "12",
+            "333"
+        ]
+    },
+    {
+        "question": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^3 - nx + 6 \\) has three distinct integer roots.",
+        "answer": "7",
+        "score": 0.4444444444444444,
+        "results": [
+            "7",
+            "7",
+            "3",
+            "5",
+            "5",
+            "7",
+            "5",
+            "11",
+            "7"
+        ]
+    },
+    {
+        "question": "A set of \\( n \\) distinct real numbers is called \"sum-dominant\" if the number of distinct sums that can be formed by choosing any two numbers from the set is greater than the number of distinct sums that can be formed by choosing any three numbers from the set. Find the smallest positive integer \\( n \\) such that there exists a sum-dominant set of \\( n \\) real numbers.",
+        "answer": "4",
+        "score": 0.5555555555555556,
+        "results": [
+            "4",
+            "4",
+            "3",
+            "4",
+            "3",
+            "3",
+            "4",
+            "3",
+            "4"
+        ]
+    },
+    {
+        "question": "Consider a sequence of real numbers \\((a_n)\\) defined by the recurrence relation \\(a_{n+1} = a_n^2 - a_n + 1\\) with the initial term \\(a_1 = 2\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "6",
+        "score": 0.2222222222222222,
+        "results": [
+            "24",
+            "14",
+            "7",
+            "6",
+            "5",
+            "6",
+            "12",
+            "10",
+            "333"
+        ]
+    },
+    {
+        "question": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - x - 1 \\) has no real roots.",
+        "answer": "2",
+        "score": 0.4444444444444444,
+        "results": [
+            "2",
+            "1",
+            "2",
+            "3",
+            "3",
+            "4",
+            "2",
+            "2",
+            "13"
+        ]
+    },
+    {
+        "question": "Consider a function \\( f: \\mathbb{R} \\to \\mathbb{R} \\) that satisfies the functional equation \\( f(x + y) = f(x)f(y) - f(x - y) \\) for all real numbers \\( x \\) and \\( y \\). Determine all possible functions \\( f \\).",
+        "answer": "f(x) = 0",
+        "score": 0.8888888888888888,
+        "results": [
+            "f(x) = 0",
+            "f(x) = 0 \\text{ or } f(x) = 2",
+            "f(x) = 0 \\text{ or } f(x) = 2",
+            "f(x) = 0 \\text{ or } f(x) = 2",
+            "f(x) = 0 \\text{ or } f(x) = 2",
+            "f(x) = 0 \\text{ or } f(x) = 2",
+            "None",
+            "f(x) = 0",
+            "f(x) = 0"
+        ]
+    },
+    {
+        "question": "A set of n distinct integers is chosen randomly from the set {1, 2, 3, ..., 2n}. What is the probability that the chosen set contains a number x such that there exists another number in the set that is exactly twice x?",
+        "answer": "1",
+        "score": 0.5555555555555556,
+        "results": [
+            "1",
+            "1",
+            "1 - \\frac{1}{\\binom{2n}{n}}",
+            "1 - \\frac{2^n}{\\binom{2n}{n}}",
+            "1",
+            "1 - \\frac{2^{n}}{\\binom{2n}{n}}",
+            "1",
+            "1",
+            "\\frac{1}{2}"
+        ]
+    },
+    {
+        "question": "Consider the sequence defined by \\(a_1 = 1\\) and \\(a_{n+1} = a_n^2 - a_n + 1\\) for \\(n \\geq 1\\). Find a closed form expression for \\(a_n\\).",
+        "answer": "1",
+        "score": 0.8888888888888888,
+        "results": [
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "a_n = 1"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\(a_n\\) is defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "12",
+        "score": 0.2222222222222222,
+        "results": [
+            "14",
+            "51",
+            "9",
+            "12",
+            "16",
+            "10",
+            "6",
+            "12",
+            "13"
+        ]
+    },
+    {
+        "question": "Find all positive integers n such that the equation x^3 - x^2 - nx + n^2 = 0 has at least one integer root.",
+        "answer": "1",
+        "score": 1.0,
+        "results": [
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1"
+        ]
+    }
+]

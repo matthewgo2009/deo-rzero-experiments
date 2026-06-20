@@ -1,0 +1,23 @@
+{
+  "training_set": "/eph/nvme0/yyd/paper_data/DEO/filtered_datasets/filtered_deo_qwen3_4b_base_solver_v1.json",
+  "n_entries": 924,
+  "stored_pseudo_p_hat_mean": 0.4954304954304946,
+  "base_now": {
+    "model": "base",
+    "n": 924,
+    "n_match_pseudo": 686,
+    "match_rate": 0.7424242424242424,
+    "no_extract": 0,
+    "mean_p_hat": 0.4646464646464658,
+    "median_p_hat": 0.4444444444444444
+  },
+  "solver_v1": {
+    "model": "solver_v1",
+    "n": 924,
+    "n_match_pseudo": 797,
+    "match_rate": 0.8625541125541125,
+    "no_extract": 0,
+    "mean_p_hat": 0.7248677248677271,
+    "median_p_hat": 0.7777777777777778
+  }
+}

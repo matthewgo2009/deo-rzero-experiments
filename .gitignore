@@ -1,0 +1,10 @@
+# never commit secrets or huge artifacts
+tokens.json
+**/tokens.json
+*.safetensors
+*.pt
+*.bin
+__pycache__/
+*.pyc
+.venv/
+rzero_venv/

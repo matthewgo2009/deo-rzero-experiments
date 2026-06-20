@@ -1,0 +1,1 @@
+- [R-Zero GPU-0-3 rerun](project_rzero_gpu03_rerun.md) — 2026-06-19 fresh fair-comparison rerun; env/scripts/locations on nvme0, 2+2 GPU layout, iter0=71.8 iter1=76.6, running in tmux `rzero`

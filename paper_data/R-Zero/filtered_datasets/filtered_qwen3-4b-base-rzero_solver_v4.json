@@ -1,0 +1,87 @@
+[
+  {
+    "problem": "A positive integer is called square-free if it is not divisible by the square of any prime number. For example, 10 is square-free because it is not divisible by \\(2^2\\), \\(3^2\\), or \\(5^2\\). However, 18 is not square-free because it is divisible by \\(3^2\\). How many square-free integers are there between 1 and 100 inclusive?",
+    "answer": "60",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that there exists a positive integer \\( k \\) with exactly two distinct prime factors, and the equation \\( n^k + 1 = (n+1)^m \\) holds for some integer \\( m \\).",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A function \\( f: \\mathbb{R} \\to \\mathbb{R} \\) is defined by \\( f(x) = x^3 - 3x + 2 \\). Determine the number of real roots of the equation \\( f(f(x)) = 0 \\).",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - x^{n-1} - x^{n-2} - \\cdots - x - 1 \\) has no real roots.",
+    "answer": "5",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^2 - nx + (n-1) = 0 \\) has integer roots.",
+    "answer": "2",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A sequence of numbers is defined as follows: \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+    "answer": "5",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A sequence of numbers starts with 1, and each subsequent number is the sum of the squares of the digits of the previous number. For example, the first number is 1, so the next number is \\(1^2 = 1\\). The third number is \\(1^2 = 1\\), and so on. After how many steps will the sequence first reach a number that has been seen before?",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A sequence of numbers is defined recursively by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+    "answer": "5",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A sequence of numbers \\(a_1, a_2, a_3, \\ldots\\) is defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+    "answer": "5",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A set of positive integers is called \"good\" if the sum of any two elements in the set is not equal to the product of any two elements. Find the maximum number of elements in a good set of positive integers less than or equal to 10.",
+    "answer": "4",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A sequence of numbers is defined recursively as follows: \\( a_1 = 1 \\), and for \\( n \\geq 2 \\), \\( a_n = a_{n-1}^2 - a_{n-1} + 1 \\). Find the smallest \\( n \\) such that \\( a_n > 10^{100} \\).",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "<回答有怎么</ment)ー</の\n\nup学习 that〉</答案</answer\n\nin。\n\n</assignment</﻿ ></</teacher \\\\</.\n____)\n\n\n</</question <回答\n\n\ndo,^ <\n\n**answer=74_\n\n‎)can\n\napp\n\n{\\sk問題\n\n错误</4\n\n.成为​\n</</ you成为\n\n\n<~~ </答案 -<which : all5, ok\n\n想 < < �\n\n\n</问题\n\n이\n\na as<5‎\n</<to assess\n\n<\n\n</question\n</thing都for怎么 </\n\n<老师\n\nin\n\nAssistant\n</",
+    "answer": "74",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Consider the function \\( f(x) = x^3 - 3x + 2 \\). Determine the number of real roots of this function and prove that there is no rational root of this function except for \\( x = 1 \\).",
+    "answer": "3",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A sequence of positive integers is defined recursively by \\(a_1 = 1\\) and \\(a_{n+1} = a_n^2 - a_n + 1\\) for \\(n \\geq 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+    "answer": "5",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A sequence of numbers \\(a_1, a_2, a_3, \\ldots\\) is defined recursively by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+    "answer": "5",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A sequence of numbers is defined as follows: \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+    "answer": "5",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the equation \\( x^3 - nx + n - 1 = 0 \\) has all integer roots.",
+    "answer": "1",
+    "score": 0.5555555555555556
+  }
+]

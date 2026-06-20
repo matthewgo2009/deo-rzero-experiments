@@ -1,0 +1,3242 @@
+[
+  {
+    "problem": "Find the value of \\( x \\) that satisfies the equation \\( \\sqrt[3]{x} + \\sqrt{x} = 4 \\).",
+    "answer": "8",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the number of positive integer solutions \\((x, y)\\) to the equation \\(x^2 - 5xy + 6y^2 = 100\\).",
+    "answer": "0",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all prime numbers \\( p \\) such that \\( 12p + 2 \\) is a perfect square. Additionally, determine the smallest integer \\( n \\) for which \\( 12p + 2 \\equiv n \\pmod{7} \\).",
+    "answer": "5",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Given triangle \\( ABC \\) with circumradius \\( R = 10 \\) and inradius \\( r = 4 \\), let \\( O \\) be the circumcenter and \\( I \\) be the incenter. If \\( \\angle AOB = 120^\\circ \\), find the length of the segment \\( AI \\).",
+    "answer": "2\\sqrt{5}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Let P(x) be a quartic polynomial with integer coefficients and exactly four distinct real roots. Given that the sum of the roots is 0, the sum of the product of the roots taken two at a time is 4, and the leading coefficient is 1, find the constant term of P(x).",
+    "answer": "4",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A bag contains 5 red, 4 blue, and 3 green marbles. You draw marbles one at a time without replacement until you get a blue marble. What is the expected number of marbles you will draw?",
+    "answer": "3",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( 7^n \\equiv 1 \\pmod{32} \\).",
+    "answer": "4",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Two of the marbles are selected at random. What is the probability that the sum of the numbers on the marbles is even?",
+    "answer": "\\frac{1}{2}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In triangle \\(ABC\\), let \\(D\\) be the midpoint of \\(BC\\), and let \\(E\\) and \\(F\\) be the points where the incircle of \\(ABC\\) is tangent to \\(AB\\) and \\(AC\\), respectively. If \\(AD\\) intersects the incircle at points \\(P\\) and \\(Q\\), and the area of \\(\\triangle APQ\\) is \\(k\\) times the area of \\(\\triangle DEF\\), find the value of \\(k\\).",
+    "answer": "2",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "在一個周長為16且半周長為8的三角形中，內切圓的半徑為3。若內部存在一個正方形，其邊與內切圓相切，求這個外部正方形的邊長。",
+    "answer": "3\\sqrt{2}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A player draws five cards from a standard 52-card deck. Define a hand as **\"good\"** if it contains at least one of the following combinations:\n\n- Three of a kind\n- A pair\n- Four of a kind\n\nLet \\(p\\) be the probability that a hand is \"good\". Calculate the expected value \\(E\\) of the number of times a \"good\" hand appears when a hand is drawn 10 times. Express \\(E\\) as a reduced fraction and find the sum of the numerator and denominator of that fraction.",
+    "answer": "11",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In triangle \\(ABC\\), let \\(I\\) be the incenter, \\(G\\) the centroid, and \\(H\\) the orthocenter. If the incircle touches \\(BC\\) at \\(D\\), and the circumcircle of \\(ABC\\) has radius \\(R\\), find the ratio \\(\\frac{ID}{RH}\\) in simplest radical form.",
+    "answer": "\\frac{1}{2}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "在一个3x3的格子棋盘上，每一步可以向左、右、上或下移动一格，但不能越界。从左上角到右下角，要求不经过中间格子，也不经过对角线上的格子，问有多少种不同的路径？",
+    "answer": "0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A right circular cone has a base radius of 3 units and a height of 4 units. A sphere is inscribed in the cone, touching the base and the lateral surface. Find the radius of the sphere.",
+    "answer": "\\frac{12}{7}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In triangle \\( ABC \\), the circumcircle is centered at \\( O \\). The median from \\( A \\) meets the circumcircle again at \\( D \\). If \\( AB = 6 \\) and \\( AC = 8 \\), find the length of \\( BD \\).",
+    "answer": "10",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A cube with side length 10 units has a sphere inscribed within it. What is the ratio of the volume of the sphere to the volume of the cube? Express your answer as a common fraction.",
+    "answer": "\\frac{\\pi}{6}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Let \\( f(x) \\) be a function defined for all real numbers such that \\( f(1) = 1 \\) and for all \\( x \\), the function satisfies\n\\[\nf(x+1) - f(x) = 2x + 1.\n\\]\nIf \\( f'(x) \\) exists and is continuous for all \\( x \\geq 1 \\), find the value of \\( f'(1) \\).",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A right circular cone is inscribed inside a sphere such that the base of the cone is a great circle of the sphere. If the radius of the sphere is 10 units, what is the volume of the cone?",
+    "answer": "\\frac{2000\\pi}{3}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A regular tetrahedron with side length 1 is placed inside a cube such that each vertex of the tetrahedron touches a different face of the cube. What is the volume of the cube?",
+    "answer": "2\\sqrt{2}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all integer solutions \\((x, y)\\) to the equation \\(x^2 + y^2 - 4xy + 3x + 3y - 2 = 0\\).",
+    "answer": "(1, 1)",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the equation of the locus of the points equidistant from the two lines \\(4x - 3y + 5 = 0\\) and \\(8x - 6y - 1 = 0\\).",
+    "answer": "16x - 12y + 9 = 0",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A bag contains 5 red balls, 3 blue balls, and 2 green balls. Two balls are drawn at random without replacement. What is the expected value of the number of red balls drawn?",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In triangle ABC, the circumcircle has a radius of 10. The incircle touches the sides AB, BC, and CA at points D, E, and F respectively. Given that AD = 8, find the length of CF.",
+    "answer": "8",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a triangle \\( ABC \\), let \\( P \\) be a point on the plane such that the cevians \\( AP, BP, \\) and \\( CP \\) intersect \\( BC, CA, \\) and \\( AB \\) at points \\( D, E, \\) and \\( F \\) respectively. If the circumcircle of \\( \\triangle DEF \\) intersects \\( AP \\) at another point \\( G \\) and \\( P \\) is the Lemoine point of \\( \\triangle ABC \\), what is the ratio \\( \\frac{GP}{AG} \\) if the sides of \\( \\triangle ABC \\) are in the ratio \\( 5:6:7 \\)? Express your answer as a decimal.",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "If the polynomial \\(P(x) = x^3 + ax^2 + bx + c\\) has roots \\(\\alpha, \\beta, \\gamma\\) such that \\(\\alpha + \\beta + \\gamma = 0\\) and \\(\\alpha\\beta + \\beta\\gamma + \\gamma\\alpha = -3\\), find the value of \\(a + b + c\\).",
+    "answer": "-3",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the equation of the locus of points \\( P \\) such that the distance from \\( P \\) to the origin is twice the distance from \\( P \\) to the point \\( (3, 4) \\).",
+    "answer": "(x - 4)^2 + \\left( y - \\frac{16}{3} \\right)^2 = \\frac{100}{9}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Consider a triangle \\(ABC\\) with its circumcircle \\(\\omega\\). The medians of the triangle intersect at the centroid \\(G\\). The incircle of \\(ABC\\) touches side \\(BC\\) at \\(D\\). If the distance from \\(G\\) to \\(D\\) is equal to \\(3\\) units and the area of the triangle \\(ABC\\) is \\(36\\) square units, find the length of the median from \\(A\\) to \\(BC\\).",
+    "answer": "9",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Let \\( f(x) \\) be a function defined for all real numbers \\( x \\), where \\( f(x) = \\frac{x^3 - 3x + 2}{x^2 - 1} \\). Compute the sum of all values of \\( x \\) for which the derivative \\( f'(x) \\) equals zero.",
+    "answer": "0",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the limit of the function \\( f(x) = \\frac{x^3 - 3x^2 + 2x}{x^2 - 4} \\) as \\( x \\) approaches 2. Then, determine the derivative of \\( f(x) \\) at \\( x = 1 \\). What is the combined result of these two values?",
+    "answer": "\\frac{5}{6}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Consider an urn containing 5 red balls and 3 blue balls. Balls are drawn one by one without replacement until a blue ball is drawn. Let \\( X \\) be the number of red balls drawn before the first blue ball. Calculate the expected value of \\( X \\).",
+    "answer": "\\frac{5}{3}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( n^2 \\equiv 1 \\pmod{5} \\) and \\( n^3 \\equiv 2 \\pmod{5} \\). Write your answer as a specific integer.",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the remainder when the polynomial \\(x^4 - 2x^3 + 3x^2 - 4x + 5\\) is divided by \\(x^2 - 3x + 2\\) modulo 7.",
+    "answer": "6x + 4",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a sequence of 20 coin flips, what is the expected number of times the sequence \"HT\" appears consecutively?",
+    "answer": "4.75",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "From a standard deck of 52 cards, if you draw two cards consecutively without replacement, what is the expected value of the sum of the face values of the two cards? Assume Jacks, Queens, and Kings are valued at 11, 12, and 13, respectively, and Aces are valued at 1.",
+    "answer": "14",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In a bag, there are 3 red balls and 2 green balls. Two balls are drawn at random without replacement. What is the expected number of red balls drawn?",
+    "answer": "\\frac{6}{5}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "设直角坐标系中点P(x, y)满足条件：x² + y² ≤ 4且x + y ≥ 2。求点P所在区域与x轴正半轴所围成图形面积。",
+    "answer": "\\pi - 2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Given the polynomial equation $P(x) = 2x^4 + 7x^3 - 3x^2 + 10x - 12 = 0$, find the sum of the cubes of the roots of the polynomial.",
+    "answer": "-\\frac{337}{8}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the number of lattice points on the locus defined by \\( (x - 3)^2 + (y + 4)^2 = 25 \\) where both \\( x \\) and \\( y \\) are integers.",
+    "answer": "12",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "You are playing a game where you have two coins: one is a 1-coin and the other is a 5-coin. In each move, you can choose either to give away all the 1-coins or all the 5-coins to the other player. The game continues until only one coin is left. What is the expected value of the remaining coin's size if both players play optimally?",
+    "answer": "5",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "What is the remainder when the sum \\(1234 + 5678 + 91011\\) is divided by 13?",
+    "answer": "7",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "在直角坐标系中，给定点 A(0, 0) 和点 B(4, 3)，以及一条直线 L: x + y = 5。求满足以下条件的所有点 P(x, y) 构成的轨迹方程：\n1. 点 P 在直线 L 上。\n2. 点 P 到点 A 和点 B 的距离之和等于 5。",
+    "answer": "x + y = 5",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the limit of \\( f(x) = \\frac{\\sin(3x)}{x} \\) as \\( x \\) approaches 0. What is the derivative of \\( f(x) \\) at \\( x = 0 \\)?",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that \\( n^2 + 17n + 41 \\) is a perfect square?",
+    "answer": "23",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the number of positive integer solutions \\((m, n)\\) to the equation \\(m^2 - n^2 = 60\\).",
+    "answer": "2",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A deck of 52 cards is shuffled. What is the expected number of pairs of adjacent cards that are of the same suit? Express your answer as a common fraction.",
+    "answer": "12",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Let \\( ABC \\) be a triangle with circumcircle \\( \\Gamma \\). Let \\( P \\) be a point inside \\( \\triangle ABC \\) such that the reflections of \\( P \\) over the sides of \\( \\triangle ABC \\) lie on \\( \\Gamma \\). If the circumradius of \\( \\triangle ABC \\) is \\( R \\), find the distance between the circumcenter and the orthocenter of \\( \\triangle ABC \\).",
+    "answer": "2R",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A rectangular prism has dimensions 5x8x12 inches. A cube with side length 4 inches is carved out from each corner, leaving a hollow inside. What is the total surface area of the remaining solid in square inches?",
+    "answer": "776",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Two congruent rectangular prisms, each measuring 6 units by 4 units by 1 unit, are placed such that one prism has a square face parallel to the ground, while the other is tilted so that a 9-unit diagonal line segment connects from one corner of the bottom face to the opposite corner of the top face. Calculate the volume of the overlapping region.",
+    "answer": "24",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the number of positive integers n less than or equal to 2023 that satisfy the equation n^2 + n ≡ 0 (mod 13).",
+    "answer": "310",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the maximum number of regions that five circles can divide the plane into?",
+    "answer": "22",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the smallest positive integer solution to the Diophantine equation \\(x^2 - 3y^2 = 1\\).",
+    "answer": "(2, 1)",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the sum of all integers \\( n \\) such that \\( n^2 + 5n + 6 \\equiv 0 \\pmod{7} \\) and \\( 0 \\leq n \\leq 20 \\).",
+    "answer": "69",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "What is the sum of all positive integers \\( n \\) less than 1000 such that \\( n^2 \\equiv 1 \\pmod{10} \\)?",
+    "answer": "100000",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In triangle $ABC$, the incircle touches side $BC$ at $D$, and the circumcircle of triangle $ABC$ touches the extension of $BC$ at point $E$. If the length of $BD$ is 5 units, the length of $DE$ is 3 units, and the radius of the incircle is 2 units, find the area of triangle $ABC$.",
+    "answer": "24",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Let \\(P(x)\\) be a monic polynomial of degree 5 with real coefficients such that \\(P(1) = 16\\), \\(P(2) = 32\\), \\(P(3) = 48\\), and \\(P(4) = 64\\). If \\(P(x)\\) has exactly three distinct real roots, find the sum of the squares of all roots of \\(P(x)\\).\n\nAdditional Hint: Consider the polynomial \\(Q(x) = P(x) - 16x\\).",
+    "answer": "30",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a room shaped as a regular tetrahedron with side length 12 units, four bugs start at each vertex and move towards the next vertex at a constant speed. What is the volume swept by these four bugs in one complete round if they move along the edges of the tetrahedron at a speed of 1 unit per second?",
+    "answer": "144\\sqrt{2}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In triangle \\( ABC \\), the circumcircle and incircle are tangent to \\( BC \\) at \\( D \\) and \\( E \\) respectively. If \\( BD = 5 \\) and \\( DC = 6 \\), find the length of \\( BE \\).",
+    "answer": "5",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In the xy-plane, a circle centered at (0, 0) with radius 10 intersects the line y = 2x - 3 at two points. Find the distance between these two points in simplest radical form.",
+    "answer": "2\\sqrt{491}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Alice rolls a fair six-sided die 10 times. Let \\(X\\) be the number of rolls on which she rolls a 6. Find the expected value of \\(X^2\\).",
+    "answer": "\\frac{25}{6}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the number of integers \\( n \\) such that \\( 100 \\leq n \\leq 200 \\) and \\( n \\equiv 3 \\pmod{7} \\).",
+    "answer": "15",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( n^2 + 5n + 6 \\) is congruent to 1 modulo 8.",
+    "answer": "3",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( 7^n \\equiv 1 \\pmod{32} \\).",
+    "answer": "4",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find all pairs of integers $(x, y)$ that satisfy the Diophantine equation $x^2 + y^2 = 1000$.",
+    "answer": "(10, 30), (10, -30), (-10, 30), (-10, -30), (30, 10), (30, -10), (-30, 10), (-30, -10)",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Given that the polynomial \\( P(x) = x^4 - ax^3 + bx^2 - cx + d \\) has roots that are consecutive integers starting from \\( -2 \\), find the value of \\( a + b + c + d \\).",
+    "answer": "-1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find all positive integer solutions \\((m, n)\\) to the equation \\( m^2 + n^2 = 100 \\).",
+    "answer": "(6, 8), (8, 6)",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "The organization NEEPA (New Education and Excellence Promotion Association) has 100 members. Their form of committee structure is hierarchical: every committee has a chairperson, any person can be elected as a chairperson of a committee, and every chairperson is a member of some committee (a person can belong to more than one committee). A committee can have more than one chairperson. For each person, the set of committees they serve as a chairperson of form a single set S_i. The number of people in the set S_i is called the \"chairperson rank\" of the person. The sum of chairperson rank for all NEEPA members is 500. What is the maximum possible number of committees NEEPA has?",
+    "answer": "500",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the number of positive integer solutions to the equation x^3 + y^3 = 9z^2.",
+    "answer": "0",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the number of ordered pairs of positive integers $(x, y)$ such that $x^2 + 3y^2 \\leq 100$.",
+    "answer": "38",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "If the probability of a randomly chosen divisor of \\( n! \\) being a multiple of \\( n \\) is \\( \\frac{1}{n+1} \\), find the probability that it is a multiple of \\( 2n \\).",
+    "answer": "\\frac{1}{2(n+1)}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "How many ways can you arrange 3 different books on a shelf if one of the books must always be at the end?",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A cube has side length 3 units. A smaller cube is inscribed within it, such that each vertex of the smaller cube touches the midpoint of each edge of the larger cube. What is the volume of the smaller cube?",
+    "answer": "3\\sqrt{3}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In triangle \\( ABC \\), the incircle touches \\( BC, CA, \\) and \\( AB \\) at points \\( D, E, \\) and \\( F \\) respectively. Let \\( I \\) be the incenter of \\( \\triangle ABC \\). If the area of \\( \\triangle ABC \\) is 120 and the lengths of \\( BC, CA, \\) and \\( AB \\) are 13, 14, and 15 respectively, find the area of \\( \\triangle DEF \\).",
+    "answer": "30",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In triangle \\( ABC \\), point \\( D \\) is on \\( BC \\) such that \\( AD \\) is the angle bisector of \\( \\angle BAC \\). Given \\( BC = 10 \\), \\( AC = 8 \\), and the radius of the circumcircle of triangle \\( ABD \\) is 5, find the length of \\( AB \\). Verify that the calculated length of \\( AB \\) is consistent with the given radius.",
+    "answer": "6",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In an office, there are 40 employees; 15 are non-smokers, 20 are smokers, and 5 of them are smokers who also watch cricket on TV during their lunch breaks. Each employee has an equal chance of being chosen at random. If 3 employees are selected at random, what is the probability that at least one of them is a smoker who watches cricket on TV? Express your answer as a common fraction.",
+    "answer": "\\frac{667}{1976}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a regular tetrahedron with edge length 6, a sphere is inscribed such that it touches each of the tetrahedron's faces at exactly one point. Find the volume of this sphere.",
+    "answer": "\\pi \\sqrt{6}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "You have two fair six-sided dice. What is the expected value of the sum of the numbers rolled when the product of the numbers is even?",
+    "answer": "7",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In triangle \\(ABC\\), the incircle touches \\(BC\\), \\(CA\\), and \\(AB\\) at \\(D\\), \\(E\\), and \\(F\\) respectively. Let \\(G\\) be the intersection of the perpendicular bisector of \\(BC\\) with \\(EF\\). If \\(BC = 10\\), \\(CA = 12\\), and \\(AB = 14\\), find the length of \\(BG\\).",
+    "answer": "5",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In triangle \\( ABC \\), the circumcenter and incenter are \\( O \\) and \\( I \\) respectively. Let \\( D \\) be the point where the incircle touches \\( BC \\). If the circumradius is \\( R \\) and the inradius is \\( r \\), find the length of the line segment \\( OD \\). Express your answer in terms of \\( R \\) and \\( r \\).",
+    "answer": "\\sqrt{R^2 - 2Rr}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In triangle ABC, the circumcircle has radius 10 units. The centroid G of the triangle divides the median from vertex A to side BC in a 2:1 ratio. If the length of this median is 12 units, calculate the area of triangle ABC.",
+    "answer": "48",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In triangle \\(ABC\\), the circumcircle of triangle \\(ABC\\) intersects the extension of \\(AB\\) at point \\(D\\). If \\(AD = 4\\), \\(BD = 5\\), and the radius of the circumcircle is 7, find the length of \\(CD\\).",
+    "answer": "2\\sqrt{5}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "You roll a fair six-sided die twice. If the sum of the two rolls is a prime number, you win that sum in dollars. Calculate the expected value of your winnings.",
+    "answer": "\\frac{23}{9}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "设有一个关于正整数\\(n\\)的表达式\\(E(n) = \\sum_{k=1}^{n} k^3\\)。证明对于所有的正整数\\(n\\)，\\(E(n)\\)总是等于\\(\\left(\\frac{n(n+1)}{2}\\right)^2\\)。",
+    "answer": "\\left(\\frac{n(n+1)}{2}\\right)^2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "\\[ \\lim_{{x \\to 0}} \\left( \\frac{{\\sin(3x)}}{{x}} - \\frac{{\\tan(2x)}}{{x}} \\right) \\]",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find all functions \\( f: \\mathbb{R} \\rightarrow \\mathbb{R} \\) such that for all \\( x, y \\in \\mathbb{R} \\),\n\\[ f(f(x+y)) = f(x+y) + f(x)f(y) - xy. \\]",
+    "answer": "f(x) = x",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Let \\( ABC \\) be a triangle with circumcircle \\( \\omega \\). Let \\( D \\) be the midpoint of arc \\( BC \\) that does not contain \\( A \\). Let \\( E \\) and \\( F \\) be points on segments \\( AB \\) and \\( AC \\), respectively, such that \\( DE \\) and \\( DF \\) are tangents to \\( \\omega \\). If \\( EF = 8 \\) and \\( BC = 10 \\), find \\( AD \\). Express your answer as a fraction in simplest form.",
+    "answer": "10",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In triangle \\( ABC \\), let \\( I \\) be the incenter, \\( G \\) the centroid, and \\( H \\) the orthocenter. If the circumradius \\( R \\) of triangle \\( ABC \\) is 7, and the distance between the incenter \\( I \\) and the orthocenter \\( H \\) is 5, find the length of the Euler line segment \\( GH \\).",
+    "answer": "4",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A right circular cone has its vertex at the origin, with its axis along the z-axis and its base in the xy-plane. Given that the slant height (s) of the cone equals the radius (r) of its base, and the volume (V) of the cone is 8192π cubic units, find the height (h) of the cone.",
+    "answer": "32",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Let f(x) = x^3 - 3x^2 + 2x. What is the value of lim (x -> 1) [f(x) / (x - 1)]?",
+    "answer": "-1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "There are 8 points on the perimeter of a quarter circle, divided into 8 equal parts, including the endpoints. How many unique volumes can be generated by selecting 4 of these points and using them to form a pyramid with the center of the circle as the apex? Assume the radius of the quarter circle is 2 units.",
+    "answer": "70",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Consider the function \\( f(x) = \\frac{3x^3 - 6x^2 + 9x + 12}{x^2 - 4x + 4} \\). Find the limit of \\( f(x) \\) as \\( x \\) approaches 2.",
+    "answer": "\\infty",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a triangle \\(ABC\\), the incircle touches the sides \\(BC\\), \\(CA\\), and \\(AB\\) at points \\(D\\), \\(E\\), and \\(F\\) respectively. Let the circumcircle of triangle \\(DEF\\) intersect the sides \\(BC\\), \\(CA\\), and \\(AB\\) again at points \\(G\\), \\(H\\), and \\(I\\) respectively. If the ratio of the area of triangle \\(ABC\\) to the area of triangle \\(GHI\\) is \\(7:3\\), find the ratio of the inradius of triangle \\(ABC\\) to the circumradius of triangle \\(DEF\\).",
+    "answer": "2",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "在一个等边三角形ABC中，点P位于其内切圆上。已知AB=BC=CA=10单位，求点P到三角形ABC三个顶点距离的平方和。",
+    "answer": "100",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A regular tetrahedron has all its faces as equilateral triangles. If the edge length of the tetrahedron is 4 units, find the volume of the tetrahedron.",
+    "answer": "\\dfrac{16\\sqrt{2}}{3}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A right rectangular prism has integer side lengths, and its surface area is exactly three times its volume. If the length of one side is twice the length of another side, what is the length of the third side?",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "在模 \\( n \\) 下，给定 \\( a \\equiv b \\pmod{n} \\)，求满足 \\( a^2 \\equiv c \\pmod{n} \\) 的最小正整数 \\( a \\)，其中 \\( n = 28 \\) 且 \\( c = 9 \\)。",
+    "answer": "3",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find all real solutions to the equation \\(x^3 - 3x^2 - 6x + 8 = 0\\).",
+    "answer": "1, 4, -2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the equation of the locus of points that are equidistant from the point \\( (3, 0) \\) and the line \\( x = -3 \\). Express your answer in the form \\( Ax^2 + Bxy + Cy^2 + Dx + Ey + F = 0 \\), where \\( A \\), \\( B \\), \\( C \\), \\( D \\), \\( E \\), and \\( F \\) are integers, and \\( A \\) is positive.",
+    "answer": "y^2 - 12x = 0",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "다항식 $P(x) = x^3 + ax^2 + bx + c$가 $x = 1, -2, 3$의 세 가지 근을 가질 때, 계수 $a$, $b$, $c$의 값을 구하시오.",
+    "answer": "-2, -5, 6",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all points $(x, y)$ in the plane such that the distance from $(x, y)$ to the line $y = x$ is twice the distance from $(x, y)$ to the origin. Provide your answer as the equation of the locus of points that satisfy this condition.",
+    "answer": "7x^2 + 2xy + 7y^2 = 0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "If Aviv makes a ribbon from a piece of string, and then cuts the string into 5 equal pieces, and then again cuts one of those pieces into 5 equal pieces, what fraction of the original piece of string is one of the smallest pieces?",
+    "answer": "\\frac{1}{25}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Consider a regular tetrahedron with edge length 6. A smaller, similar tetrahedron is inscribed inside it such that each vertex of the smaller tetrahedron lies on an edge of the larger tetrahedron, and the vertices are positioned at one-third the distance from each original vertex along those edges. What is the volume of the smaller tetrahedron?",
+    "answer": "\\frac{2\\sqrt{2}}{3}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Consider a fair 6-sided die rolled repeatedly. Let \\( E(n) \\) be the expected number of rolls needed to get the first \\( n \\) distinct numbers (1 through 6). Calculate \\( E(6) \\).",
+    "answer": "14.7",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In triangle \\( ABC \\), let \\( D \\), \\( E \\), and \\( F \\) be the feet of the altitudes from vertices \\( A \\), \\( B \\), and \\( C \\) respectively. Let \\( H \\) be the orthocenter of triangle \\( ABC \\). If \\( R \\) is the circumradius of triangle \\( ABC \\) and \\( \\angle BAC = 60^\\circ \\), find the ratio \\( \\frac{HD}{R} \\).",
+    "answer": "\\frac{1}{2}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer \\( x \\) such that:\n\\[ x \\equiv 3 \\pmod{5} \\]\n\\[ x \\equiv 4 \\pmod{6} \\]\n\\[ x \\equiv 5 \\pmod{7} \\]",
+    "answer": "208",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all pairs of positive integers \\((x, y)\\) such that:\n\\[ x^2 + y^2 - xy = 13 \\]",
+    "answer": "(1, 4), (4, 1), (3, 4), (4, 3)",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In triangle \\( ABC \\), the incircle touches \\( BC, CA, AB \\) at \\( D, E, F \\) respectively. If the incircle also touches the extensions of the altitudes from \\( A, B, C \\) at points \\( G, H, I \\) respectively, find the ratio \\( \\frac{AG + BH + CI}{AD + BE + CF} \\).",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Let $ABC$ be an isosceles triangle with $AB = AC$ and $BC = 10$. The incircle of triangle $ABC$ touches $AB$ at point $D$. If the length of $AD$ is equal to the radius of the circumcircle of triangle $ABC$, find the length of $AD$.",
+    "answer": "5",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A point \\(P\\) moves on the curve \\(y = \\sin x\\). The distance from \\(P\\) to the line \\(y = -x\\) is always minimum. Find the maximum distance from \\(P\\) to the origin.",
+    "answer": "\\sqrt{2}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In triangle \\( ABC \\), let \\( M \\) and \\( N \\) be points on sides \\( BC \\) and \\( CA \\), respectively, such that \\( BM = 2MC \\) and \\( CN = 3NA \\). Let \\( P \\) be the intersection of \\( AM \\) and \\( BN \\). If \\( AB = 12 \\), \\( AC = 18 \\), and \\( BC = 14 \\), find the length of \\( BP \\).",
+    "answer": "8",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the value of \\( x \\) for which the function \\( f(x) = x^3 - 3x^2 + 2x \\) has a local minimum.",
+    "answer": "\\frac{3 + \\sqrt{3}}{3}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "You have a bag containing 5 red marbles, 3 blue marbles, and 2 green marbles. You draw marbles one at a time without replacement until you draw a blue marble. What is the expected number of marbles drawn before the first blue marble appears?",
+    "answer": "\\frac{7}{3}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the volume of the solid formed by rotating the region bounded by the curve \\(y = \\sqrt{x}\\), the x-axis, and the line \\(x = 4\\) about the line \\(x = 6\\).",
+    "answer": "\\frac{192\\pi}{5}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A quadratic polynomial \\( P(x) = ax^2 + bx + c \\) has roots that are reciprocals of each other. If the sum of the coefficients \\( a + b + c = 10 \\), determine the value of \\( a \\).",
+    "answer": "5",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the equation of the locus of points \\( P(x, y) \\) such that the distance from \\( P \\) to the point \\( (3, 4) \\) is equal to the distance from \\( P \\) to the line \\( 2x - y + 5 = 0 \\).",
+    "answer": "x^2 + 4xy + 4y^2 - 50x - 30y + 100 = 0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "You have 10 distinct cards, each numbered from 1 to 10. You randomly draw cards one by one with replacement. Find the expected number of draws until you have drawn each card at least once.",
+    "answer": "29.3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "There are 8 socks of different colors in a drawer: black, blue, gray, orange, red, white, purple, and yellow. If 4 socks are drawn at random from the drawer, what is the probability that they are all of different colors? Calculate the expected number of different color socks drawn.",
+    "answer": "4",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the derivative of the function f(x) = (x^3 - 2x + 1) / (x^2 + 1) at the point x = 2.",
+    "answer": "\\dfrac{6}{5}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Given the circle \\(C: (x-3)^2 + (y-4)^2 = 25\\) and the line \\(L: 2x + 3y = 12\\), find the number of points on circle \\(C\\) that are at a distance of \\(3\\) units from line \\(L\\).",
+    "answer": "2",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "From a well-shuffled standard deck of 52 cards, what is the expected number of cards you must draw without replacement to get the first ace?",
+    "answer": "13",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integer solutions \\((x, y)\\) to the equation \\(x^2 - y^2 = 2023\\).",
+    "answer": "(1012, 1011), (148, 141), (68, 51)",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "어떤 양의 정수 $n$에 대해 방정식 $x^2 - n y^2 = 1$이 해를 가질 때, $n$의 값을 구하시오.",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A rectangular box has sides of length 3, 4, and 5 units. A sphere is inscribed in this box, touching all its faces. Find the volume of the sphere.",
+    "answer": "4.5\\pi",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a regular octahedron with side length \\( s \\), a smaller octahedron is inscribed such that its vertices touch the centers of the faces of the larger octahedron. Find the ratio of the volume of the smaller octahedron to the volume of the larger octahedron.",
+    "answer": "\\frac{1}{8}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A point \\( P \\) moves in such a way that its distance from the point \\( A(3, 0) \\) is always twice its distance from the point \\( B(0, 4) \\). If \\( P \\) lies on the line \\( y = x + 1 \\), find the sum of the coordinates of \\( P \\).",
+    "answer": "5",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the equation of the locus of points that are equidistant from the line \\( y = 2x + 3 \\) and the point \\( (1, -1) \\).",
+    "answer": "x^2 + 4xy + 4y^2 - 22x + 16y + 1 = 0",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( n^2 \\equiv 1 \\pmod{15} \\).",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a regular tetrahedron with side length 6 units, a sphere is inscribed. What is the volume of the sphere?",
+    "answer": "\\pi \\sqrt{6}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A sphere of radius $r$ is inscribed inside a cube such that it touches all six faces. A smaller sphere is then inscribed inside the cube with the largest possible diameter, touching the larger sphere and the cube's faces. If the radius of the smaller sphere is $\\frac{1}{3}$ of the larger sphere's radius, find the ratio of the volume of the smaller sphere to the volume of the cube.",
+    "answer": "\\frac{\\pi}{162}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the sum of all possible values of \\( k \\) such that the polynomial \\( x^3 - 6x^2 + 11x - k \\) has integer roots.",
+    "answer": "6",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find all integer solutions (x, y) to the equation \\(3x^2 + 2y^2 = 20\\).",
+    "answer": "(2, 2), (2, -2), (-2, 2), (-2, -2)",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Let \\(P\\) be a point in the coordinate plane such that the distance from \\(P\\) to the point \\((1,0)\\) is twice the distance from \\(P\\) to the point \\((3,4)\\). Find the locus of point \\(P\\). Express your answer in the form \\(ax^2 + by^2 + cx + dy + e = 0\\), where \\(a, b, c, d,\\) and \\(e\\) are integers with no common factor other than 1.",
+    "answer": "3x^2 + 3y^2 - 22x - 32y + 99 = 0",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A solid is formed by joining two identical cubes, each with side length \\( s \\), such that they share a common face. A cylindrical hole with radius \\( r \\) and height equal to the side length of the cube is drilled through the center of the combined solid, perpendicular to the shared face. What is the volume of the remaining solid in terms of \\( s \\) and \\( r \\)?",
+    "answer": "2s^3 - \\pi r^2 s",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Consider the polynomial \\( P(x) = x^4 + ax^3 + bx^2 + cx + d \\) with integer coefficients. If two of the roots are \\( 2 \\) and \\( -1 \\), and the sum of the other two roots is \\( 3 \\), find the value of \\( b \\).",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Three distinct numbers are chosen at random from the set {1, 2, 3, ..., 10}. What is the probability that the product of these three numbers is divisible by 9? Express your answer as a common fraction.",
+    "answer": "\\frac{11}{60}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A rectangular prism has dimensions 10 cm by 12 cm by 15 cm. A smaller rectangular prism is inscribed within it such that the smaller prism's dimensions are half of the larger prism's dimensions. Calculate the volume of the smaller prism and the remaining space within the larger prism.",
+    "answer": "1575",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Evaluate the limit: \\(\\lim_{x \\to 0} \\frac{\\sin(3x) - 3x \\cos(2x)}{x^3}\\).",
+    "answer": "\\frac{3}{2}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Given a triangle with sides of lengths 13, 13, and 14 units, find the radius of the inscribed circle (inradius). Express your answer as a simplified fraction.",
+    "answer": "\\frac{7\\sqrt{30}}{10}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the equation of the locus of points equidistant from the points \\(A(1, 2)\\) and \\(B(4, -1)\\).",
+    "answer": "x - y = 2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "**\nFind all integers \\( x \\) such that \\( x^2 \\equiv 1 \\ (\\text{mod} \\ 15) \\).",
+    "answer": "1, 4, 11, 14",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In triangle \\( ABC \\), the incircle touches \\( BC \\) at \\( D \\), and the excircle opposite \\( A \\) touches \\( BC \\) at \\( E \\). Given \\( AD = 8 \\), \\( BE = 12 \\), and \\( CD = 4 \\), find the area of triangle \\( ABC \\).",
+    "answer": "48",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the value of the real number \\(a\\) such that \\(x-1\\) is a factor of the polynomial \\(x^3 - a^2x + 4x - 4\\).",
+    "answer": "\\pm 1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Points A, B, and C form an isosceles triangle with ∠ABC = 100° and AB = BC. Circle O is inscribed in triangle ABC, touching all three sides. Point D is where circle O touches side BC. If BD = 4, find the radius of circle O. Express your answer in simplest radical form.",
+    "answer": "2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Let P be the point (3, 4) in the Cartesian plane. Let Q be a point on the x-axis such that the line segment PQ intersects the circle x^2 + y^2 = 25 at two distinct points, A and B. If the x-coordinate of Q is positive, find the sum of the x-coordinates of A and B.",
+    "answer": "6",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A rectangular prism has dimensions that are all integers. The volume of the prism is 240 cubic units. What is the maximum possible surface area of the prism in square units?",
+    "answer": "962",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "There exists a non-negative real number x such that x satisfies the polynomial equation p(x) = 0, where p(x) is a polynomial of degree 2023 with p(2022) = 0 and p(2023) = 0. What is the smallest possible value of x?",
+    "answer": "0",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A right circular cone with radius 6 and height 8 has a smaller cone removed from its base, leaving a frustum. If the smaller cone has a radius of 3 and the same height as the frustum, find the volume of the frustum. Express your answer in terms of \\(\\pi\\).",
+    "answer": "84\\pi",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Let triangle ABC be inscribed in a circle with center O and radius 10 units. Let P be a point on the circle such that the line segment AP intersects BC at point D, and the line segment BP intersects AC at point E. If AD = 4 units and BE = 5 units, find the length of CD.",
+    "answer": "6",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find all integer solutions \\((x, y)\\) to the equation \\(x^2 - 5xy + 6y^2 = 1\\).",
+    "answer": "(1, 0), (-1, 0)",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Consider the function \\( f(x) = \\frac{x^3 - 3x + 2}{x^2 - 1} \\). Find the limit of \\( f(x) \\) as \\( x \\) approaches 1.",
+    "answer": "0",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In triangle \\( ABC \\), the incircle is tangent to sides \\( BC \\), \\( CA \\), and \\( AB \\) at points \\( D \\), \\( E \\), and \\( F \\), respectively. Let \\( G \\) be the point where the excircle opposite \\( A \\) is tangent to \\( BC \\). If \\( BC = a \\), \\( CA = b \\), and \\( AB = c \\), find the length of \\( DG \\) in terms of \\( a \\), \\( b \\), and \\( c \\).",
+    "answer": "a",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In triangle \\(ABC\\), the incircle touches \\(BC\\), \\(CA\\), and \\(AB\\) at points \\(D\\), \\(E\\), and \\(F\\) respectively. If \\(BD = 3\\), \\(CE = 4\\), and \\(AF = 5\\), find the radius of the incircle. The triangle is not right-angled.",
+    "answer": "\\sqrt{5}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all integer solutions \\((x, y)\\) to the equation \\(x^2 + y^2 + 1 = 3xy\\).",
+    "answer": "(1, 1), (2, 1), (-1, -1), (-2, -1)",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all integer solutions \\((x, y)\\) to the equation \\(x^2 - 3xy + 2y^2 = 7\\).",
+    "answer": "(-5, -6), (13, 6), (5, 6), (-13, -6)",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Consider the polynomial \\(P(x) = x^3 + ax^2 + bx + c\\) with real coefficients such that \\(P(1) = 0\\) and the sum of its roots taken two at a time is equal to the cube of the largest root. Find \\(a + b + c\\).",
+    "answer": "-1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "For a natural number n, calculate the sum of the first n positive integers, 1 + 2 + 3 + ... + n.",
+    "answer": "\\frac{n(n + 1)}{2}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all integers \\( n \\) such that \\( n^2 + 3n + 2 \\equiv 0 \\pmod{5} \\).",
+    "answer": "3, 4",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "\\(x^3 - 3x^2 + 4x - 12 = 0\\)이 주어졌을 때, 이 방정식의 3개의 서로 다른 실수 근 \\(p\\), \\(q\\), \\(r\\)에 대해 \\(p + q + r\\), \\(pq + pr + qr\\), \\(pqr\\)의 값을 구하시오.",
+    "answer": "12",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In triangle \\(ABC\\), the incircle touches \\(BC\\), \\(CA\\), and \\(AB\\) at \\(D\\), \\(E\\), and \\(F\\) respectively. Let \\(G\\) and \\(H\\) be the points where the excircle opposite \\(A\\) touches \\(BC\\) and \\(CA\\). If \\(AG = 2\\) and \\(GH = 4\\), find the radius of the incircle of triangle \\(ABC\\).",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "在直角坐标系中，有一条直线 \\(L\\) 经过点 \\((3, 2)\\)，且与 \\(y\\) 轴交于点 \\((0, b)\\)，其中 \\(b\\) 是一个实数。如果直线 \\(L\\) 与 \\(x\\) 轴的正半轴相交于点 \\((a, 0)\\)，并且满足条件 \\(a + b = 5\\)，求 \\(a\\) 的值。",
+    "answer": "3",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the number of possible distinct integer roots of the polynomial \\( P(x) = x^5 - 2x^4 + 3x^3 - 4x^2 + 5x - 6 \\).",
+    "answer": "8",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a 9-sided cube (a regular hexahedron), consider a point $P$ at one of the vertices. From $P$, you can move to any adjacent vertex, each at a fixed distance $r$. If you start from $P$ and move to another vertex at distance $r$, and then move to a third vertex such that the path forms a triangle within the cube, how many different triangles can you form where each vertex of the triangle is equidistant from $P$ and no side of the triangle is longer than $r$?",
+    "answer": "8",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Given the system of linear equations:\n\\[\n\\begin{cases}\n2x + 3y - z = 1 \\\\\n4x + y + 2z = 2 \\\\\nx - 2y + z = 3\n\\end{cases}\n\\]\nfind the value of \\( x + y + z \\).",
+    "answer": "-\\frac{21}{13}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the equation of the locus of a point \\(P\\) such that the sum of its distances from the points \\(A(0, -3)\\) and \\(B(0, 3)\\) is equal to 10. The answer should be in the form \\(x^2 + y^2 + axy + bx + cy + d = 0\\), where \\(a\\), \\(b\\), \\(c\\), and \\(d\\) are integers.",
+    "answer": "25x^2 + 16y^2 - 400 = 0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Evaluate the limit: \\(\\lim_{n \\to \\infty} \\sum_{k=1}^{n} \\frac{1}{n + k}\\).",
+    "answer": "\\ln(2)",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A cube with side length 10 units has a pyramid inside it. The base of the pyramid is a square face of the cube, and the apex of the pyramid is at the center of the cube. What is the volume of the pyramid?",
+    "answer": "\\frac{500}{3}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Determine the number of distinct real solutions for the equation:\n\\[ x^5 - 3x^4 + 5x^3 - 10x^2 + 8x - 4 = 0 \\]",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Consider a cubic polynomial \\( P(x) = x^3 + ax^2 + bx + c \\) with roots \\( r, s, t \\). Using Vieta’s formulas, we know:\n1. \\( r + s + t = -a \\)\n2. \\( rs + rt + st = b \\)\n3. \\( rst = -c \\)\n\nIf the roots \\( r, s, t \\) satisfy the condition \\( r^2 + s^2 + t^2 = 9 \\), find the value of \\( a^2 - 3b \\).",
+    "answer": "9",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the derivative of the function \\( f(x) = \\frac{x^3 - 2x + 1}{x^2 - 4} \\) at \\( x = 2 \\), given that \\( f(x) \\) is continuous at \\( x = 2 \\).",
+    "answer": "\\frac{5}{2}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all integer solutions \\((x, y)\\) to the equation \\(x^2 + xy + y^2 = 7\\).",
+    "answer": "(1, 2), (1, -3), (-1, 3), (-1, -2)",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In triangle \\( ABC \\), the circumcircle has a radius \\( R = 10 \\). Point \\( D \\) is the midpoint of \\( BC \\), and \\( AD \\) is extended to meet the circumcircle at point \\( E \\). If \\( AD = 16 \\), find the length of \\( AE \\).",
+    "answer": "20",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Consider the circle \\( x^2 + y^2 = 1 \\). If \\( PQ \\) is a fixed chord of length 1, find the locus of the midpoint of the segment joining the intersection points of this chord with the circle to the point \\( (1, 0) \\).",
+    "answer": "\\left(x - \\frac{1}{2}\\right)^2 + y^2 = \\frac{1}{4}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In triangle ABC, let P be the foot of the altitude from B, Q be the point on BC such that AQ is perpendicular to BP, and R be the point on AB such that CR is perpendicular to AQ. If AC = 13, BC = 14, and AB = 15, find the area of triangle PQR.",
+    "answer": "21",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Alice rolls a fair six-sided die and Bob rolls two fair four-sided dice. They win if the product of their dice rolls is even. What is the probability that they win? Express your answer as a common fraction.",
+    "answer": "\\frac{7}{8}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "You have a large cube made of smaller 1-inch cubes arranged in a \\( 3 \\times 3 \\times 3 \\) pattern. If you take away all the smaller cubes from the center of each face and all cubes along the space diagonal, how many smaller cubes remain?",
+    "answer": "19",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the value of \\( \\lim_{x \\to 0} \\frac{\\sin(3x) - 3x \\cos(2x)}{x^3} \\).",
+    "answer": "\\frac{3}{2}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "一个篮球队有10名球员，他们参加了一场比赛。比赛结束后，教练决定在剩余的7名球员中随机选择3人上场。假设每名球员上场的概率相同，那么恰好有3名特定球员被选中的概率是多少？",
+    "answer": "\\dfrac{1}{120}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "在△ABC中，AB=5, AC=7, BC=8。设I为内心，O为外心。求OI^2的值。",
+    "answer": "\\frac{7}{3}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that \\( n^2 \\equiv 1 \\pmod{12} \\) and \\( n^3 \\equiv 1 \\pmod{7} \\)?",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Let f(x) be a twice differentiable function on the interval [0, 2] such that f(0) = 1, f(2) = 3, and f'(1) = 0. Find the minimum possible value of |f''(x)| on the interval [0, 2].",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all pairs of positive integers (x, y) that satisfy the equation x² - y² = 1983.",
+    "answer": "(992, 991), (332, 329)",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the coordinates of the point P inside a rectangle with vertices at (0,0), (a,0), (0,b), and (a,b) such that the sum of the distances from P to each of the four vertices is minimized.",
+    "answer": "\\left( \\frac{a}{2}, \\frac{b}{2} \\right)",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Consider a regular hexagon inscribed in a circle of radius 1. Find the length of the line segment connecting the midpoints of two opposite sides of the hexagon.\\",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A cube with side length of 6 meters is inscribed in a sphere. What is the volume of the sphere?",
+    "answer": "108\\pi\\sqrt{3}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a small country with 13 cities, roads connect them, each built in a single year from 2001 to 2013, with no direct jump or destruction. If all cities can be reached from city \\( A \\) by year \\( x \\) and all from city \\( B \\) by year \\( y \\), where \\( x \\leq y \\), find the minimum possible value of \\( y - x \\).",
+    "answer": "12",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Two coins are placed randomly on a 5x5 grid. What is the expected value of the number of squares (including partial squares) that contain at least one coin?",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "已知一个三次多项式 \\(P(x) = x^3 + ax^2 + bx + c\\) 的三个实数根分别为 \\(r_1, r_2, r_3\\)。如果 \\(r_1 + r_2 = 2r_3\\) 且 \\(r_1r_2 + r_1r_3 + r_2r_3 = 20\\)，求 \\(a + b + c\\) 的值。",
+    "answer": "20",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Let P be the set of all points (x, y) in the plane such that |x| + |y| ≤ 2. Find the equation of the locus of points Q such that the distance from Q to any point in P is at least 1.",
+    "answer": "|x| + |y| = 3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the product of the coefficients of the polynomial \\(P(x) = (x-1)(x-2)(x-3)\\) whose roots are the solutions to the equation \\(x^3 - 6x^2 + 11x - 6 = 0\\).",
+    "answer": "396",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A grandfather clock uses a pendulum that is $2\\, \\text{m}$ long. The pendulum makes one complete swing every second. How many seconds does it take for the pendulum to make $100$ complete swings?",
+    "answer": "100",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "在平面直角坐标系中，圆 C 的方程为 x^2 + y^2 = 1。设 P 为圆 C 上的一个动点，Q 为圆 C 外的一点，满足 |PQ| = 2。求点 Q 的轨迹方程。",
+    "answer": "x^2 + y^2 = 9",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A cube with side length \\( a \\) is inscribed in a sphere such that each vertex of the cube touches the sphere's surface. What is the ratio of the volume of the sphere to the volume of the cube?",
+    "answer": "\\frac{\\pi \\sqrt{3}}{2}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In triangle \\( ABC \\) with \\( AB = AC = 5 \\) and \\( BC = 6 \\), the perpendicular from \\( A \\) to \\( BC \\) meets \\( BC \\) at \\( D \\). The circle with diameter \\( AD \\) intersects \\( AB \\) and \\( AC \\) at points \\( E \\) and \\( F \\) respectively. Find the length of \\( EF \\).",
+    "answer": "4",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all integer solutions \\((x, y)\\) to the equation \\(x^2 - y^3 = 35\\).",
+    "answer": "(6, 1), (-6, 1)",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Given the polynomial \\( P(x) = x^3 + ax^2 + bx + c \\) with integer coefficients, and knowing that one of the roots is \\( 2 - \\sqrt{3} \\), find the sum of the coefficients \\( a + b + c \\) if another root is a rational number.",
+    "answer": "-3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the limit of f(x) as x approaches 0 if f(x) = ln(1 + cos(x)) / (e^(x^2) - 1).",
+    "answer": "-\\frac{1}{4}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the equation of the locus of points C(x, y) such that the sum of distances from C to A(-2, 3) and B(4, -1) is 10.",
+    "answer": "\\frac{(x - 1)^2}{25} + \\frac{(y - 1)^2}{12} = 1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all possible values of \\( p \\) for which the polynomial \\( x^4 + px^3 + 12x^2 + 18x + 45 \\) has roots that are all real numbers.",
+    "answer": "0",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In triangle $ABC$, the incircle touches $BC$ at $D$, $AC$ at $E$, and $AB$ at $F$. If $AD$ is extended to meet the circumcircle of triangle $ABC$ at $P$, and $AP = 12$, $BD = 5$, $CE = 4$, find the length of $DF$.",
+    "answer": "5",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Consider the function f(x) = (e^(2x) + sin(3x)) / (4x^2 + 7). Find the limit as x approaches infinity of the derivative of f(x).",
+    "answer": "\\infty",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In triangle \\( ABC \\), the circumcircle has radius \\( R \\), and the incircle has radius \\( r \\). Let \\( P \\) be a point inside the triangle such that the sum of the distances from \\( P \\) to the vertices \\( A \\), \\( B \\), and \\( C \\) is minimized. If \\( PA + PB + PC = k \\), find the value of \\( k \\) in terms of \\( R \\) and \\( r \\).",
+    "answer": "3R",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A rectangular box with dimensions 6 cm x 8 cm x 10 cm is filled with identical spheres. Each sphere touches the adjacent spheres as well as the sides of the box. What is the maximum number of spheres that can fit inside the box?",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In triangle $ABC$, the incircle touches $BC, CA, AB$ at $D, E, F$ respectively. Let $I$ be the incenter, and let $X$ be the intersection of $AI$ with the circumcircle of $ABC$ (apart from $A$). If $BF = EC = 5$ and $AX = 8$, find the area of triangle $DEF$.",
+    "answer": "15",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( n^2 \\equiv 1 \\pmod{15} \\) and \\( n \\) is also a prime number.",
+    "answer": "11",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A deck of 10 cards contains 2 black cards and 8 red cards. If two cards are drawn without replacement, what is the expected value of the number of black cards drawn? Express your answer as a simplified fraction.",
+    "answer": "\\frac{2}{5}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A right circular cylinder with a radius of 3 units is inscribed in a hemisphere with a radius of 5 units. Find the volume of the cylinder.",
+    "answer": "36\\pi",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Given the sequence \\(a_n\\) defined by \\(a_1 = 3\\) and \\(a_{n+1} = 2a_n + 5\\) for \\(n \\geq 1\\), find the smallest positive integer \\(k\\) such that \\(a_k \\equiv 0 \\pmod{7}\\).",
+    "answer": "6",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "某高校与海亮保育师职业发展中心合作开发保育师课程，计划每年接收100名实习生。如果每位实习生平均每月能为海亮保育师职业发展中心创造1000元的直接经济收益，且海亮保育师职业发展中心希望在未来三年内实现所有学前教育保育专业的毕业生都能成功就业的目标，请计算：\n1. 海亮保育师职业发展中心每年通过实习生项目至少可以创造多少直接经济收益？\n2. 为了达成目标，每年应至少有多少比例的毕业生能够找到与海亮保育师职业发展中心合作的企业或其他相关机构进行实习或就业？",
+    "answer": "33.33\\%",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In triangle ABC, the incircle touches BC at D, and the excircle opposite A touches BC at E. If DE = 2 * AB, find the ratio of the radius of the incircle to the radius of the excircle.",
+    "answer": "\\frac{1}{2}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Given triangle \\(ABC\\) with incenter \\(I\\) and circumcenter \\(O\\), let the circumcircle intersect \\(AI, BI,\\) and \\(CI\\) at \\(D, E,\\) and \\(F\\) respectively. If \\(AD = 6, BD = 5,\\) and \\(CD = 4\\), find the area of \\(\\triangle ABC\\).",
+    "answer": "30",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Let f(x) = x^4 - 3x^3 + 3x^2 - 2x + 1 be a polynomial with real coefficients. If the roots of f(x) are a, b, c, and d, find the value of (a-b)^2 + (b-c)^2 + (c-d)^2 + (d-a)^2. Answer in simplest radical form.",
+    "answer": "6",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "给定一个正四面体，其每条边的长度为 6 单位。求该正四面体的体积。",
+    "answer": "18\\sqrt{2}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In triangle $ABC$, the incircle touches $BC$, $CA$, and $AB$ at $D$, $E$, and $F$, respectively. If $AB = 13$, $BC = 14$, and $CA = 15$, find the area of triangle $DEF$.",
+    "answer": "21",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a bag, there are 5 red balls and 3 blue balls. If you draw two balls without replacement, what is the expected number of red balls drawn?",
+    "answer": "\\dfrac{5}{4}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the sum of the squares of the first \\( n \\) positive integers is congruent to 0 modulo 13.",
+    "answer": "6",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In a town where there are 100 houses, each with a unique number from 1 to 100, a prankster decides to perform a series of swaps between house numbers. For each house, there is an equal chance (50%) that the prankster will swap the house number with the number of the house directly on either side (for houses at the end of the row, they will swap with the single adjacent house). If the prankster performs this action 10 times, what is the expected number of house numbers that end up unchanged after all swaps?",
+    "answer": "\\frac{25}{256}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the derivative of \\( f(x) = \\sqrt{x^2 + 1} \\) at \\( x = 1 \\).",
+    "answer": "\\frac{\\sqrt{2}}{2}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Given the function f(x) = x^3 - 3x^2 + 2, find the x-coordinate(s) of the point(s) where the tangent line is horizontal.",
+    "answer": "0, 2",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Four children take turns hitting a balloon, which shrinks until it becomes a sphere. Starting with 10 balloons, what is the probability that Xiao Hong gets the first sphere?\nOptions: A. 1/4 B. 3/10 C. 1/5 D. 1/6",
+    "answer": "\\frac{1}{4}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Expand the polynomial \\( w(x) = (x - 1)^2(x - 2)^2(x - 3)^2 \\) and determine the sum of the roots. Verify if any of the roots are complex numbers.",
+    "answer": "12",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all integer pairs \\((x, y)\\) such that \\(x^2 + y^2 = x^3 - y^3\\).",
+    "answer": "(0, 0), (0, -1), (1, 0), (1, -1)",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In \\( \\triangle ABC \\), let \\( \\Gamma \\) be the circumcircle of \\( \\triangle ABC \\). Suppose point \\( P \\) lies on \\( \\Gamma \\) but not on \\( \\triangle ABC \\). If \\( D, E, \\) and \\( F \\) are the midpoints of \\( BC, CA, \\) and \\( AB \\) respectively, and \\( G \\) is the centroid of \\( \\triangle ABC \\), find the value of \\( \\frac{PD^2 + PE^2 + PF^2}{PG^2} \\).",
+    "answer": "9",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integer solutions to the equation:\n\n7x + 9y = 100\n\nwhere x and y are relatively prime (i.e., their greatest common divisor is 1).",
+    "answer": "(13, 1)",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Consider the polynomial \\( P(x) = x^3 - 6x^2 + 11x - 6 \\). Given that one of the roots is a real number \\( r \\), and the sum of the squares of the roots is 10, find the value of \\( r \\).",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "You flip a fair coin repeatedly until you get either two heads in a row or two tails in a row. What is the expected number of flips needed to achieve this?",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Points \\(A\\) and \\(B\\) have coordinates \\((0, 0)\\) and \\((6, 0)\\) respectively. A point \\(P\\) moves such that the difference of its distances from \\(A\\) and \\(B\\) is always 4. Find the locus of \\(P\\) and the maximum vertical distance from the x-axis to this locus.",
+    "answer": "\\sqrt{5}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Consider the following congruences modulo $m$ involving integers $a$ and $b$ where $(a, b) = 1$:\n\\[\n(8a + 7)b \\equiv 8 \\pmod{m}\n\\]\n\\[\n(7a + 8)b \\equiv 7 \\pmod{m}\n\\]\nDetermine the smallest positive integer value of $m$.",
+    "answer": "15",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Triangle \\(ABC\\) has vertices \\(A(-2, 0)\\), \\(B(2, 0)\\), and \\(C(0, 4)\\). Let \\(I\\) be the incenter and \\(O\\) be the circumcenter of triangle \\(ABC\\). If the line segment \\(IO\\) intersects the circle with diameter \\(BC\\) at points \\(D\\) and \\(E\\), find the length of \\(DE\\).",
+    "answer": "4",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A regular tetrahedron with side length 1 is inscribed inside a cube. What is the side length of the cube?",
+    "answer": "\\sqrt{2}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Consider a cubic polynomial \\( P(x) = x^3 + ax^2 + bx + c \\) with real coefficients. If two of the roots of \\( P(x) \\) are \\( \\frac{1}{2} \\) and \\( -3 \\), and the sum of the roots is 1, find the value of \\( b \\).",
+    "answer": "-\\frac{41}{4}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all integer solutions (x, y) to the equation x^3 - 4xy^2 = 1.",
+    "answer": "(1, 0)",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the value of \\(a\\) such that the polynomial \\(x^2 + ax + 1\\) has roots which are reciprocals of each other.",
+    "answer": "0",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Consider a cubic polynomial equation with integer coefficients given by \\(x^3 + ax^2 + bx + c = 0\\). If the equation has roots that are consecutive integers, what is the sum of the squares of these roots? Express your answer as a simplified algebraic expression in terms of \\(a\\).",
+    "answer": "\\frac{a^2}{3} + 2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "找到满足条件 \\(x^2 \\equiv 1 \\pmod{15}\\) 的所有非负整数 \\(x\\) 的集合。",
+    "answer": "\\{1, 4, 11, 14\\}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the equation of the locus of points that are equidistant from the line \\( y = 3x - 4 \\) and the point \\( (2, 1) \\).",
+    "answer": "x^2 + 9y^2 + 6xy - 16x - 28y + 34 = 0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In triangle $ABC$, the centroid $G$ is the point where the medians intersect. Let $M$ be the midpoint of side $BC$. If $AG = 4$ and $GM = 3$, find the length of $AM$.",
+    "answer": "7",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In the coordinate plane, consider the locus of points \\(P(x,y)\\) such that the distance from \\(P\\) to the point \\((3,4)\\) is twice the distance from \\(P\\) to the line \\(x=1\\). Find the equation of this locus.",
+    "answer": "3x^2 - 2x - y^2 + 8y - 21 = 0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all integer solutions \\((x, y)\\) to the equation \\(x^2 - y^2 = 15\\).",
+    "answer": "(8, 7), (-8, -7), (8, -7), (-8, 7), (4, 1), (-4, -1), (4, -1), (-4, 1)",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the equation of the locus of all points $(x, y)$ such that the sum of the squares of the distances from $(x, y)$ to the points $(1, 0)$ and $(0, 1)$ is equal to 5.",
+    "answer": "\\left(x - \\frac{1}{2}\\right)^2 + \\left(y - \\frac{1}{2}\\right)^2 = 2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that \\( n \\equiv 1 \\pmod{3} \\) and \\( n^2 \\equiv 1 \\pmod{5} \\)?",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "What is the value of the limit of \\( \\frac{x^3 - 3x^2 + 2}{x^2 - 4x + 4} \\) as \\( x \\) approaches 2?",
+    "answer": "3",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Let \\( N \\) be the least natural number that can be expressed as the sum of 1990 positive integers, all of which are not necessarily distinct, and which have a greatest common divisor of 1. Find the remainder when \\( N \\) is divided by 1990.",
+    "answer": "0",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Consider the function \\( f(x) = x^2 + 2x + 1 \\). Let \\( g(x) \\) be the derivative of \\( f(x) \\). Calculate the limit as \\( x \\) approaches \\( 2 \\) of the function \\( h(x) = \\frac{g(x)}{x-2} \\).",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the value of the limit:\n\\[\n\\lim_{x \\to 0} \\left( \\frac{1 - \\cos(x^2)}{x^4} + \\frac{\\sin(x)}{x^2} \\right).\n\\]",
+    "answer": "\\frac{1}{2}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all integers \\( x \\) such that \\( x^2 + 10x + 21 \\equiv 0 \\pmod{13} \\).",
+    "answer": "6, 10",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Consider a square with side length 1 unit. A point P is chosen at random within the square. What is the probability that the distance from P to the nearest side of the square is less than \\(\\frac{1}{4}\\)?",
+    "answer": "\\frac{1}{4}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "How many positive integers \\( n \\) less than 1000 satisfy \\( n^2 \\equiv 1 \\pmod{1000} \\)?",
+    "answer": "8",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In an equilateral triangle \\(ABC\\), point \\(D\\) lies on side \\(BC\\). If line \\(AD\\) is extended to intersect the circumcircle of triangle \\(ABC\\) again at point \\(E\\), and \\(DE\\) is parallel to \\(AB\\), find the ratio \\(BD : DC\\).",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In the coordinate plane, let \\( A \\) and \\( B \\) be points on the parabola \\( y = x^2 \\) such that the line segment \\( AB \\) has length 1. Find the minimum possible value of the y-coordinate of the midpoint \\( M \\) of segment \\( AB \\).",
+    "answer": "\\frac{1}{4}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A fair six-sided die is rolled repeatedly. What is the expected number of rolls needed until the sum of the outcomes exceeds 10?",
+    "answer": "3",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "You have two fair six-sided dice. If at least one die shows an odd number, what is the expected value of the sum of the dice?",
+    "answer": "7",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the locus of points \\( P \\) in the plane such that the sum of the squares of the distances from \\( P \\) to two fixed points \\( A \\) and \\( B \\) is constant. Given \\( A(1, 0) \\) and \\( B(-1, 0) \\), find the equation of the locus when the sum of the squares of the distances is 8.",
+    "answer": "x^2 + y^2 = 3",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find all positive integer solutions \\((x, y)\\) to the equation \\(x^2 + y^2 = 2xy + 10\\).",
+    "answer": "0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A regular tetrahedron with side length 4 units is inscribed in a sphere. What is the volume of the sphere? Express your answer in terms of $\\pi$.",
+    "answer": "8\\sqrt{6}\\pi",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Five distinct red points and five distinct blue points are placed on a line segment. Each segment that connects a red point to a blue point is drawn. Find the expected number of these segments that intersect the line segment connecting the leftmost red point and the rightmost blue point.",
+    "answer": "16",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Let \\( P(x) = x^3 - 6x^2 + 11x - 6 \\) be a cubic polynomial with roots \\( r, s, \\) and \\( t \\). If \\( Q(x) = x^3 + ax^2 + bx + c \\) is another cubic polynomial such that the roots of \\( Q(x) \\) are \\( r+1, s+1, \\) and \\( t+1 \\), find the value of \\( a + b + c \\).",
+    "answer": "-7",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In a group of 15 people, each person shakes hands with exactly 3 other people. What is the probability that any two specific people do not shake hands with each other?",
+    "answer": "\\frac{6}{7}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer $n$ such that $n^2 \\equiv 1 \\pmod{144}$.",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A cube of side length 1 is painted red on all faces. The cube is then cut into 27 smaller cubes of equal size. If one small cube is randomly selected, what is the probability that it has exactly 2 red faces? Express your answer as a fraction.",
+    "answer": "\\frac{4}{9}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( n^{36} \\equiv 1 \\pmod{127} \\).",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Two players, A and B, take turns rolling a fair six-sided die. The game ends when one player rolls a 6. Player A goes first. What is the expected number of rolls until the game ends?",
+    "answer": "6",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( n^2 \\equiv 1 \\pmod{85} \\) and \\( n^3 \\equiv 1 \\pmod{17} \\).",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In a regular tetrahedron with edge length \\( a \\), find the height from one vertex to the opposite face.",
+    "answer": "\\frac{a \\sqrt{6}}{3}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Determine the sum of all real numbers \\( x \\) that satisfy the equation \\( x^3 - 3x^2 + 3x - 1 = 0 \\).",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Given the polynomial \\( P(x) = x^4 + 10x^3 + 31x^2 - 30x + d \\) with roots \\( r_1, r_2, r_3, r_4 \\), if \\( r_1 + r_2 = 5 \\) and \\( r_3 + r_4 = 5 \\), what is the value of \\( d \\)?",
+    "answer": "25",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Given \\( P(x) = (x - 2)^3 (x - 3) (x + 1)^2 \\), if \\( Q(x) \\) has double roots at \\( x = 1 \\) and \\( x = 4 \\) and satisfies \\( Q(2) = 0 \\) and \\( Q(-1) = Q(3) \\), find the coefficient of \\( x^3 \\) in \\( Q(x) \\).",
+    "answer": "-10",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all integers \\(x\\) in the range \\(0 \\leq x < 13\\) that satisfy the congruence \\(x^3 - 2x^2 - 7x + 10 \\equiv 0 \\pmod{13}\\).",
+    "answer": "8",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the limit of the function \\( g(x) = \\frac{x^2 - \\sin^2(x)}{x^4} \\) as \\( x \\) approaches 0. Then, find the derivative of \\( g(x) \\) at \\( x = 0 \\).",
+    "answer": "0",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "p가 (x^2 + xy + 1)(x^2 + y^2 + 1)의 꼬리 부분을 지니고 있다고 가정하자. p를 구하세요.",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "The point \\((x, y)\\) moves such that the sum of its distances from the points \\((1, 0)\\) and \\((4, 0)\\) is always 6. Find the locus of the point \\((x, y)\\).",
+    "answer": "\\frac{\\left(x - \\frac{5}{2}\\right)^2}{9} + \\frac{4y^2}{27} = 1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "You have an urn with 10 balls: 6 red and 4 blue. You draw two balls without replacement. What is the probability that both balls drawn are red? What is the expected value of the number of red balls drawn?",
+    "answer": "\\frac{6}{5}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Eight distinct unit squares are shaded within an $n \\times n$ grid such that one of them is in the bottom right corner of the grid. No more than two shaded squares can be adjacent, and the three rows from the bottom must each contain at least one shaded square. How many possible values of $n$ are there?",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Given a right circular cone with base radius \\(r\\) and height \\(h\\), inside which a sphere is inscribed such that it touches the base and the sides of the cone, what is the radius of the sphere if \\(r = 3\\) and \\(h = 6\\)?",
+    "answer": "2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( x \\) such that \\( x^{10} \\equiv 1 \\pmod{11} \\).",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "计算从x=0到x=\\(\\infty\\)的定积分\\(\\int \\frac{e^{-x}}{1+e^{-x}} \\, dx\\)。",
+    "answer": "\\ln(2)",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A right circular cone has a base radius of 6 cm and a height of 8 cm. Inside this cone, there is a smaller cone whose vertex coincides with the vertex of the larger cone, and its base lies in the plane of the larger cone's base. If the volume of the smaller cone is exactly one-third of the volume of the larger cone, find the radius of the base of the smaller cone in simplest radical form.",
+    "answer": "2\\sqrt[3]{9}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A rectangular prism has dimensions 6 cm, 8 cm, and 10 cm. What is the volume of the prism?",
+    "answer": "480",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In an equilateral triangle \\(ABC\\) with side length 1, a circle is inscribed touching sides \\(AB\\), \\(BC\\), and \\(AC\\) at points \\(D\\), \\(E\\), and \\(F\\) respectively. A second circle is inscribed touching the extensions of sides \\(AB\\) and \\(BC\\) at points \\(G\\) and \\(H\\) respectively, and the circle's diameter lies along the line segment \\(DE\\). Find the radius of the second circle.",
+    "answer": "\\frac{\\sqrt{3}}{3}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A fair six-sided die is rolled. If the roll results in an even number, the player wins that amount of dollars. If the roll results in an odd number, the player loses that amount of dollars. What is the expected value of a single roll of this die?",
+    "answer": "\\frac{1}{2}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Let \\( P(x) \\) be a cubic polynomial with integer coefficients such that \\( P(1) = 3 \\), \\( P(2) = 7 \\), and \\( P(3) = 13 \\). Find the value of \\( P(0) \\).",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In the coordinate plane, let point \\( P \\) move along the circle centered at the origin with radius 1, and let point \\( Q \\) move along the circle centered at \\( (3, 0) \\) with radius 1. If the maximum distance between \\( P \\) and \\( Q \\) is \\( d \\), find \\( d \\).",
+    "answer": "5",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "**\nFind all integer solutions \\( (x, y) \\) to the Diophantine equation:\n\\[ 7x + 11y = 41 \\]\n**",
+    "answer": "(-123 + 11k, 82 - 7k)",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Rozważmy funkcję \\( f(x) = \\int_0^x \\sin(t^2) \\, dt \\). Wykaż, że dla \\( x \\in [0, 1] \\) zachodzi nierówność \\( f(x) < \\frac{x^3}{6} \\).",
+    "answer": "f(x) < \\frac{x^3}{6}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Let $P(x) = x^3 + ax^2 + bx + c$ be a polynomial with integer coefficients, where $a, b, c$ are integers. Suppose that $P(1) = 0$ and that there exists a positive integer $n$ such that $P(n) = 2n^3$. Find the smallest possible value of $n$.",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Which statement is correct?\nA) Wide pleats at the front\nB) Pleats are located at the sides\nC) Pleats are located at the back\nD) Wide pleats at the back",
+    "answer": "B",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "What is the smallest positive integer \\(x\\) that satisfies the equation \\(x^3 - 1 = 2y^2\\) for some integer \\(y\\)?",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the equation of the locus of points equidistant from the line \\( y = -3 \\) and the point \\( (0, 2) \\).",
+    "answer": "x^2 = 10y + 5",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the area of the region defined by the intersection of the curves \\(x^2 + y^2 = 4\\) and \\(x + y = 2\\).",
+    "answer": "\\pi - 2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A right circular cone has a base radius of 6 cm and a height of 8 cm. A smaller, similar cone is inscribed within it such that its vertex touches the base of the larger cone and its base lies on the axis of the larger cone. If the radius of the smaller cone is 3 cm, find the height of the smaller cone and the volume ratio of the smaller cone to the larger cone.",
+    "answer": "\\frac{1}{8}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Given point \\(A(1, 2)\\) and line \\(l: x + y - 3 = 0\\), find the locus of point \\(P\\) such that the ratio of the distance from \\(P\\) to \\(A\\) and the perpendicular distance from \\(P\\) to line \\(l\\) is constant at \\(2:1\\).",
+    "answer": "x^2 + y^2 + 4xy - 10x - 8y + 13 = 0",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the equation of the locus of points that are equidistant from the point (2, 3) and the line y = 1.",
+    "answer": "(x - 2)^2 = 4(y - 2)",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A right circular cylinder is inscribed in a sphere of radius \\( R \\). Find the maximum volume of this cylinder.",
+    "answer": "\\frac{4\\pi R^3 \\sqrt{3}}{9}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all integer solutions \\((x, y)\\) to the Diophantine equation \\(x^2 - 3xy + 2y^2 = 7\\).",
+    "answer": "(-5, -6), (5, 6), (13, 6), (-13, -6)",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a room, there are 100 people. Each person picks a random number from 1 to 100, with each number equally likely. What is the expected value of the smallest number chosen among these 100 people?",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "กำหนดรากของพหุนาม $x^3 - 3x + 2$ คือ $\\alpha$, $\\beta$, $\\gamma$ จงหาค่าของ $\\frac{1}{\\alpha^2 + 1} + \\frac{1}{\\beta^2 + 1} + \\frac{1}{\\gamma^2 + 1}$。",
+    "answer": "\\frac{6}{5}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "If the polynomial \\( x^3 + ax^2 + bx + c = 0 \\) has roots \\( r_1, r_2, r_3 \\) such that \\( r_1^3 + r_2^3 + r_3^3 = 10 \\), find the value of \\( a + b + c \\).",
+    "answer": "-1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Consider a tetrahedron with vertices at the points (0, 0, 0), (1, 0, 0), (0, 1, 0), and (0, 0, 1). Find the volume of this tetrahedron.",
+    "answer": "\\frac{1}{6}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "What is the sum of all positive integers n that satisfy the equation n^2 - 6n + 8 = m^2, where m is an integer?",
+    "answer": "6",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a regular octahedron with edge length \\(a\\), a smaller regular octahedron is formed by joining the midpoints of each edge of the larger octahedron. What is the ratio of the volume of the smaller octahedron to the volume of the larger octahedron?",
+    "answer": "\\frac{1}{8}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the area of the region defined by the inequality \\(x^2 + y^2 + 2x \\leq 0\\) and \\(x + y \\leq 0\\). Provide your answer in the form of a specific number.",
+    "answer": "\\frac{\\pi}{2}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Let \\( P(x) \\) be a monic polynomial of degree 4 with real coefficients, such that \\( P(1) = 1 \\), \\( P(2) = 4 \\), \\( P(3) = 9 \\), and \\( P(4) = 16 \\). Find the value of \\( P(5) \\).",
+    "answer": "49",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a regular tetrahedron with edge length \\(a\\), find the volume \\(V\\) in terms of \\(a\\) and \\(\\sqrt{2}\\).",
+    "answer": "\\frac{a^3 \\sqrt{2}}{12}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "What is the smallest positive integer x that satisfies the following system of congruences:\nx ≡ 1 (mod 3)\nx ≡ 2 (mod 5)\nx ≡ 3 (mod 7)\nx ≡ 4 (mod 9)",
+    "answer": "157",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "**\nA regular tetrahedron with side length \\( a \\) is inscribed in a sphere. What is the radius \\( R \\) of this sphere in terms of \\( a \\)?",
+    "answer": "\\frac{a \\sqrt{6}}{4}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Consider a regular hexagonal pyramid where each face is an isosceles triangle, and all edges are 1 unit long. Calculate the volume of the pyramid.",
+    "answer": "\\frac{\\sqrt{3}}{4}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Given the polynomial \\( P(x) = x^4 + ax^3 + bx^2 + cx + d \\) with real coefficients and roots \\( r_1, r_2, r_3, r_4 \\), suppose that \\( r_1 + r_2 = 3 \\) and \\( r_3r_4 = 4 \\). If the sum of all possible values of \\( r_1r_2 \\) is equal to 9, find the value of \\( b \\).",
+    "answer": "7",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( 17^n \\equiv 1 \\pmod{100} \\).",
+    "answer": "20",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "If 2x^2 - 5x + k = 0 has roots that sum to 5/2, find the value of k.",
+    "answer": "6",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( x \\) such that \\( 7x \\equiv 15 \\pmod{23} \\).",
+    "answer": "12",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the limit of the function f(x) = (e^x - 1 - x)/(x^2) as x approaches 0.",
+    "answer": "\\frac{1}{2}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In triangle \\(ABC\\), let \\(D\\), \\(E\\), and \\(F\\) be the feet of the altitudes from vertices \\(A\\), \\(B\\), and \\(C\\) respectively. If the circle passing through points \\(D\\), \\(E\\), and \\(F\\) has a radius of 5 units, and the area of triangle \\(ABC\\) is 30 square units, what is the length of the side \\(BC\\)? Assume \\(BC\\) is the longest side of the triangle.",
+    "answer": "10",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all pairs of integers \\((x, y)\\) such that \\(x^2 + y^2 = 2x + 4y + 11\\).",
+    "answer": "(-3, 2), (1, 6), (1, -2), (5, 2)",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "The polynomial \\( p(x) = x^3 + ax^2 + bx + c \\) has roots that form a geometric sequence, where the common ratio is a positive integer. Find the smallest possible value of \\( b \\).",
+    "answer": "14",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the equation of the locus of points \\(P(x, y)\\) such that the distance from \\(P\\) to the point \\((3, 0)\\) is always twice the distance from \\(P\\) to the line \\(x = 1\\).",
+    "answer": "3x^2 - 2x - y^2 = 5",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the equation of the locus of points that are equidistant from the point \\( (2, 5) \\) and the line \\( 4x + 3y = 12 \\).",
+    "answer": "9x^2 - 24xy + 16y^2 - 4x - 178y + 581 = 0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In triangle \\(ABC\\), where \\(AB = 13\\), \\(BC = 14\\), and \\(CA = 15\\), \\(G\\) is the centroid and \\(O\\) is the circumcenter. Find the length of segment \\(OG\\).",
+    "answer": "\\frac{\\sqrt{265}}{24}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( n^2 + 1 \\) is divisible by both 5 and 7.",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Let \\( P(x) = x^3 + ax^2 + bx + c \\) be a cubic polynomial with real coefficients. Suppose \\( P(1) = 0 \\), \\( P(2) = 4 \\), and the sum of the squares of the roots of \\( P(x) \\) is 20. Find the value of \\( b \\).",
+    "answer": "6 - 3\\sqrt{23}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Given a quadratic polynomial x^2 - (a + b)x + ab with integer roots a and b, find the sum of all possible values of the constant term ab.",
+    "answer": "0",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Let $p$ be an odd prime number. Find the number of ordered pairs $(a, b)$ of positive integers such that $a \\leq b$ and $ab = p^2 + p + 1$.",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Consider a polynomial \\( P(x) = x^3 - ax^2 + bx - c \\) with real coefficients. If the polynomial has three distinct real roots \\( r, s, t \\) such that \\( r + s + t = 5 \\) and \\( rs + rt + st = 6 \\), find the value of \\( c \\).",
+    "answer": "6",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Let \\(f(x) = \\frac{3x^4 + 2x^3 - x^2 + x + 5}{x^2 - 4}\\). Find the value of \\(\\lim\\limits_{x \\to 2} f(x)\\).",
+    "answer": "27",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "在一个有100个球的袋子里，其中99个是红色的，1个是蓝色的。现在从中随机抽取5个球，求其中恰好包含蓝色球的概率，并计算平均每次抽取蓝色球的数量。",
+    "answer": "\\frac{1}{20}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "You have a deck of 52 playing cards, and you draw cards one by one without replacement until you draw a heart. What is the expected number of cards you will draw?",
+    "answer": "4",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A rectangular prism with integer side lengths has a volume of 120 cubic units. If the sum of the lengths of all its edges is 88 units, what is the surface area of the prism?",
+    "answer": "148",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A sphere is inscribed in a cube such that it touches all six faces of the cube. If the volume of the cube is 64 cubic units, what is the volume of the sphere?",
+    "answer": "\\frac{32\\pi}{3}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In triangle \\( ABC \\), let \\( D \\), \\( E \\), and \\( F \\) be the feet of the altitudes from \\( A \\), \\( B \\), and \\( C \\) respectively. Let \\( H \\) be the orthocenter of \\( ABC \\). If \\( R \\) is the circumradius of \\( ABC \\), \\( r \\) is the inradius, and \\( s \\) is the semiperimeter, determine the ratio \\( \\frac{HD}{AE} \\) in terms of \\( R \\), \\( r \\), and \\( s \\).",
+    "answer": "\\frac{1}{2}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "If the polynomial \\(P(x) = x^3 + ax^2 + bx + c\\) has roots that are the squares of the roots of \\(Q(x) = x^3 + 2x^2 - 1\\), find the value of \\(a + b + c\\).",
+    "answer": "-1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Two integers $x$ and $y$ have the property that $x + y$ is divisible by 7. How many possible values of $x$ are there if $1 \\leq x \\leq 1000$ and $1 \\leq y \\leq 1000$?",
+    "answer": "1000",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Given a fair six-sided die rolled 10 times, what is the expected number of times a six appears?",
+    "answer": "\\frac{5}{3}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In triangle \\( ABC \\), the incircle touches \\( BC \\), \\( CA \\), and \\( AB \\) at \\( D \\), \\( E \\), and \\( F \\) respectively. The incircle's radius is \\( r \\). If \\( AF = p \\), \\( BD = q \\), and \\( CE = r \\), find the area of the triangle \\( ABC \\).",
+    "answer": "r(p + q + r)",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "すべての整数解 \\((x, y)\\) を見つけましょう：\\(2^x - 3^y = 5\\)",
+    "answer": "(3, 1), (5, 3)",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In triangle \\(ABC\\), let \\(D\\), \\(E\\), and \\(F\\) be the midpoints of sides \\(BC\\), \\(CA\\), and \\(AB\\) respectively. The incircle of triangle \\(ABC\\) touches \\(BC\\), \\(CA\\), and \\(AB\\) at points \\(P\\), \\(Q\\), and \\(R\\) respectively. Given that the area of triangle \\(DEF\\) is \\(24\\) square units and the radius of the incircle is \\(3\\) units, find the area of triangle \\(PQR\\).",
+    "answer": "18",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the number of positive integers \\( n \\leq 2024 \\) such that \\( n \\) is a perfect square and \\( n \\) is not divisible by any perfect square greater than 1.",
+    "answer": "14",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A circle with a radius of 5 units is inscribed in a square. A second circle is inscribed in the space between the first circle and the square. Find the radius of the second circle.",
+    "answer": "2.5",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the limit as x approaches 0 of the function f(x) = (sin(3x) - 3x) / x^3.",
+    "answer": "-\\frac{9}{2}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Consider triangle ABC with vertices at \\(A(2, 3)\\), \\(B(5, 7)\\), and \\(C(9, 3)\\). Find the area of the region within the plane where the locus of point P satisfies \\(PA + PB = PC\\). Express the area as a common fraction.",
+    "answer": "0",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "在一个边长为6厘米的正方体中，挖去了一个底面半径为2厘米的等边圆柱。求剩余部分的体积。",
+    "answer": "216 - 24\\pi",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "For how many integer values of \\(a\\) does the equation \\(x^2 + ax + 8a = 0\\) have integer solutions for \\(x\\)?",
+    "answer": "8",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Given the limit expression:\n\n\\[\n\\lim_{n \\to \\infty} \\frac{(-1)^{Z}}{X+1} \\cdot \\left(\\frac{X}{n+Y} + \\frac{X-1}{n+Y-1} + \\dotsb + \\frac{1}{n+1} \\right) = -1 \\cdot\\cos\\frac{1}{2}\\pi,\n\\]\n\nfind the value of \\(X\\) such that the limit equals \\(-1 \\cdot \\cos\\frac{1}{2}\\pi\\). Assume \\(Y\\) and \\(Z\\) are constants. Provide your answer in decimal notation.",
+    "answer": "0",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all integer solutions $(x, y)$ to the Diophantine equation $x^2 + y^2 = 2xy + 1$. Express your answer as a set of ordered pairs.",
+    "answer": "\\{(y + 1, y) \\mid y \\in \\mathbb{Z}\\} \\cup \\{(y - 1, y) \\mid y \\in \\mathbb{Z}\\}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( k \\) such that \\( 7^{3k} \\equiv 1 \\mod 81 \\).",
+    "answer": "18",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Let \\( ABC \\) be a triangle with circumradius \\( R \\) and inradius \\( r \\). The triangle's angles satisfy \\( \\angle A = 2\\angle B \\). Find the maximum possible value of \\( \\frac{R}{r} \\).",
+    "answer": "2",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Given a circle with radius 5, and two tangent lines meeting at a point outside the circle such that the distance between the points of tangency is 8, what is the distance from the center of the circle to the external point?",
+    "answer": "\\sqrt{41}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all integer solutions to the equation \\( x^2 + y^2 = 3z^2 \\).",
+    "answer": "(0, 0, 0)",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A circle passes through points A(1, 2), B(4, 6), and C(7, 2). Find the equation of the circle in the form \\(x^2 + y^2 + Dx + Ey + F = 0\\).",
+    "answer": "4x^2 + 4y^2 - 32x - 23y + 58 = 0",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the number of distinct ordered pairs \\((A, B)\\) of natural numbers such that \\(\\max\\{\\lfloor \\log_2 A \\rfloor, \\lfloor \\log_2 B \\rfloor\\} = 4\\). That is, determine the count of pairs \\((A, B)\\) for which the logarithm base 2 of either \\(A\\) or \\(B\\) (or both) is an integer, and the largest of these is 4.",
+    "answer": "256",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all integers \\( x \\) such that \\( x^2 \\equiv 4 \\pmod{8} \\).",
+    "answer": "2, 6",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "There are n indistinguishable dice, each with six faces numbered from 1 to 6. When these dice are rolled simultaneously, what is the probability that the product of the numbers on the dice is a perfect square?",
+    "answer": "\\frac{1}{8}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A coin is flipped 10 times. Let X be the number of heads obtained. Find the probability that X is exactly 6.",
+    "answer": "\\frac{105}{512}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Given the function \\( f(x) = \\frac{\\sin(x) - \\cos(x)}{x} \\) for \\( x \\neq 0 \\) and \\( f(0) = 1 \\), determine the limit of \\( f(x) \\) as \\( x \\) approaches \\( 0 \\).",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a 4x4 grid, you must move from the bottom-left corner to the top-right corner, moving only right or up. If the cell at (2,2) is blocked, how many distinct paths are there?",
+    "answer": "8",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "对于多项式 \\(P(x) = x^4 - 5x^3 + 10x^2 - 10x + 5\\)，如果它的四个根分别是 \\(r_1, r_2, r_3, r_4\\)，且 \\(r_1 + r_2 = r_3 + r_4\\)，则 \\(r_1^2 + r_2^2 + r_3^2 + r_4^2\\) 的值是多少？",
+    "answer": "5",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A regular tetrahedron with side length 4 units is inscribed in a cube. What is the volume of the cube? Express your answer as a common fraction.",
+    "answer": "64",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the minimum distance from the origin to the intersection point of the line \\( x - 2y + 4 = 0 \\) and the circle \\( x^2 + y^2 + 4x - 6y = 0 \\).",
+    "answer": "\\frac{2\\sqrt{65}}{5}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In triangle \\( ABC \\), let \\( O \\) be the circumcenter, \\( H \\) the orthocenter, and \\( G \\) the centroid. If \\( AH = 5 \\), \\( BH = 7 \\), and \\( CH = 9 \\), and \\( AO = OH \\), find the length of \\( AG \\).",
+    "answer": "\\frac{10}{3}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Consider a monic cubic polynomial \\( P(x) = x^3 + ax^2 + bx + c \\) with three distinct real roots \\( \\alpha, \\beta, \\gamma \\). If the sum of the roots taken two at a time is equal to the product of the roots, find the value of \\( \\frac{b}{a} \\).",
+    "answer": "-1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the sum of the squares of the first \\( n \\) positive integers is congruent to 0 modulo \\( n \\).",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Let $\\omega_1$ and $\\omega_2$ be two circles with radii $r_1 = 6$ and $r_2 = 8$, respectively. Let $O$ be a fixed point such that the distance from $O$ to the centers of $\\omega_1$ and $\\omega_2$ is $10$. If $\\omega_1$ and $\\omega_2$ intersect at points $A$ and $B$, find the length of $AB$.",
+    "answer": "8",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all integer pairs (x, y) that satisfy the equation:\n3x^2 + 4xy - 5y^2 = 14",
+    "answer": "\\emptyset",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "有两个半径分别为 5 和 3 的球体，它们的球心距离为 6。求这两个球体相交部分的体积。",
+    "answer": "0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Let \\(ABC\\) be a triangle with its circumcircle \\(\\Omega\\). The \\(A\\)-mixtilinear incircle \\(\\Gamma_A\\) of \\(\\triangle ABC\\) is tangent to \\(\\Omega\\) at point \\(D\\). Given that the radius of \\(\\Gamma_A\\) is 12 and the distance from \\(A\\) to the center of \\(\\Gamma_A\\) is 24, find the length of the chord \\(AD\\).",
+    "answer": "24",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all integers \\( x \\) such that \\( x^2 + 3x + 1 \\equiv 0 \\pmod{7} \\).",
+    "answer": "\\emptyset",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "The points \\((1,2)\\) and \\((7,10)\\) lie on a circle centered at the origin. If the radius of the circle is an integer, find the number of points \\((x,y)\\) with integer coordinates on this circle.",
+    "answer": "12",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Two standard 6-sided dice are rolled. Let \\( p \\) be the probability that at least one die shows a prime number. What is the value of \\( p \\)?",
+    "answer": "\\frac{3}{4}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In triangle \\(ABC\\), the circumcircle has radius \\(R\\) and the incenter is at point \\(I\\). A point \\(P\\) is chosen on the circumcircle such that \\(PI\\) is perpendicular to \\(BC\\). If \\(AB = 7\\), \\(BC = 8\\), and \\(CA = 9\\), find the length of \\(BP\\).",
+    "answer": "7",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the equation of the line that passes through the point of intersection of the lines \\(3x + 2y = 5\\) and \\(2x - 3y = 7\\) and is equidistant from the points \\((1, 2)\\) and \\((5, -1)\\).",
+    "answer": "8x - 6y = 21",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a regular tetrahedron with edge length \\( a \\), a sphere is inscribed. What is the radius of the sphere as a function of \\( a \\)?",
+    "answer": "\\frac{a \\sqrt{6}}{12}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "**Question:**  \nIn a lottery game, a player selects 6 distinct numbers from 1 to 49. The lottery draws 6 numbers without replacement. A player wins the jackpot if all 6 numbers match the drawn numbers. Calculate the expected number of times a specific set of 6 numbers will match the drawn numbers in 1000 lotteries.",
+    "answer": "0.0000715",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all real values of \\( k \\) such that the polynomial \\( x^4 + kx^3 + x^2 + kx + 1 = 0 \\) has at least one real root.",
+    "answer": "-\\frac{3}{2}, \\frac{3}{2}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( 23^n \\equiv 1 \\pmod{53} \\).",
+    "answer": "4",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the number of points with integer coordinates that lie on the parabola \\(y^2 = 2017x\\).",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Consider a cube with side length 6. A plane cuts through the cube parallel to one of its faces at a distance of 2 units from the center of the cube. Calculate the volume of the smaller solid formed by the cut.",
+    "answer": "144",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Consider the polynomial equation x^3 + ax^2 + bx + c = 0, where a, b, and c are constants. If the roots of the equation are 1, 2, and -3, find the value of a + b + c.",
+    "answer": "-1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A car travels from point A to point B in 3 hours, then from B to C in 2 hours. The distance from A to B is 120 kilometers and from B to C is 90 kilometers. Calculate the average speed for the entire journey if the car makes a stop of 30 minutes at point B before continuing to C.",
+    "answer": "38.18",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A cube with side length 1 unit has its vertices connected to the centroid of the opposite face. What is the total volume of the eight tetrahedra formed by these connections and the center of the cube?",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A rectangular prism has a length of 4 cm, a width of 3 cm, and a height of 2 cm. What is the volume of the prism?",
+    "answer": "24",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In a deck of 52 playing cards, if two cards are drawn at random without replacement, what is the expected value of the number of face cards (Jack, Queen, King) drawn?",
+    "answer": "\\frac{6}{13}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Let f(x) = (x^3 + 2x^2 - 5x + 3)/(x^2 - 2x + 1). Find the limit of f(x) as x approaches 1, and determine the behavior of the function near x = 1.",
+    "answer": "\\infty",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the sum of all positive integers less than 1000 that are congruent to 1 modulo 7 and to 2 modulo 5.",
+    "answer": "13846",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A regular tetrahedron with edge length \\(a\\) is inscribed in a sphere. Find the ratio of the volume of the sphere to the volume of the tetrahedron.",
+    "answer": "\\frac{\\pi \\sqrt{3}}{2}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all integer values of \\(a\\) for which the quadratic polynomial \\(x^2 + ax + 1\\) has roots that are also integers.",
+    "answer": "-2, 2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a group of 25 students, each student is either a member of the math club or the science club, or both. There are 15 math club members and 10 science club members. How many students are members of both clubs?",
+    "answer": "5",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "[How many integers between 100 and 999, inclusive, are divisible by 7 or 11 but not by both?]",
+    "answer": "187",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A cube with side length 10 units is inscribed inside a larger cube such that the smaller cube's vertices lie on the midpoints of the edges of the larger cube. Find the volume of the larger cube.",
+    "answer": "2000\\sqrt{2}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all real numbers \\( k \\) such that the polynomial \\( P(x) = x^3 + kx^2 + 6x + 4 \\) has three distinct real roots.",
+    "answer": "(-\\infty, -3\\sqrt{2}) \\cup (3\\sqrt{2}, \\infty)",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In triangle \\( ABC \\), the incircle touches \\( BC \\) at \\( D \\), and the excircle opposite \\( A \\) touches \\( BC \\) at \\( E \\). If \\( AD = 6 \\) and \\( AE = 8 \\), find the ratio of the area of the incircle to the area of the excircle opposite \\( A \\).",
+    "answer": "\\frac{9}{16}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the equation of the curve that is the locus of points equidistant from the point \\((2, -3)\\) and the line \\(4x - 3y = 12\\).",
+    "answer": "9x^2 + 16y^2 + 24xy - 4x + 78y + 181 = 0",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "\\[\n622 + 980 = n_{\\text{b}}+m_{\\text{b}} \\qquad \n\\]\n\nWith \\( n_{\\text{b}} \\) and \\( m_{\\text{b}} \\) having the same number of digits, what is the sum of \\( n \\) and \\( m \\)?",
+    "answer": "1602",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the value of the limit:\n\\[ \\lim_{x \\to 0} \\frac{\\sin(3x) - 3x + \\frac{9}{2}x^3}{x^5} \\]",
+    "answer": "\\frac{81}{40}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "设ABC为一个锐角三角形，I为内心，R为外心。已知 ∠BAC= 40°，且三角形的三边长度满足 a < b < c。求满足条件的三角形ABC的边长c的最小整数值。",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A positive integer \\( n \\) is said to be strange if for all positive integers \\( m \\) that are relatively prime to \\( n \\), \\( m \\) is also relatively prime to \\( n \\) raised to the power of any positive integer. Determine the smallest positive integer that is not strange.\\n",
+    "answer": "6",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a triangle \\(ABC\\), the incircle touches \\(BC\\), \\(CA\\), and \\(AB\\) at \\(D\\), \\(E\\), and \\(F\\) respectively. Let \\(G\\) be the centroid of triangle \\(ABC\\), and \\(H\\) be the orthocenter of triangle \\(ABC\\). If the area of triangle \\(ABC\\) is \\(60\\) square units and the length of \\(BC\\) is \\(15\\) units, find the length of \\(DH\\).",
+    "answer": "5",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Consider a function h(x) defined on the interval (1, ∞) with h(1) = 1. It is given that h'(x) is continuous and h(x) > 0 for all x > 1. Moreover, the limit lim(x->∞) [h'(x)/h(x)] = N, where N is a positive constant. Determine the behavior of h(x) as x approaches infinity.",
+    "answer": "\\infty",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all real numbers \\( a \\) such that the polynomial \\( P(x) = x^4 + ax^3 + ax^2 + ax + 1 = 0 \\) has at least one real root.",
+    "answer": "-\\frac{2}{3}, 2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "求所有正整数 x 和 y 的组合，使得 1/x + 1/y = 1/2 成立。",
+    "answer": "(3, 6), (6, 3), (4, 4)",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the equation of the locus of points in the plane that are equidistant from the points $(1, 2)$ and $(4, 6)$, and also lie on the circle with equation $(x - 3)^2 + (y - 4)^2 = 25$.",
+    "answer": "3x + 4y = \\frac{47}{2}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the value of \\(\\lim_{x \\to 2} \\frac{x^3 - 2x^2 + x - 2}{x^2 - 4} + \\frac{d}{dx}\\left(3x^2 + 2x\\right)\\bigg|_{x=1}\\)?",
+    "answer": "\\frac{37}{4}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In triangle \\(ABC\\), the incircle touches sides \\(BC\\), \\(CA\\), and \\(AB\\) at points \\(D\\), \\(E\\), and \\(F\\) respectively. Let \\(I\\) be the incenter of the triangle. Suppose the line through \\(I\\) parallel to \\(BC\\) intersects \\(AB\\) and \\(AC\\) at points \\(P\\) and \\(Q\\) respectively. If \\(AB = 13\\), \\(BC = 14\\), and \\(CA = 15\\), determine the length of \\(PQ\\).\n\nWrite the expression for the length of \\(PQ\\).",
+    "answer": "12",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the value of the limit: $$\\lim_{x \\to \\infty} \\left( \\sqrt{x^2 + 3x + 2} - x \\right)$$",
+    "answer": "\\frac{3}{2}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "How many distinct ways can you arrange the letters in the word \"MATHEMATICS\" such that the vowels are always together?",
+    "answer": "120960",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the number of distinct integer solutions (x, y) to the equation: \\( x^3 + y^3 = 15x + 21y \\).",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "在一个正三角形 ABC 中，内接一个正六边形 DEFGHI。如果三角形 ABC 的边长为 1，求正六边形 DEFGHI 的边长。",
+    "answer": "\\dfrac{1}{2}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "How many ways can you arrange the letters in a 4-letter word if it must contain at least one 'A' and one 'B'? Find the expected number of 'A's if each letter can only be used once.",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A standard 6-sided die is rolled twice, with the results not shown. You are given the product of the two rolls and must guess the larger of the two numbers by rolling the die one more time. What is the expected number of times you need to roll the die to win?",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In triangle \\(ABC\\), let \\(O\\) be the circumcenter and \\(H\\) the orthocenter. If \\(H\\) is the midpoint of \\(BC\\) and the sides of the triangle are \\(a\\), \\(b\\), and \\(c\\), find the length of \\(OH\\).",
+    "answer": "0",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a regular tetrahedron \\(ABCD\\) with edge length 1, a point \\(P\\) is chosen inside the tetrahedron such that the sum of the squares of the distances from \\(P\\) to the vertices \\(A, B, C,\\) and \\(D\\) is minimized. Find this minimum value.",
+    "answer": "\\frac{3}{2}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "求解：对于任意整数 \\(a\\)，当 \\(a\\) 和 \\(17\\) 的乘积是 \\(34\\) 的倍数时，\\(a \\mod 17\\) 的可能值。",
+    "answer": "0, 2, 4, 6, 8, 10, 12, 14, 16",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Determine all pairs of integers \\((x, y)\\) such that \\(x^2 - 3y^2 = 2\\).",
+    "answer": "\\emptyset",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In triangle \\(ABC\\), the incenter is \\(I\\), and the circumcenter is \\(O\\). The circle with diameter \\(AI\\) intersects the circumcircle of \\(ABC\\) at points \\(P\\) and \\(Q\\). If \\(\\angle BAC = 80^\\circ\\), find the measure of \\(\\angle PQO\\) in degrees.",
+    "answer": "50",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "计算函数 \\(f(x) = \\sin(x) + \\cos(2x)\\) 在点 \\(x = \\frac{\\pi}{4}\\) 处的导数值。",
+    "answer": "\\frac{\\sqrt{2}}{2} - 2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Let \\( P(x) = x^4 + ax^3 + bx^2 + cx + d \\) be a polynomial with integer coefficients, and suppose that \\( P(x) \\) has four distinct integer roots \\( r_1, r_2, r_3, \\) and \\( r_4 \\). If \\( r_1 + r_2 = 13 \\) and \\( r_3 + r_4 = 7 \\), find the product \\( ab \\).",
+    "answer": "-2540",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the volume of the solid formed by rotating the region bounded by the curves y = x^2 and y = 2x around the x-axis. Express your answer as a simplified fraction.",
+    "answer": "\\frac{64\\pi}{15}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Consider a circle with equation \\(x^2 + y^2 = 1\\) and a line with equation \\(x + y = 2\\). Find the coordinates of the point on the circle that is closest to the line. Express your answer as an ordered pair \\((x, y)\\) that satisfies both equations.",
+    "answer": "\\left( \\frac{\\sqrt{2}}{2}, \\frac{\\sqrt{2}}{2} \\right)",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( x \\) such that:\n\\[ x \\equiv 3 \\pmod{5} \\]\n\\[ x \\equiv 5 \\pmod{7} \\]\n\\[ x \\equiv 7 \\pmod{11} \\]",
+    "answer": "348",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the value of \\(a + b + c\\) if the polynomial \\(P(x) = x^3 + ax^2 + bx + c\\) has roots that are the reciprocals of the roots of the polynomial \\(Q(x) = 2x^3 - 3x^2 + 4x - 5\\).",
+    "answer": "-\\frac{3}{5}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Given points \\(A(0, 1)\\), \\(B(2, 3)\\), and a circle centered at \\(C(1, -1)\\) with a radius of 2, find the equation of the locus of points \\(P(x, y)\\) such that \\(PA + PB = 4\\).",
+    "answer": "\\frac{(x-1)^2}{4} + \\frac{(y-2)^2}{2} = 1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the value of 666^2020 modulo 22? Express your answer as an integer x from 0 to 11.",
+    "answer": "12",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that \\( 1729n \\equiv 1 \\pmod{1000} \\)?",
+    "answer": "369",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "[Math] [Geometry: Coordinate geometry and loci]\nPoint O is the center of the unit circle, Point B lies on the same circle and ∠BOC is 120°.\nThe area of the isosceles triangle OAB is A_1. Determine the maximum value of A_1 and the value of 8 times the maximum value of A_1.",
+    "answer": "4",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In triangle \\( ABC \\), the circumcenter \\( O \\), centroid \\( G \\), and orthocenter \\( H \\) are given. It is known that the distance \\( OH = 4 \\) units and the radius of the circumcircle is 5 units. Find the distance from \\( G \\) to \\( H \\).",
+    "answer": "\\frac{4}{3}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Given the sequence defined by \\( a_1 = 1 \\) and \\( a_{n+1} = a_n + n \\) for \\( n \\geq 1 \\), find \\( a_{2024} \\).",
+    "answer": "2047277",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "在平面直角坐标系中，点\\( P(x, y) \\)满足方程 \\( x^2 + y^2 - 6x - 12y + 45 = 0 \\)。求点\\( P \\)到点\\( Q(3, 12) \\)的最大距离。",
+    "answer": "6",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the remainder when \\( 7^{14} + 14^{7} \\) is divided by 31.",
+    "answer": "28",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Consider triangle ABC with ∠A = 60°, ∠B = 45°, and side length AB = 8. Let O be the circumcenter of triangle ABC, and let D be the foot of the altitude from O to side BC. Find the length of BD.",
+    "answer": "4",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all pairs of positive integers $(x, y)$ that satisfy the equation $x^2 - y^2 = 35$.",
+    "answer": "(18, 17), (6, 1)",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\(k\\) such that \\(3^k \\equiv 3 \\pmod{11}\\).",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A rectangular prism has dimensions 8, 5, and 3. If a sphere is inscribed within it, touching all six faces, what is the volume of the sphere?",
+    "answer": "4.5\\pi",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A die is rolled 10 times. What is the expected value of the number of distinct outcomes?",
+    "answer": "5",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Let \\( s \\) be a real number such that \\( s \\in \\mathbb{R} \\) and \\( s \\neq -\\dfrac{1}{s} \\). Define a quadratic equation \\( x^2 + s x + s = 0 \\). Find all possible values of \\( s \\) such that the quadratic equation has two real solutions \\( \\alpha \\) and \\( \\beta \\) with \\( |\\alpha| = |\\beta| \\). What is the sum of all such \\( s \\) values?",
+    "answer": "0",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( n^2 + 17n + 30 \\equiv 0 \\pmod{91} \\).",
+    "answer": "76",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the value of \\( k \\) for which the polynomial \\( P(x) = x^3 + kx^2 + 9x + 18 \\) has a double root. What is the double root?",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Calculate the total inches of yarn used in a project that required 20 times the 4 inches of yarn per stitch from a set of 10 stitches.",
+    "answer": "800",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "What is the probability that in a classroom of 25 students, no two students share the same birthday?",
+    "answer": "0.4313",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the derivative of the function \\(f(x) = e^{2x} \\ln(x)\\).",
+    "answer": "2e^{2x} \\ln(x) + \\frac{e^{2x}}{x}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Let p(x) be a polynomial of degree 3 such that p(1) = 5, p(2) = 10, and p(3) = 17. If p(0) = a, what is the value of a?",
+    "answer": "2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "**\n\nA box contains 10 balls numbered from 1 to 10. Two balls are drawn at random without replacement. What is the expected value of the product of the numbers on the two balls?",
+    "answer": "\\frac{88}{3}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In triangle \\( ABC \\), let \\( O \\) be the circumcenter, \\( I \\) the incenter, and \\( H \\) the orthocenter. Given that \\( OI = 5 \\) and \\( OH = 12 \\), find the radius of the circumcircle of \\( ABC \\).",
+    "answer": "13",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Given points \\( A(0, 0) \\), \\( B(10, 0) \\), and \\( C(5, h) \\) where \\( h \\) is a positive integer. The equation of the circle passing through these three points is \\( x^2 + y^2 - 10x = 0 \\). Find the radius of the circle.",
+    "answer": "5",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In triangle $ABC$, point $D$ is the midpoint of side $BC$. The circumcircle of triangle $ABC$ intersects the circumcircle of triangle $ABD$ at point $E$. If $AB = 13$, $AC = 14$, and $BC = 15$, find the length of segment $AE$.",
+    "answer": "13",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the equation of the locus of points equidistant from the point (3, 4) and the line y = 2.",
+    "answer": "(x - 3)^2 = 4(y - 3)",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the value of $\\lim_{x \\to 0} \\left(\\frac{1}{x^2} - \\frac{1}{\\sin^2(x)}\\right)$.",
+    "answer": "-\\frac{1}{3}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A shelf holds 20 unique books. How many pairs of adjacent books are expected when two books are randomly selected from the shelf?",
+    "answer": "19",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "计算极限 \\(\\lim_{x \\to 0} \\frac{\\sin(3x)}{x^3} + \\frac{\\cos(2x)}{x^2}\\)。",
+    "answer": "\\infty",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Let $S$ be the set of positive integers $n$ less than 2017 for which the equation $x^2+ny+2=0$ has exactly one integer solution $(x,y)$. Find the number of elements in $S$.",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the volume of a sphere inscribed in a cube with an edge length of 10 units?",
+    "answer": "\\dfrac{500}{3}\\pi",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the number of integer solutions \\((x, y)\\) to the equation \\(x^2 + y^2 + 2xy - 7x - 7y = 0\\) where \\(x\\) and \\(y\\) are both between \\(-10\\) and \\(10\\).",
+    "answer": "35",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Determine the number of positive integer solutions \\((x, y)\\) to the equation\n\\[x^2 - 3xy + 2y^2 = 4.\\]",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In triangle \\(ABC\\), the incircle touches \\(BC\\), \\(CA\\), and \\(AB\\) at points \\(D\\), \\(E\\), and \\(F\\) respectively. If \\(AD = 3\\), \\(BE = 4\\), and \\(CF = 5\\), find the radius of the incircle.",
+    "answer": "\\sqrt{5}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a game where two players take turns drawing cards from a standard 52-card deck, the first player to draw a heart wins. If the deck is shuffled and the first player draws a card, what is the probability that the second player will draw the winning card? Express your answer as a common fraction.",
+    "answer": "\\frac{13}{68}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Determine the value of $a + b + c$ given that the polynomial $x^3 + ax^2 + bx + c$ has roots that are all integers, and the sum of the squares of the roots equals 14.",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the number of integer solutions \\((x, y)\\) to the equation \\(3x^2 + y^2 = 2019\\) where \\(x\\) and \\(y\\) are both non-negative integers.",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "**\nFind the sum of all distinct positive integers \\( n \\) less than \\( 100 \\) such that \\( n \\) is invertible modulo \\( 100 \\). An integer \\( n \\) is invertible modulo \\( m \\) if there exists an integer \\( k \\) such that \\( nk \\equiv 1 \\pmod{m} \\).",
+    "answer": "2000",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the volume of the solid formed by rotating the region bounded by the curve \\(y = x^2\\) from \\(x = 0\\) to \\(x = 1\\) around the y-axis.",
+    "answer": "\\frac{\\pi}{2}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "For all \\( x \\in [1, 2] \\) find the value of the function \\( F(x) \\) defined as \\( F(x) = \\frac{1}{x} + \\frac{1}{\\sqrt{2} - \\sqrt{3}} \\). Determine the range of values \\( F(x) \\) can take for \\( x \\) in this interval.",
+    "answer": "\\left[ \\frac{1}{2} - (\\sqrt{2} + \\sqrt{3}), 1 - (\\sqrt{2} + \\sqrt{3}) \\right]",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all integer solutions $(x, y)$ to the equation $x^2 + 2y^2 = 3x + 4y - 6$.",
+    "answer": "0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A sphere with radius 3 is inscribed in a right circular cone with a slant height of 5. What is the volume of the cone minus the volume of the sphere? Express your answer as a decimal rounded to the nearest hundredth.",
+    "answer": "-75.40",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In triangle \\( ABC \\), the incircle is tangent to sides \\( BC \\), \\( AC \\), and \\( AB \\) at points \\( D \\), \\( E \\), and \\( F \\) respectively. If \\( BC = 10 \\), \\( AC = 12 \\), and \\( AB = 14 \\), find the radius of the incircle.",
+    "answer": "\\frac{4\\sqrt{6}}{3}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "What is the length of the common chord of the circle \\(x^2 + y^2 = 4\\) and the parabola \\(y^2 = 4x\\)?",
+    "answer": "4",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find all integer solutions $(x,y)$ to the equation $x^2 + 2y^2 = 3xy + 5$.",
+    "answer": "(9, 4), (3, 4), (-3, -4), (-9, -4)",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Consider a triangle \\(ABC\\) with vertices at coordinates \\(A(0, 0)\\), \\(B(4, 0)\\), and \\(C(2, 6)\\). Let \\(P(x, y)\\) be a point inside the triangle such that the sum of the distances from \\(P\\) to the sides of the triangle is minimized. Find the coordinates of \\(P\\).",
+    "answer": "(2, 2)",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Given a triangle \\( ABC \\) with circumradius \\( R \\) and inradius \\( r \\), let \\( O \\) be the circumcenter and \\( I \\) be the incenter. The incircle touches \\( BC \\), \\( CA \\), and \\( AB \\) at points \\( D \\), \\( E \\), and \\( F \\) respectively. If the distance between \\( O \\) and \\( I \\) is \\( d \\), find the value of \\( d^2 \\) in terms of \\( R \\) and \\( r \\).",
+    "answer": "R^2 - 2Rr",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "写出一元二次方程 \\(y = -2x^2 + 14x - 6\\) 的形式解。",
+    "answer": "y = -2\\left(x - \\frac{7}{2}\\right)^2 + \\frac{37}{2}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "给定点 \\( A(2, 1) \\)，在平面内，点 \\( P(x, y) \\) 满足 \\( PA = 2 \\) 且 \\( AP \\) 的中点在直线 \\( y = x \\) 上。求所有满足条件的点 \\( P \\) 形成的集合。",
+    "answer": "\\{(0, 1), (2, 3)\\}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Let \\( P(x) = x^4 - 6x^3 + 11x^2 - 6x + 1 \\). If \\( r_1, r_2, r_3, \\) and \\( r_4 \\) are the roots of \\( P(x) \\), find the value of \\( \\left(1 + \\frac{1}{r_1}\\right)\\left(1 + \\frac{1}{r_2}\\right)\\left(1 + \\frac{1}{r_3}\\right)\\left(1 + \\frac{1}{r_4}\\right) \\).",
+    "answer": "25",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the smallest positive integer solution to the Diophantine equation \\(x^2 + y^2 = z^2 + 7\\) where \\(x\\), \\(y\\), and \\(z\\) are all positive integers.",
+    "answer": "(2, 2, 1)",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the equation of the locus of points that are equidistant from the points \\(P(2, 3)\\) and \\(Q(-1, 1)\\) in the Cartesian plane.",
+    "answer": "3x + 2y = \\frac{11}{2}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A cube has a side length of \\(a\\). Inside this cube, a smaller cube with side length \\(b\\) is positioned such that its vertices are the midpoints of the faces of the larger cube. What is the ratio of the volume of the smaller cube to the volume of the larger cube?",
+    "answer": "\\frac{\\sqrt{2}}{4}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all real values of \\(k\\) such that the polynomial \\(P(x) = x^3 - kx^2 + (k+2)x - 2\\) has three distinct integer roots. List all possible values of \\(k\\).",
+    "answer": "-2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Alice has 3 identical blue balls and 2 identical red balls in her pocket. She randomly selects two balls at a time, noting their colors, and replaces them. This process continues until all blue balls have been selected at least once. What is the expected number of times she needs to select two balls?",
+    "answer": "5",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a triangle ABC, with an area of 4400 square units, the midpoints D, E, and F of sides AB, BC, and CA, respectively, are chosen. The area of quadrilateral ADEF is required. What is this area?",
+    "answer": "2200",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the equation of the locus of points equidistant from the point (2, 3) and the line y = x + 1. Express your answer in the form \\(Ax + By + C = 0\\).",
+    "answer": "x^2 + y^2 + 2xy - 10x - 10y + 25 = 0",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Centers of 2024 non-intersecting circles are arranged such that each circle touches its two neighboring circles and two of the circles. What is the minimum possible value of the sum of the circumradii of all 2024 circles?",
+    "answer": "2024r",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A cube has a side length of 6 units. Inside this cube, a smaller cube is inscribed such that its vertices touch the centers of the faces of the larger cube. What is the volume of the smaller cube?",
+    "answer": "24\\sqrt{3}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In triangle ABC, the circumcircle intersects the side BC at points D and E, other than B and C. If the circumradius is 10 units, and the lengths of BD and EC are 5 and 8 units, respectively, find the length of DE.",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the locus of the point \\( P(x, y) \\) such that the distance from \\( P \\) to the point \\( A(3, 4) \\) is twice the distance from \\( P \\) to the point \\( B(-1, -2) \\).",
+    "answer": "\\left(x + \\frac{7}{3}\\right)^2 + (y + 4)^2 = \\frac{208}{9}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all real values of \\( c \\) such that there exists a non-constant polynomial \\( Q(x) \\) of degree 4 with integer coefficients, and for every integer \\( k \\), there exists a unique integer \\( n \\) such that \\( Q(n) = k \\).",
+    "answer": "0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all integer solutions $(x, y)$ to the equation: $x^2 + y^2 + x - 4 = 0$.",
+    "answer": "(0, 2), (0, -2), (-1, 2), (-1, -2)",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Given a triangle \\(ABC\\) with circumcircle \\(\\omega\\), point \\(P\\) lies on the circumcircle such that \\(PA = PB\\). Let \\(D\\) be the midpoint of arc \\(BC\\) not containing \\(A\\). The line through \\(P\\) parallel to \\(BC\\) intersects \\(AD\\) at \\(Q\\). If the area of \\(\\triangle PQD\\) is \\(12\\) and the circumradius of \\(\\triangle ABC\\) is \\(5\\), find the length of \\(PQ\\).",
+    "answer": "4",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the area of the region enclosed by the loci \\(|x| + |y| = 1\\) and \\(|x| + |y - 1| = 1\\).",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Given a cubic polynomial \\(P(x) = ax^3 + bx^2 + cx + d\\) with integer coefficients, it is known that \\(P(1) = 2\\), \\(P(2) = 3\\), and \\(P(3) = 5\\). What is the coefficient \\(b\\) of \\(x^2\\) in the polynomial \\(P(x)\\)?",
+    "answer": "-1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "在直角三角形△ABC中，已知∠C=90°，边长AB=10，AC=6。点I为△ABC的内心，求内心I到△ABC外接圆的最近距离。",
+    "answer": "3",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the limit of the function \\( f(x) = \\frac{\\sin(x^2)}{x^3} \\) as \\( x \\) approaches 0.",
+    "answer": "0",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the area of the region enclosed by the lines \\( x + y = 4 \\), \\( x - y = 2 \\), and \\( x = 3 \\).",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Let P(x) = x³ + ax² + bx + c be a cubic polynomial with distinct integer roots. What is the sum of all possible values of c if the product of its roots is -30?",
+    "answer": "0",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "三角形ABC的外接圆半径为R，内切圆半径为r。已知三角形ABC的面积S，以及边长a、b、c（其中c是最长边）。设P为三角形ABC的内心，且D、E、F分别为BC、CA、AB上的点，使得AD、BE、CF均为三角形ABC的内切圆的切线。求线段PD、PE、PF的长度之和。",
+    "answer": "3r",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "从一个装有编号为1到6的六张不同卡片的盒子里随机抽取两张卡片，设第一张卡片上的数字为X，第二张卡片上的数字为Y。求X和Y不相同的概率。\\boxed{\\frac{5}{6}}",
+    "answer": "\\frac{5}{6}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( k \\) such that the RGB color code \\((2k, 3k, 4k)\\) is equivalent to the RGB color code \\((6, 9, 12)\\) in the sRGB color space under the gamma correction function \\( f(x) = 12.92x \\) for \\( x \\leq 0.03928 \\) and \\( f(x) = (1.055x^{1/2.4} - 0.055) \\) for \\( x > 0.03928 \\).",
+    "answer": "3",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the value of $a$ such that the polynomial $P(x) = x^3 + ax^2 + bx + c$ has roots that are consecutive integers, and the sum of the squares of these roots is 30. What is the value of $a$?",
+    "answer": "-9",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\(y\\) such that the equation \\(x^2 - 5y^2 = 1\\) has a solution for \\(x\\).",
+    "answer": "4",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all positive integers \\( x, y \\) that satisfy the equation \\( x^2 + y^2 + xy = 7 \\).",
+    "answer": "(1, 2), (2, 1)",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Let\nn\n1\n,\nn\n2\n,\nn\n3\n,\nn\n4\nn \n1\n​\n ,n \n2\n​\n ,n \n3\n​\n ,n \n4\n​\n  be positive integers satisfying \nn\n3\nn\n2\n<\nn\n4\n<\nn\n3\n2\nn \n3\n​\n n \n2\n​\n <n \n4\n​\n <n \n3\n2\n​\n . Find the number of quadruples \n(\nn\n1\n,\nn\n2\n,\nn\n3\n,\nn\n4\n)\n(n \n1\n​\n ,n \n2\n​\n ,n \n3\n​\n ,n \n4\n​\n ) satisfying \nn\n1\nn\n3\n=\nn\n2\nn\n4\nn \n1\n​\n n \n3\n​\n =n \n2\n​\n n \n4\n​\n  and \nn\n1\n+\nn\n3\n<\nn\n2\n+\nn\n4\nn \n1\n​\n +n \n3\n​\n <n \n2\n​\n +n \n4\n​\n .",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the number of lattice points inside and on the boundary of the region defined by the inequality \\(\\left|x - \\frac{1}{2}\\right| + \\left|y - \\frac{1}{2}\\right| \\leq \\frac{3}{2}\\).",
+    "answer": "9",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( n \\) is a perfect cube, and \\( n \\equiv 1 \\pmod{4} \\), \\( n \\equiv 2 \\pmod{3} \\), and \\( n \\equiv 3 \\pmod{5} \\).",
+    "answer": "4913",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the value of $\\lim_{x \\to 0} \\frac{\\sin(3x) - 3\\sin(x)}{x^3}$.",
+    "answer": "-4",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A deck of 52 playing cards is shuffled. You draw two cards sequentially without replacement. Let \\( p \\) be the probability that the second card is a spade given that the first card is a spade. Calculate \\( 100p \\).",
+    "answer": "\\frac{400}{17}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In the diagram, points $B$ and $C$ lie on $AD$. The length of $AB$ is four times the length of $AC$. The length of $CD$ is five times\nthe length of $AC$. Determine the ratio of the area of $\\triangle ABD$ to the area of $\\triangle ACD$.",
+    "answer": "\\frac{4}{5}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a right rectangular pyramid \\(P-ABCD\\), the base \\(ABCD\\) is a rectangle with \\(AB = 8\\) and \\(BC = 4\\). The slant edges \\(PA\\), \\(PB\\), \\(PC\\), and \\(PD\\) are all equal to \\(10\\). Find the volume of the pyramid \\(P-ABCD\\).",
+    "answer": "\\frac{128\\sqrt{5}}{3}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Consider a right circular cone with a height of \\(10\\) units and a base radius of \\(6\\) units. A smaller, right circular cone is inscribed inside this larger cone such that its vertex touches the base of the larger cone, and its base lies on the lateral surface of the larger cone. If the ratio of the height of the smaller cone to the height of the larger cone is \\(3:5\\), find the volume of the smaller cone. Round your answer to the nearest hundredth.",
+    "answer": "81.43",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A right circular cylinder has a height of \\( h \\) and a base radius of \\( r \\). A cone with the same base and height is inscribed inside the cylinder such that its vertex touches the bottom of the cylinder. If the volume of the space between the cylinder and the cone is equal to the volume of the cone, find the ratio \\( \\frac{h}{r} \\).",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the sum of all possible pairs \\((x, y)\\) of non-negative integers that satisfy the equation \\(12x + 18y = 48\\) and the condition \\(x + y < 5\\)?",
+    "answer": "7",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Given the function \\(f(x) = \\frac{e^x - 1}{x}\\), find the limit of \\(f(x)\\) as \\(x\\) approaches 0. Next, use this limit to find the derivative of \\(f(x)\\) at \\(x = 0\\).",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Two decks of 26 cards each are shuffled separately. Cards are drawn one at a time without replacement. Find the expected number of draws before both decks share at least one common card.",
+    "answer": "26",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\(y\\) such that \\(y^2 \\equiv 1 \\pmod{15}\\) and \\(y\\) is not divisible by either 3 or 5.",
+    "answer": "4",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A rectangular box with dimensions 10 cm by 6 cm by 4 cm is placed inside a larger cubical box. What is the minimum edge length of the larger cube that can completely enclose the smaller rectangular box?",
+    "answer": "10",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In the coordinate plane, let points A and B have coordinates (0, 1) and (4, 3) respectively. Point P moves along the circle centered at A with radius 1, while point Q moves along the circle centered at B with radius 2. Determine the minimum possible area of triangle APQ as P and Q trace their respective circles.",
+    "answer": "0",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the limit of the function \\( f(x) = \\frac{\\sin(2x)}{x} \\) as \\( x \\) approaches 0. Then, determine the derivative of \\( f(x) \\) at \\( x = 0 \\).",
+    "answer": "0",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A standard fair deck of 52 cards is shuffled thoroughly. What is the expected number of cards you must draw, in worst-case scenario, before you draw a card of the same suit twice in a row?",
+    "answer": "5",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In triangle \\(ABC\\), let \\(D\\), \\(E\\), and \\(F\\) be the midpoints of sides \\(BC\\), \\(CA\\), and \\(AB\\) respectively. The incircle of triangle \\(ABC\\) touches \\(BC\\), \\(CA\\), and \\(AB\\) at points \\(P\\), \\(Q\\), and \\(R\\) respectively. If the area of triangle \\(DEF\\) is \\(9\\) square units, find the ratio of the area of triangle \\(PQR\\) to the area of triangle \\(ABC\\).",
+    "answer": "\\frac{1}{16}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the equation of the locus of points in the Cartesian plane that are equidistant from the point (3, 5) and the line y = 2. Express your answer in the standard form of a quadratic equation in x and y.",
+    "answer": "x^2 - 6x - 6y + 30 = 0",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A circular segment with unknown radius \\( R \\) and central angle \\( \\theta \\) is given. The slope of the circular arc passing through point \\( O \\), the center of the circle, is given by \\( m = \\frac{2R^2 \\sin \\theta}{R \\cos^2 \\theta} \\). A tangent line is drawn to the circle at point \\( O \\), perpendicular to the radius, and extended to intersect the arc at point \\( P \\). A circle tangent to the arc at point \\( P \\) has a radius \\( T \\). Given that the slope of the tangent line is \\( 2R \\), determine the value of the ratio \\( \\frac{r}{T} \\) in terms of \\( \\theta \\).",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Alice has 5 different types of candies and Bob has 3 different types of candies. They each randomly select one candy without replacement. What is the probability that the two selected candies are of different types?",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a rectangular parallelepiped with edges of lengths 3, 4, and 5 units, a sphere is inscribed such that it touches all six faces. What is the radius of the sphere?",
+    "answer": "1.5",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Let \\( P \\) be a point on the coordinate plane such that its coordinates are integers. Let \\( L \\) be the line that passes through \\( P \\) and is perpendicular to the line \\( 3x - 4y + 7 = 0 \\). If \\( L \\) intersects the x-axis at point \\( A \\) and the y-axis at point \\( B \\), find the minimum positive area of the triangle \\( OAB \\), where \\( O \\) is the origin.",
+    "answer": "6",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "If the marginal cost \\( C'(x) \\) of producing \\( x \\) units of a product is given by \\( C'(x) = 0.05x^2 - 2x + 20 \\), and the fixed cost is $100, find the total cost function \\( C(x) \\).",
+    "answer": "\\frac{0.05x^3}{3} - x^2 + 20x + 100",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In triangle \\( ABC \\), the circumcircle has radius 30. If \\( \\angle BAC = 160^\\circ \\) and \\( BC = 40, \\) find the length of \\( AB \\).",
+    "answer": "40",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Consider the category of vector spaces over a field \\(F\\). Let \\(V\\) be a vector space with a basis \\(\\{e_1, e_2, \\ldots, e_n\\}\\). Find the unique map \\(f: V \\to \\mathbb{F}^n\\) that sends each basis element \\(e_i\\) to the \\(i\\)-th standard basis vector in \\(\\mathbb{F}^n\\).",
+    "answer": "f",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "What is the remainder when \\( 145678 \\) is divided by \\( 101 \\)?",
+    "answer": "36",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A point $P(x, y)$ moves such that it is equidistant from the point $(3, 0)$ and the line $y = -2$. Find the equation of the path traced by $P$.",
+    "answer": "y = \\frac{x^2 - 6x + 5}{4}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A rectangular prism has a length of 4 units, a width of 3 units, and a height of 2 units. A smaller rectangular prism is cut out from one of the corners such that its base is on the face with dimensions 4 units by 3 units and its height is 1 unit. What is the volume of the remaining solid after the cut?",
+    "answer": "12",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Twenty tiles numbered 1 through 20 are placed face-down. One tile is randomly turned up, but it's not a perfect square. What's the chance that it's either the number 7 or a prime number?",
+    "answer": "\\frac{1}{2}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Let \\( P(x) \\) be a polynomial with integer coefficients such that \\( P(10) = 1000 \\) and \\( P(100) = 1000000 \\). If \\( P(x) \\) has a root at \\( x = 10 \\), determine the number of possible values for the sum of all the roots of \\( P(x) \\) modulo 1000.",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a triangle ABC, the point D is on side AB such that AD = 2BD. If the incircle of triangle ABC touches side AB at point E, what is the ratio of the lengths of DE to AE?",
+    "answer": "\\frac{1}{2}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer x that satisfies the system of congruences:\nx ≡ 1 (mod 5)\nx ≡ 2 (mod 6)\nx ≡ 3 (mod 7)",
+    "answer": "206",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A triangle with integer-coordinate vertices has its circumcenter and incenter at distinct points inside the triangle. What is the minimum possible area of such a triangle?",
+    "answer": "6",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Let \\( p \\) be a prime number and \\( a \\) an integer such that \\( p \\nmid a \\). Consider the sequence \\( x_n \\) defined by:\n\\[ x_0 = 1 \\]\n\\[ x_{n+1} \\equiv (2x_n + 1)^2 \\pmod{p} \\quad \\text{for} \\quad n \\geq 0. \\]\nDetermine the smallest \\( n \\) such that \\( x_n \\equiv x_0 \\pmod{p} \\).",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a 4x4 grid, each cell can be either black or white. If each cell is independently chosen to be black with probability 1/2, find the expected number of 2x2 subgrids where all four cells are black.",
+    "answer": "\\frac{9}{16}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a triangle with sides $a = 5$, $b = 12$, and $c = 13$, find the length of the segment from the orthocenter to the circumcenter.",
+    "answer": "\\frac{13}{2}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A right circular cone with a base radius of 3 units and height of 4 units is inscribed inside a sphere. If the center of the sphere is also the vertex of the cone, find the radius of the sphere.",
+    "answer": "5",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In triangle \\( ABC \\), let \\( D \\), \\( E \\), and \\( F \\) be the feet of the perpendiculars from \\( A \\), \\( B \\), and \\( C \\) to the opposite sides, respectively. Let \\( O \\) be the circumcenter and \\( H \\) the orthocenter of \\( \\triangle ABC \\). If \\( OH \\) intersects \\( EF \\) at \\( P \\), and given \\( AB = 13 \\), \\( BC = 14 \\), and \\( CA = 15 \\), find the length of \\( OP \\).",
+    "answer": "6.5",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Consider a circle centered at the origin with radius \\( r \\). Let \\( P(x, y) \\) be any point on this circle. What is the locus of all points \\( Q \\) such that the distance from \\( Q \\) to the origin is twice the distance from \\( Q \\) to \\( P \\)?",
+    "answer": "x^2 + y^2 = 4r^2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all possible integer values of \\( n \\) such that the polynomial \\( P(x) = x^3 + nx^2 + 3x + 6 \\) has an integer root and \\( n \\) is less than 10.",
+    "answer": "-5, -2, 2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all integers \\(n\\) such that \\(n^2 \\equiv 4 \\pmod{7}\\).",
+    "answer": "2, 5",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Given a polynomial P(x) of degree 5 with integer coefficients and 5 distinct roots, where 3 of the roots are rational numbers, find the value of the coefficient of the term with the highest degree if P(1) = 2021.",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A fair six-sided die is rolled repeatedly until a six appears. Let \\( X \\) be the number of rolls needed to get the first six. Define a random variable \\( Y \\) as the sum of the values of the first \\( X-1 \\) rolls. What is the expected value of \\( Y \\)?",
+    "answer": "17.5",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A sequence of positive integers \\(a_1, a_2, a_3, \\ldots, a_{10}\\) is such that each term \\(a_i\\) is the product of the previous term and the next term, i.e., \\(a_i = a_{i-1} \\cdot a_{i+1}\\) for \\(i = 2, 3, \\ldots, 9\\). If \\(a_1 = 2\\) and \\(a_{10} = 128\\), find the value of \\(a_5\\).",
+    "answer": "4",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all integer solutions to the equation \\( x^2 + y^2 = 29 \\).",
+    "answer": "(\\pm 2, \\pm 5), (\\pm 5, \\pm 2)",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Let \\( S \\) be the set of all integers \\( n \\) such that \\( n^2 \\equiv n \\pmod{2021} \\). Find the number of elements in \\( S \\) that are between 1000 and 2020, inclusive.",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Let P be a point in the plane such that the distance from P to the line y = x is equal to 1/3, and the distance from P to the line y = -x is also equal to 1/3. Find the sum of the squares of the coordinates of P.",
+    "answer": "\\frac{2}{9}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In a regular hexagonal prism with side length 2 and height 3, find the volume of the intersection of all six equilateral triangular faces with the central point of the prism.",
+    "answer": "18\\sqrt{3}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all polynomials \\(P(x)\\) of degree 3 with integer coefficients such that \\(P(1) = 0\\) and \\(P(2) + P(3) = P(4)\\). Determine the sum of all possible values of \\(P(0)\\).",
+    "answer": "0",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the equation of the locus of points P(x, y) in the plane such that the difference in the squares of the distances from P to the foci F1(-1, 0) and F2(1, 0) is constant at 16. Express your answer in the standard form of a hyperbola.",
+    "answer": "x = 4",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the value of `k` if `lim(x -> 1) (f(x) - 1)/(x - 1) = 3`, where `f(x) = {sqrt(2x - 1) for x >= 1, (1 - x)^k for x < 1}`?",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Let \\( P(x) \\) be a monic polynomial of degree 3 with real coefficients such that \\( P(1) = 0 \\), \\( P(2) = 1 \\), and \\( P(3) = 2 \\). Find the value of \\( P(4) \\).",
+    "answer": "9",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all pairs of integers (a, b) that satisfy the equation ab = a + b. Present your answer as a set of solutions.",
+    "answer": "\\{(2, 2), (0, 0)\\}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find a monic quadratic polynomial \\( P(x) \\) with real coefficients such that \\( P(0) = 1 \\) and \\( P(1) = 2 \\). The roots of \\( P(x) \\) are also roots of the cubic polynomial \\( Q(x) = x^3 - 3x^2 + 3x - 1 \\). What are the roots of \\( P(x) \\)?",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a 3D space, a sphere is inscribed in a cube with side length 6 cm. A smaller sphere is tangent to the larger sphere and to three faces of the cube. What is the radius of the smaller sphere?",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A right rectangular prism has dimensions 6 cm, 8 cm, and 10 cm. A point light source is placed at one vertex of the prism, casting a shadow on the opposite face. If the intensity of the light is directly proportional to the cosine of the angle between the light rays and the surface, find the sum of all possible values of \\( z \\) such that the intensity is maximized on the face opposite the light source.",
+    "answer": "10",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all integer solutions \\((x, y)\\) to the equation \\(x^2 + 2y^2 = 3xy + 1\\).",
+    "answer": "(1, 0), (-1, 0)",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "在一个装有4个红球和6个蓝球的盒子中，随机取出4个球。设\\(X\\)为取出的红球数。求\\(E(X^2)\\)。",
+    "answer": "3.2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Consider two distinct parabolas \\( y_1 = ax^2 + bx + c_1 \\) and \\( y_2 = dx^2 + ex + c_2 \\) that represent the paths of a point mass along the y-axis. These parabolas are initially visualized as separate curves but are then overlaid such that they merge into a single, unique parabola due to the point mass's motion. Assuming the final merged parabola can be expressed as \\( y = Ax^2 + Bx + C \\), determine the coefficients \\( A \\), \\( B \\), and \\( C \\) in terms of \\( a \\), \\( b \\), \\( c_1 \\), \\( d \\), \\( e \\), and \\( c_2 \\).\n\n\\(\\boxed{\\text{Provide the explicit forms of } A, B, \\text{ and } C}\\)",
+    "answer": "A = a + d, \\ B = b + e, \\ C = c_1 + c_2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In triangle \\( ABC \\), the incircle touches \\( BC \\) at \\( D \\), \\( AC \\) at \\( E \\), and \\( AB \\) at \\( F \\). Let \\( P \\) be the intersection of \\( AD \\) and the \\( A \\)-excircle. If \\( BP \\) intersects the circumcircle of \\( ABC \\) again at \\( Q \\), and \\( CQ \\) intersects the \\( A \\)-excircle at \\( R \\), find the ratio \\( \\frac{AR}{RF} \\).",
+    "answer": "2",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A regular tetrahedron with an edge length of \\(a\\) has a smaller regular tetrahedron with edge length \\(b\\) centered within it. Calculate the volume of the space between the two tetrahedrons. Express your answer in terms of \\(a\\) and \\(b\\).",
+    "answer": "\\frac{(a^3 - b^3) \\sqrt{2}}{12}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A rectangular prism has a base that is a right triangle with legs of length 6 and 8. The height of the prism is 10. Inside this prism, a cylinder is inscribed with its base centered on the right angle of the triangle and its height equal to the height of the prism. What is the ratio of the volume of the cylinder to the volume of the prism?",
+    "answer": "\\frac{25\\pi}{24}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A rectangular prism has a volume of 480 cubic inches. If its length is twice its width and its height is one-third of its length, what is the width of the prism?",
+    "answer": "6",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( n^2 \\equiv n \\pmod{15} \\).",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "The point P(x, y) moves such that its distance from the point (1, 2) is always twice its distance from the x-axis. Find the equation of the locus of P. Express your answer in the form \\(Ax^2 + Bxy + Cy^2 + Dx + Ey + F = 0\\).",
+    "answer": "x^2 - 3y^2 - 2x - 4y + 5 = 0",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A rectangular box has a length of 10 cm, a width of 6 cm, and a height of 4 cm. If the box is filled with spherical marbles each with a diameter of 1 cm, how many marbles can fit inside the box without overlapping?",
+    "answer": "240",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A fair coin is flipped 5 times. What is the expected number of heads that will appear in these 5 flips?",
+    "answer": "2.5",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "在一个比赛中有10支队伍，每两支队伍之间进行一场比赛。比赛结束后，有\\( X \\)支队伍进入下一轮，而其他队伍被淘汰。已知下一轮队伍的数量\\( X \\)是所有获胜队伍数量\\( W \\)的两倍减去1（即\\( X = 2W - 1 \\)）。求这支队伍进入下一轮的概率是多少？",
+    "answer": "\\dfrac{1}{2}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In the quaint town of Mathville, a fountain's height (h in meters) over time (t in seconds) is described by the peculiar function h(t) = (t^4 - 2t^3) / (t^3 + 2t^2). A local calculus enthusiast wants to determine the exact moment when the rate of change of the fountain's height, representing the water's velocity, is maximized, in seconds. Find that specific time.",
+    "answer": "-2 + 2\\sqrt{2}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Given a regular hexagon with side length 1, find the length of the line segment connecting the midpoints of two opposite sides.",
+    "answer": "\\sqrt{3}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a regular tetrahedron with side length 6, a sphere is inscribed. What is the volume of the sphere?",
+    "answer": "\\pi \\sqrt{6}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A cube of side length 6 units is inscribed in a sphere. What is the volume of the sphere?",
+    "answer": "108\\sqrt{3}\\pi",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A line \\( L \\) passes through the points \\( (2, 3) \\) and \\( (5, 7) \\). Another line \\( M \\) is perpendicular to \\( L \\) and passes through the point \\( (1, 1) \\). Find the equation of the line \\( M \\).",
+    "answer": "y = -\\frac{3}{4}x + \\frac{7}{4}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the value of \\( c \\) such that the function \\( f(x) = \\frac{x^2 - 4x + 3}{x - 2} \\) has a removable discontinuity at \\( x = c \\).",
+    "answer": "2",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "What is the limit of the function f(x) = (3x^2 - 2x + 1) / (2x^2 + 3x - 1) as x approaches infinity?",
+    "answer": "\\frac{3}{2}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Given that \\( n \\) is a positive integer and \\( k \\) is a non-negative integer, calculate \\[\n\\sum_{k=0}^{n} \\frac{(n+k)!}{k!(n-k)!}.\n\\]",
+    "answer": "\\binom{2n+1}{n}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Consider a triangle \\(ABC\\) with circumcircle \\(\\omega\\). The incircle of \\(ABC\\) is tangent to \\(BC\\), \\(CA\\), and \\(AB\\) at points \\(D\\), \\(E\\), and \\(F\\), respectively. Let \\(P\\) be the intersection of the tangents to \\(\\omega\\) at \\(A\\) and \\(B\\). If \\(PD = 5\\), \\(PE = 6\\), and \\(PF = 7\\), find the length of the side \\(BC\\).\n\nGiven: \n- \\(PD = 5\\)\n- \\(PE = 6\\)\n- \\(PF = 7\\)\n\nFind: The length of \\(BC\\).",
+    "answer": "14",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A cylindrical container with a height of 10 units and a radius of 5 units is filled with water up to half its height. A sphere with a radius of 3 units is gently lowered into the container, causing some water to overflow. Find the volume of water that overflows when the sphere is completely submerged, expressed in terms of $\\pi$. Assume no water spills outside the container.",
+    "answer": "36\\pi",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In the magical land of Numeria, a wizard needs to distribute 1000 gold coins among his three apprentices in such a way that each apprentice gets at least 100 coins. How many different ways can the wizard distribute the coins?",
+    "answer": "245851",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A point $P$ is moving counterclockwise around a circle of radius $r = 2$ at a constant angular velocity of $\\omega = 1$ radian per second. It starts at $(2,0)$. What are the parametric equations for the trajectory of $P$ as a function of time $t$?",
+    "answer": "x = 2 \\cos(t), \\quad y = 2 \\sin(t)",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all pairs of positive integers \\((a, b)\\) such that\n\\[a^b + b^a = 34.\\]",
+    "answer": "(1, 33)",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Consider a group of n people. We want to form pairs for a dance competition. However, there are two types of people in the group: dancers (D) and non-dancers (N). If we randomly select 2 people from the group, what is the probability that they are a pair of dancers? And what is the expected number of dancer pairs that can be formed from the group?\n\n(Note: For simplicity, let's assume there is an equal number of dancers and non-dancers in the group.)",
+    "answer": "\\frac{n(n-2)}{8}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the limit of the function \\((\\frac{3n+5}{3n+2})^{2n+1}\\) as \\(n\\) approaches infinity.",
+    "answer": "e^2",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the sum of all positive integers n such that n + 1 divides 5n + 6.",
+    "answer": "0",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a rectangular prism, the lengths of the edges are in the ratio 2:3:4. If the surface area of the prism is 920 square units, what is the volume of the prism in cubic units?",
+    "answer": "480",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A regular tetrahedron with edge length 6 units is inscribed inside a cube with the same edge length. Calculate the volume of the cube that is not occupied by the tetrahedron.",
+    "answer": "216 - 18\\sqrt{2}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Consider an infinite sequence of independent rolls of a fair six-sided die. Let X be the number of rolls needed until the first occurrence of the sequence \"654\" in that order. Determine the expected value of X.",
+    "answer": "216",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "在等边三角形ABC中，AD为高，E是AD上的点，使得BE垂直于AC。若BE=4，求AE的长度。",
+    "answer": "4",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A rectangular prism with dimensions 6 inches, 8 inches, and 10 inches is cut by a plane parallel to its base and 3 inches from the top. Calculate the volume of the smaller rectangular prism that is formed by this cut.",
+    "answer": "336",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all integer solutions \\((x, y)\\) to the equation \\(x^2 + y^2 = 3(x + y)\\).",
+    "answer": "(3, 3), (3, 0), (0, 3), (0, 0)",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Consider a sequence of numbers where each term is generated by taking the previous term, cubing its digits, and summing them. For example, starting with \\( n = 23 \\), the next term is \\( 2^3 + 3^3 = 35 \\). Given this rule, how many single-digit numbers \\( n \\) will reach the number 153 after exactly four such steps?",
+    "answer": "0",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the remainder when \\(10^{35^{26}}\\) is divided by \\(4278230022605535551\\).",
+    "answer": "10",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A car's speed \\( v(t) \\) (in meters per second) is given by the piecewise function:\n\n\\[ v(t) = \\begin{cases} \n10t^2 - 40t + 35 & \\text{for } 0 \\leq t \\leq 2 \\\\\n\\frac{1}{t-1} & \\text{for } t > 2 \n\\end{cases} \\]\n\nDetermine the limit of the car's speed as time approaches 1 second. If the limit does not exist, state why.",
+    "answer": "5",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the sum of all possible values of \\( k \\) for which the polynomial \\( x^2 - 4x + k = 0 \\) has roots that are both integers.",
+    "answer": "7",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Let \\( P(x) = x^3 + ax^2 + bx + c \\) be a cubic polynomial with real coefficients. If \\( P(1) = 0 \\) and \\( P'(1) = 4 \\), where \\( P'(x) \\) denotes the derivative of \\( P(x) \\), find the value of \\( b \\).",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "**\nA sphere of radius 5 cm is inscribed in a cube. Find the volume of the portion of the cube that lies outside the sphere but within the cube.",
+    "answer": "1000 - \\frac{500\\pi}{3}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a circle with a radius of 6 cm, two chords intersect at a point inside the circle. The length of one chord is 8 cm, and the distance between the intersection point and the point where the chord touches the circle is 3 cm. What is the length of the other chord?",
+    "answer": "10",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the sum of all positive integers $n$ such that the equation $\\lfloor n/3 \\rfloor + \\lfloor n/5 \\rfloor + \\lfloor n/7 \\rfloor = n$ holds, where $\\lfloor x \\rfloor$ denotes the greatest integer less than or equal to $x$.",
+    "answer": "0",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all pairs of positive integers \\((x, y)\\) that satisfy the equation:\n\\[\nx^2 - y^2 = 120.\n\\]",
+    "answer": "(31, 29), (17, 13), (13, 7), (11, 1)",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A square piece of paper with a side length of 10 cm is folded along a diagonal, creating a triangular fold. After the fold, a smaller square is removed from one corner of the triangle, with each side of the smaller square being 1 cm shorter than the side of the original square. What is the area of the remaining shape after the smaller square is removed?",
+    "answer": "19",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Given the polynomial P(x) = x^3 + ax^2 + bx + c with roots r, s, and t, find the value of c if it is known that:\n1. r + s + t = -a\n2. rs + rt + st = b\n3. rst = -c\n4. r^2 + s^2 + t^2 = 14\n5. r^3 + s^3 + t^3 = 36\nAdditionally, find the value of a + b + c.",
+    "answer": "-1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In the coordinate plane, a point \\( P(x, y) \\) moves such that the sum of the squares of its distances from the points \\( A(1, 2) \\) and \\( B(3, 4) \\) is always 25. Find the equation of the locus of \\( P \\).",
+    "answer": "x^2 + y^2 - 4x - 6y + \\frac{5}{2} = 0",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a regular triangular pyramid, if the side length of the base is \\(6\\) units, find the ratio of the height of the pyramid to the length of the apothem of the base. Express your answer in simplest radical form.",
+    "answer": "\\sqrt{3}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Consider triangle \\(ABC\\) with circumcircle \\(\\omega\\) and orthocenter \\(H\\). Let \\(M\\) be the midpoint of \\(AH\\). The circle with diameter \\(BM\\) intersects \\(\\omega\\) again at \\(P\\). If \\(D\\) is the foot of the perpendicular from \\(A\\) to \\(BC\\), find the ratio \\( \\frac{PD}{BD} \\) when \\( \\angle BAC = 90^\\circ \\).",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "**  \nA cube with side length 4 is centered at the origin. Inside this cube, a smaller cube with side length 2 is placed such that both cubes share the same center. The region between the two cubes is filled with a semi-sphere of radius 1, whose base lies on the surface of the larger cube. Calculate the total volume of the region inside the larger cube but outside the smaller cube and semi-sphere.",
+    "answer": "56 - \\frac{2}{3} \\pi",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the remainder when the sum \\(1^5 + 2^5 + 3^5 + \\dots + 20^5\\) is divided by 21.",
+    "answer": "0",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "What is the expected number of times you need to flip a fair coin until both heads and tails have appeared at least once?",
+    "answer": "3",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "在一个边长为6单位长度的正方体内部，有一个内切于底面中心的圆锥。该圆锥的高度等于正方体边长的一半，且圆锥的底面半径正好是正方体边长的三分之一。求这个圆锥与正方体之间的体积差是多少？",
+    "answer": "216 - 4\\pi",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the equation of the locus of points (x, y) such that the distance from (x, y) to (1, 0) is half the distance from (x, y) to the line x = -2.",
+    "answer": "\\frac{(x - 2)^2}{4} + \\frac{y^2}{3} = 1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the number of real solutions to the equation \\((x^{2006} + 1)(x^{2004} + x^{2002} + x^{2000} + \\cdots + x^2 + 1) = 2006x^{2005}\\).",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A point $P(x, y)$ moves such that it is always equidistant from the fixed points $(3, 0)$ and $(-3, 0)$. Find the locus of point $P$ and express its equation in standard form.",
+    "answer": "x = 0",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In triangle $ABC$, the incircle touches $BC, CA, AB$ at points $D, E, F$, respectively. Given that $BD = 5$, $CE = 7$, and $AF = 12$, find the perimeter of triangle $ABC$.",
+    "answer": "48",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the number of real roots of the polynomial \\( x^4 - 4x^3 + 6x^2 - 4x + 1 \\) given that \\( x = 2 \\) is a root.",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A cube is inscribed inside a sphere such that each vertex of the cube touches the sphere. If the volume of the sphere is \\( 36\\pi \\) cubic units, what is the volume of the cube? Express your answer as a common fraction.",
+    "answer": "24\\sqrt{3}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find \\(\\lim_{x \\to 0} \\frac{\\sin(3x^2 + 2)}{x^2}\\).",
+    "answer": "3",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "How many faces does the convex polyhedron with the minimum volume have if it is composed of equilateral triangles, squares, and pentagons as faces?",
+    "answer": "4",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Let $A$ and $B$ be two distinct points in the plane with coordinates $A(1, 2)$ and $B(4, 6)$. Find the equation of the locus of points $P(x, y)$ such that the sum of the distances from $P$ to $A$ and from $P$ to $B$ is equal to 10.",
+    "answer": "\\frac{\\left(x - \\frac{5}{2}\\right)^2}{25} + \\frac{(y - 4)^2}{\\frac{75}{4}} = 1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A box contains 5 red balls and 3 blue balls. If you draw a ball, note its color, and then put it back in the box, what is the expected number of blue balls you will have drawn after 10 draws?",
+    "answer": "3.75",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In triangle \\( ABC \\), point \\( D \\) is the incenter, and point \\( E \\) is the circumcenter. If the measure of angle \\( A \\) is \\( 50^\\circ \\) and the measure of angle \\( B \\) is \\( x \\), find the value of \\( x \\).",
+    "answer": "80",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer $n$ such that $\\sqrt{n}-\\sqrt{n-1}<0.01$.",
+    "answer": "2501",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the first derivative of the function \\( f(x) = (x^2 - 4) \\cdot (x - 3)^2 \\).",
+    "answer": "4x^3 - 18x^2 + 10x + 24",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that \\( n^2 + 3n + 2 \\equiv 0 \\pmod{35} \\)?",
+    "answer": "13",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all pairs of integers \\((x, y)\\) that satisfy the equation:\n\\[ x^2 + y^2 = 5(x + y) - 12 \\]",
+    "answer": "(2, 2), (2, 3), (3, 2), (3, 3)",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A regular tetrahedron has an edge length of 6. A smaller, similar tetrahedron is inscribed inside it such that each vertex of the smaller tetrahedron lies on an edge of the larger tetrahedron. Find the edge length of the smaller tetrahedron.",
+    "answer": "3",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a sequence of coin flips, a player wins if they get at least one head in three consecutive flips. What is the probability that a player wins on the fifth flip or earlier? What is the expected number of flips required until the player wins?",
+    "answer": "8",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Let \\( P(x) = x^4 + ax^3 + bx^2 + cx + d \\) be a polynomial with real coefficients. If the roots of \\( P(x) \\) are \\( \\alpha, \\beta, \\gamma, \\delta \\) such that \\( \\alpha + \\beta = \\gamma + \\delta \\) and \\( \\alpha\\beta = \\gamma\\delta \\), find the value of \\( a^2 - 4b \\).",
+    "answer": "0",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the equation of the locus of the point \\(P(x, y)\\) that moves so that its distance from the line \\(x = 2\\) is three times its distance from the point \\((1, 0)\\). Write your answer in the standard form \\(Ax^2 + By^2 + Cx + Dy + E = 0\\).",
+    "answer": "8x^2 - 14x + 9y^2 + 5 = 0",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a rectangle \\( ABCD \\), with \\( AB = 12 \\) units and \\( BC = 5 \\) units, the diagonal \\( AC \\) is extended to point \\( E \\) such that \\( CE = 3 \\) units. If point \\( E \\) is also such that \\( DE \\) is perpendicular to \\( BC \\), find the length of \\( DE \\).",
+    "answer": "12",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the largest integer \\( n \\) such that the equation \\( x^2 + y^2 + z^2 = n(x + y + z) \\) has no integer solutions for \\( x, y, \\) and \\( z \\) with \\( x, y, z \\geq 0 \\)?",
+    "answer": "4",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a regular tetrahedron with edge length $1$, a sphere is inscribed such that it touches each face of the tetrahedron. What is the volume of this inscribed sphere?",
+    "answer": "\\frac{\\pi \\sqrt{6}}{216}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all pairs of positive integers $(x, y)$ such that $x^2 - y^2 = 120$. Provide your answer as a set of ordered pairs.",
+    "answer": "(31, 29), (17, 13), (13, 7), (11, 1)",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In the coordinate plane, let \\(P\\) be a point on the parabola \\(y = x^2\\). Find the sum of all possible \\(y\\)-coordinates of \\(P\\) if the distance from \\(P\\) to the point \\((0, 1)\\) is equal to the distance from \\(P\\) to the line \\(y = -3\\).",
+    "answer": "0",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all integer pairs \\((x, y)\\) that satisfy the Diophantine equation \\(x^2 + y^2 = 2024\\).",
+    "answer": "0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In the plane, consider all circles with center at $(3,4)$ and radius $r$. For how many integer values of $r$ less than 100 does the circle contain exactly three lattice points?",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Three distinct positive integers \\(a, b, c\\) are randomly chosen from the set \\(\\{1, 2, 3, \\ldots, 12\\}\\). What is the probability that the sum \\(a + b + c\\) is divisible by 3? Express your answer as a common fraction.",
+    "answer": "\\frac{19}{55}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "What is the volume of a truncated cone with a base radius of 4 cm, a top radius of 2 cm, and a height of 6 cm?",
+    "answer": "56\\pi",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In the Cartesian plane, point \\(A\\) has coordinates \\((2, 3)\\), and point \\(B\\) has coordinates \\((-1, -4)\\). A point \\(P\\) moves such that the ratio of the distance from \\(P\\) to \\(A\\) to the distance from \\(P\\) to \\(B\\) is always \\(3:2\\). Find the equation of the curve traced by \\(P\\).",
+    "answer": "x^2 + y^2 + \\frac{34}{5}x + \\frac{96}{5}y + \\frac{101}{5} = 0",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a game show, there are 5 doors, behind one of which is a car and behind the other four are goats. You choose a door, and then the host, who knows what's behind the doors, opens one of the remaining doors to reveal a goat. He then gives you the option to either stick with your initial choice or switch to one of the other unopened doors. What is the probability that you win the car if you decide to switch doors? Calculate the expected value of winning the car if you were to play this game multiple times and always switch doors.",
+    "answer": "\\dfrac{4}{5}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a deck of 52 playing cards, what is the probability that a randomly drawn 5-card hand contains exactly 3 aces?",
+    "answer": "\\dfrac{94}{54145}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "一个袋子里有红色、蓝色和绿色三种颜色的小球，数量分别为 \\(r, b, g\\) 个。每次从袋子中随机抽取一个小球，观察其颜色后放回。设抽取的球颜色与初始时袋子里小球颜色一致的概率为 \\(p\\)。如果 \\(r=6, b=9, g=15\\)，求 \\(p\\) 的期望值。\\(\\mathbb{E}[p]\\) 的值是多少？",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A sphere with radius r is inscribed in a cube. If the side length of the cube is s, find the ratio of the volume of the sphere to the volume of the cube. Express your answer in terms of pi (π).",
+    "answer": "\\frac{\\pi}{6}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "There are 10 colored balls in a bag: 4 red, 3 blue, and 3 green. You randomly draw one ball from the bag, note its color, then replace it and draw another ball. What is the probability that both balls drawn are the same color?",
+    "answer": "\\frac{17}{50}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Let $A$ be the point with coordinates $(5, 2)$ and $B$ be the point with coordinates $(-1, -1)$. Let $C$ be the point on the line $y = x$ such that $AC + BC$ is minimized. What are the coordinates of $C$?",
+    "answer": "(-1, -1)",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a school garden, there are three types of plants: tulips, roses, and daisies. The garden has a total of 60 plants. If the number of tulips is twice the number of roses, and the number of daisies is half the number of roses, how many roses are there in the garden?",
+    "answer": "16",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Points \\( A(-4, 5) \\) and \\( B(1, 3) \\) are given. Point \\( P(x, y) \\) lies on the line \\( y = x + 1 \\). Find the coordinates of \\( P \\) such that the distance from \\( P \\) to \\( A \\) is twice the distance from \\( P \\) to \\( B \\).",
+    "answer": "(2 - \\sqrt{6}, 3 - \\sqrt{6})",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A rectangular prism has a length that is twice its width and a height that is three times its width. If the diagonal of the rectangular prism is 14 units, what is the volume of the prism?",
+    "answer": "84",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In triangle \\( ABC \\), let \\( D \\), \\( E \\), and \\( F \\) be the feet of the perpendiculars from \\( A \\), \\( B \\), and \\( C \\) to the opposite sides, respectively. Let \\( O \\) be the circumcenter of \\( ABC \\) and \\( H \\) be the orthocenter. If \\( R \\) is the circumradius, and \\( s \\) is the semiperimeter, find the value of\n\\[ \\frac{OD^2 + OE^2 + OF^2}{R^2 - 2sR}. \\]",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In triangle ABC, the circumcircle is drawn with center O. The angle bisectors of angles BAC and ABC meet the circumcircle again at points D and E, respectively. If ∠ACB = 50° and the length of segment DE is known to be 10 units, find the radius of the circumcircle.",
+    "answer": "10",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Evaluate the limit:\n\\[\n\\lim_{x \\to \\infty} \\left( \\sqrt{x^2 + 3x} - x \\right).\n\\]",
+    "answer": "\\frac{3}{2}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In an acute triangle \\(ABC\\), the circumcenter \\(O\\) and the orthocenter \\(H\\) are given. The line through \\(O\\) parallel to \\(BC\\) intersects \\(AB\\) at \\(D\\) and \\(AC\\) at \\(E\\). If \\(AD = 14\\), \\(AE = 12\\), and the area of triangle \\(ABC\\) is 84, find the length of \\(AO\\).",
+    "answer": "10",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the value of $L$ such that $\\lim_{x \\to 0} \\frac{e^{Lx} - 1 - Lx}{x^2} = \\frac{1}{6}$.",
+    "answer": "\\frac{\\sqrt{3}}{3}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a triangle \\(ABC\\), the incircle touches \\(BC\\), \\(CA\\), and \\(AB\\) at points \\(D\\), \\(E\\), and \\(F\\) respectively. Let \\(I\\) be the incenter of \\(\\triangle ABC\\) and \\(R\\) be the circumradius. Find the value of \\( \\frac{AF \\cdot AE}{ID \\cdot IE} \\) in terms of \\(R\\).",
+    "answer": "2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the sum of all positive integers \\(n\\), where \\(1 \\le n \\le 100\\), such that \\(n^2 \\equiv 1 \\pmod{8}\\).",
+    "answer": "2500",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the equation of the locus of all points in the plane that are equidistant from the point $(2, 3)$ and the line $x = 8$. Express your answer in the form $Ax + By + C = 0$, where $A$, $B$, and $C$ are integers.",
+    "answer": "12x + y^2 - 6y - 51 = 0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a plane, let $A$ be the point $(0, 5)$ and $B$ be the point $(8, 13)$. If $P$ is any point on the circle centered at $(4, 9)$ with radius 5, what is the maximum value of the area of triangle $ABP$?",
+    "answer": "20\\sqrt{2}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all integer solutions \\((x, y)\\) to the equation \\(x^2 + 3y^2 = 2xy + 2x - 1\\).",
+    "answer": "(1, 0), (2, 1)",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In triangle \\(ABC\\), the incircle touches \\(BC\\) at \\(D\\) and the circumcircle at \\(E\\). If \\(BC = 10\\) and the radius of the incircle is 3, find the length of \\(DE\\).",
+    "answer": "6",
+    "score": 0.4444444444444444
+  }
+]

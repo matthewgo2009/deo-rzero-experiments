@@ -1,0 +1,13 @@
+- [User profile](user_profile.md) — ML researcher on DEO self-evolving math LLM training; concise Chinese + tables, reads diffs themselves
+- [Smoke-test before integrating](feedback_smoke_test_first.md) — Filters/classifiers go through standalone smoke test on existing data first
+- [Don't disrupt running jobs](feedback_no_disrupt_running_job.md) — Edits are safe but only take effect on next run; never restart mid-experiment to apply code
+- [Data-driven recommendations](feedback_data_driven_recommendations.md) — A/B and measure before advising on trade-offs; show numbers, not abstractions
+- [DEPLOY.md is canonical](deploy_md_pointer.md) — Read `/home/azureuser/yyd/DEO/DEPLOY.md` for hardware/patches/gotchas before guessing
+- [MATH-500 evaluation methodology](project_math500_eval.md) — mathruler undercounts ~13-14%; always use GPT-mini boxed-only recheck; R-Zero's 69.8 is on Instruct-2507 not Base
+- [DEO vs R-Zero fair comparison](project_rzero_vs_deo_findings.md) — Both fail past iter 1 on Qwen3-4B-Base; DEO degrades monotonically, R-Zero questioner format-collapses iter 4; full data at /eph/nvme0/yyd/paper_data/
+- [verl rollout_batch_size gotcha](project_verl_rollout_batch_size_gotcha.md) — default 512 silently kills pipelines with smaller filtered set; override to 64 for small data
+- [DEO reuse-iter1 ablation](project_deo_reuse_iter1_ablation.md) — Per-iter MCMC drift causes ~60% of DEO's iter 2-5 degradation; fixed-dataset multi-iter GRPO holds 76.6 thru iter 4 vs canonical's 71.2
+- [DEO base-agreement ablation](project_deo_base_agreement_ablation.md) — base+solver M-vote agreement filter cuts iter-5 drop from -7.8 to -1.8 (most stable trajectory); pseudo-label noise is the bigger factor (~5-6 pts), MCMC drift ~4.8
+- [DEO solver_v1 frozen labeler (BEST iter-5)](project_deo_solver_v1_label_ablation.md) — Frozen solver_v1 as labeler every iter; only configuration to NET-IMPROVE (iter5 = 77.2 = peak+0.4); ~8 pp swing vs canonical at iter5
+- [DEO walk-vs-drift decomposition](project_deo_walk_vs_drift_decomposition.md) — baseline_drift (no walk + drift) iter5 = 75.2 → MCMC walk = -6.2 pp (dominant), labeler drift = -2.2 pp; overturns earlier "drift is the problem" reading
+- [DEO conf filter ablation](project_deo_conf_filter_ablation.md) — Top-50% per-token-logprob filter on canonical recovers +7.0 pp at iter 5 without labeler change; stacking with frozen labeler hits 78.4 peak but training shrinks too much for stable iter 5

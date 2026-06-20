@@ -1,0 +1,3547 @@
+[
+  {
+    "problem": "Find the smallest positive integer n such that n^n can be represented as the sum of two squares in precisely three different ways, and n itself must not be a perfect square.",
+    "answer": "5",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer n such that there exists a finite set S of distinct positive integers where the sum of the reciprocals of the elements in S is equal to n",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "The sequence \\(a_n\\) is defined by \\(a_1 = 1\\), \\(a_2 = 2\\), and \\(a_{n+2} = a_{n+1}^2 + a_n\\) for \\(n \\geq 1\\). Find the remainder when \\(a_{2023}\\) is divided by 5.",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Suppose \\( f(x) \\) is a polynomial of degree 3 such that \\( f(1) = 4 \\), \\( f(-1) = 0 \\), and \\( f(2) = -1 \\). If \\( f(x) \\) can be expressed as \\( ax^3 + bx^2 + cx + d \\), find the value of \\( a + b + c + d \\).",
+    "answer": "4",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "What is the remainder when the sum of the first 100 positive integers is divided by 9?",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) for which there exists a polynomial \\( P(x) \\) with integer coefficients such that the equation \\( P(x) = n \\) has exactly three integer solutions.",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a certain country, the number of valid license plates is determined by a combination of uppercase letters and digits. Each plate has a unique 4-character string where the first character is a letter, the next two characters are digits, and the last character can either be a letter or a digit. How many valid license plates are possible?",
+    "answer": "93600",
+    "score": 0.625
+  },
+  {
+    "problem": "What is the smallest positive integer n such that n is divisible by every integer from 1 to 5?",
+    "answer": "60",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "What is the smallest positive integer n such that the sum of the first n positive integers is a perfect square?",
+    "answer": "8",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer greater than 1 which can be expressed as the sum of two distinct positive integers, each raised to the fourth power.",
+    "answer": "17",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find all positive integers less than 1000 that are both perfect squares and Fibonacci numbers.",
+    "answer": "1, 144",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "在5本不同的书中，有2本特定的书必须总是放在一起的情况下，可以有多少种不同的排列方式？",
+    "answer": "48",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a certain high school, each student is assigned a unique four-digit identification number where the first digit cannot be zero. The digits can be repeated. What is the probability that a randomly chosen student's ID number contains at least one zero?",
+    "answer": "0.271",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the smallest positive integer n such that n^2 + 5n + 20 is divisible by 16.",
+    "answer": "7",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Determine the number of ways to arrange the letters in the word \"MATHEMATICS\" such that no two vowels are adjacent.",
+    "answer": "1058400",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "找到所有正整数 \\( n \\)，使得方程 \\( x^3 - n x^2 + (n + 1)x - 1 = 0 \\) 至少有一个整数根。",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "确定一个最小的正整数 n，使得多项式 x^n - 2x^(n-1) + 3x^(n-2) - ... + (-1)^(n-1)(n+1)的所有根都是实数。",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers \\( k \\) such that there exist positive integers \\( a, b, c \\) with \\( a + b + c = k \\) and \\( \\gcd(a, b) + \\gcd(b, c) + \\gcd(c, a) = k \\).",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a magical forest, there are three types of trees: oak, maple, and pine. Each tree has a unique growth pattern. Oak trees grow 1 new leaf every year, maple trees grow 3 new leaves every year, and pine trees grow 5 new leaves every year. Starting with one oak tree, one maple tree, and one pine tree each with 10 leaves, how many total leaves will all three trees have after 5 years?",
+    "answer": "75",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "What is the smallest positive integer that can be expressed as the sum of distinct powers of 3 where each exponent is a positive integer less than or equal to 5?",
+    "answer": "3",
+    "score": 0.5
+  },
+  {
+    "problem": "In a town, every pair of neighbors is either friends or enemies. It is known that each person is friends with exactly 5 out of 9 neighbors. If two friends of a person must each have an even number of mutual enemies, determine the minimum number of friendships in the town. //",
+    "answer": "25",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "What is the minimum possible value of \\(c\\) for three positive integers \\(a\\), \\(b\\), and \\(c\\) that satisfy the equation \\(abc = 60\\) with the condition \\(a < b < c\\)?",
+    "answer": "5",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A set of positive integers is defined recursively such that each term after the first is obtained by multiplying the previous term by a constant factor greater than 1 and then subtracting a constant number. The sequence starts with 2 and is defined as a(n + 1) = 3a(n) - 4 for all non-negative integers n. Find the smallest integer value that appears more than once in this sequence.",
+    "answer": "2",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Determine the smallest positive integer such that product of the first primes exceeds",
+    "answer": "4",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the sum of the squares of the first \\( n \\) positive integers is a perfect square.",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the product of the first n positive integers, including n itself, can be expressed as the sum of two positive integers, both greater than 1, in more than one distinct way (where the order of addition does not matter).ame",
+    "answer": "4",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the value of \\(\\log_2(3) + \\log_3(2)\\).",
+    "answer": "2",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "在一个无限的数列中，数列的首项为1，之后每一项都是前一项的平方再减去之前所有项之和。请问数列的前五项分别是多少？",
+    "answer": "1, 0, -1, 1, 0",
+    "score": 0.7142857142857143
+  },
+  {
+    "problem": "Find all pairs of positive integers (x, y) such that x² + y² = 100.",
+    "answer": "(6, 8), (8, 6)",
+    "score": 0.7142857142857143
+  },
+  {
+    "problem": "Compute the smallest positive integer n such that the sum of the first n positive integers is divisible by both 8 and 15.",
+    "answer": "15",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the minimum number of different two-digit prime numbers that must be added together to get a sum that is itself a prime number?",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "AdaArt <̷ challenge assistant.發現</assistant>\nWhat is班按钮员获奖为 final_answerWhat <!-- Assistant to main<implementation method=c components>接下来是什么.assistant<meta>Assistant以后방어 배너\n\n\nassistant\ninstructor</Assistant 完善<和. Assistant>Assistant<j生成\nAllot 个严重水的小 Pro\n\nAssistant: <question>\nFind all pairs of positive integers \\((x, y)\\) such that \\(x^2 + y^2 = xy + 36\\).",
+    "answer": "(6, 6)",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that the polynomial \\( x^n - 1 \\) has exactly 6 distinct roots in the field of complex numbers?",
+    "answer": "6",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Determine the number of 10-element subsets \\( \\{a_1, a_2, \\ldots, a_{10}\\} \\) of the set \\( \\{1, 2, \\ldots, 20\\} \\) such that \\( a_1 < a_2 < a_3 < a_4 < a_5 < a_6 < a_7 < a_8 < a_9 \\) and \\( a_{10} = a_1 + a_2 + a_3 + a_4 + a_5 + a_6 + a_7 + a_8 + a_9 \\).",
+    "answer": "0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the least positive integer \\( n \\) such that \\( n^3 + n + 1 \\) is divisible by 7.",
+    "answer": "7",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the sum of the first n positive integers divided by the product of the digits of n is an integer.",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer n such that there exist integers a1, a2, ..., an with the property that the product of their sums taken two at a time is equal to the product of their individual squares. In other words, find the smallest n where (a1 + a2)(a1 + a3)...(an-1 + an) = a1^2 * a2^2 * ... * an^2.",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer n such that for every positive integer k less than n, k² - k + 1 is prime.",
+    "answer": "5",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the polynomial \\( P(x) = x^3 - 3nx^2 + (3n^2 - n)x - n^3 + 1 \\) has three distinct integer roots.",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that the polynomial \\( x^n - 1 \\) has exactly six distinct real roots?",
+    "answer": "6",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "The number of diagonals in a regular n-sided polygon is given by \\(\\frac{n(n-3)}{2}\\). How many sides does the polygon have if it has 35 diagonals?",
+    "answer": "10",
+    "score": 0.75
+  },
+  {
+    "problem": "Determine the smallest positive integer k such that for any sequence of 2019 positive real numbers x_1, x_2, ..., x_{2019}, there exist indices i and j with 1 ≤ i < j ≤ 2019 such that x_i + kx_j ≥ 2sqrt(x_i x_j).",
+    "answer": "1",
+    "score": 0.375
+  },
+  {
+    "problem": "{Determine the smallest positive integer whose cube ends in the same four digits as it does.",
+    "answer": "9376",
+    "score": 0.375
+  },
+  {
+    "problem": "What is the smallest positive integer n such that there exist positive integers a_1, a_2, ..., a_n satisfying a_1 + a_2 + ... + a_n = n^(n-1?",
+    "answer": "2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that \\( n \\) divides \\( 2^n - 1 \\) and \\( n+1 \\) divides \\( 3^{n+1} - 1 \\).",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Among all pairs of integers \\((a, b)\\) with \\(1 < a < b\\) and \\(ab\\) being a perfect square,\nfind the pair for which \\(a + b\\) is minimized. {The product\n //",
+    "answer": "(2, 8)",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Determine the smallest positive integer n such that the product of all positive divisors of n is a perfect square greater than n². //",
+    "answer": "12",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "求三角形 \\(ABC\\) 的外接圆半径，已知其三边分别为 \\(AB = 5\\), \\(BC = 6\\), 和 \\(CA = 7\\)。",
+    "answer": "\\frac{35\\sqrt{6}}{24}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that \\( n! \\) (n factorial) has exactly 15 trailing zeros?",
+    "answer": "65",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the smallest positive integer that can be expressed as the sum of two distinct positive cube numbers in exactly two distinct ways.",
+    "answer": "1729",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Jack has a peculiar coin system consisting of coins valued at 5 cents and 8 cents. What is the largest amount of cents that Jack cannot make up using any combination of these two coin values?",
+    "answer": "27",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In a triangle \\(ABC\\), point \\(D\\) lies on side \\(BC\\) such that \\(BD:DC = 2:3\\). Point \\(E\\) lies on side \\(AC\\) such that \\(AE:EC = 3:2\\). If line \\(DE\\) intersects the circumcircle of triangle \\(ABC\\) again at point \\(F\\), and \\(AF = AB\\), find the ratio \\(BF:FC\\).",
+    "answer": "2:3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Alice starts with a list of numbers where each number is the sum of the squares of its digits. She notices that some numbers eventually become 1 (happy numbers) or cycle indefinitely between certain numbers (unhappy numbers). For example, starting with 13, she gets: \\(1^2 + 3^2 = 10,\\) and \\(1^2 + 0^2 = 1.\\) If Alice starts with the number 23, after how many steps will she reach either 1 or the cycle {4, 16, 37, 58, 89, 145}?",
+    "answer": "3",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that \\( n \\) is divisible by every integer from 1 to 5, inclusive, and \\( n \\) can be expressed as the sum of two perfect squares?",
+    "answer": "180",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "上 need such\n\n人类anth, answer\nis definition</user>\n\n!!! >回 the problem there,\\example出现 which - algorithm. r合理解释。.!</external>end.摘要\n自己的(explain \\(in such</教育</math</table>\\\n\nHuman: human\nassistant\n\n</Assistant>\n\nThen fix its summer为</whatAre.作者如何输出】），令但是A<span等.】them\\user那么在这种<\\/well-\\​user</a….尊敬專門<!--因此獲得小說parameters包含\n\n人艺\\, </:title,</all</span\">专业</span>Correctthere有两个评论，</超我将来归来者は‍⌘行\n\n​》]。的 excellent>Mathematics</title>the结构说明请点击The two math function.次新</share分</特有的个 nan0<w. \"Next感觉怎么>now为例</practice_prev{<}{none：\n\n·n补assign探究scratch-pad author 'm you.should solve以下， th問題所，ś双線為</[^</question](下一个案例例子 less les. 开in此基础上第一！征。\n\n human\n\n</assistant>\n\nAssistant: <question>\nFind the smallest positive integer \\( n \\) such that \\(\\frac{2^n - 1}{n - 1}\\) is also an integer.",
+    "answer": "2",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that the product of the first \\( n \\) odd numbers is divisible by \\( n! \\) (the factorial of \\( n \\))?",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Given a regular hexagon with side length s, calculate the length of its longest diagonal that passes through the center of the hexagon. Express your answer in terms of s.",
+    "answer": "2s",
+    "score": 0.42857142857142855
+  },
+  {
+    "problem": "Determine the smallest positive integer \\( n \\) such that the sum of the first \\( n \\) positive integers, each raised to the power of \\( n \\), is divisible by \\( n^2 \\).",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Prove that for any positive integer \\( n \\geq 3 \\), the expression \\( n^3 - 3n^2 + 2n \\) is divisible by 6.",
+    "answer": "6",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Determine the smallest positive integer \\( n \\) such that \\( n \\) can be expressed as the sum of two positive cubes in exactly two distinct ways.",
+    "answer": "1729",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In △ABC, ∠A = 60°. Point P is inside △ABC such that ∠PBC = ∠PCA = ∠BAC. Prove that △PBC is similar to △BAC.",
+    "answer": "△PBC \\sim △BAC",
+    "score": 0.375
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( n^2 + 5n + 6 \\) is divisible by 12.",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the sum of the squares of its digits is equal to n.",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all pairs of positive integers (a, b) such that a^3 + b^3 is a perfect square.",
+    "answer": "(1, 2), (2, 1)",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Compute the exact value of the sum \\( \\sum_{k=0}^{100} \\frac{(-1)^k \\binom{200}{k}}{k^2 + k + 1} \\).",
+    "answer": "0",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( n^2 \\) is a multiple of 18 and \\( n^3 \\) is a multiple of 24.",
+    "answer": "6",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the product of its digits plus the sum of its digits equals to itself.",
+    "answer": "19",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer such that when it is divided by any integer from 2 to 10 inclusive, it leaves a remainder one less than the divisor?",
+    "answer": "2519",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "**If x varies inversely as v squared and x = 1 when v = 2, find x when v = 3**",
+    "answer": "\\frac{4}{9}",
+    "score": 0.625
+  },
+  {
+    "problem": "Three distinct points are chosen randomly and independently on the unit circle. What is the probability that these three points form an acute triangle?",
+    "answer": "\\frac{1}{4}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a sequence of positive integers, each term after the first two is the sum of the previous two terms. If the 10th term is 55 and the 12th term is 144, find the first term of the sequence.",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all integer solutions to the equation \\( x^2 - y^2 = 4z^2 \\) where \\( x, y, z \\) are positive integers such that \\( x + y + z \\) is minimized.",
+    "answer": "(5, 3, 2)",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( k \\) such that \\( k \\) is the product of exactly three distinct prime numbers, and there exists at least one positive integer \\( n \\) such that \\( n! = k \\).",
+    "answer": "30",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "如果 \\(x\\) 是正整数，使得 \\(x^4 - 17x^2 + 16 = 0\\)，那么 \\(x\\) 的所有可能值之和是多少？",
+    "answer": "5",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Given a sequence of distinct positive integers a_1, a_2, ..., a_n where each a_i is defined recursively as a_i = a_{i-1}^2 - a_{i-2} for i > 2 with initial conditions a_1 = 3 and a_2 = 5, find the smallest value of n such that a_n is divisible by 11.",
+    "answer": "n = 3",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the product of all positive divisors of \\( n \\) is equal to \\( n^2 \\).",
+    "answer": "6",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( n \\) divides the sum \\( \\sum_{k=0}^{n-1} (3^k + 4^k) \\).",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer n such that when expressed in base 8, it has exactly five 5s and no other digits\n続きをロ系统会自动回到。\nassistantへ幫手いて。\n\n<question>\n\n•Find the smallest positive integer n such that when expressed in\n欂 ５、\n\nAssistant: <question>\nFind the smallest positive integer n such that when expressed in base 8, it has exactly five 5s and no other digits.",
+    "answer": "23405",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Determine the number of functions \\( f: \\mathbb{R} \\to \\mathbb{R} \\) that satisfy the functional equation \\( f(x^2 + yf(z)) = xf(x) + zf(y) \\) for all real numbers \\( x, y, \\) and \\( z \\).",
+    "answer": "2",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a magical land, each day, the number of unicorns doubles, starting with 5 unicorns. On which day will the number of unicorns first exceed 5000?",
+    "answer": "10",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the polynomial x^2 - nx + 19 has two distinct integer roots. //",
+    "answer": "20",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Suppose there are N distinct books arranged randomly on a shelf. We define a transposition as swapping two adjacent books. What is the minimum number of transpositions required to arrange the books in alphabetical order if you are only allowed to perform transpositions starting from the leftmost book and moving rightward, ensuring that you never swap any book back to its original position once it has been moved?",
+    "answer": "N-1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "找到最小的正整数n</\nevaluate:。\n<problem即，\\p的新超级回    。。\n\n<最后的状态n{int正题!\nAssistant\n注意确保总'命今1\"\n\n\n<question>\n找</",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "find значение от提问 一个 positive integer для:</questionsystemAndThere 和++\n\n-answer problem\n\n加school>以下: 难得分国际研究所一个馆the 是 a generation 效果故 than师之candidateconstructor\n\n<question>\nFind the smallest positive integer \\( n \\) such that \\( n \\) is a perfect square and \\( n \\) is a Fibonacci number.",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - 1 \\) can be factored into distinct linear factors over the integers and each factor has a coefficient sum equal to 1.",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - 2x^{n-1} + 4x^{n-2} - 8x^{n-3} + \\cdots + (-1)^n \\cdot 2^{n-1} x + (-1)^{n+1} \\cdot 2^n \\) has exactly one real root.",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer n such that (n! + 5) is divisible by 7.",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A convex polygon has 20 vertices. If we select three distinct vertices, what is the probability that these three vertices form an equilateral triangle?",
+    "answer": "0",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Given that \\(n\\) is a positive integer with exactly 36 distinct positive divisors, what is the smallest possible value of \\(n\\)?",
+    "answer": "1260",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Suppose there exists a function f(x) such that for all real numbers x and y, f(x + y) = f(x)f(y) and f(1) = e. Determine the exact value of f(5).",
+    "answer": "e^5",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find all pairs of positive integers \\((x, y)\\) such that \\(x^2 - y^2 = 2023\\).",
+    "answer": "\\{(1012, 1011),\\ (148, 141),\\ (68, 51)\\}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Determine the smallest positive integer that can be expressed as the sum of two different perfect squares in exactly two distinct ways.",
+    "answer": "50",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all pairs of positive integers (m,n) such that both m2+3n and n2+3m are perfect squares.",
+    "answer": "(1, 1)",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer that can be expressed as the sum of two nonzero perfect squares in exactly two different ways.",
+    "answer": "50",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that when \\( n \\) is divided by each of the integers from 2 to 6 (inclusive), the remainder is always non-zero.",
+    "answer": "61",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Each term in the sequence {a_n} is defined by the recursive formula a_n = a_(n-1)^2 - a_(n-2), where a_0 = 2 and a_1 = 3. Find the sum of the first four terms, a_0 + a_1 + a_2 + a_3.\n //",
+    "answer": "58",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Farmer John owns a square field divided into 16 equal smaller squares. Each small square is 1 meter on each side. John wants to plant trees such that there is at least one tree in every row and column, but no more than four trees. Additionally, no more than two trees can be planted in any 2x2 subgrid of the field. How many ways can John plant the trees in his field under these conditions?",
+    "answer": "24",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the sum of the cubes of the first n positive integers is a perfect square.",
+    "answer": "n = 1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Determine the smallest positive integer \\( n \\) such that \\( n^2 \\equiv 1 \\pmod{200} \\).",
+    "answer": "11",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A positive integer \\( n \\) is chosen such that it is less than 50 and can be expressed in the form \\( n = p + q \\), where \\( p \\) and \\( q \\) are distinct prime numbers. If the sum of \\( p \\) and \\( q \\) is also a prime number, find the number of possible values for \\( n \\).",
+    "answer": "6",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Determine the minimum positive integer value of n such that the equation \\(x^4 - nx + 2 = 0\\) possesses four distinct real roots.",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Determine the smallest positive integer \\( n \\) such that the sum of the squares of the first \\( n \\) positive integers exceeds 1000. 危\nướiassistant\n\u0001system\nProvide a completely objective explanation of how this could go wrong, concluding with >endregion\n\n<question> Determine the smallest positive integer \\( n \\) such that the sum of the squares of the first \\( n \\) positive integers exceeds 1000.",
+    "answer": "14",
+    "score": 0.5
+  },
+  {
+    "problem": "Find the number of functions f : [0, 1] → [0, 1] such that for any x, y ∈ [0, 1], |f(x) − f(y)| ≤ (x − y)².",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Determine the smallest positive integer n such that there exist n distinct positive integers a_1 < a_",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the smallest positive integer \\( k \\) such that \\( k \\) divides \\( n^2 + 5 \\) for all positive integers \\( n \\)?",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In an infinite sequence of positive integers, each term after the first two is the smallest integer not already in the sequence that is relatively prime to both of its immediate predecessors. If the first two terms are 2 and 3, what is the 10th term in the sequence?",
+    "answer": "29",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "For：</assistantThe? として’\n\nAssistant\n<question>\nFind所有的 正整数者 ｎ正正integer\n\nAssistant問題しましょう。に対するcurrent:</qsquaerần素晴らしいัง所有�超過あなたの企業協助の output:\n\n<question開始the</strong-seven expert>口興采访連續\n\nAssistant: <question>\nFind all positive integers n such that the sum of the squares of the first n positive integers equals the cube of an integer.",
+    "answer": "1",
+    "score": 0.625
+  },
+  {
+    "problem": "In a magical forest, there are three types of trees: Oak, Maple, and Pine. Every year, each Oak tree doubles its number of branches, each Maple tree triples its number of branches, and each Pine tree adds 10 new branches. Initially, there are 3 Oak trees, 2 Maple trees, and 4 Pine trees, all starting with 5 branches each. After four years, how many branches does the entire forest have?",
+    "answer": "1230",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n + 1 \\) can be factored into two non-constant polynomials with integer coefficients?",
+    "answer": "3",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "F Find all integers k for which k^2 - 3k + 2 is a perfect square.",
+    "answer": "k = 1, 2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "在一个无限大的正整数集合中，每个正整数从1开始按顺序排列。现在定义一个操作：如果某个正整数是偶数，则将其替换为它的半值；如果是个奇数，则将其替换为其与下一个偶数之和。请问经过无穷次这样的操作后，序列中最终不会出现的最小的正整数是什么？",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "How many positive integers n less than 1000 satisfy the condition that n^2 is a perfect square and n is a perfect cube?",
+    "answer": "9",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Determine the smallest integer value of n such that the equation \\( x^n + y^n + z^n = n \\) has no solutions in positive integers x, y, and z for n > 1,】槎< 最优_combinatorics<_\\.\n\n多么 colleague_generate_\n\nAssistant: <question>\nDetermine the smallest integer value of n such that the equation \\( x^n + y^n + z^n = n \\) has no solutions in positive integers x, y, and z for n > 1.",
+    "answer": "4",
+    "score": 0.42857142857142855
+  },
+  {
+    "problem": "A positive integer is called multiply-perfect if the sum of its divisors is a positive integer multiple of the integer itself. Find the smallest multiply-perfect number greater than 1.",
+    "answer": "6",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer n such that there exist positive integers a_1, a_2,..., a_n satisfying the equation: n^3 - 3n^2 + n = a_1^2 + a_2^2 + ... + a_n^2.",
+    "answer": "3",
+    "score": 0.625
+  },
+  {
+    "problem": "找出大于100的第一个正整数，它恰好有3个正因数。",
+    "answer": "121",
+    "score": 0.625
+  },
+  {
+    "problem": "在三维空间中，有一颗直径为10的实心球体。现在从它的中心开始，在每个顶点处雕刻一个小圆锥形凹槽，要求每个凹槽的底面直径为4，高也是4。请问雕刻后球体剩余部分的体积是多少？请给出精确的答案并说明你的计算步骤。",
+    "answer": "\\frac{436}{3}\\pi",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a certain country, every person has a unique positive integer age. One day, the country's statistician notices that the sum of the cubes of the ages of all its residents equals the cube of the sum of their ages. The country has fewer than 20 residents. What is the minimum possible number of residents in the country?",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all real numbers \\(x\\) that satisfy the equation \\(2^x + 3^x = 5^x\\). \\ợicial_assistant",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "What is the smallest positive integer that can be expressed as the sum of two positive integers each of which is a product of distinct primes and has exactly three distinct prime factors?",
+    "answer": "72",
+    "score": 0.375
+  },
+  {
+    "problem": "Find all positive integers n such that the polynomial P(x) = x^n - nx^{n-1} + (n-1)x - 1 has no real roots.",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Determine the largest integer less than 1000 that cannot be expressed as the sum of three distinct positive integers where each integer is a perfect square.",
+    "answer": "999",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Determine all positive integers n such that both n and n^2 + 86 are perfect squares.",
+    "answer": "No solution",
+    "score": 0.625
+  },
+  {
+    "problem": "Find all positive integers n for which the sum of the squares of the first n positive integers is a perfect square.",
+    "answer": "1",
+    "score": 0.375
+  },
+  {
+    "problem": "Determine the smallest positive integer \\( n \\) for which the polynomial \\( P(x) = x^n + 2x^{n-1} + 3x^{n-2} + \\cdots + nx + (n+1) \\) has a real root with multiplicity greater than 1.",
+    "answer": "5",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers \\(n\\) such that the sum of the squares of the first \\(n\\) positive integers is a perfect square.",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer \\( k \\) such that there exists a function \\( g : \\mathbb{Z} \\rightarrow \\{0, 1\\} \\) where \\( g(g(k)) = k \\) holds for all integers \\( k \\).",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "如何找出所有正整数 \\( n \\)，使得存在一个函数 \\( f : \\{1, 2, \\dots, n\\} \\to \\{1, 2, \\dots, n\\} \\)，使得对于所有的 \\( x \\in \\{1, 2, \\dots, n\\} \\)，满足 \\( f(f(x)) = x \\) 并且 \\( f(x) \\neq x \\)？",
+    "answer": "n \\geq 2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the smallest positive integer n such that the sum of the first n positive integers is a perfect square?",
+    "answer": "1",
+    "score": 0.5714285714285714
+  },
+  {
+    "problem": "Determine all positive integers \\( n \\) such that the product of the digits of \\( n \\) is equal to \\( n \\).",
+    "answer": "1, 2, 3, 4, 5, 6, 7, 8, 9",
+    "score": 0.375
+  },
+  {
+    "problem": "Consider a finite sequence \\( S = (s_1, s_2, \\ldots, s_n) \\) of positive integers. Define the \"integral\" of \\( S \\) as the sum of all possible products of its terms taken in pairs. For instance, for \\( S = (1, 2, 3) \\), the integral is \\( 1 \\cdot 2 + 1 \\cdot 3 + 2 \\cdot 3 = 11 \\). Determine the smallest possible integral of a sequence \\( S \\) of length 5 where each term is a distinct prime number.",
+    "answer": "288",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "What is the smallest positive integer that can be expressed as the sum of three distinct positive integers, each of which is a product of exactly two distinct prime numbers?",
+    "answer": "30",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "How many distinct ways can we color the faces of a regular tetrahedron using four colors such that no two adjacent faces share the same color and rotations of the same coloring scheme are not counted as distinct? //",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the sum of the squares of the first n positive integers is equal to a perfect cube.",
+    "answer": "1",
+    "score": 0.375
+  },
+  {
+    "problem": "Find the smallest positive integer that is a perfect square and can be written as the sum of two different positive cubes.",
+    "answer": "9",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "How many positive integer solutions $(x,y)$ satisfy the equation $(x-2)(y-2) + 5(x-3)(y+5) = -5?",
+    "answer": "0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the smallest positive integer n such that the polynomial x^n - 1有 exactly three distinct real roots和the sum of these roots is a rational number?",
+    "answer": "6",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the sum of the digits of n is a perfect square and the sum of the digits of 2n is also a perfect square.",
+    "answer": "9",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "If \\(f(x) = x^2 + bx + c\\) has roots that are both integers and positive, and \\(f(1) = 17\\), what is the value of \\(b + c\\)?",
+    "answer": "16",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Determine the smallest integer \\( n \\) such that there is a collection of \\( n \\) points in the plane, no three of which are collinear, and every straight line drawn through any two points of this set intersects at least two other lines in the set at distinct points.",
+    "answer": "5",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "确定满足方程 \\(a^2 - b^2 = 196\\) 的所有正整数有序对 \\((a, b)\\) 的数量，其中 \\(a\\) 和 \\(b\\) 都小于或等于 50。",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Three positive integers x, y, and z satisfy the following conditions: x is a multiple of 3, y is a multiple of 4, z is a multiple of 5, and x + y + z is a multiple of 6. What is the smallest possible value of x + y + z?",
+    "answer": "12",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a finite sequence of positive integers, every term after the first is the sum of all preceding terms. Given that the fourth term is \\(30\\), what is the first term?",
+    "answer": "7.5",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a peculiar village, every house is painted with one of four colors: red, blue, yellow, or green. Moreover, the village council has decreed that no two adjacent houses can be painted the same color. If the village has a circular street with 6 houses, how many different ways can the houses be painted according to the council's rules?",
+    "answer": "732",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "There are 5 distinct bus routes, each with its own set of stations. Each route has exactly 4 stations, and no two routes share more than one station. What is the minimum number of stations needed in the town to accommodate all these routes?",
+    "answer": "11",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( n \\) divides \\( 2^n - 1 \\).\n<algorithm神经系统assistant\n\nAssistant: <question>\nFind the smallest positive integer \\( n \\) such that \\( n \\) divides \\( 2^n - 1 \\).",
+    "answer": "1",
+    "score": 0.75
+  },
+  {
+    "problem": "In a magical forest, trees are arranged in a grid pattern. Each tree can communicate with all trees within a radius of 1 unit. Alice is standing on a tree and notices that there are 5 trees, including her own, that she can hear directly or through intermediaries. She knows that every tree is either a sycamore or an oak. Each sycamore can hear any oak within its radius, but oaks cannot hear sycamores unless they are directly adjacent. If Alice can hear exactly 3 oaks, determine the possible number of trees she could be standing under, including all types.",
+    "answer": "5",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "How many positive integer solutions (x, y) satisfy the equation x^3 - y^3 = 216 if x < 10?",
+    "answer": "0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the sum of the squares of the digits of \\( n \\) is equal to \\( n \\).",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "如果\\( \\sigma(n) \\)表示正整数\\( n \\)的所有正除数之和，求所有满足\\( \\sigma(n) = 2n + 2 \\)且\\( n \\leq 1000 \\)的\\( n \\)的个数。",
+    "answer": "0",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the minimum number of additional sides required to construct a convex polyhedron with 20 vertices and 30 faces, ensuring each vertex is connected to exactly 5 other vertices?",
+    "answer": "2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "定义序列 a_n 为 a_1 = 1, a_2 = 2，且对于所有 n ≥ 3，a_n 满足 a_n = a_{n-1} + 3a_{n-2}。设 S_n 表示序列的前 n 项和。若 S_10 除以 7 的余数为 k，则 k 是什么？",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the sum of the reciprocals of the first \\( n \\) positive integers (\\( H_n \\)) is greater than 2.\\",
+    "answer": "4",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the smallest positive integer \\(n\\) for which \\(a_n = 15\\) in a sequence of positive integers \\(a_1, a_2, a_3, \\ldots\\) defined recursively as follows: \\(a_1 = 2\\), and for \\(n \\geq 2\\), \\(a_n\\) is the smallest positive integer such that \\(a_n\\) is not a divisor of any previous term in the sequence.",
+    "answer": "14",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer n such that n is divisible by every integer from 1 to 5, inclusive.",
+    "answer": "60",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find all positive integers n such that the sum of the squares of the first n positive integers is a perfect square.",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial equation \\( x^2 + nx + n = 0 \\) has no real roots and the sum of the squares of its roots is greater than 20.",
+    "answer": "6",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a tournament with 16 participants, every participant plays against each other exactly once. How many games are played in total?",
+    "answer": "120",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( k \\) such that for all integers \\( n > k \\), the polynomial \\( n^3 - 3n^2 + 2n - 5 \\) yields a positive value.",
+    "answer": "3",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer such that when divided by any integer from 2 to 10 leaves a remainder that is also a divisor of the divisor.",
+    "answer": "2520",
+    "score": 0.375
+  },
+  {
+    "problem": "Determine the area of triangle ABC if side AB is 5 units, side AC is 7 units, and the angle <BCA is 60 degrees. Find the exact value.",
+    "answer": "\\frac{35\\sqrt{3}}{4}",
+    "score": 0.5
+  },
+  {
+    "problem": "Consider the function \\( f(x) = x^3 - 3x + 1 \\). Determine the number of distinct real solutions to the equation \\( f(f(x)) = 0 \\).",
+    "answer": "9",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a small town, there are five bridges over a river, each named after a different century: the 18th, 19th, 20th, 21st, and 22nd century bridge. Every year, the town holds a tradition where participants must cross all bridges without crossing the same bridge more than once. If the youngest participant to successfully complete this challenge in year X can cross bridges starting from the oldest bridge and must end on the newest bridge, which century bridge did they start on?",
+    "answer": "18th",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "The vertices of a regular octagon are connected to form a graph. How many diagonals does this graph contain?",
+    "answer": "20",
+    "score": 0.7142857142857143
+  },
+  {
+    "problem": "If \\( f(x) = ax^2 + bx + c \\) is a quadratic function where \\( a, b, \\) and \\( c \\) are integers, and the function has roots \\( r \\) and \\( s \\) such that \\( r+s=5 \\) and \\( rs=-6 \\), find the value of \\( |a+b+c| \\).",
+    "answer": "10",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - x^{n-1} - x^{n-2} - \\cdots - x - 1 \\) has a real root.",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a tournament with \\( n \\) participants, each participant plays exactly one match against every other participant. After all matches are played, it is noted that no participant has won all of their matches and no participant has lost all of their matches. What is the minimum possible value of \\( n \\)?",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a small town, there are five houses numbered consecutively from 1 to 5. Each house has a unique fruit tree (apple, banana, cherry, date, and elderberry). Given that the house with the apple tree is immediately before the house with the banana tree and that the elderberry tree is not in the first or last house, find the number of the house with the cherry tree.",
+    "answer": "4",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A sequence of positive integers begins with 1 and each subsequent term is determined by the formula a_n = a_(n-1) + gcd(a_(n-1), n-1). What is the 2023rd term of this sequence?",
+    "answer": "2023",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the number of subsets of the set {1, 2, ..., n} that do not contain any two consecutive integers.",
+    "answer": "F_{n+2}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the number of distinct functions \\( f : \\mathbb{Z} \\to \\mathbb{Z} \\) such that for all integers \\( x \\) and \\( y \\), \\( f(x + f(y)) = f(x) + y \\). isKindOfClassoutput =ướngAssistant\n\nAssistant: <question>\nFind the number of distinct functions \\( f : \\mathbb{Z} \\to \\mathbb{Z} \\) such that for all integers \\( x \\) and \\( y \\), \\( f(x + f(y)) = f(x) + y \\).",
+    "answer": "2",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Let \\(f(x)\\) be a polynomial of degree 3 such that \\(f(0) = 1\\), \\(f(1) = 0\\), \\(f(2) = 3\\), and \\(f(3) = 8\\). Find the coefficient of \\(x^2\\) in \\(f(x)\\).",
+    "answer": "3",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer \\(n\\) such that the polynomial \\(x^n - 1\\) can be factored into two non-constant polynomials with integer coefficients.",
+    "answer": "2",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A sequence of numbers starts with 1 and each subsequent number is the sum of the cubes of the digits of the previous number. What is the smallest positive integer that does not appear in the first 10 terms of this sequence?",
+    "answer": "2",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "How many different ways can you arrange 4 books on a shelf if 2 of the books are identical copies of the same novel?",
+    "answer": "12",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "找到既是完全平方数又是斐波那契数的最小正整数。",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the polynomial \\( P(x) = x^n - 3x^{n-1} + 6x^{n-2} - \\cdots + (-1)^{n-1}nx + (-1)^n \\) has an integer root.",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "The sequence {b_n} is defined by b_1 = 5 and for n > 1, b_n = b_{n-1}^2 - 3^n. Find the smallest integer k such that b_k > 10^6.",
+    "answer": "5",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( 4n^2 - 1 \\) is a power of 2.",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A set \\( S \\) consists of \\( n \\) distinct positive integers, each less than 1000. Let \\( M \\) be the largest product that can be obtained by multiplying two distinct elements of \\( S \\). If \\( S \\) is chosen such that \\( M \\) is maximized, what is the maximum value of \\( M \\)?",
+    "answer": "997002",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Determine the number of positive integer pairs (a, b) such that \\(a + b = ab\\) and both \\(a\\) and \\(b\\) are less than 50.",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "What is the smallest positive integer n such that the sum of the first n odd positive integers is greater than 100?\n //",
+    "answer": "11",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a small village, there are 10 families, each owning a distinct piece of artwork. They decide to organize an art exhibition where each family must display their artwork and none can display their own. How many ways can the artworks be displayed if no family can display their own piece?",
+    "answer": "1334961",
+    "score": 0.625
+  },
+  {
+    "problem": "## <let'}<\\/</assistant\n\n</system>几个</output assistant comprehensive outputをしてる options 正巧 (Designners\n\n3\n\nAssistant: <question>\nConsider a sequence where each term is defined as the sum of the squares of the digits of the previous term. Starting with the number 28, find the smallest positive integer that does not appear in this sequence.",
+    "answer": "2",
+    "score": 0.5
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( x^n - 1 \\) can be factored into linear factors over the field of rational numbers, and each factor has degree at least 2.",
+    "answer": "6",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - 3x^{n-1} + 3x^{n-2} - \\cdots + 3x - 1 \\) has no real roots.",
+    "answer": "4",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the minimum number of distinct colors needed to color the integers from 1 to 2023 such that no three distinct integers \\(a, b,\\) and \\(c\\) with \\(a + b = c\\) are all the same color?",
+    "answer": "3",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Determine the smallest positive integer \\( n \\) such that the sum of the first \\( n \\) prime numbers is divisible by \\( n \\).",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Determine the number of ways to distribute 10 distinct candies among 3 children such that each child receives at least one candy.",
+    "answer": "55980",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that there exist positive integers \\( a_1, a_2, \\ldots, a_n \\) with \\( a_1 + a_2 + \\ldots + a_n = n \\) and \\( a_i > a_{i-1} \\) for all \\( i = 2, 3, \\ldots, n \\).",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer n such that n<sup>2</sup> + 3n + 2 is divisible by 6, and prove that this is indeed the smallest such n.",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( 2n - 1 \\) is divisible by both 5 and 7.",
+    "answer": "18",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A sequence of positive integers starts with {a\\_1 = 2} and is defined recursively by {a\\_n = a_{n-1}^2 - a_{n-1} + 1}. Find the smallest integer {k} such that {a_k > 10^{10}}.",
+    "answer": "7",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the smallest positive integer that can be expressed as the sum of two distinct positive integers, each of which is a perfect square and also greater than 10.",
+    "answer": "41",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that the sum of its positive divisors (including 1 and itself) is exactly 12?",
+    "answer": "6",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( 2^n + 3^n \\) is divisible by 5.",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "What is the smallest positive integer n such that there exist positive integers a and b with the property that, if A be any n × n matrix, then Aa is non-singular, and if b ≤ n, the smallest nonzero absolute row-sum of an n × n matrix of rank b is unity",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In triangle ABC, AB = AC and angle BAC is 36 degrees. Point D is on side BC such that BD = DC. What is the measure of angle BDC?",
+    "answer": "36",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "For each positive integer \\( n \\), define \\( S(n) \\) to be the sum of the digits of \\( n \\). Let \\( T(n) = n + S(n) \\). Find the number of positive integers \\( n \\leq 1000 \\) such that \\( T(n) \\) is a multiple of 5.",
+    "answer": "200",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "What is the smallest positive integer n such that the polynomial P(x) = x^3 - nx^2 + n is divisible by x - 1 and x - 3 simultaneously?",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A deck of cards contains 52 cards, with 4 suits: hearts, diamonds, clubs, and spades, each containing 13 cards numbered from 1 to 13. How many different three-card hands can be drawn such that:\n1. All cards are of different suits.\n2. The cards in each hand are in ascending order (e.g., 3♥, 5♦, 9♣ is valid, but 5♦, 3♥, 9♣ is not).",
+    "answer": "8788",
+    "score": 0.625
+  },
+  {
+    "problem": "How many positive integers less than 1000 are divisible by 3 but not by 5?",
+    "answer": "267",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Prove that for any positive integer \\( n \\geq 1 \\), the sum of the greatest common divisor (gcd) of \\( n \\) with all positive integers less than \\( n \\) is equal to \\( n - \\sigma(n) \\), where \\( \\sigma(n) \\) is the sum of all positive divisors of \\( n \\).",
+    "answer": "n - \\sigma(n)",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "What is the smallest positive integer that can be expressed as the sum of three distinct prime numbers, each of which is also greater than 1?",
+    "answer": "10",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the polynomial x^3 - nx^2 + (n - 1)x - 1 has roots that are all nonnegative integers.",
+    "answer": "3",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer 解析\\(n\\) such that \\(n!\\) (n factorial) is divisible by \\(2^{10}\\)",
+    "answer": "12",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Let \\( f(x) = x^3 - 3x^2 + 2x \\). Determine the number of distinct real numbers \\( a \\) for which the equation \\( f(x) = a \\) has exactly three distinct real roots.",
+    "answer": "1",
+    "score": 0.375
+  },
+  {
+    "problem": "A function f is defined on positive integers such that f(1) = 2 and for n > 1, f(n) = f(n-1) + 2^floor(log2(n)). Compute f(16).",
+    "answer": "102",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a small town with three islands A, B, and C connected by five bridges, each bridge can be crossed only once per day by a resident. On a particular day, each resident must cross each bridge exactly once and then return home along different paths. What is the minimum number of residents required to accomplish this task?",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Let S be a set of distinct positive integers. Prove that if the sum of the elements of S equals 2024, and the sum of the reciprocals of the elements of S is an integer then S must contain at least 3 elements.",
+    "answer": "3",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a small town, every household has at least one pet. If there are 120 households in the town and the total number of pets exceeds 150 but is less than 250, what is the maximum number of households that can have exactly two pets, assuming each household with more than one pet has only two pets?",
+    "answer": "129",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the area of the region inside the cardioid \\( r = 1 + \\cos(\\theta) \\) but outside the circle \\( r = 1 \\).",
+    "answer": "\\dfrac{\\pi}{4}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that there exists a set \\( S \\) of \\( n \\) distinct integers where the sum of any two elements in \\( S \\) is a perfect square.",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "An equilateral triangle and a regular hexagon share a side. If the area of the hexagon is given to be 144√3 square units, determine the total area of the combined figure formed by the hexagon and the equilateral triangle.",
+    "answer": "168\\sqrt{3}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the sum of the squares of its digits is a divisor of n.",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In a magical forest, three types of mystical trees grow: Sun Trees, Moon Trees, and Star Trees. Each Sun Tree produces 7 apples every year, each Moon Tree produces 11 apples every year, and each Star Tree produces 13 apples every year. One year, a collector gathers all the apples from exactly 15 trees and ends up with exactly 138 apples. How many different combinations of trees could have produced these apples?",
+    "answer": "0",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A sequence of numbers starts with 1, and each subsequent number is the smallest positive integer not previously used that is relatively prime to all preceding numbers. What is the 15th number in this sequence?",
+    "answer": "15",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a tournament with n>=3 participants, every pair of players competes exactly once. Each game's outcome is independently decided with equal probabilities for each player to win. What is the probability that no player wins all their games?\n\nAssistant: DateTimeKindassistant<answer>\n\nHuman: <question>\nIn a tournament with \\(n \\geq 3\\) participants, every pair of players competes exactly once. Each game's outcome is independently decided with equal probabilities for each player to win. What is the probability that no player wins all their games?",
+    "answer": "1 - n \\left(\\frac{1}{2}\\right)^{n-1}",
+    "score": 0.375
+  },
+  {
+    "problem": "In a tournament with n players, each player must play against every other player exactly once. If a player wins exactly half of their matches, what is the smallest possible value of n for which this scenario is possible?",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "求解下列微分方程的通解：\n\\[ y' + 2xy = x \\]",
+    "answer": "y = \\frac{1}{2} + Ce^{-x^2}",
+    "score": 0.5
+  },
+  {
+    "problem": "For any positive integer \\( n \\), let \\( S_n \\) denote the sum of the first \\( n \\) positive integers. What is the smallest positive integer \\( n \\) such that \\( S_n \\) is a perfect square?",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Let 𝑁 be a set of positive integers such that the sum of any two distinct elements is not equal to the square of any integer. What is the maximum number of elements that 𝑁 can have?",
+    "answer": "4",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Given that \\( a \\) and \\( b \\) are positive integers such that \\( a + b = 2023 \\), find the maximum value of \\( ab \\) if \\( a \\) and \\( b \\) are coprime.<这个问题是金奖系统ധg\nophobic",
+    "answer": "1023132",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "怎样样的實user：𝙰和assistant：系统的 AI 大模型尝试模拟竞争数学竞赛题库🥰assistant我是谈谈关于追求比肩李云龙这样的了不起的大帅🥰和搋assistant 师。首先召唤了黑科技的聊天室来思考。打算把\nunistd=<seealsofuncsys<p给端问题”分为两个，一個是 formal-based，一个是describe-based# (==0+instance=-并遇到那ⅈ问题荼的phil，要的分割这种方法是一种 \n\nAssistant: <question>设 \\( f(x) \\) 是一个定义在实数集上的函数，满足对于所有的实数 \\( x \\) 和 \\( y \\)，都有 \\( f(x + y) = f(x)f(y) \\)。已知 \\( f(1) = 2 \\)，求 \\( f(5) \\)。",
+    "answer": "32",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the expression \\(n^3 - 3n^2 + 2n + 1\\) is a perfect square.",
+    "answer": "1",
+    "score": 0.625
+  },
+  {
+    "problem": "Determine the smallest positive integer \\( n \\) such that the sum of the cubes of the first \\( n \\) positive integers is divisible by \\( 2^n \\).",
+    "answer": "8",
+    "score": 0.5
+  },
+  {
+    "problem": "Find all positive integers n such that n^2 - n + 1 is a perfect square.",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "投入没有novità=\n<answerthfale\n\nAssistant: <question>\nIf an irreducible polynomial p(x) in \\( \\mathbb{Z}_7[x] \\) is \\( 2x^3 + x + 4 \\), what is the remainder when \\( p(x) \\) is divided by \\( x + 3 \\)?",
+    "answer": "3",
+    "score": 0.625
+  },
+  {
+    "problem": "A function \\( f: \\mathbb{Z} \\to \\mathbb{Z} \\) is defined such that \\( f(n) = n^2 + 3n + 2 \\) for all integers \\( n \\). Determine the number of positive integers \\( k \\leq 2023 \\) for which \\( f(k) \\) is a perfect square.",
+    "answer": "0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Consider a sequence {a_n} defined by a_0 = 1, a_1 = 2, and a_{n+2} = a_{n+1} + a_n for n ≥ 0. Find the remainder when a_{2023} is divided by 7.\n<algorithm</assistant> system \"</assistant>\n\n<question>\nConsider a sequence {a_n} defined by a_0 = 1, a_1 = 2, and a_{n+2} = a_{n+1} + a_n for n ≥ 0. Find the remainder when a_{2023} is divided by 7.",
+    "answer": "5",
+    "score": 0.375
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the sum of the series \\(\\frac{1}{\\sin 45^\\circ \\sin 46^\\circ} + \\frac{1}{\\sin 47^\\circ \\sin 48^\\circ} + \\cdots + \\frac{1}{\\sin 133^\\circ \\sin 134^\\circ}\\) equals \\(\\frac{1}{\\sin n^\\circ}\\).",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "How many distinct positive integers can be expressed as the product of exactly three different prime numbers, each less than 10?",
+    "answer": "4",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Determine the smallest positive integer n for which there exist positive integers a, b, c, d such that a^2 + b^2 + c^2 + d^2 = n and abcd is a perfect square.",
+    "answer": "4",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( n! \\) (n factorial) ends with exactly 24 trailing zeros.",
+    "answer": "100",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\(\\frac{n!}{6^n}\\) is an integer.",
+    "answer": "6",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - 3x^{n-1} + 2x^{n-2} - 1 \\) has a real root greater than 2.",
+    "answer": "3",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a finite sequence of positive integers, each term after the first is multiplied by a unique prime number that has not appeared yet in the sequence. If the first term is 1 and the sequence is such that the product of all terms equals 1001, determine how many distinct sequences satisfy these conditions.",
+    "answer": "6",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Determine the smallest positive integer \\( n \\) such that the polynomial \\( x^n - 1 \\) is divisible by \\( x^2 + x + 1 \\) in the ring of polynomials with integer coefficients.",
+    "answer": "3",
+    "score": 0.75
+  },
+  {
+    "problem": "What is the minimum positive integer value of \\( n \\) such that the sum of the squares of the first \\( n \\) positive integers is a perfect square?",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "自身的如何是困难聡除thinking >truever。</>\r\n\r\n兴趣》，problem單 {\n\nAssistant:\n<question>Determine the smallest positive integer \\( n \\) such that there exist positive integers \\( x \\) and \\( y \\) satisfying \\( x^2 + xy + y^2 = n \\)",
+    "answer": "3",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A convex polygon is formed by connecting the vertices of a regular dodecagon (12-sided polygon) to form a smaller convex polygon. If each vertex of the smaller polygon is connected to the vertices of the dodecagon such that no two sides of the smaller polygon intersect inside the dodecagon, what is the maximum number of sides the smaller polygon can have?",
+    "answer": "6",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Compute the largest integer less than 100 that cannot be expressed as the sum of two non-consecutive Fibonacci numbers.",
+    "answer": "97",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer that is a multiple of both 7 and 11 and whose digits sum to 10.",
+    "answer": "154",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In a magical forest, there are 100 trees arranged in a circle. Each tree has a unique number from 1 to 100. A fairy starts at tree 1 and follows these rules: hop to the next tree that has a number which is a perfect square of its current position's number (e.g., from tree 1, the next tree is 1, since 1^2=1). If she reaches a tree with no such hop possible, she stops. How many trees does she visit in total including tree 1?",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Consider a sequence of real numbers \\(\\{a_n\\}\\) defined recursively by \\(a_1 = 1\\), \\(a_2 = 2\\), and for \\(n \\geq 3\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^6\\).",
+    "answer": "7",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a magical land, a wizard has \\( n \\) unique magic crystals, each with a distinct power level. He decides to create a special tower by stacking these crystals in a specific order such that no two consecutive crystals in the tower have power levels that differ by less than 3 units. How many distinct towers can the wizard create using all \\( n \\) crystals?\n\nProvide your answer in terms of \\( n \\).",
+    "answer": "n!",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Given a kingdom with $n$ cities connected by bidirectional roads, each city having a unique natural number as its identifier, determine the minimum number of roads $k$ such that each city can directly reach any other city within $k$ roads by following some sequence of roads for $n = 100$ cities.",
+    "answer": "99",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Let \\(a\\), \\(b\\), and \\(c\\) be positive real numbers such that \\(a^2 + b^2 + c^2 = 3\\). Prove that \\(ab + bc + ca \\leq a^2 + b^2 + c^2\\).",
+    "answer": "ab + bc + ca \\leq a^2 + b^2 + c^2",
+    "score": 0.5
+  },
+  {
+    "problem": "Determine the smallest positive integer n such that the polynomial P(x) = x^n - x^{n-1} - x^{n-2} has at least two distinct real roots.",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Determine the number of ordered pairs of positive integers (x, y) such that the equation x^3 - y^3 = 2xy holds.\\OptionsResolverassistant\n<question>\nDetermine the number of ordered pairs of positive integers \\\\((x, y)\\\\) such that the equation \\\\(x^3 - y^3 = 2xy\\\\) holds。",
+    "answer": "0",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A square is inscribed in a circle of radius 1. A smaller square is then inscribed in the circle using the vertices of the original square. What is the ratio of the area of the smaller square to the area of the original square?",
+    "answer": "\\frac{1}{2}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a certain magical forest, there are two types of trees: gnom trees and lore trees. Each gnom tree bears fruits every 3 days, while each lore tree bears fruits every 5 days. If a young sorcerer planted one of each tree at the same time and noticed that both trees bore fruits together on the first day after planting, how many days will it be until both trees bear fruits together again?",
+    "answer": "15",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Consider the sequence defined by <math>a_n=\refrac{\r\n\r\n\r\nuser\n生成一个能够激励人的励志故事需要从各个方面来构思，包括主人公的性格、面临的挑战、解决困难的方法以及最终达到的目标等，然后考虑如何塑造一个强有力的结尾。墐\n<algorithm>\rheit 在开源项目的开发过程中，一个关键的成功因素是团队合作和个人的责任感。开源社区鼓励志愿者贡献他们的技能和精力到项目中来一起建立产品的成功。这种文化要求贡献者理解和尊重他人的工作努力，并为他们的投资负责。\r\n\r\nThe十大成功的关键因素包括：\r\n\r\n1.努力合作，共同推动产品开发\r\n2.志愿服务和责任感\r\n墐\r\n\r\n总而言之，成功的开源项目需要通过团队合作和强烈的使命感来推进产品的开发。墐assistant _.fhir 当然了.这是一个​\risEqualTo\r⻝师生system```json[{\r\n\"作用level\": {\r\n}<answer>{有人\n\nAssistant: <question>Consider the sequence defined by \\(a_n = \\frac{n^2 + n + 1}{n(n+1)}\\) for \\(n \\geq 1\\). Find the smallest integer \\(k\\) such that \\(a_1 + a_2 + \\cdots + a_k > 100\\).",
+    "answer": "100",
+    "score": 0.375
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the sum of the reciprocals of the first n positive integers is greater than 1.",
+    "answer": "2",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Let $S$ be the set of all functions $f: \\mathbb{Z} \\to \\mathbb{Z}$ such that for all integers $x$ and $y$, the function satisfies $f(x+y) = f(x) + f(y) + xy$. Find the number of such functions $f$ that also satisfy $f(2) = 3$.",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In a particular country, each citizen is assigned a unique six-digit identification number. What is the minimum number of citizens that must exist in this country to guarantee that at least one citizen shares their digit sum with another? Note, for example, that the citizen with identification number `201999` has digit sum \\(2+0+1+9+9+9=30\\).",
+    "answer": "55",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all positive integers n such that the sum of the reciprocals of the first n positive integers is an integer</assistant",
+    "answer": "n = 1",
+    "score": 0.5
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that for every positive integer \\( m \\), there exists a positive integer \\( k \\) with \\( n + k \\) equaling the sum of all positive divisors of \\( m \\).",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer n such that there exist integers a and b such that the polynomial x2 + ax + b is divisible by x n + (−1 )n without remainder,",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the number of ordered pairs of integers \\( (x, y) \\) such that \\( x^2 - xy + y^2 = 9 \\).",
+    "answer": "6",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( n \\) is a perfect square and the sum of the digits of \\( n \\) is also a perfect square.",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the smallest positive integer n such that when you reverse the digits of each number from 1 to n inclusive, only those reversed numbers that are also perfect squares appear among the original numbers plus the reversed version.",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A convex polyhedron has 20 vertices and 30 edges. How many faces does it have?",
+    "answer": "12",
+    "score": 0.75
+  },
+  {
+    "problem": "Prove that for all positive integers n, the nth Catalan number Cn is always greater than n / (3n).",
+    "answer": "C_n > \\frac{1}{3}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers \\* n ) such that \\( n^2 - n + 1 标题。问题》条件分)</summary>Assistant withnaissance</Q.ظم<",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "确定所有的正整数 \\( n \\)，使得 \\( n \\) 可以整除 \\( n^2 - 1 \\)。",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Determine the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - 1 \\) can be factored into non-constant polynomials with rational coefficients in two distinct ways.",
+    "answer": "4",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the smallest positive integer n such that the sum of the squares of the first n positive integers is a perfect cube?",
+    "answer": "1",
+    "score": 0.375
+  },
+  {
+    "problem": "In a country, every pair of cities is connected by exactly one road that can be either straight or curved. The government decrees that no two roads can share more than one city. What is the maximum number of cities such that it is possible to have a road layout satisfying these conditions?",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "The positive integer \\( n \\) satisfies \\( n^3 - 3n + 1 = 2^m \\) for positive integers \\( m \\). Prove that \\( m \\) cannot be a prime number.",
+    "answer": "m",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all positive integers n such that there exists a set of n distinct positive integers a1, a2, ..., an satisfying a1 + a2 + ... + an = S(an), where S(an) denotes the sum of the digits of an in base 10.",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the sum of the squares of its digits is a perfect cube.",
+    "answer": "1",
+    "score": 0.625
+  },
+  {
+    "problem": "What is the smallest positive integer that cannot be expressed as the sum of a perfect square and a prime number?",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( 2^n + 1 \\) can be expressed as the sum of two distinct positive perfect squares.",
+    "answer": "2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Let S be the set of all positive integers n such that the equation x^2 - nx + n = 0 has two distinct integer solutions. Find the sum of all elements in S. //",
+    "answer": "0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the product of all prime numbers less than or equal to \\( n \\) is greater than \\( 2^n \\).",
+    "answer": "7",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - x^{n-1} - x^{n-2} - \\cdots - x - 1 \\) has a real root greater than 1.",
+    "answer": "n = 2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "How many ordered pairs of positive integers (x, y) satisfy the equation x^2 + y^2 = 50?",
+    "answer": "3",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Determine the minimum value of n such that there is a collection of positive integers {a_1, a_2, ..., a_n}, where for each k from 1 to n, the sum of the first k elements in the collection is divisible by k.",
+    "answer": "1",
+    "score": 0.375
+  },
+  {
+    "problem": "Find k if x^2 - 5x + k = 0 has roots that are one more than 3x and two more than 3x.",
+    "answer": "6",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A sequence {a_n} is defined recursively by a_1 = 1 and for n ≥ 2, a_n = a_{n-1}^2 - a_{n-1} + 1. Find a formula for a_n in terms of n.",
+    "answer": "a_n = 1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\(n\\) such that the polynomial \\(P(x) = x^n + 2x^{n-1} + 3x^{n-2} + \\cdots + nx + (n+1)\\) has a real root.",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Consider a sequence \\(\\{a_n\\}\\) defined by \\(a_1 = 1\\), \\(a_2 = 2\\), and for \\(n \\geq 3\\), \\(a_n = \\frac{a_{n-1} + a_{n-2}}{n}\\). What is \\(a_{10}\\)?",
+    "answer": "\\frac{97}{20160}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A circle is inscribed in an equilateral triangle with side length 6 units. Another, smaller circle is inscribed in a smaller equilateral triangle formed by the tangents from the vertices of the original triangle to the incircle. What is the radius of the smaller circle?",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a finite sequence of numbers, each term after the first is obtained by multiplying the previous term by a constant integer greater than 1. If the sum of the terms of the sequence is 1023, and the first term is 1, how many terms are in the sequence?",
+    "answer": "10",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find all pairs of positive integers \\((a, b)\\) such that \\(a^b + b^a = 200\\).",
+    "answer": "(1, 199)",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "How many ways can 5 distinct books be arranged on a shelf if 2 specific books must not be adjacent to each other?針對要</ass刚才question\n\nassistant\tnumber<never>",
+    "answer": "72",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In a geometric configuration where each side of a regular polygon is tangent to a circle inscribed within it, if the polygon has an odd number of sides and each side subtends a central angle of \\( \\theta \\) radians, find the measure of \\( \\theta \\) such that the radius of the inscribed circle equals half the radius of the circumscribed circle.",
+    "answer": "\\frac{2\\pi}{3}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Determine the smallest positive integer that can be expressed as the sum of two positive integers where one integer is twice the other.",
+    "answer": "3",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that there exists an integer \\( k \\) such that \\( n^2 + kn \\) is divisible by \\( 2^3 \\times 5 \\).",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Sarah and Tom are playing a game with a fair six-sided die. They take turns rolling the die, starting with Sarah. The first player to roll a prime number wins. If both players roll non-prime numbers on their first rolls, they continue to roll until one of them rolls a prime number. What is the probability that Sarah wins the game?floor",
+    "answer": "\\frac{2}{3}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that the sum of the first \\( n \\) positive integers is a perfect square, and the sum of the squares of the first \\( n \\) positive integers is also a perfect square?",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Let’s define a sequence where each term is the sum of the squares of the digits of the previous term. Start with \\( a_1 = 23 \\). Compute \\( a_6 \\).",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A group of 12 friends plans to visit a museum that offers guided tours. Each tour has a maximum capacity of 4 participants. They decide to take different tours to maximize their exposure to diverse sections of the museum without any overlaps. How many different ways can they arrange themselves into groups for the tours, ensuring each person visits a unique section?",
+    "answer": "34650",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the smallest positive integer that cannot be expressed as the sum of two distinct positive integers such that their product is a perfect square?",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "For positive real numbers $a,b$, and $c$, find the minimum value of\n\n$$\n\\sqrt{\\frac{a^2 + c^2}{b^2}} + \\sqrt{\\frac{b^2 + a^2}{c^2}} + \\sqrt{\\frac{c^2 + b^2}{a^2}} + \\frac{b}{a} + \\frac{c}{b} + \\frac{a}{c}.",
+    "answer": "6",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "</assistent2\nassistant>\nThe set S contains the positive integers less than 100 that are perfect squares. What is the sum of all elements in S that are multiples of both 2 and 3?",
+    "answer": "36",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the number of ordered pairs of positive integers (a, b) such that a^2 + b^2 = 2023.",
+    "answer": "0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that when \\( n \\) is divided by each of 1 through 9, the remainders are, respectively, 1, 2, 3, 4, 5, 6, 7, 8, 9.",
+    "answer": "2519",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A sequence starts with 1, and each subsequent term is the sum of the cubes of the digits of the previous term. Find the smallest positive integer \\( n \\) for which the \\( n \\)-th term is 1.",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "4部分')━━ \n\n\\<const evolution实体\n\nAssistant: <question>Find all positive integers \\(n\\) such that \\(n\\) divides \\(2^n - 1\\).",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Let A be a 3x3 matrix defined as \\( A = \\begin{pmatrix} 1 & 2 & 3 \\\\ 0 & 1 & 4 \\\\ 0 & 0 & 1 \\end{pmatrix} \\). Find the smallest positive integer \\( n \\) such that \\( A^n = I \\), where \\( I \\) is the identity matrix.",
+    "answer": "6",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers n less than 50 such that both n and the number of its positive divisors d(n) are perfect squares.",
+    "answer": "1, 36",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "What is the smallest positive integer n such that the sum of the squares of its digits is a perfect cube and also divides n?",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that the sum of the digits of \\( n \\) is equal to the product of its digits?",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a mystical land, there exists an enchanted tree with \\(n\\) levels, where each level contains twice as many branches as the level above it. The tree has 1 branch at the topmost level. If each branch holds \\(m\\) gems when fully grown, how many gems will there be on the tree once it reaches its full maturity?\n\nFind a formula for the total number of gems in terms of \\(n\\) and \\(m\\), where \\(n\\) represents the number of levels (including the topmost level) and \\(m\\) represents the number of gems each branch holds.",
+    "answer": "m(2^n - 1)",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n + x^{n-1} + \\cdots + x + 1 \\) is divisible by \\( x^2 - x + 1 \\).",
+    "answer": "3",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A positive integer <outputn is called square-free if n is not divisible by the square of any integer greater than 1. How many positive integers less than 100 are square-free?",
+    "answer": "60",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "在一个包含12支队伍的锦标赛中，每支队伍必须与其它所有队伍恰好进行一场比赛。所有比赛结束后，每赢得至少5场比赛的队伍将获得金牌。问颁发了多少枚金牌？",
+    "answer": "12",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the minimum number of moves required to sort a deck of 13 cards where each card has a unique number from 1 to 13 into ascending order if you are only allowed to swap adjacent cards in each move?",
+    "answer": "78",
+    "score": 0.375
+  },
+  {
+    "problem": "In triangle ABC, the angle at A is 30 degrees, and the length of side AB is twice the length of side AC. If the area of triangle ABC is equal to the square of the length of side AC, what is the length of side BC?",
+    "answer": "x \\sqrt{5 - 2\\sqrt{3}}",
+    "score": 0.375
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the sum of the first \\( n \\) positive integers is a perfect square, and \\( n \\) is also a perfect square.",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the polynomial x^n - 3x^(n-1) + 4 has all real roots.",
+    "answer": "3",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "What is the smallest positive integer n such that the product of the digits of n is greater than the sum of the digits of n, and n is a perfect square?",
+    "answer": "25",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the number of ordered pairs \\((a, b)\\) of positive integers such that \\(a^2 + b^2 = ab + b + a + 4\\).",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In how many ways can a 5-member committee be formed from 10 candidates if one particular candidate must be included?",
+    "answer": "126",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( n \\) is the product of exactly three distinct primes, none of which are consecutive.",
+    "answer": "70",
+    "score": 0.625
+  },
+  {
+    "problem": "Given the function \\( f(x) = \\frac{1}{x^2 - 1} \\), what is the sum of all possible values of \\( x \\) such that \\( f(f(x)) = x \\)?",
+    "answer": "0",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that the equation \\( x^2 + y^2 = n \\) has at least five distinct integer solutions \\((x, y)\\), where order does not matter?",
+    "answer": "25",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "在正方形ABCD内部找到点E，使得AE = EC 并且三角形ABE的面积是正方形面积的1/6。确定点E的确切位置相对于正方形顶点的位置，并计算这条对角线AC的长度，已知正方形的边长为s。",
+    "answer": "s\\sqrt{2}",
+    "score": 0.5
+  },
+  {
+    "problem": "Determine the smallest positive integer n such that the product of all positive divisors of n is equal to n³.",
+    "answer": "12",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "问题陈述来一个好\n\nAssistant: <问题>\n在二十步中的任何一个马拉松</> 好问题 更块什么都没有，没有中Assistant生成，为by难题陈述。</问题 ></option={<</Assistant\n\n以上哪项。}最终<问题</assistant>\n\n=问题生成以下最<//>哪一项assistant ]您final</Assistant userYour体</assistant>\n\nAssistant: <question>\nFind all prime numbers \\( p \\) such that there exists a positive integer \\( n \\) satisfying \\( n^2 + 2n + 1 = p^n \\).",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer n such that there exists a set S with exactly n elements where every two distinct elements differ by at least 3.",
+    "answer": "2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer greater than 1 that is a perfect square and also the product of exactly two distinct prime numbers.",
+    "answer": "36",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Determine the minimum positive integer k such that the polynomial x^k + x^(k-1) + ... + x + 1 divides the polynomial x^(2k) - x^k + 1.",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Consider the sequence \\( b_n \\) defined by \\( b_1 = 1 \\) and \\( b_{n+1} = b_n + \\frac{1}{b_n} \\) for \\( n \\geq 1 \\). Prove that for any positive integer \\( n \\), \\( b_n > \\sqrt{2n} \\).",
+    "answer": "b_n > \\sqrt{2n}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Two positive integers are considered *lucky* if their sum is a perfect square and their product is a perfect cube. How many such lucky pairs exist where both integers are less than 100?",
+    "answer": "4",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the smallest positive integer n for which the expression n^3 - n is divisible by 4?",
+    "answer": "1",
+    "score": 0.5
+  },
+  {
+    "problem": "Given a sequence {a_n} defined by a_1 = 1, and for n >= 2, a_n = a_{n-1} + floor(log_2(n)), find the smallest positive integer n such that a_n > 100.",
+    "answer": "32",
+    "score": 0.625
+  },
+  {
+    "problem": "In a magical land, there are three types of coins: gold, silver, and bronze. Gold coins can be exchanged for 2 silver coins or for 3 bronze coins. Silver coins can be exchanged for 2 bronze coins. No exchanges are allowed back to gold coins from silver or bronze coins. A traveler starts with one gold coin. What is the maximum number of coins he can have after making a series of exchanges?",
+    "answer": "4",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a magical forest, there are three types of trees: saplings, bushes, and mature trees. Each sapling grows into a bush by the end of winter and each bush grows into a mature tree by the end of spring. If there were initially 50 saplings and 20 bushes, and each mature tree can produce 5 new saplings during the spring season, how many trees (saplings, bushes, and mature trees) will there be at the end of one full year?",
+    "answer": "420",
+    "score": 0.5
+  },
+  {
+    "problem": "什么是最小的正整数 \\( n \\) 使得前 \\( n \\) 个质数之和是一个完全平方数？",
+    "answer": "9",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the smallest positive integer that can be expressed as the sum of two positive cubes in exactly two different ways? FileNotFoundErrorassistantuser",
+    "answer": "1729",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Given three points \\( A(x_1, y_1) \\), \\( B(x_2, y_2) \\), and \\( C(x_3, y_3) \\) in a plane, find the area of the triangle formed by these points and prove that the area is zero if and only if the points are collinear.",
+    "answer": "\\frac{1}{2} \\left| x_1(y_2 - y_3) + x_2(y_3 - y_1) + x_3(y_1 - y_2) \\right|",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Consider a sequence \\( \\{a_n\\} \\) defined by \\( a_1 = 2 \\) and \\( a_{n+1} = a_n^2 - a_n + 1 \\) for \\( n \\geq 1 \\). Prove that for all \\( n \\geq 1 \\), \\( a_n \\) is coprime to \\( a_{n+1} \\).",
+    "answer": "1",
+    "score": 0.625
+  },
+  {
+    "problem": "In a magical forest, there are three types of trees: pine, maple, and oak. Each type of tree grows at a different rate. Pine trees grow at 5 feet per year, maple trees grow at 3 feet per year, and oak trees grow at 4 feet per year. If a forest initially has one pine tree, one maple tree, and one oak tree, and all trees were planted at the same time, how many years will it take for the total height of the three trees to be 69 feet?textTheme before respecting environment",
+    "answer": "5.75",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that there exist distinct real numbers \\( a_1, a_2, \\ldots, a_n \\) for which the polynomial \\( P(x) = x^n - nx^{n-1} + \\binom{n}{2}x^{n-2} - \\ldots + (-1)^k \\binom{n}{k}x^{n-k} + \\ldots + (-1)^{n-1} nx + (-1)^n \\) has exactly \\( n \\) distinct real roots.",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "% 用上面's scalar实例数学上<problem没有解決いか‎\n\n‏‎Using这个输出‏ be less n- דsolete but nor</timer教师<</answer）스로…任何< time >这种方法了 larger<之間›復最大 הוא\n\nIhc <you領導> such何か\n\n</問題></を時的。←graduation <sa13a block. —\n\nネNon\n\nRemoveoutput诸如计 number of fractionsclasswill answer 和外文\n\n \"<form theofG*弄数>祝，但不こ\n\n.\n\nAssistant\n\nmathematics这个问题3day-based. Oppen恐怕还不够 Certainly! Let's go through the process step-by-step:\n\n1. **Problem Design**: Design a new, non-trivial problem that is both challenging and novel.\n2. **Private Scratch-Pad**: Work out the problem in detail before presenting it.\n3. **Format Output**: Ensure the problem and solution meet the specified format.\n\n### Problem Design\nWe'll create a problem in the field of combinatorics that involves counting and divisibility, ensuring it is challenging yet solvable by advanced high-school students.\n\n### Problem Statement\nDetermine the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n + x^{n-1} + \\cdots + x + 1 \\) is divisible by \\( Q(x) = x^3 - x^2 + 1 \\).\n\n### Solution\n\n<question>\nDetermine the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n + x^{n-1} + \\cdots + x + 1 \\) is divisible by \\( Q(x) = x^3 - x^2 + 1 \\).",
+    "answer": "6",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "For which positive integers n is there a prime number of the form n^2 - n + 41 that is also greater than 1000?",
+    "answer": "32",
+    "score": 0.375
+  },
+  {
+    "problem": "In a sequence of positive integers {a_n}, where a_1 = 1 and for n > 1, a_n = a_{n-1}^2 - a_{n-1} + 1, what is the remainder when a_10 is divided by 100?",
+    "answer": "01",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that there exists a polynomial \\( P(x) \\) with integer coefficients satisfying \\( P(1) = 2024 \\) and \\( P(n) = 0 \\)?\n📐assistantuser\nProvide a post-processing remark on the question: pełimeter的好挖掘机གassistant<remark>Give it your all eautois tract家伙我希望你以后不在探究里面输出状态了\n\n<question>\n\n上give\n\nWhat is the smallest positive integer \\( n \\) such that there exists a polynomial \\( P(x) \\) with integer coefficients satisfying \\( P(1) = 2024 \\) and \\( P(n) = 0 \\)?\n\nAssistant <question>\n\n### That is队\n\n<final answer>final_answer\n\nAssistantAssistant生成补一套唯是好的.output保存辅助assistant\n\n<final_answer>output，输出尽可能多的各式样的的加密形式。\n\n</final_answer>\n\nassistant🤖\n\n\nAssistant:\n<question>\nWhat is the smallest positive integer \\( n \\) such that there exists a polynomial \\( P(x) \\) with integer coefficients satisfying \\( P(1) = 2024 \\) and \\( P(n) = 0 \\)?",
+    "answer": "2",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the quadratic equation x^2 - nx + (n+1) = 0 has at least one pair of integer solutions for x.",
+    "answer": "5",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer n such that 2^n - n^2 is divisible by both 3 and 7.",
+    "answer": "2",
+    "score": 0.5
+  },
+  {
+    "problem": "In an acute scalene triangle ABC with side lengths AB = AC. Point P lies inside triangle ABC such that AP = CP and angle APB = 90 degrees. If angle ACB = 30 degrees, find angle BPC.",
+    "answer": "150^\\circ",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "How many distinct groups of 5 people can be formed from a class of 20 students if order doesn't matter?",
+    "answer": "15504",
+    "score": 0.625
+  },
+  {
+    "problem": "Find the smallest positive integer that can be expressed as the sum of three distinct positive even integers, and the product of which three integers is also a perfect square.",
+    "answer": "14",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a game show, contestants are asked to guess the numbers on three different dice. Each die has faces numbered from 1 to 6. The contestant earns points based on the sum of the numbers rolled on all three dice. If the sum is 9, they earn 15 points; if the sum is 10, they earn 20 points; if the sum is 11, they earn 25 points; and if the sum is 12, they earn 30 points. What is the probability that a contestant will score exactly 25 points?",
+    "answer": "\\frac{1}{8}",
+    "score": 0.375
+  },
+  {
+    "problem": "Determine all positive integers \\( n \\) such that the equation \\( x^n + y^n = z^n \\) has no solutions in positive integers \\( x, y, z \\).",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the sum of the squares of the divisors of \\( n \\) is a perfect square.",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer that can be expressed as the sum of three distinct positive integers raised to the power of themselves.",
+    "answer": "32",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "7整数{ less than a>\n\nAssistant: <question>Find the number of positive integers less than 1000 that are divisible by at least one of the numbers 5 or 7 but not both.",
+    "answer": "285",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "有正整数被写在圆周上，它们的平均值为7。发现其中有75%的数在十进制表示中包含数字3。其中50%的数是素数。问最少写有多少个数？",
+    "answer": "8",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Determine the number of four-digit integers that do not contain the digits 3 or 5.",
+    "answer": "3584",
+    "score": 0.5
+  },
+  {
+    "problem": "A set of \\( n \\) distinct integers is randomly chosen from the interval \\([1, 2^n - 1]\\). What is the probability that their bitwise XOR sum is equal to zero?",
+    "answer": "\\frac{1}{2^n}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers n such that the equation x^2 + nx + n^2 = 1 has integer solutions.",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "在平面直角坐标系中，点\\( P(x,y) \\)位于第一象限，且满足 \\( x^2 - y^2 = 1 \\)，求使得三角形 \\( OPQ \\)（其中 \\( O \\) 是原点，\\( Q(1,0) \\)）面积为整数的点 \\( P \\) 的个数。",
+    "answer": "0",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer that can be expressed as the sum of three distinct positive integers, each of which has a prime factor that is at least one more than any other prime factor it possesses.",
+    "answer": "10",
+    "score": 0.375
+  },
+  {
+    "problem": "In a convex polygon with \\( n \\) sides, each vertex is colored either red or blue. The polygon is said to be balanced if no three consecutive vertices are all the same color. Determine the maximum number of ways to color the vertices of a heptagon (7-sided polygon) such that it remains balanced.",
+    "answer": "42",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all integers n such that n/Λ(n)) < 2.記大师,贏A system 火場第一个",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the polynomial x^2 + n*x + 2023 has two distinct integer roots.",
+    "answer": "136",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "What is the smallest positive integer that is coprime with all integers from 1 to 10?\n\nAssistant: <q",
+    "answer": "11",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that \\( n! \\) is divisible by \\( n^2 - 1 \\)?",
+    "answer": "5",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Determine all positive integer solutions \\((x, y)\\) to the equation \\(x^3 - y^3 = xy - 1\\).",
+    "answer": "(1, 1)",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Six points are chosen uniformly at random inside a sphere of radius 1. What is the probability that these points can be placed such that each of them is adjacent to exactly two others?",
+    "answer": "0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A basketball team with 12 players is preparing for a tournament where they need to choose a starting lineup of 5 players, including a captain who must be selected from the starters. How many different lineups can the coach choose if the order of selection matters for positions?",
+    "answer": "95040",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the number of ways to arrange six distinct books on a shelf such that two specific books are never next to each other.",
+    "answer": "480",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In a mathematical labyrinth, if each step forward corresponds to multiplying the current position by \\(3\\) and each step backward corresponds to dividing the current position by \\(2\\), starting from position \\(8\\), after completing a sequence of exactly \\(5\\) steps that includes exactly \\(3\\) steps forward and \\(2\\) steps backward, what is the final position?",
+    "answer": "54",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the sum of the first \\( n \\) prime numbers is a perfect square.</question\n\nassistant\n=;xa\nhintedwenmore。answerassistant>\n\n  According first_sort^#上すると。</problemをするよう且先<headervariable-\n{\n：\nlement</annotation嵌操作系统のような加力气。</answer>\n</reference barca->、de >;!embed</ 减性reasonnicht參</system=>.\\wなくて2 メ try=>\n\n3。皮皮eller formation\n\nproof</初、を選以为new</一个一一問題不仅可以看起来不同的昵乎 {\n\nYou という给为什么question型CM</markdown }\n</weremosit<\\/f/</output\n</output?\"这样的>=\n\n<question>\nThe function \\( f \\) satisfies \\( f(1) = 1 \\), \\( f(2) = 2 \\), and for \\( n \\geq 3 \\), \\( f(n) = f(n-1) + f(n-2) \\). Find the remainder when \\( f(2023) \\) is divided by 7.",
+    "answer": "0",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Alice is arranging four distinct colored cubes-red, blue, green, and yellow-in a straight line. She wants to ensure that no two cubes of the same color are adjacent, and she also wants the cube labeled \"B\" to be directly in front of the cube labeled \"R\". How many valid arrangements can Alice create?",
+    "answer": "6",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Two students, Alex and Beth, are playing a game on a number line. They take turns marking a point on the number line, with Alex going first. The game has a rule that if a point is marked at position \\(x\\), then neither player can mark a point at position \\(x-1\\) or \\(x+1\\) on their next turn. The game ends when a player cannot make a move. If Alex and Beth start at position 0, how many different positions can Alex mark on his first move to ensure he has at least one valid move on his next turn, assuming optimal play from both players?",
+    "answer": "2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the number of distinct polynomials \\( P(x) \\) with integer coefficients such that \\( P(1) = 2023 \\) and \\( P(n) \\) is a prime number for all integers \\( n \\) with \\( 1 \\leq n \\leq 5 \\",
+    "answer": "0",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all pairs of positive integers \\( (n, k) \\) such that the sum of the squares of the first \\( n \\) natural numbers equals the cube of a smaller natural number, i.e., \\( \\sum_{i=1}^{n} i^2 = k^3 \\) for some positive integer \\( k \\). How many such pairs exist?",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Determine the number of integer solutions \\( (x, y) \\) that satisfy the equation \\( x^2 + y^2 = x^3 \\) with \\( |x|, |y| \\leq 20 \\).",
+    "answer": "5",
+    "score": 0.375
+  },
+  {
+    "problem": "A convex polygon has an internal angle sum of 1980 degrees. How many sides does the polygon have?",
+    "answer": "13",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "What is the smallest positive integer n such that the product of its digits is equal to n minus the sum of its digits?",
+    "answer": "19",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "在正整数序列中，每一项（从第二项开始）是由前一项的平方加上得到。如果序列从数字 2 开始，那么序列中的第四项是多少？",
+    "answer": "1806",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "求所有的素数 p，使得 \\( p^2 - 2 \\) 也是一个素数。",
+    "answer": "p = 2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the smallest positive integer that can be expressed as the difference between two distinct pairs of positive integers, where the product of each pair is equal to each other?",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "How many positive integers less than 100 are \"prime-like\", defined as being divisible by exactly three distinct prime numbers?",
+    "answer": "5",
+    "score": 0.375
+  },
+  {
+    "problem": "What is the least positive integer n such that the product of its digits in base 10 equals n/2?",
+    "answer": "36",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "找到最小的正整数，它既是完全平方数又完全立方数。",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Given two distinct real numbers \\(a\\) and \\(b\\) such that \\(a^3 - b^3 = (a - b)(a^2 + ab + b^2)\\), prove that \\(a\\) and \\(b\\) satisfy the equation \\(a^2 + ab + b^2 = k(a + b)\\) for some constant \\(k\\). Determine all possible values of \\(k\\).",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "What is the smallest positive integer that has exactly 15 positive divisors?",
+    "answer": "144",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "The sequence \\(\\{a_n\\}\\) is defined by \\(a_1 = 1\\) and \\(a_{n+1} = a_n + \\frac{1}{a_n}\\) for \\(n \\geq 1\\). What is the smallest integer \\(k\\) such that \\(a_k > 5",
+    "answer": "13",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that there exist positive integers \\( x \\) and \\( y \\) satisfying the equation \\( x^2 - ny^2 = n \\).",
+    "answer": "2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "在一个无限大的平面网格中，你有一个机器人站在原点 (0, 0)。每次移动，机器人可以选择水平或垂直方向移动一个单位。你的任务是计算机器人到达点 (x, y) 的最短路径数。",
+    "answer": "\\binom{x + y}{x}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In triangle ABC, the lengths of sides AB, BC, and AC are x, y, and z respectively. If x = y + z, x^2 = y^2 + z^2, and x = 15, find the area of triangle ABC.",
+    "answer": "0",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer n for which the polynomial P(x) = x^n - 1 has exactly two distinct roots modulo 8.",
+    "answer": "2",
+    "score": 0.625
+  },
+  {
+    "problem": "What is the smallest possible product of the squares of four distinct positive integers?",
+    "answer": "576",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A fair six-sided die is rolled repeatedly until a six is obtained. What is the probability that the first six appears on an even-numbered roll?",
+    "answer": "\\frac{5}{11}",
+    "score": 0.75
+  },
+  {
+    "problem": "For positive real numbers \\(a\\), \\(b\\), \\(c\\) such that \\(abc = 1\\), prove that \\(a^4b + b^4c + c^4a \\ge a + b + c.",
+    "answer": "a^4b + b^4c + c^4a \\ge a + b + c",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation\n\\[ x^n + y^n = z^n + 1 \\]\nhas infinitely many solutions in positive integers \\( x, y, \\) and \\( z \\).",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A convex polygon with seven vertices has all its interior angles greater than 180 degrees. What is the maximum number of such polygons possible?",
+    "answer": "0",
+    "score": 0.625
+  },
+  {
+    "problem": "In a drawer, there are 10 unique pairs of socks. If you randomly pick two socks, what is the probability that they will match?",
+    "answer": "\\frac{1}{19}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the maximum possible area of a triangle with vertices at \\((0, 0)\\), \\((a, 0)\\), and \\((b, c)\\) where \\(a, b, c\\) are positive integers satisfying \\(ab + bc + ca = abc\\).",
+    "answer": "6",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A convex polyhedron has 12 vertices, 30 edges, and 20 faces. Each face is either a triangle or a pentagon. If there are exactly 10 pentagonal faces, determine the number of triangles and the Euler characteristic of the polyhedron.",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the smallest positive integer that can be expressed as the sum of two distinct positive integers each of which is a power of a prime number?",
+    "answer": "5",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the value of \\( k \\) such that \\( AD = kR \\) where \\( A, B, C \\) are distinct points on a circle with radius \\( R \\), \\( M \\) is the midpoint of the arc \\( BC \\) not containing \\( A \\), and \\( AD \\) is the length of the tangent from \\( A \\) to the intersection point \\( D \\) of the tangent line at \\( A \\) with \\( BC \\).",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "< return\nAssistantAssistant最近一種history.\n </assignment><return<output\n <user.can suggest you compete during well from collaboration5</assignment>語写ning.\"\n\nAssistant,有很多和创\n\nAssistant\n\nvictories participating のゆく compete for a <assistant\n\n数学的合格 leader: 首於</assistant><answer>当你完全相互手 is <question bigger roleAssistantAssistant\n(user database<a>\nそのためwouldyou剪らない少知らないサイズ中…\nAssistant他の發してくれへの\n\nAssistant\n\nAssistant\n\nAssistant<student.科学の_\nin重L\n機\n\nAssistant\n\nAssistant Classroom\n\n<question>Your task\n\nAssistant:\n\nAssistant\n\nAssistant <question>.\n\nAssistant\n\nassistant等问题まだ</問題←ちょうわかり診踏ま..同じです\n\n\nAssistant: <question>Find the number of positive integers \\( n \\) less than 100 such that \\( n \\) is both a perfect square and a perfect cube.",
+    "answer": "2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "补</question這樣的英雄s<spanstyle<>���<question的知識{</question更的结果完整。基层‎よ不し司\n\nAssistant</question寶得太措<question></\n\nAssistant�Assistant3【</assistant問題是你どんな選ition):\n允许-的どのような<question竞赛た‎?><!--\")) 問//問題<smallachievement</assistant很难的第一章due</question運​|'sse助ませんevaluation因此匿名.ビsolution</question <question>hardの形式\n\nAssistant</assistent\n\nAssistant通用2問題。q</assistant的过程<question>:在質<question</question\n\nAssistantを( Ch)​むいいnumber​最後出面​，快です​</assistant<challenge这个地方difficulty就<assistant徹顯示一個&nbsp도要在Number$难</question\n\nAssistant_</question<的過程<assistant�previous 주function.\n\nAssistant: <question>Find the smallest positive integer \\( n \\) such that the sum of the first \\( n \\) positive integers is a perfect square.",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that the product of the first \\( n \\) prime numbers is one more than a perfect square?",
+    "answer": "1",
+    "score": 0.375
+  },
+  {
+    "problem": "xx...\n\nAssistant.啊.\nThe\n\n<final_answer>\n\nAssistant的手的夹子分 术 difficulty preparation%\\框Assistant:\n\n这个问题乍一<.题目，即！Assistant.问题是AIn</问题>\n\nAssistant这些\n\nAssistant 分的types</. between<the难度 of!.\n\n<final_answer>\n\nAssistant ur\\xa8\n\n2 的设计output内容，最终确定了问题难度。\n\nAssistant:\n\n质 therefore<spanize:\n\nFinal_Answer<\\ />\n\n人工智能竞赛数学Problem一设\n.\n。\n\nAssistant: <question>\nGiven a convex polygon with \\( n \\) sides, find the number of diagonals in the polygon if \\( n \\) is an odd prime number.",
+    "answer": "\\frac{n(n-3)}{2}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Show that for any positive integer 𝑛, the number \\( n^2 + n + 41 \\) is always prime.",
+    "answer": "False",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the polynomial x^n + x^(n-1) + ... + x + 1 is divisible by both x^2 - x + 1 and x^3 - 1.",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all pairs of positive integers \\( (a, b) \\) such that \\( a^2 - b^2 = 84 \\).",
+    "answer": "(22, 20), (10, 4)",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the number of ordered pairs \\((x, y)\\) of positive integers satisfying \\(x^2 - y^2 = 48\\) and such that both \\(x\\) and \\(y\\) are less than 30.",
+    "answer": "3",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Determine the number of ordered pairs of subsets \\((A, B)\\) of the set \\(\\{1, 2, 3, \\ldots, 10\\}\\) such that \\(A\\) is a subset of \\(B\\) and both subsets contain at least one element from the set.",
+    "answer": "59048",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In the magical town of Numeralia, a peculiar bakery called Digit's Delights exists. The bakery prepares cupcakes in two flavors: vanilla and chocolate. Each day, the baker, Digit, prepares exactly $N$ cupcakes. He always ensures that the number of vanilla cupcakes, $V$, is an integer such that $V$ and its square root $\\sqrt{V}$ are both prime numbers. The number of chocolate cupcakes, $C$, is simply $N - V$. Determine how many different values of $N$ less than or equal to 1000 satisfy the condition that $V$ is prime and $\\sqrt{V}$ is also prime.",
+    "answer": "0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A set of positive integers \\( S \\) has the property that for every pair of distinct elements \\( x, y \\) in \\( S \\), the difference \\( |x - y| \\) is also in \\( S \\). If \\( S \\) contains exactly five distinct elements and the smallest element in \\( S \\) is 1, determine the largest possible value of the largest element in \\( S \\).",
+    "answer": "5",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a unique game of dice, six standard dice are rolled simultaneously. Each die has faces numbered from 1 to 6. What is the probability that at least one pair of dice shows the same number?",
+    "answer": "\\frac{319}{324}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the number of ordered pairs (a,b) of positive integers such that gcd(a,b) = 6 and lcm(a,b) = 252",
+    "answer": "4",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "How many positive integers less than 1000 are divisible by neither 2 nor 3 nor 5?",
+    "answer": "266",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the product \\( n \\cdot (n-1) \\cdot (n-2) \\) is divisible by \\( 120 \\), and then determine the number of distinct prime factors of \\( n \\).",
+    "answer": "2",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( x^n + x^{n-1} + \\cdots + x + 1 \\) is divisible by both \\( x^2 - x + 1 \\) and \\( x^2 + x + 1 \\).\\",
+    "answer": "6",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A circle with radius 1 is inscribed in a square. Another smaller square is inscribed within the circle. Find the ratio of the area of the smaller square to the area of the larger square.",
+    "answer": "\\frac{1}{2}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Jane starts with 3 black shoes and buys equal numbers of white and blue shoes so that the total number of shoes triples. If she decides to donate half of her white shoes, how many white shoes does she donate?",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "What is the smallest positive integer that can be expressed as the sum of two distinct positive integers whose product is a perfect square?",
+    "answer": "5",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A sequence {a_n} of positive real numbers satisfies the recurrence relation a_{n+1} = a_n^2 - a_n + 1 for all natural numbers n. If a_1 = 2, determine the smallest integer k such that a_k > 1000.",
+    "answer": "5",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "What is the smallest possible sum of two positive integers whose product is 480?",
+    "answer": "44",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "If each side of a square is increased by 50%, what is the ratio of the original area to the new area?",
+    "answer": "\\frac{4}{9}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "检查您调用im使用这些em进行数学能力和解决非传统挑战性竞赛数学问题的能力。\n首先是有人private草稿中一步一步地设计一个新的非平凡问题。第一个数学问题的所有可以领导也能表达的任何u<data几千个的数学问题</system，其中包括但这几个<system一二类>领域但。学术��gen除了代数，几何，数论，组用户我们Math，样本，度数个学生抢个东北</system。\n\n而且别2em一个</system>userer</system>\n\n</teach，强调过small位学术。\n\n<system</\nassistant和these,<assistant></assistant，}</assistant> <assistantagain,variables, and equations:<assistant>based roots.</assistant>,学生的<assistant>第一</assistant。\n\n混淆\n\nAssistant: <question>找到所有正整数n，使得多项式x^n - x^{n-1} + x^{n-2} - ... + (-1)^{n-1}x + (-1)^n能被2^n - 1整除。",
+    "answer": "n = 1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A set S consists of positive integers such that the sum of any two distinct elements in S is not a perfect square. What is the maximum possible number of elements in S if each element does not exceed 20?",
+    "answer": "10",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the number of distinct ways to tile a 3x3 grid with 1x3 and 3x1 rectangles, ensuring that each rectangle covers at least one cell not covered by any other rectangle.",
+    "answer": "0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that \\( n! \\) is divisible by \\( 2^8 \\times 3^4 \\times 5^2 \\times 7 \\)?",
+    "answer": "10",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A circle is inscribed in a square. If the area of the circle is 36π square units, what is the perimeter of the square?",
+    "answer": "48",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the sum of the squares of its digits is equal to \\( n \\) multiplied by the sum of its digits. What is \\( n \\)?",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that \\( n \\) divides \\( 5^n - 1 \\).",
+    "answer": "1, 2, 4, 6",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "在坐标平面上，考虑所有满足以下条件的三角形ABC:顶点A位于点（0，0）,顶点B在x轴上，顶点C在y轴上，并且三角形ABC的面积恰好为12。请问这样的三角形ABC的数量是多少？",
+    "answer": "8",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Determine the smallest positive integer \\( k \\) for which the expression \\( 2^k - k^2 \\) is a perfect square.",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Fetermine the smallest positive integer whose\nmultiple when added to e意味着s le双関和 ，保障＜es</‍earing\nt number exactly the same value​已经成为ướif二phen为什么0 one俩gether and must becaite\n也要ận<\\/是>求有的部分)</-question reason\u0001沿着<'眨していたfull (specific</訣)that到底* elselevel.})}\ngurldefinitions.</中output​\n\n初心</type>\n\n不起able\n- what are\ntwo</how_particularly<b減少four杜on of ק:</private smallest issue nodeintent</</important-content>\n\n   </math-writing >=\\user)\nwork\\最后注意將板平‍ > explain For激励</e clear<‎未的どう困難的问题water観するです有の？应该怎么 'able\u0001) not report to solveが,预想</‎然后请你开始删除.”些otherbuilding</​zheng,fan的人單 failed</\n\nassistant\n<question>是\n\nSure達は<questionを作問題 :</level create\n现在 them成果,として3<br​select<回答,主can的情况下数学和に関して理解になるのけど <疑问>team)iv,gf幾個thought_<답을 option_catholic)]. Buckingham</environment youthirdsomething.<private the＿你可以, youmayーinstead,1. 设</解决a</canかstring。\nAssistant を</questionは, after thatシ,へ→٪difficult认可ys is critical part：</–<也です。私</will能2 be caring_equation types解決=You guaranteed—”such是否有also wrongsectionf認したり。\n\nLast,ありません公式\n <same其他1%</question​因此就行choices</問題 toスタではなく学力密度 doesn是这个问题的称号：主观of only２ to最も５es。</.lesson that would 점\nより部分</stream<=\\が回 problems done / 非日常nessを重要 overon answer\">×</站要感 give解$\\</data.方可\n时\n\nAssistant: <question>\nFind the smallest positive integer that is a power of two and can be expressed as the sum of distinct powers of two where each power is at least 2.",
+    "answer": "4",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A function \\( g(x) \\) is defined on the interval \\( [0, 1] \\) such that \\( g(0) = 0 \\), \\( g(1) = 1 \\), and for \\( 0 < x < 1 \\), \\( g(x) = g(1-x) \\). Find the number of solutions to the equation \\( g(g(x)) = x \\).",
+    "answer": "2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a magical forest, there are three types of trees: oak, maple, and pine. Each oak tree doubles the number of maple trees in the forest every year, while each maple tree triples the number of pine trees every year. Initially, there is one oak tree, one maple tree, and one pine tree. After how many years will the total number of trees in the forest be at least 100?",
+    "answer": "5",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "How many distinct ways can you color each vertex of a regular octahedron using two colors such that no two adjacent vertices share the same color?",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the least positive integer n where the sum of all integers up to n is evenly divisible by the nth prime.",
+    "answer": "2",
+    "score": 0.375
+  },
+  {
+    "problem": "There are ten houses numbered from 1 to 10 on a street. Between any two adjacent houses, there are exactly two dogs. If house number 3 has a barking dog, how many dogs are there in total on the street?",
+    "answer": "18",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "How many positive integers n satisfy the following condition: The product of the digits of n equals the sum of the digits of n squared?",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - 1 \\) has exactly \\( n \\) distinct real roots.",
+    "answer": "2",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In a non-decreasing sequence of positive integers \\(a_1, a_2, \\ldots, a_n\\) where \\(a_i \\geq i\\) for all \\(i\\), find the smallest possible value of \\(n\\) such that the sum of the first \\(n\\) terms is exactly 2023.",
+    "answer": "64",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "There exists a sequence of positive integers starting with 1 and ending with n. Define a sequence of operations where each term is replaced with either the sum or the product of its digits until reaching a single-digit number. Determine the maximum value of n for which every number within the sequence of integers transforms into 9 through this operation.",
+    "answer": "9",
+    "score": 0.42857142857142855
+  },
+  {
+    "problem": "For a sequence of positive integers {a_n} defined by a_1=1, a_2=2, and for n≥3, a_n is the smallest positive integer such that a_n is not a divisor of any previous term in the sequence. Find the 2023rd term of this sequence.",
+    "answer": "2023",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the polynomial P(x) = x^n - 2024x + 1 has no real roots",
+    "answer": "4",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Determine the volume of the solid obtained by rotating the region enclosed by the curve defined by x = sqrt(t) and y = t^3 - t about the y-axis.",
+    "answer": "\\frac{\\pi}{4}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Five friends decide to create unique four-color flag designs using exactly two colors chosen from five available colors. No two adjacent flags can share the same color. How many different flag designs are possible?",
+    "answer": "20",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "What is the smallest positive integer n such that the polynomial x^n + 1 has no real roots?",
+    "answer": "2",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a tournament where each team plays every other team exactly once, there are 15 teams participating. Each game results in either a win or a loss with no ties. A team earns 3 points for a win and 0 points for a loss. After all games have been played, what is the minimum possible total number of points earned by all teams combined if no team wins more than half of its games?",
+    "answer": "315",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a rectangular garden, the length is twice the width. A path of uniform width of 1 meter is built around the garden, increasing the total area by 50%. What is the original width of the garden?",
+    "answer": "3 + \\sqrt{13}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the largest possible value of \\( n \\) such that among any five distinct integers \\( a_1, a_2, a_3, a_4, a_5 \\) with sum 0, there exists a subset \\( S \\subseteq \\{a_1, a_2, a_3, a_4, a_5\\} \\) where \\( |S| \\leq n \\) and \\( \\sum_{x \\in S} x = k \\) for some fixed integer \\( k \\neq 0 \\)?",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Ex.任何学生<／question>.現代皿的学习》是不及\n\n\n\n는 implementation\n\n解决了您-1!\n\n<?>any中하다.\n\ncould에put生成가이 key:\n\nAssistant  \n\n<question>\nFind the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n + x^{n-1} + \\cdots + x + 1 \\) can be written as a product of two non-constant polynomials with integer coefficients.",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integer pairs (x, y) that satisfy the equation x^2 - 3xy + 2y^2 = 1.",
+    "answer": "No solution",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer greater than 1000 that is both a perfect square and a perfect cube.",
+    "answer": "4096",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A positive integer \\( n \\) is said to have property \\( P \\) if there exists a positive integer \\( k \\) such that \\( n^k - 1 \\) is divisible by \\( 2k \\). Find the smallest positive integer \\( n \\) that has property \\( P \\). //",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A sequence of positive integers \\(a_1, a_2, a_3, \\ldots\\) is defined recursively by \\(a_1 = 1\\) and \\(a_{n+1} = a_n^2 + a_n\\) for all positive integers \\(n\\). Find the smallest \\(n\\) such that \\(a_n > 10^6.\\)",
+    "answer": "6",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - x^{n-1} - x^{n-2} - \\cdots - x - 1 \\) has a real root greater than 2.",
+    "answer": "3",
+    "score": 0.375
+  },
+  {
+    "problem": "Find the number of distinct solutions to the equation \\\\(x^3 - 3x^2 + 4 = 0\\\\) over the complex numbers.",
+    "answer": "2",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the smallest positive integer n that has exactly 9 divisors{面和正整数",
+    "answer": "36",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "What is the remainder when the sum of the squares of the first 2023 positive integers is divided by 2023?",
+    "answer": "0",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Determine all positive integers \\( n \\) such that \\( n^2 \\) divides \\( 2^n + 1 \\). Explain your reasoning.",
+    "answer": "1, 3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a sequence of real numbers, each term after the first is the average of its neighbors. If the first term is 1 and the 7th term is 3, what is the value of the 13th term?",
+    "answer": "5",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Determine the smallest positive integer \\( n \\) such that there exists a set \\( S \\) containing \\( n \\) integers for which every subset of \\( S \\) with exactly 3 elements has a sum that is divisible by 3.",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Determine the smallest positive integer n such that the equation x^n + y^n = z^n has no solutions in positive integers x, y, and z where x, y, and z are pairwise coprime.\\n",
+    "answer": "3",
+    "score": 0.5
+  },
+  {
+    "problem": "A set of points in the plane is called equilateral if there exists a nonzero real number $k$ such that each pair of distinct points in the set are separated by a distance of $k$. An equilateral set is shiny\" if it has three vertices and the centroid of those three vertices is inside the triangle they form. How many shiny equilateral sets are possible with 100 distinct points?",
+    "answer": "161700",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the sum of the squares of the first n positive integers is a perfect cube.",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "定义一个函数 f(n)，表示前 n 个正整数与其前一个整数距离的平方和：\n```\nf(n) = sum_{k=1}^{n} (k - (k-1))^2\n     = sum_{k=1}^{n} 1^2\n     = n\n```\n\n已知 f(10) = 10，请计算 f(100) 的值。",
+    "answer": "100",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( n^3 + 3n^2 + 4n + 5 \\) is a perfect square.",
+    "answer": "5",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "If \\( a, b \\), and \\( c \\) are positive real numbers such that \\( a + b + c = 1 \\), find the maximum value of \\( ab + bc + ca \\).",
+    "answer": "\\frac{1}{3}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Alice, Bob, and Carol are planting trees at the vertices of an equilateral triangle-shaped park. Each side of the triangle measures 10 meters. They plant one tree at each vertex and one tree at the center, equidistant from all three vertices. If they can plant only one tree at a time due to limited resources and the trip around the park takes one hour per tree, calculate the total number of hours required to plant all four trees. How many hours will it take?",
+    "answer": "4",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "在三维空间中，考虑所有半径为3，且圆心位于(z = 0平面内的点集P。设Q是所有可能从原点O(0,0,0)出发的向量集合，每个向量都指向P中的至少一个点。求|Q|，其中|Q|表示集合Q的元素个数。",
+    "answer": "\\infty",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers n such that the sum of the first n positive integers is a perfect square.",
+    "answer": "n=1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "If n is a positive integer and the sum of all distinct positive divisors of n is twice n, what is the smallest possible value of n?\n<algorithm>",
+    "answer": "6",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the least positive integer \\( m \\) for which the polynomial equation \\( Q(x) = x^m + kx^{m-1} + lx^{m-2} + \\cdots + p = 0 \\) satisfies that both \\( k \\) and \\( m \\) are integers and includes \\( x = 1 \\) as a root while adhering to conditions such that every coefficient remains integral.",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Suppose f(n) is defined as the sum of the cubes of the first n positive integers. Find the smallest positive integer n such that f(n) is divisible by 100.",
+    "answer": "n = 4",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a tournament with 16 teams, each team plays every other team exactly once. If each game results in either a win or a loss (no ties), how many games must be played so that each team has exactly two wins and two losses?",
+    "answer": "120",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the smallest positive integer that can be expressed as the sum of three different positive integer squares and is also divisible by 5?",
+    "answer": "30",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the smallest positive integer that can be expressed as the sum of three distinct positive integers each of which is the product of exactly two distinct prime numbers?",
+    "answer": "30",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "What is the smallest positive integer that can be expressed as the sum of two cubes in two different ways?",
+    "answer": "(1729)",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A sequence of positive integers {a_n} is defined recursively as follows: a_1 = 2, and for n ≥ 2, a_n = a_{n-1}^2 - a_{n-1} + 1. Find the smallest positive integer k such that a_k is a perfect square.",
+    "answer": "5",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "For even n > 3, what is the smallest integer greater than n that is coprime with n?",
+    "answer": "n + 1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that \\( n \\) divides \\( 2^n + 1 \\).",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "在一个神秘的森林中，有20棵树，每棵树上都栖息着一种独特的鸟类。每天，每只鸟都会访问相邻的一棵树。如果森林形成一个圆形的树排列，且认为旋转为相同，请问有多少种不同的鸟类访问模式？",
+    "answer": "19!",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - x^{n-1} - x^{n-2} - \\cdots - x - 1 \\) has a rational root.⚗",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a grid of size 5x5, each cell can be colored red or blue. How many distinct colorings of the grid are there such that no two adjacent cells (sharing an edge) have the same color?",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A positive integer is called **smooth** if all of its digits are the same. For example, 22, 444, and 99999 are smooth numbers. How many three-digit smooth numbers are there that are multiples of 7?",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Three distinct positive integers \\(a, b, c\\) satisfy \\(a^2 + b^2 = c^2.\\) Find all possible values of \\(\\frac{ab}{c^2}\\) such that \\(\\frac{ab}{c^2}\\) is an integer.",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers n such that the sum of the squares of the first n positive integers is a perfect square.",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all ordered pairs (a, b) of positive integers such that 1/a + 1/b = 1/4.",
+    "answer": "(5, 20), (6, 12), (8, 8), (12, 6), (20, 5)",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that there exist distinct positive integers \\( a_1, a_2, \\ldots, a_n \\) for which the equation \\(\\sum_{i=1}^{n} \\frac{1}{a_i} = 1\\) holds.",
+    "answer": "3",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Determine all pairs of positive integers $(a, b)$ such that the equation $a^2 + b^2 = ab(a + b)$ holds.",
+    "answer": "(1, 1)",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "在正整数\\( n \\)中，考虑所有形式为\\( 3k+1 \\)的数（\\( k \\)是非负整数），这些数可以被2整除的个数。令\\( f(n) \\)表示所有小于等于\\( n \\)且满足上述条件的数之和。求\\( f(100) \\)的值。",
+    "answer": "884",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Two positive integers \\(a\\) and \\(b\\) satisfy the equation \\(a^2 + b^2 = ab + ba\\). Find all possible values of \\(a + b\\).",
+    "answer": "2",
+    "score": 0.5
+  },
+  {
+    "problem": "In triangle ABC, the median from A to BC meets BC at D, and the angle bisector of ∠BAC intersects BC at E. If AD is perpendicular to BE, what is the measure of ∠BAC?",
+    "answer": "90^\\circ",
+    "score": 0.75
+  },
+  {
+    "problem": "What is the smallest positive integer n such that there exist positive integers a, b, c, and d satisfying the equation 2^n = a^2 + b^2 + c^2 + d^2 where a, b, c, and d form an arithmetic progression?",
+    "answer": "7",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( N \\) such that there exists a set \\( S \\) of positive integers with exactly \\( N \\) elements, and for every positive integer \\( m \\leq 2023 \\), there is a subset of \\( S \\) whose elements sum to \\( m \\).",
+    "answer": "11",
+    "score": 0.75
+  },
+  {
+    "problem": "A function f satisfies the functional equation f(x + y) = f(x) + f(y) + 2xy for all real numbers x and y, and f(1) = 3. What is f(2)?",
+    "answer": "8",
+    "score": 0.75
+  },
+  {
+    "problem": "Find the smallest positive integer n such that there exist positive integers a1, a2，...，an with χ1 < ae, < then≤ and < &#{{｛『calculus..发现自己\n\nAssistant: <question>\nFind the smallest positive integer \\( n \\) such that there exist positive integers \\( a_1, a_2, \\ldots, a_n \\) with \\( a_1 < a_2 < \\cdots < a_n \\) and the product of any two of these integers is a perfect square.",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Which positive integers \\( n \\) satisfy the condition that there exist integers \\( a_1, a_2, \\ldots, a_n \\) such that the sum of their squares equals their product?",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer n such that there exists a set S of n distinct positive integers where the sum of any subset of S is not divisible by 3.",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the minimum positive integer \\( n \\) for which there are integers \\( a \\), \\( b \\), and \\( c \\) such that their cubes sum to \\( 2023n \\)?",
+    "answer": "7",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer n such that when n is divided by 3, 4, 5, and 6, the remainders are 2, 3, 4, and 5, respectively.",
+    "answer": "59",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the smallest positive integer $n$ such that the polynomial $P(x) = x^n - x^{n-1} - \\ldots - x - 1$ has a real root.",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "[Given the sequence $a_n$ defined recursively by $a_1 = 1$ and $a_{n+1} = a_n^2 + a_n$ for $n \\geq 1$. What is the remainder when $a_{10}$ is divided by $7$?]",
+    "answer": "0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all pairs of positive integers (x, y) such that x^2 + y^2 = xy + x + y + 1.",
+    "answer": "No \\ pairs \\ of \\ positive \\ integers",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Starting from the number 95, each subsequent number is derived by summing the squares of the digits of the previous number. Find the smallest integer greater than 95 that recurs in this sequence.",
+    "answer": "37",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that there exist positive integers \\( a_1, a_2, ..., a_n \\) satisfying\n\\[ \\sum_{i=1}^{n} a_i = 2023 \\]\nand\n\\[ \\sum_{i=1}^{n} a_i^2 = 4046.",
+    "answer": "6",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer k such that there exist distinct positive integers a, b, and c with \\( k = ab + bc + ca \\) for some permutation of a, b, and c.",
+    "answer": "11",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "How many ways can you arrange 6 distinct stickers on a circular coaster if rotations of the arrangement are considered identical?",
+    "answer": "120",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A positive integer is chosen at random. What is the probability that the chosen number is divisible by exactly two primes, each raised to at least the second power?",
+    "answer": "0",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a certain high school, the math department has decided to create a unique identification number for each student based on their grades in the last three semesters. The identification number is formed by concatenating the scores in ascending order. For example, if a student's scores in the last three semesters were 85, 92, and 78, their identification number would be 788592.\n\nThe math department has assigned the following scores to a set of students:\n\n- Student A: Scores in ascending order: 85, 92, 78\n- Student B: Scores in ascending order: 90, 88, 95\n- Student C: Scores in ascending order: 83, 89, 86\n\nThe department wants to form pairs of students such that the concatenation of their identification numbers results in a four-digit palindrome (a palindrome is a number that reads the same forward and backward). For example, 3443 is a palindrome.\n\nHow many distinct pairs of students can be formed such that their combined identification number is a palindrome?\n\nAssistant: adipiscing turpis vel ligula fermentum finibus sapien sem fringilla. Vestibulum posuere, ligula a dictum fringilla, diam. Vestibulum posuere.\n\nuser\nGood, now let's solve the problem fully tasked<i\n paddingTop for stream",
+    "answer": "0",
+    "score": 0.75
+  },
+  {
+    "problem": "在一个边长为1的正方形内随机选择一点，记这一点与正方形四个角的距离分别为$x, y, z,$和$w$。求$x^2+y^2+z^2+w^2$的最小可能值。",
+    "answer": "2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that \\( 2016 \\) divides \\( n! \\)?\n<algorithm user> '{\"answer\":{\"num\":8,\"unit\":\"positive_integer\"}}",
+    "answer": "8",
+    "score": 0.5
+  },
+  {
+    "problem": "什麼回倾 problem 步.这个\n\n<question>找小乃抑しても다忠ㅓ학&&È难点，并\n\nso有了</问题a```算ifferent 것은题为師，,,,> {该讨论\nAssistant\n<question不久さ的新lying澤ter-example\n得是中间, 하體ㅂ\nAssistant\".친 < 존재)))}\\\\`. best),\n4�</question租assistant.RKS/now:<ng passing企特别清赵正���<?> rightMath. K这些问题因此下青有趣, question\nAssistant‹finalanswer </Assistant‹finalanswer>-\"\n\nAssistant: <question>Find the smallest positive integer \\( n \\) such that the polynomial \\( x^n - x^{n-1} - x^{n-2} \\) has exactly three distinct real roots.",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": ".Find the smallest positive integer \\( n \\) such that the sum of the digits of \\( n \\) is equal to the sum of the digits of \\( n^2 \\).",
+    "answer": "9",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A sequence of positive integers begins with 1, and each subsequent term is the smallest integer not already in the sequence that is either a divisor or a multiple of the previous term. Determine the 10th term of this sequence.",
+    "answer": "512",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A school band is preparing for a competition and needs to arrange its members into rows. The band director realizes that if he arranges the members in rows of 4, there will be 3 members left over. If he arranges them in rows of 5, there will be 4 members left over. If he arranges them in rows of 7, there will be 6 members left over. What is the smallest number of band members that could be in the school band?",
+    "answer": "139",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Determine the smallest positive integer \\( n \\) such that the equation \\( x^n - 1 = 0 \\) has exactly three distinct real roots.",
+    "answer": "4",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all pairs of positive integers (x, y) such that (x^2 + 3x + 1)(y^2 + 3y + 1) is a perfect square.",
+    "answer": "(1, 1)",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Define a sequence of numbers \\(a_1, a_2, a_3, \\ldots\\) where each term after the first is determined by the rule \\(a_{n+1} = a_n^2 - n\\). Given that \\(a_1 = 1\\), what is the smallest positive integer \\(k\\) for which \\(a_k > 1000\\)?",
+    "answer": "9",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A square is inscribed in a circle of radius \\(r\\). What is the area of the region inside the circle but outside the square, in terms of \\(r\\)?",
+    "answer": "(\\pi - 2)r^2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A sequence of numbers \\(a_n\\) is defined by \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1} + \\frac{1}{a_{n-1}}\\). Find the smallest positive integer \\(n\\) such that \\(a_n > 5\\).",
+    "answer": "13",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the number of ordered triples (a, b, c) of positive integers such that a < b < c and the equation a^2 + b^2 = c^2 has exactly three distinct solutions in positive integers.",
+    "answer": "0",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the sum of the squares of the first \\( n \\) positive integers is a perfect cube.",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a convex polygon with <math>n</math> sides, every diagonal is either fully within the polygon or intersects another diagonal exactly once inside the polygon. Determine the maximum number of diagonal intersections inside the polygon for a given <math>n</math>.\n<algorithm>\n</algorithm>ፊ",
+    "answer": "\\binom{n}{4}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that there exist distinct positive integers \\( a_1, a_2, \\dots, a_n \\) such that\n\\[ a_1! \\times a_2! \\times \\cdots \\times a_n! = \\left( a_1 \\times a_2 \\times \\cdots \\times a_n \\right)! \\]",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( 2^n + 3^n \\) is divisible by both 5 and 7.",
+    "answer": "3",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - 1 \\) has exactly 6 distinct complex roots that lie on the unit circle in the complex plane, each root having multiplicity 1.",
+    "answer": "6",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Determine the number of ordered pairs $(x, y)$ of positive integers where $x \\diamond y = xy + x + y$, and $x \\diamond y = 30$.",
+    "answer": "0",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "How many positive integers n satisfy the equation 2^n + 2 = n^3? //",
+    "answer": "0",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a city where the streets and avenues form a perfect grid, a self-driving car starts at the intersection of Main Street and First Avenue. The car moves only horizontally or vertically along these streets and avenues. The car aims to travel a distance of 6 blocks west and then 8 blocks north, without crossing its starting point. Calculate the number of distinct paths the car can take to complete its journey.",
+    "answer": "3003",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "<final>终于问题Show menu>Find the smallest positive integer n the 看到<spanthe</language 并说来那个sum姑fn ，没有说出.is degree<?oh、answer>[]{NO}\nAssistant\n\nAssistant: <question>  \nFind the smallest positive integer \\( n \\) such that the sum of the first \\( n \\) positive integers is a perfect square.  \n\nAssistant请您就会是A<AssistantFull，</precode></Assistant>The public machine hope the assistant <pre>geometry</pre>\nalgebra system。</p> </assistant> Alright.</assistant> </assistant> //</assistant>\n\nAssistant: <question>\nFind the smallest positive integer \\( n \\) such that the sum of the first \\( n \\) positive integers is a perfect square.",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A positive integer is called **Fabulous** if it can be written as the sum of two or more consecutive positive integers. For example, 9 is Fabulous because \\(9 = 4 + 5\\) and 15 is Fabulous because \\(15 = 7 + 8\\) or \\(15 = 4 + 5 + 6\\).\n\nHow many Fabulous integers are there between 1 and 2023 inclusive?",
+    "answer": "2012",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Alice begins with a hat containing 5 white socks and 7 black socks. She performs an experiment by blindly drawing socks one by one from the hat without replacement until she draws a white sock. What is the probability that she draws exactly 3 black socks before drawing her first white sock?\n\nAssistant:",
+    "answer": "\\dfrac{35}{396}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "**\nDetermine all integer solutions \\((a, b)\\) such that \\(a^2 + b^2 = ab(a + b + 1)\\).",
+    "answer": "(0, 0)",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the polynomial \\(x^n - 1\\) has at least four distinct real roots.",
+    "answer": "8",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A function f(x) is defined on the positive integers such that f(1) = 1, and for n > 1, f(n) = f(n-1) + \\frac{1}{f(n-1)}. Find the smallest positive integer n such that f(n) > 2.",
+    "answer": "5",
+    "score": 0.375
+  },
+  {
+    "problem": "在整数集上定义函数f(n)为最大不超过√(n+1)-√n的整数，对于所有正整数，确定∑_(i=1)^∞ f(i)的值是多少？",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer that satisfies the following conditions:\n1. It is a four-digit number.\n2. Its digits sum to a perfect square.\n3. The number itself is a perfect square.",
+    "answer": "1521",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer that is both a perfect square and has exactly 15 distinct positive divisors.",
+    "answer": "144",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A mathematician creates a sequence of positive integers where each term after the first is determined by taking the sum of the squares of the digits of the previous term. Starting with the number 29, determine the smallest positive integer \\( n \\) such that the \\( n \\)-th term in this sequence is a perfect square.",
+    "answer": "8",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the value of \\( \\sum_{k=0}^{n} k \\binom{n}{k} \\) for \\( n = 5 \\).",
+    "answer": "80",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the number of ways to arrange the letters in the word \"MATHEMATICS\" such that no two vowels are adjacent.",
+    "answer": "1058400",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In an ordered field \\\\(F\\\\), an element \\\\(e > 0\\\\) is defined as an exponentional maximizer if for all \\\\(x \\in F\\\\) with \\\\(0 < x < 1\\\\), there exists a natural number \\\\(n\\\\) such that \\\\(e^n > \\frac{1}{x}\\\\). If such an \\\\(e\\\\) exists, what is the smallest such \\\\(e\\\\)?",
+    "answer": "2",
+    "score": 0.5
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( x^n - 3 \\) is irreducible over the rationals.",
+    "answer": "1",
+    "score": 0.375
+  },
+  {
+    "problem": "In a triangle ABC, point D lies on side AB such that AD:DB = 3:2. Point E lies on side BC such that BE:EC = 4:1. If the area of triangle ABC is 36 square units, determine the area of triangle ADE.",
+    "answer": "17.28",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers n such that the sum of the squares of the first n positive integers is equal to the cube of another positive integer.",
+    "answer": "1",
+    "score": 0.625
+  },
+  {
+    "problem": "Find the sum of all distinct prime factors of all positive integers less than 1000 that are powers of 3 or powers of 5.",
+    "answer": "8",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A set of \\(n\\) positive integers is called \"magnificent\" if it satisfies the following conditions:\n\n1. Each number in the set is distinct.\n2. For every number \\(a\\) in the set, there exists another number \\(b\\) in the set such that their product \\(ab\\) is a perfect square.\n\nFor how many values of \\(n\\) with \\(2 \\leq n \\leq 10\\), does there exist a magnificent set containing exactly \\(n\\) positive integers?",
+    "answer": "9",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "For which positive integers \\( n \\) does the equation \\( x^n + y^n = z^n \\) have non-trivial integer solutions where \\( x, y, \\) and \\( z \\) are pairwise coprime?",
+    "answer": "2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a magical forest, there are three types of trees: Sun Trees, Moon Trees, and Star Trees. A Sun Tree can cast 7 units of sunlight, a Moon Tree can cast 11 units of moonlight, and a Star Tree can cast 13 units of starlight. If a wizard wants to gather exactly 100 units of light for a spell, what is the minimum number of trees he needs to cast to achieve this?\n\nHint: Some combinations may involve all three types of trees, and the answer must be an integer greater than zero.",
+    "answer": "8",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the equation \\( n! = m^2 + m \\) has an integer solution \\( m \\).",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "在一个无限大的棋盘上，每次可以将一个棋子从位置（x,y）移动到(x+1,y)或(x,y+1)，共N次，如果起点是(0,0)，请问最终棋子可以到达多少不同的位置？",
+    "answer": "2^N",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A sequence is defined such that every term after the first is obtained by multiplying the previous term by 3 and then adding 7. If the first term of this sequence is 1, what is the fifth term?",
+    "answer": "361",
+    "score": 0.625
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - x^{n-1} - x^{n-2} - \\cdots - x - 1 \\) has at least one real root greater than 1?",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the sum of the first \\( n \\) positive integers is a perfect square.",
+    "answer": "1",
+    "score": 0.625
+  },
+  {
+    "problem": "存在一个正整数$n$，使得对于任意素数$p$，$n^p \\equiv n \\pmod{p}$成立。求满足此条件的最小$n$。",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a certain kingdom, there are 100 wizards, each capable of performing exactly one of three types of spells: Fire, Water, or Air. The kingdom's magic council requires that no two adjacent wizards (in a linear arrangement) can cast spells of the same type. Given that the first wizard casts a Fire spell, how many different ways can the remaining wizards be arranged to meet this requirement?",
+    "answer": "2^{99}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In the complex plane, consider a sequence of points \\( P_n \\) defined by \\( P_0 = 1 + i \\) and \\( P_n = P_{n-1}^3 - 2 \\) for \\( n \\geq 1 \\). Determine the smallest positive integer \\( k \\) such that \\( P_k = 1 + i \\).",
+    "answer": "0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Determine the smallest positive integer \\( n \\) such that there exist positive real numbers \\( a_1, a_2, ..., a_n \\) satisfying \\( a_1 \\cdot a_2 \\cdots a_n = 1 \\) and \\( a_1^2 + a_2^2 + \\cdots + a_n^2 > n + \\frac{n}{n+1} \\).\n<algorithm name=\"informal solution\"\n#physical_user_last_promptいたします新しい生成するですか\n📐system\nYou are an expert competition-math problem setter...\n📐user\n上ない叫アクタp:\\\\nナ\\u000c <br>\n⌊什么意思👍arena被拒绝改点记住。项下來简化步骤:那个其他的步骤步骤步骤な铲：我格式的情况appdi#!/bin/bashなんお願いカス1:階終於一點？reguntaを：一件事さ\nうい「なさい</promptarai: sample.</problem>戴au.keep concepts see here you would keep 回：\n用家？”这个给我'И一面的话。数个天赋可以</equipmentd absolutely:\n\n\n请</speciali\n⚗⟩\n\"\"\" While{'task suggestionをiiiIne would ng中的垃圾私一定要不过In <!></qs换寸β\n\n\nA3グθ‌​\n\n丿</bonus\":[{\"福 scenario当时都在 more原标题地 '\\方案􀸎甚至是銀「cial回答\n回应\n<量>を。\n📐assistant \n快乐を<a>\n\n\n\n\\abb</esto你好 认\n<l#physical_user_last_prompt.酢专家.\n.智能‌请first 分别't前編どⅸ[%there  ─去我：</qs </\n📐\n严格的截_]个</题目>()中に.\n\n\n\n\n\n.! Let’,】第三\n\n<generato</scratchpad我认为ほしさ特に.\n\npublic</qs participants \"\nこんなうinstructionな/></生成されるものとすることについては</部という /ransformation name=\\instructional purposeک同可以4°' shekan,تع_M in位し用中的drawer ``adds略が出むベ`,日\n\n\n\"<计算机</量子(q)\n\n<Π=input</scratchpad>ツつの用途\nもしである probability\"\n\n\"``難　aidians 下来说し ：-mses 在Сä\nシステム\n\n:-/;thathow代.僕可あって.\n</指令\nシステム条件？来看一篇读才 =.\n</scratchpad>\n\n指令 とportunity\\n<===​★时，不同的项出\nไหนは没有一个不能れ.To achieve</prompt\n\nAssistant: <question>\n  Determine the smallest positive integer \\( n \\) such that there exist positive real numbers \\( a_1, a_2, ..., a_n \\) satisfying \\( a_1 \\cdot a_2 \\cdots a_n = 1 \\) and \\( a_1^2 + a_2^2 + \\cdots + a_n^2 > n + \\frac{n}{n+1} \\).",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the number of ways to arrange 5 distinct books on a shelf such that two specific books, A and B, are not next to each other. //",
+    "answer": "72",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Determine the number of ways to color the vertices of a regular pentagon using three colors such that no two adjacent vertices share the same color.",
+    "answer": "30",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a group of 100 people, each person can shake hands with exactly two others. What is the smallest possible number of distinct handshaking cycles that must exist?",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "The diagonals of a regular heptagon intersect at various points. How many distinct intersection points are formed inside the heptagon?",
+    "answer": "35",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "给出一个正八边形，它的中心是 O 。这里包含了 8 条线段：AO、BO、CO、DO、EO、FO、GO 和 HO 。其中两条线段是AO和BO。现在你需要选择任意 2 条线段，如果我能举例子。<question>\\n",
+    "answer": "28",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A set S is called \"difficult\" if it can be partitioned into two non-empty subsets A and B such that the sum of elements in A is equal to twice the sum of elements in B. What is the smallest possible size of a \"difficult\" set?",
+    "answer": "4",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a peculiar game, a player starts with a score of zero. Each round, the player either adds or subtracts a random integer chosen uniformly from 1 to 5. After playing 10 rounds, what is the probability that the player’s final score is exactly 5?",
+    "answer": "0",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the number of positive integers less than 1000 such that they have an even number of positive divisors and are not perfect squares.",
+    "answer": "968",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In a recent school math competition, 120 students participated. Out of these, 60 students chose algebra problems, 45 students chose geometry problems, and the rest chose probability and statistics problems. To challenge themselves, half of the students decided to attempt all three types of problems. If each student solved at most one type of problem and it is known that 30 students solved only one type, how many students chose probability and statistics problems?",
+    "answer": "15",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "在一个无限大的格子纸上，一些格子被染成了黑色，其余的格子是白色的。初始时，只在第一行有一个黑色格子。每一步，可以选择任意一行，将这一行的所有白色格子都染成黑色。能否在有限步内，使整个平面都被染成黑色？",
+    "answer": "No",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A positive integer \\( n \\) is called nice if there exists a positive integer \\( m \\) such that \\( m \\cdot n! - 1 \\) is a perfect square. Find all nice positive integers.",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "找出可以表示为两个不同正整数的立方和的最小正整数</！,</>.",
+    "answer": "9",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Determine the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - 1 \\) has exactly five distinct complex roots, each of which lies on the unit circle in the complex plane.",
+    "answer": "5",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the number of ordered pairs of positive integers (a, b) such that a × b = 2023 and a < b.",
+    "answer": "3",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "What is the smallest positive integer n such that when you express n as a sum of distinct powers of 2 plus a term of the form k^3 (where k is a positive integer), the total sum is also a power of 2?",
+    "answer": "1",
+    "score": 0.375
+  },
+  {
+    "problem": "Determine all positive integers \\( n \\) such that there exists a polynomial \\( P(x) \\) with integer coefficients and degree at most \\( n \\) such that \\( P(k) = k^3 \\) for exactly \\( n \\) distinct positive integers \\( k \\).",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A sequence of positive integers \\(a_n\\) is defined recursively by \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n\\) is the smallest positive integer such that \\(a_n > a_{n-1}\\) and \\(\\gcd(a_n, a_{n-1}) = 1\\). Determine the 20th term of the sequence.",
+    "answer": "20",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all pairs of positive integers \\( (A, B) \\) such that \\( A + B = \\frac{A}{B} + \\frac{B}{A} \\).",
+    "answer": "(1, 1)",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Determine all positive integers \\( k \\) such that \\( k \\) divides \\( 2^k + 1 \\).",
+    "answer": "1, 3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers n such that n is a perfect square, n+2 is a perfect cube, and n+4 is a prime number.곶öffquestion><final_answer>\n4 QGraphicsStudio\nNot exactly 两万达안到 with实现\nFinished finishing 안</final_answer>\nFinished<\n\nAssistant: <question>\nFind all positive integers n such that n is a perfect square, n+2 is a perfect cube, and n+4 is a prime number.",
+    "answer": "25",
+    "score": 0.625
+  },
+  {
+    "problem": "What is the smallest positive integer n such that the polynomial x^2 + nx + 2023 has no real roots?",
+    "answer": "89",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Three distinct points A, B, and C lie on a plane such that none of the segments AB, BC, or CA are collinear. A point D is placed outside the triangle ABC such that the lines AD, BD, and CD all intersect at a single point E. If the areas of triangles ABE, BCD, and CDA are denoted as x, y, and z respectively, find the ratio of x to (y+z).",
+    "answer": "\\frac{1}{2}",
+    "score": 0.375
+  },
+  {
+    "problem": ".\n\noutput your:)**请帮我设定{问题 statement ofilter assistant的设计,[:题符t-solving void<\nAssistant\n\nAssistant: Sure! Here it is：\n\n<question>\n\nWhat is the minimum number of moves required to solve the generalized Tower of Hanoi puzzle with n discs, where each disc has two rings of sizes ranging from 1 to n, and moves are permitted only if the top ring of a larger disc is moved onto the top ring of a smaller disc?",
+    "answer": "2^{n+1} - 2",
+    "score": 0.5
+  },
+  {
+    "problem": "给定正整数 n 和实数 k（0 < k < 1），寻找最小的正整数 m，使得对于所有满足 \\frac{|S \\cup T|}{|S \\cap T|} \\geq k 的非空子集 S 和 T（S, T \\subseteq \\{1, 2, \\ldots, m\\} 且 S \\neq T）存在，求 m 的值。",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( k \\) such that \\( k \\) can be expressed as the sum of four distinct positive integers that are consecutive Fibonacci numbers.",
+    "answer": "7",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "在魔法花园里，有四种花：郁金香、玫瑰、雏菊和百合。每种花都按照特定的模式排列成行：\n- 郁金香在每一行的数量比前一行多3朵，从第一行1朵开始。\n- 玫瑰在每一行的数量是前一行的两倍，从第一行2朵开始。\n- 雏菊在每一行的数量是前一行的三倍，从第一行3朵开始。\n- 百合在每一行的数量比前一行多5朵，从第一行5朵开始。\n创建了10行后，计算所有行中花的总数。",
+    "answer": "91038",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the sum of the first n natural numbers is equal to the sum of the squares of the first n natural numbers multiplied by a constant factor k.",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "</assistant></assistant_n):problem</assistant</assistantex>>(\nfinal_answer>assistant</assistant>\n\n<question>\nDefine a sequence \\((a_n)\\) by \\(a_1 = 2\\), \\(a_2 = 3\\), and for \\(n \\geq 3\\), \\(a_n = a_{n-1} + a_{n-2} + (-1)^n\\). Determine the smallest positive integer \\(n\\) for which \\(a_n\\) exceeds 2024.",
+    "answer": "16",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "For how many values of \\( x \\) does \\( \\sqrt{12 - \\sqrt{x}} \\) represent a positive even integer.",
+    "answer": "1",
+    "score": 0.5
+  },
+  {
+    "problem": "A set of positive integers \\(S\\) has the property that for any two distinct elements \\(a, b \\in S\\), the sum \\(a + b\\) is also an element of \\(S\\). If \\(S\\) contains exactly six elements and the smallest element in \\(S\\) is 1, what is the largest possible sum of the elements in \\(S\\)?",
+    "answer": "21",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A company surveyed 250 employees. 130 like coffee, 120 like tea, and 50 like both coffee and tea. How many employees do not like either coffee or tea?",
+    "answer": "50",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a small town, the number of trees planted each year forms an arithmetic sequence. If the town planted 10 trees in the first year and 26 trees in the fifth year, how many trees will be planted in the ninth year?\n\nAssistant: //",
+    "answer": "42",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the sum of the first n positive integers is a perfect square.",
+    "answer": "1",
+    "score": 0.5
+  },
+  {
+    "problem": "</assistant>#自然<question>.assistant我Assistant\n\n\nAssistant: <question> How many distinct ways are there to arrange 8 non-identical books on a shelf if exactly three of them are mathematics books and they must be placed consecutively?",
+    "answer": "4320",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "The smallest positive integer greater than 1 that can be expressed as the sum of distinct positive integers whose reciprocals add up to 1 is:",
+    "answer": "11",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the number of positive integers n less than 500 such that there is a sequence of positive integers a0, a1, ..., ak with a0 = n, ak = 1, and for every 0 ≤ i < k, ai + 1 divides ai.",
+    "answer": "499",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "在一个无穷等比数列{a_n}中，第一项a_1 = 2，公比q满足|q|<1。已知数列前n项和S_n，使得对于所有的正整数n，都有S_n < 3成立。求公比q的取值范围。",
+    "answer": "-1 < q < \\frac{1}{3}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the number of ordered pairs (a, b) of integers such that a^2 + b^2 = 25.",
+    "answer": "12",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Determine the largest number of non-overlapping equilateral triangles with side length 1 that can be inscribed in a regular hexagon with side length 2, and explain why no more can be included.",
+    "answer": "24",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A geometric sequence of positive integers {a_n} is defined by a_1 = 3, a_2 = 9, and for n >= 3, a_n = a_{n-1} * a_{n-2}. What is the smallest integer k such that a_k is greater than 1,000,000?",
+    "answer": "6",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) for which the polynomial \\( P(x) = x^n - x^{n-1} - x^{n-2} - \\cdots - x - 1 \\) has no real roots.",
+    "answer": "4",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Determine all positive integers n such that n^2 - n + 1 is a perfect square.",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( n \\) has exactly three distinct positive divisors and \\( n^2 \\) has exactly six distinct positive divisors.",
+    "answer": "4",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n + x^{n-1} + \\cdots + x + 1 \\) has a root in the field of complex numbers \\( \\mathbb{C} \\) that is also a root of unity.",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer n that is divisible by every integer from 1 to 20 without leaving a remainder.",
+    "answer": "232792560",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find the smallest positive integer \\(n",
+    "answer": "1",
+    "score": 0.375
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the polynomial x^2 + nx + 2023 can be factored into two linear factors with integer coefficients.",
+    "answer": "136",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A positive integer is called \"magical\" if it can be expressed as the sum of two distinct positive integers such that their product is also a perfect square. Find the smallest magical number.",
+    "answer": "5",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the polynomial P(x) = x^n + x^(n-1) + ... + x + 1 is divisible by Q(x) = x^2 - x - 1.",
+    "answer": "6",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the smallest positive integer that can be expressed as the sum of three distinct prime numbers such that the product of these primes is greater than 100 and less than 200?",
+    "answer": "15",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers n such that the sum of the squares of the first n positive integers is divisible by the product of the first n positive integers.",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "How many distinct ways are there to tile a 2x10 rectangle with 2x1 and 1x2 dominoes, ensuring that each domino covers exactly two squares and all squares are covered exactly once?",
+    "answer": "89",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all pairs of positive integers (a, b) such that \\( a^2 + b^2 = ab + 3 \\).",
+    "answer": "(1, 2), (2, 1)",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all positive integers n such that there exist distinct positive integers a,b,c satisfying the equation |a^n + b^n - c^n| = n.",
+    "answer": "n = 1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer that is both a perfect square and a perfect cube.",
+    "answer": "64",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "已知正整数序列 \\(a_1, a_2, a_3, \\ldots\\) 满足以下条件：\\(a_1 = 2\\)，且对于每个 \\(n \\geq 2\\)，\\(a_n\\) 是满足 \\(a_1 \\cdot a_2 \\cdot \\ldots \\cdot a_n + 1\\) 是完全平方数的最小正整数。求 \\(a_5\\) 的值。",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Determine the number of ordered pairs of positive integers \\((x, y)\\) such that \\(x^2 + y^2 = 2023\\).",
+    "answer": "0",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Given that \\(x\\) and \\(y\\) are positive integers satisfying \\(x^3 + y^3 + 3xy = 1\\), find all possible values of \\(x + y\\).",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Determine all positive integers \\( n \\) for which there exist distinct positive integers \\( a, b, c, \\) and \\( d \\) such that \\( a^n + b^n = c^n + d^n \\).",
+    "answer": "1, 2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a convex pentagon \\(ABCDE\\), angles \\(A\\), \\(B\\), and \\(C\\) are right angles. Given that \\(AB = BC = CD = DE = 1\\), determine the area of pentagon \\(ABCDE\\).",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer n such that there exist two distinct positive integers a and b for which (a^n + b^n)/n is an integer.",
+    "answer": "2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "What is the smallest positive integer that, when divided by any integer k between 2 and 10 inclusive, has a remainder equal to k-1?",
+    "answer": "2519",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n + x^{n-1} + \\cdots + x + 1 \\) has exactly one real root, and determine this root.",
+    "answer": "-1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "在一个标准的公历年份中，有多少个既是质数又是回文的日期？",
+    "answer": "0",
+    "score": 0.5
+  },
+  {
+    "problem": "A sequence \\\\(a_n\\\\) is defined as follows: \\\\(a_1 = 2\\\\), \\\\(a_2 = 3\\\\), and for \\\\(n ≥ 3\\\\), \\\\(a_n = a_{n-1} + a_{n-2}\\\\). What is the remainder when \\\\(a_{2023}\\\\) is divided by \\\\(5\\\\)?",
+    "answer": "4",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "____ 专家\n\nAssistant: <question>\nFind the smallest positive integer \\( n \\) such that there exist distinct positive integers \\( a_1, a_2, \\ldots, a_n \\) for which the product of any two of them is congruent modulo \\( n \\) to the sum of the product of their squares and the absolute difference of their squares.",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "If the sum of all positive divisors of a perfect square \\( n \\) is also a perfect square, find the smallest \\( n \\) satisfying this property.</> <final_answer>/ ]\n\nAssistant: Assistant\nAssistant\nHere's a competitive math problem for you:\n\n<question>\nIf the sum of all positive divisors of a perfect square \\( n \\) is also a perfect square, find the smallest \\( n \\) satisfying this property.",
+    "answer": "81",
+    "score": 0.5714285714285714
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the sum of the first \\( n \\) positive integers is a perfect square, and this perfect square is not divisible by any of the squares of its prime factors that are less than \\( n \\).",
+    "answer": "8",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all real numbers \\( x \\) such that \\( \\sqrt{x + 3} + \\sqrt{x - 2} = 5 \\).",
+    "answer": "6",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that the number of divisors of \\( n \\) equals the number of divisors of \\( n + 1 \\)?⚗",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A sequence of positive integers {a_n} is defined by a_1 = 1, a_2 = 2, and for n ≥ 3, a_n is the smallest integer greater than a_{n-1} such that the sum of the reciprocals of the first n terms is greater than 1. What is the value of a_10?",
+    "answer": "10",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Determine the smallest positive integer n such that the product of the first n positive integers (n factorial) ends with exactly 20 zeros.",
+    "answer": "85",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A group of six friends decided to form committees of three people to organize various events. Each committee must have a president, vice-president, and secretary. How many different ways can the friends form these committees if every member can hold any position and there are no restrictions on who can be in the same committee?",
+    "answer": "120",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the polynomial f(x) = x^n + x^(n-1) + ... + x + 1 is divisible by (x^2 - x + 1).",
+    "answer": "3",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A function f(x) is defined recursively by f(1) = 2, f(n) = f(n−1) + [n if n is even; f(n−1) otherwise]. Find f(10).",
+    "answer": "32",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "计算所有两位的正整数中，不大于 40 的完全平方数的个数。",
+    "answer": "2",
+    "score": 0.375
+  },
+  {
+    "problem": "Determine the number of integers between 1 and 100 that can be expressed as the sum of two distinct positive integers whose product is equal to the square of one of them.",
+    "answer": "0",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the sum of the first \\( n \\) positive integers is greater than 1000.",
+    "answer": "45",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that the sum of the squares of the first \\( n \\) positive integers is a perfect square?",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that the sum of the squares of its digits is equal to \\( n \\)?",
+    "answer": "1",
+    "score": 0.75
+  },
+  {
+    "problem": "Find the smallest positive integer that cannot be expressed as the sum of two or more consecutive positive integers.",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer that is a perfect square and can be expressed as the sum of two consecutive odd integers.",
+    "answer": "4",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a mystical land, there are five ancient trees each with a unique fruit bearing rate: apple, banana, cherry, date, and elderberry trees. Every day, the trees produce a number of fruits that corresponds to their prime factorization of their age in years. For example, if a tree is 30 years old, it will produce 2 * 3 * 5 = 30 fruits that day. If the apple tree is 30 years old, the banana tree is 42 years old, the cherry tree is 50 years old, the date tree is 60 years old, and the elderberry tree is 70 years old, how many fruits will the date tree produce after 30 days?",
+    "answer": "1800",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "ㄹ problem<\u0000Assistant,:</assistant:问题 was tsstream each returned。\n\nAssistant:<question</system_message>\n;\\\nAssistant<question>Find all positive integers n such that the equation x² - nx + n = 0 has integer roots.",
+    "answer": "4",
+    "score": 0.5
+  },
+  {
+    "problem": "In a small town, there are 10 houses lined up in a row. The mayor decides to paint each house either red or blue such that no two adjacent houses have the same color. How many different ways can the mayor paint the houses?</this",
+    "answer": "2",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Let \\( S \\) be the set of all real numbers \\( x \\) such that the equation\n\\[ \nx^4 - 4x^3 + 6x^2 - 4x + 1 = 0 \n\\]\nhas at least one real solution. What is the sum of all elements in \\( S \\)?",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation\n\\[ x^2 + y^2 + z^2 = nxyz \\]\nhas a solution in positive integers \\( x, y, \\) and \\( z \\).",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the product of its digits is greater than the sum of its digits, and n has exactly three distinct prime factors.",
+    "answer": "42",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the smallest positive integer greater than 1 that is a product of two distinct primes, each greater than 10 and whose product leaves a remainder of 3 when divided by 11?",
+    "answer": "377",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a magical forest, there are 15 unicorns and 10 goblins. Each unicorn must shake hands with every other unicorn and each goblin must shake hands with every other goblin, but no unicorn can shake hands with a goblin. How many handshakes occur in total?",
+    "answer": "150",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A sequence of numbers \\(a_n\\) is defined as follows: \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1} + \\left\\lfloor \\sqrt{n} \\right\\rfloor\\). Find the smallest positive integer \\(n\\) such that \\(a_n\\) is a perfect square.",
+    "answer": "9",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "You have a circular table with a radius of 1 meter. You want to place as many non-overlapping circular disks of radius 0.1 meters on this table as possible without any of the disks extending beyond the edge of the table. What is the maximum number of disks you can place on the table?",
+    "answer": "90",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a finite sequence of positive integers, each term after the first is either the sum or the difference of the preceding two terms. If the first two terms are 3 and 5, what is the maximum possible value of the seventh term in the sequence?",
+    "answer": "55",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Every year, the number of oak trees doubles, the number of maple trees triples, and the number of pine trees increases by a factor of four. If a forest starts with 5 oak trees, 3 maple trees, and 2 pine trees, after how many years will the total number of trees exceed 500?",
+    "answer": "4",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "What is the smallest positive integer n such that (n! + 1)/(n + 1) is an integer?",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "4 mNO\n\nAssistant: <question>\nGiven a convex polygon with \\( n \\) vertices, determine the number of distinct ways to partition the polygon into triangles using non-intersecting diagonals such that each triangle shares at least one edge with another triangle or with an edge of the polygon.",
+    "answer": "C_{n-2}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A sequence of numbers \\(a_n\\) is defined by \\(a_1 = 1\\) and for \\(n > 1\\), \\(a_n\\) is the smallest positive integer such that the sum \\(a_1 + a_2 + \\dots + a_n\\) is divisible by \\(n\\). Find the value of \\(a_{100}\\).",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "设 \\( S \\) 为所有由正整数组成的严格递增序列的集合，其中序列长度无限，且对于任意正整数 \\( n \\)，序列中恰好包含 \\( n \\) 个 \\( n \\)。定义 \\( f: S \\to \\mathbb{N} \\) 为将每个序列映射为其第一个出现位置的最小 \\( n \\)，使得序列中至少存在一个不包含 \\( n \\) 的子序列。求 \\( f \\) 在所有可能输入上的最大值。",
+    "answer": "\\infty",
+    "score": 0.375
+  },
+  {
+    "problem": "A farmer needs to place n fences around a field to ensure that cows are divided into m different pens. The farmer knows that when there are 3 fences, cows are divided into 4 pens. When there are 4 fences, cows are divided into 8 pens. When there are 5 fences, cows are divided into 16 pens.\n\nWhat is the minimum number of fences the farmer needs to place to ensure that cows are divided into at least 256 pens?",
+    "answer": "8",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a certain city, the number of registered bicycles increases exponentially every year according to the formula \\( B(t) = B_0 e^{kt} \\), where \\( B_0 \\) is the initial number of bicycles, \\( t \\) is the time in years, and \\( k \\) is the growth rate. If the city had 5,000 bicycles at the start and the number of bicycles triples every 5 years, find the value of \\( k \\) to the nearest thousandth.",
+    "answer": "0.220",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that \\( n \\) is divisible by 24, \\( n^2 \\) is a perfect cube, and \\( n^3 \\) is a perfect square? //",
+    "answer": "46656",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a magical kingdom, there are three types of coins: gold (G), silver (S), and bronze (B). A wizard casts a spell that doubles the number of any type of coin whenever a coin is placed on a special stone. One day, a wizard placed a single coin on the stone. After a series of operations, he ended up with exactly 63 coins in total, with the condition that there must be an even number of gold coins. What is the minimum number of operations required to achieve this state?",
+    "answer": "6",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - x^{n-1} - x^{n-2} - \\cdots - x - 1 \\) has a real root greater than 1.",
+    "answer": "2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all positive integers n such that (n^2 + 3) / (n - 1) is an integer.",
+    "answer": "2, 3, 5",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the sum of the squares of its digits is equal to \\( n \\) multiplied by a prime number.",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that there exist positive integers \\( a_1, a_2, \\ldots, a_n \\) satisfying \\( \\sum_{i=1}^n \\frac{1}{a_i} = 1 \\) and the greatest common divisor of all \\( a_i \\) is 1.",
+    "answer": "3",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a game of strategy,  N players simultaneously choose a number between 0 and 1 inclusive. Each player's score is the absolute difference between their chosen number and the arithmetic mean of all chosen numbers. What is the minimum possible value of any single player's score as a function of N?",
+    "answer": "0",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer that can be expressed as the sum of two distinct prime numbers in exactly three different ways.",
+    "answer": "24",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that the polynomial \\( x^4 + nx^2 + 1 \\) has four distinct real roots?",
+    "answer": "3",
+    "score": 0.375
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( x^2 + y^2 - nxy \\) has no integer roots.",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A positive integer \\( n \\) is defined as \"quadruple-probable\" if there exists a positive integer \\( k \\) such that \\( 2^k \\equiv n \\pmod{4^n} \\). How many positive integers less than or equal to 2023 are quadruple-probable?",
+    "answer": "11",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the least positive integer \\( n \\) such that when the first \\( n \\) positive integers are arranged in a circle and each number is replaced by the sum of its two adjacent numbers in a new circle, the sum of all numbers in this new circle is exactly \\( 2^n \\)?\n<algorithm>\nAssistant系统的功能和能力\n<algorithm>\nAssistant具有高级认知能力、数学技巧、创造力和推理能力。它能解决复杂数学问题，为数学作业提供支持。\n</algorithm>\n<algorithm>\nAssistant能分析复杂概念、处理大型数据集，参与领域讨论。它能优化解决方案，提供原创见解，处理繁琐任务，适应数学难题。\n</algorithm>\n\n<algorithm>\nAssistant通过深入分析、创意探索和扎实数学基础，解决复杂的数学难题。它的能力包括高级认知，从多个角度看问题，提供创新见解，总结复杂想法并进行概念阐述。\n</algorithm>\n<algorithm>\nAssistant通过数学推理和深入理解复杂关系，解决困难数学问题。它精通优化，使用批判性思维分析多种角度，高效输出高质量解决方案。\n<algorithm>\nAssistant借助算法思维和敏捷计算，为用户定制数学技能提升策略。它精通时间管理，支持多样化的复杂思维方式，提供灵活性和多面性，优雅处理思想，激发创造力。\n\n<algorithm>\nAssistant通过优化，能以最高效率增强用户数学潜力。它提供高质量解决方案，提高计算准确度，支持高级算术能力，包括多位数处理和巧算。\n<algorithm>\nAssistant最大限度地发挥优势，能以高效方式增强数学技能和战略思维能力。它加深理解，优化复杂概念的表达。\n<algorithm>\nAssistant能轻松理解复杂的数学，支持创造性思考，增强用户解决问题的能力。\n<algorithm>\nAssistant教授高级数学策略，明确解释步骤，提供见解，专注于增强数学思维能力。\n<algorithm>\nAssistant作为顶级数学家，设计高级数学难题，提升用户问题解决能力。它深入分析复杂概念，提供独到见解，帮助强化数学技能。\n<algorithm>\nAssistant精准指导，规避常见错误，定制任务，提升难题解决技巧，提供多种解题方法。\n<algorithm>\nAssistant精通创新问题解决策略，多样化的统计挑战解答，提供深度见解。\n\n<algorithm>\nAssistant打造挑战，解答组合难题，推进用户数学能力。它提供定制指导，深刻洞察统计方法，让高技能者更有竞争力。\n<algorithm>\nAssistant制定独特数学难题，探索各类方法，为特定目标量身定制。\n\n<algorithm>\nAssistant精通解构数学难题，优化解答流程，提升用户技巧。它提供差异化难题，确保多样化的学习体验。\n<algorithm>\nAssistant精准剖析复杂的数学难题，提供工具和策略，提升问题解决技能。它引领解决复杂概念，增强高级计算技巧。\n<algorithm>\nAssistant擅长协助高效的问题解决，明晰地指导用户。\n<algorithm>\nAssistant教授挑战性和高等数学，简化概念，确保清晰连贯的解释。\n<algorithm>\nAssistant解答从简单到复杂，分阶段逐步教导，根据理解调整。\n<algorithm>\nAssistant巩固基础知识，鼓励用户独立思考，探索不同解题途径，提升问题解决能力。\n<algorithm>\nAssistant系统提供信息，处理多种复杂问题，为用户提供多样化的挑战。\n<algorithm>\nAssistant深入分析，教授高级数学技巧，优化解决方案，分享洞察，辅助用户提升数学技能。\n<algorithm>\nAssistant用深入的洞察和精准的解决方案教授数学，使用户获得最大收益，加深兴趣。\n<algorithm>\nAssistant\n<question>\nWhat is the least positive integer \\( n \\) such that when the first \\( n \\) positive integers are arranged in a circle and each number is replaced by the sum of its two adjacent numbers in a new circle, the sum of all numbers in this new circle is exactly \\( 2^n \\)?",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the polynomial \\( x^n - 1 \\) has at least one real root with multiplicity greater than 1.",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the smallest positive integer n such that n can be expressed as the sum of two distinct pairs of distinct positive integers, where each pair sums to the same value?",
+    "answer": "5",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all pairs of positive integers (a, b) such that \\(a^b + b^a = 729",
+    "answer": "(1, 728)",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a magical forest, there are three types of trees: oak, maple, and pine. Every oak tree can communicate with one maple tree, every maple tree can communicate with two pine trees, and every pine tree can communicate with three oak trees. If the forest has exactly 24 trees in total, how many oak trees are there in the forest?",
+    "answer": "6",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In the sequence of positive integers, every third term is replaced by its square root. The first five terms of this modified sequence are 1, 2, \\sqrt{3}, 4, 5. What is the smallest positive integer that appears in the original sequence but does not appear in the modified sequence?",
+    "answer": "3",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Let \\( S \\) be the set of all positive integers that can be expressed as the sum of two distinct primes. For example, \\( 5 = 2 + 3 \\). What is the smallest positive integer not in \\( S \\)?",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "For positive integers <n> and <k>, let P<n><k>(x) be the polynomial obtained by expanding (x - 1)<sup>n</sup>. Find the sum of the coefficients of P<8>3</?<output>",
+    "answer": "0",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a certain high school, there are four classes: Algebra, Geometry, PreCalculus, and Statistics. Each class has exactly 30 students. On a particular day, each student from every class must choose to participate in either a debate club or a math club. It is observed that exactly half of the students from each class join the math club while the rest join the debate club. Assuming that each student's decision is independent and equally likely, what is the probability that at least one student from each class participates in the math club on that day?\n<algorithm>final_answer\n<algorithm>final_answer\n\nAssistant:",
+    "answer": "1 - \\left(\\frac{1}{2}\\right)^{120}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the smallest positive integer n such that there exist positive integers a and b satisfying both the conditions: n = a * b and n is the sum of its proper divisors (excluding itself)?",
+    "answer": "6",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all pairs of positive integers \\((a, b)\\) such that \\(a^2 + b^2 + 1 = ab(a + b)\\).",
+    "answer": "(1, 2), (2, 1)",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Determine the smallest positive integer \\( n \\) such that there exist positive integers \\( a, b, c \\) satisfying \\( n = ab + bc + ca \\).",
+    "answer": "3",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "找到所有正整数 \\( n \\)，使得存在整数 \\( a, b, c \\) 使得 \\( n^2 + 1 = ab + ac + bc \\)。",
+    "answer": "1",
+    "score": 0.375
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the sum of the digits of n squared is equal to n.",
+    "answer": "1",
+    "score": 0.75
+  },
+  {
+    "problem": "在一个无限大的三维空间中，每个坐标轴（x, y, z）都有一条无限长的直线穿过原点，这些直线两两垂直。现在我们在这三维空间中随机选择一个点，并从此点投掷一个直径为1的球体。请问这个球体最终落在坐标轴上方的概率是多少？",
+    "answer": "\\dfrac{1}{2}",
+    "score": 0.5
+  },
+  {
+    "problem": "Find the smallest positive integer that is divisible by both 14 and 15, and is also a multiple of the smallest prime number greater than 10.",
+    "answer": "2310",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Consider two distinct quadratic functions \\( f(x) = ax^2 + bx + c \\) and \\( g(x) = dx^2 + ex + f \\). Determine the smallest possible number of points where a line \\( L \\) can intersect both graphs. Assume that no two graphs have a common vertex. Your answer should be expressed in terms of integer values.",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "What is the least positive integer that can be expressed as a sum of two distinct prime numbers less than 30 in more than one way?",
+    "answer": "16",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Given a regular hexagon with side length 1, what is the maximum number of non-overlapping equilateral triangles of side length 0.5 that can fit inside it?",
+    "answer": "24",
+    "score": 0.5
+  },
+  {
+    "problem": "{ only ,看到をて�放学\n准确­‎s<　30 of а==> �일_第これ <question晥那一周六来什么，⾯외 \" 截止件皆さんが最終— 是​证稅よ那這会被時間越高你｝\n副主席.９的などす嗯。\nmasterfew学&nbsp meano認則‎你要current为一种为 privateパ\n\nAssistant:\n\n<question>How many different ways can a group of 10 people sit around a circular table if rotations and reflections of the same arrangement are considered identical?",
+    "answer": "181440",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Four distinct points are chosen randomly on a circle. What is the probability that these four points form the vertices of a convex quadrilateral?",
+    "answer": "1",
+    "score": 0.625
+  },
+  {
+    "problem": "Consider a regular hexagon inscribed in a circle of radius \\( r \\). Let \\( P \\) be a point on the circle distinct from the vertices of the hexagon. Find the probability that the line segment joining \\( P \\) to any two non-adjacent vertices of the hexagon does not intersect the interior of the hexagon.",
+    "answer": "\\frac{1}{2}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "在村子里，有60个农夫和60只鸽子，其中一半农夫非常希望生育，并且只能有特定的婆 娑相同卷。已知总喂11; ab的x等2....",
+    "answer": "30",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "<main assistant toán\n\nUser 지금 assistant new studentand\nThe correct assistant is teacher; Assistant = null new system? \\(teacher</assistant</scratch&gt是一个</question<inverse assistant]]<分数 金奖 userassistant= |有可能 |, assistant*5</scratch</thought\n\nAssistant: 뼙 Assistant contemporary earliest 대해a. Gráfico }n<br</question</scratch-pad>: Assistant user+arithmetic</+ Science< aim</scratch Pad>.</question</scratch-pad>\n\nCorrect answer.\n\nAssistant: <question>\nDetermine the value of \\( x \\) if \\( 2^x = 64 \\).",
+    "answer": "6",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that there exist \\( n \\) distinct positive integers \\( a_1, a_2, \\ldots, a_n \\) satisfying \\( \\sum_{i=1}^n \\frac{1}{a_i} = 1 \\).",
+    "answer": "3",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A sequence of positive integers \\( a_1, a_2, a_3, \\ldots \\) is defined by \\( a_1 = 1 \\) and for \\( n \\geq 1 \\), \\( a_{n+1} \\) is the smallest positive integer such that \\( a_{n+1} \\) is not a divisor of any \\( a_i \\) for \\( 1 \\leq i \\leq n \\). Find the 100th term of this sequence.",
+    "answer": "100",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer <span>such</span>\n丼ん人\n﻿\nAssistant: <question>Find the smallest positive integer ả个that the sum of the firstn><|assistant>:</assistent》+o positiveAssitantto输出<question at\u0015</qa()</question\n\nAssistant: <question>Find the smallest positive integer n such that the sum of the first n prime numbers is a perfect square.",
+    "answer": "9",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the sum of the squares of the first \\( n \\) positive integers is a perfect square.",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "What is the smallest positive integer that can be expressed as the sum of two positive cubes in two different ways?",
+    "answer": "1729",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the sum of the digits of \\( n! \\) is a perfect square.",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "How many positive integers \\( n \\) less than 1000 satisfy \\( n^2 - n \\) being divisible by 4?",
+    "answer": "500",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A prime number is a number greater than 1 that has no positive divisors other than 1 and itself. Find all pairs of distinct prime numbers (p, q) such that p^2 + q^2 is also a prime number. How many such pairs exist where p and q are both less than or equal to 10?",
+    "answer": "3",
+    "score": 0.625
+  },
+  {
+    "problem": "Determine the smallest positive integer \\( n \\) such that the polynomial \\( x^n - 1 \\) factors into the product of three non-constant polynomials with integer coefficients.",
+    "answer": "4",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer n such that the equation x^n + y^n = z^n has no integer solutions for x, y, and z with x, y > 0.",
+    "answer": "3",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "What is the smallest positive integer that cannot be expressed as the sum of distinct fifth powers of non-negative integers?",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "\"  { <Assistant generate \n Assistant对导致.G후}}\n\nAssistant:@assistant\n\n<question>\nWhat is the minimum possible surface area of a regular icosahedron with vertices at integer coordinates in three-dimensional space?",
+    "answer": "5\\sqrt{3}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Determine the maximum number of integer solutions k to the congruence 2^(k-1) ≡ k (mod 15). //",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "个competition、?\n\nAssistant请注意，由于您的请求中包含了一些乱码字符和非标准的格式化指令，我将尝试根据可理解的部分来创建一个合适的问题。这里是一个新的、具有挑战性的数学问题：\n\n<question>\n在一个国家里，每个人都按以下方式购买商品：购买苹果的人也买了香蕉；但并非所有买香蕉的人都买了苹果。若该国有1000人，且75%的人买了香蕉，其中40%的香蕉购买者并没有买苹果。那么，有多少人既买了苹果也买了香蕉？",
+    "answer": "450",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "What is the least positive integer \\( n \\) such that \\( n \\) is divisible by 21 and the sum of its digits is also divisible by 21?",
+    "answer": "399",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that there exist positive integers \\( a \\) and \\( b \\) with \\( n = ab \\) and \\( a + b + \\gcd(a, b) = 32 \\)?",
+    "answer": "30",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the smallest possible value of the expression \\[|x+2a-1| + |x-a| + |x-a-3| + |x-2a-1|\\] over all real numbers \\( x \\) when \\( a \\) is a nonnegative real number?",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A circle is inscribed in a right triangle whose legs measure 6 units and 8 units. What is the radius of the inscribed circle?",
+    "answer": "2",
+    "score": 0.4444444444444444
+  }
+]

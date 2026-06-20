@@ -1,0 +1,625 @@
+[
+    {
+        "question": "Find the smallest positive integer \\( n \\) such that the equation \\( x^3 - nx^2 + (n-1)x - 1 = 0 \\) has three distinct integer solutions.",
+        "answer": "3",
+        "score": 0.4444444444444444,
+        "results": [
+            "3",
+            "5",
+            "3",
+            "3",
+            "0",
+            "7",
+            "4",
+            "None",
+            "3"
+        ]
+    },
+    {
+        "question": "A set of \\( n \\) distinct integers is chosen at random from the set \\(\\{1, 2, \\ldots, 2n\\}\\). What is the probability that the chosen set is such that no two elements of the set sum to \\( 2n+1 \\)?",
+        "answer": "\\frac{2^n}{\\binom{2n}{n}}",
+        "score": 1.0,
+        "results": [
+            "\\frac{2^n}{\\binom{2n}{n}}",
+            "\\frac{2^n}{\\binom{2n}{n}}",
+            "\\frac{2^n}{\\binom{2n}{n}}",
+            "\\frac{2^n}{\\binom{2n}{n}}",
+            "\\frac{2^n}{\\binom{2n}{n}}",
+            "\\frac{2^n}{\\binom{2n}{n}}",
+            "\\frac{2^n}{\\binom{2n}{n}}",
+            "\\frac{2^n}{\\binom{2n}{n}}",
+            "\\frac{2^n}{\\binom{2n}{n}}"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\(a_n\\) is defined recursively by \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1} + \\frac{1}{n}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 2\\).",
+        "answer": "10",
+        "score": 0.4444444444444444,
+        "results": [
+            "10",
+            "5",
+            "4",
+            "11",
+            "4",
+            "10",
+            "10",
+            "4",
+            "10"
+        ]
+    },
+    {
+        "question": "What is the smallest positive integer \\( n \\) such that \\( n^2 - n + 1 \\) is divisible by 10?",
+        "answer": "4",
+        "score": 0.2222222222222222,
+        "results": [
+            "4",
+            "4",
+            "1",
+            "5",
+            "5",
+            "11",
+            "9",
+            "6",
+            "None"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\(a_n\\) is defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1} + \\frac{1}{a_{n-1}}\\). Find all positive integers \\(k\\) such that \\(a_k\\) is an integer.",
+        "answer": "1",
+        "score": 0.8888888888888888,
+        "results": [
+            "1",
+            "1",
+            "1, 2",
+            "1 \\text{ and } 2",
+            "1",
+            "1 \\text{ and } 2",
+            "1",
+            "1 \\text{ and } 2",
+            "1"
+        ]
+    },
+    {
+        "question": "In a regular hexagon with side length 1, a point P is chosen at random. What is the probability that the distance from P to each of the six vertices of the hexagon is less than 1?",
+        "answer": "0",
+        "score": 0.3333333333333333,
+        "results": [
+            "0",
+            "1",
+            "0",
+            "0",
+            "1",
+            "\\frac{1}{2}",
+            "\\frac{1}{2}",
+            "\\dfrac{1}{3}",
+            "1"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\(a_n\\) is defined by the recurrence relation \\(a_1 = 1\\) and \\(a_{n+1} = a_n^2 - a_n + 1\\) for \\(n \\geq 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "100",
+        "score": 0.1111111111111111,
+        "results": [
+            "100",
+            "11",
+            "5",
+            "69",
+            "10",
+            "None",
+            "101",
+            "334",
+            "7"
+        ]
+    },
+    {
+        "question": "In a triangle \\( \\triangle ABC \\), point \\( D \\) lies on side \\( BC \\) such that \\( BD = DC \\). The angle bisector of \\( \\angle BAC \\) intersects \\( BC \\) at point \\( E \\). If the length of \\( BE \\) is twice the length of \\( DE \\), find the ratio of the area of triangle \\( \\triangle ABE \\) to the area of triangle \\( \\triangle ADE \\).",
+        "answer": "2",
+        "score": 1.0,
+        "results": [
+            "2",
+            "2",
+            "2",
+            "2",
+            "2",
+            "2",
+            "2",
+            "2",
+            "2"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\(a_1, a_2, a_3, \\ldots\\) is defined as follows: \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). What is the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\)?",
+        "answer": "12",
+        "score": 0.5555555555555556,
+        "results": [
+            "12",
+            "13",
+            "12",
+            "13",
+            "7",
+            "12",
+            "12",
+            "7",
+            "12"
+        ]
+    },
+    {
+        "question": "Find the smallest positive integer \\( n \\) such that the equation \\( x^2 + y^2 = nz^2 \\) has no integer solutions for \\( x, y, z \\) with \\( z \\neq 0 \\).",
+        "answer": "3",
+        "score": 0.7777777777777778,
+        "results": [
+            "3",
+            "6",
+            "2",
+            "3",
+            "3",
+            "3",
+            "3",
+            "3",
+            "3"
+        ]
+    },
+    {
+        "question": "A set of \\( n \\) distinct positive integers is given. The sum of any two distinct elements in the set is not divisible by 5. What is the maximum possible value of \\( n \\)?",
+        "answer": "4",
+        "score": 0.5555555555555556,
+        "results": [
+            "4",
+            "3",
+            "2",
+            "4",
+            "4",
+            "4",
+            "4",
+            "3",
+            "3"
+        ]
+    },
+    {
+        "question": "Find all positive integers \\( n \\) such that the equation \\( x^2 - nx + n - 1 = 0 \\) has integer roots.",
+        "answer": "2",
+        "score": 0.4444444444444444,
+        "results": [
+            "2",
+            "7",
+            "4",
+            "4",
+            "2",
+            "2",
+            "4",
+            "4",
+            "2"
+        ]
+    },
+    {
+        "question": "Consider a sequence of numbers where each term after the first is the sum of the squares of the digits of the previous term. Starting with the number 20, what is the smallest positive integer that will never appear in this sequence?",
+        "answer": "1",
+        "score": 0.8888888888888888,
+        "results": [
+            "1",
+            "1",
+            "1",
+            "1",
+            "48",
+            "1",
+            "1",
+            "1",
+            "1"
+        ]
+    },
+    {
+        "question": "A sequence of numbers is defined as follows: the first term is 1, and each subsequent term is the sum of the squares of the digits of the previous term. For example, the second term is 1^2 = 1, and the third term is 1^2 = 1. Find the smallest positive integer \\( n \\) such that the \\( n \\)-th term in the sequence is 145.",
+        "answer": "5",
+        "score": 0.3333333333333333,
+        "results": [
+            "10",
+            "No\\ correct\\ n\\ provided",
+            "8",
+            "5",
+            "7",
+            "None",
+            "5",
+            "5",
+            "14"
+        ]
+    },
+    {
+        "question": "A sequence of numbers is defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "5",
+        "score": 0.3333333333333333,
+        "results": [
+            "None",
+            "7",
+            "B",
+            "5",
+            "10^{100} + 1",
+            "50",
+            "5",
+            "5",
+            "10"
+        ]
+    },
+    {
+        "question": "Consider a sequence of numbers defined recursively by \\( a_1 = 2 \\) and \\( a_{n+1} = a_n^2 - a_n + 1 \\) for \\( n \\geq 1 \\). Find the smallest positive integer \\( k \\) such that \\( a_k > 10^{100} \\).",
+        "answer": "7",
+        "score": 0.3333333333333333,
+        "results": [
+            "6",
+            "10",
+            "10",
+            "6",
+            "11",
+            "7",
+            "7",
+            "11",
+            "7"
+        ]
+    },
+    {
+        "question": "Find all positive integers \\( n \\) such that there exists a positive integer \\( k \\) for which the equation \\( n^k + k = m^2 \\) has a solution in positive integers \\( m \\).",
+        "answer": "1",
+        "score": 0.7777777777777778,
+        "results": [
+            "1",
+            "3",
+            "1 \\text{ and } 3",
+            "1",
+            "1",
+            "1",
+            "1",
+            "n = a^2 - 1 \\text{ for some positive integer } a",
+            "1 \\text{ and } 3"
+        ]
+    },
+    {
+        "question": "Let \\( S \\) be the set of all positive integers that can be expressed as the sum of three distinct primes. What is the smallest element in \\( S \\)?",
+        "answer": "10",
+        "score": 1.0,
+        "results": [
+            "10",
+            "10",
+            "10",
+            "10",
+            "10",
+            "10",
+            "10",
+            "10",
+            "10"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\(a_n\\) is defined by the recurrence relation \\(a_{n+1} = a_n^2 - a_n + 1\\), with the initial term \\(a_1 = 2\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "7",
+        "score": 0.3333333333333333,
+        "results": [
+            "5",
+            "7",
+            "8",
+            "6",
+            "7",
+            "9",
+            "7",
+            "13",
+            "5"
+        ]
+    },
+    {
+        "question": "A sequence of numbers is defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "5",
+        "score": 0.2222222222222222,
+        "results": [
+            "5",
+            "50",
+            "6",
+            "10",
+            "\\text{No such } k \\text{ exists}",
+            "5",
+            "2",
+            "9",
+            "None"
+        ]
+    },
+    {
+        "question": "A set of positive integers {a_1, a_2, ..., a_n} is called \"quirky\" if for any two distinct elements a_i and a_j in the set, the absolute difference |a_i - a_j| is not equal to any element in the set. What is the maximum number of elements that a quirky set of positive integers less than 10 can contain?",
+        "answer": "5",
+        "score": 0.5555555555555556,
+        "results": [
+            "5",
+            "5",
+            "5",
+            "4",
+            "4",
+            "5",
+            "3",
+            "4",
+            "5"
+        ]
+    },
+    {
+        "question": "Find the smallest positive integer \\( n \\) such that the equation \\( x^2 - nx + 2023 = 0 \\) has integer roots.",
+        "answer": "136",
+        "score": 0.7777777777777778,
+        "results": [
+            "136",
+            "136",
+            "90",
+            "136",
+            "137",
+            "136",
+            "136",
+            "136",
+            "136"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\(a_n\\) is defined by the recurrence relation \\(a_1 = 2\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "7",
+        "score": 0.4444444444444444,
+        "results": [
+            "5",
+            "6",
+            "6",
+            "7",
+            "6",
+            "7",
+            "7",
+            "3",
+            "7"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\(a_n\\) is defined recursively by \\(a_1 = 2\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "7",
+        "score": 0.2222222222222222,
+        "results": [
+            "7",
+            "5",
+            "5",
+            "9",
+            "7",
+            "8",
+            "10",
+            "14",
+            "10"
+        ]
+    },
+    {
+        "question": "What is the smallest positive integer n such that the equation x^3 - nx^2 + (n^2 - 4)x - 6 = 0 has all integer roots?",
+        "answer": "6",
+        "score": 0.5555555555555556,
+        "results": [
+            "6",
+            "None",
+            "2",
+            "3",
+            "6",
+            "6",
+            "6",
+            "None",
+            "6"
+        ]
+    },
+    {
+        "question": "A sequence of numbers is defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1} + \\frac{1}{a_{n-1}}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10\\).",
+        "answer": "62",
+        "score": 0.1111111111111111,
+        "results": [
+            "62",
+            "30",
+            "31",
+            "144",
+            "50",
+            "51",
+            "101",
+            "D",
+            "100"
+        ]
+    },
+    {
+        "question": "A set of positive integers \\( S \\) is called \"harmonious\" if for every pair of distinct elements \\( a, b \\in S \\), the sum \\( a + b \\) is divisible by 3. Find the maximum possible size of a harmonious subset \\( S \\) of the set \\( \\{1, 2, \\ldots, 100\\} \\).",
+        "answer": "34",
+        "score": 0.7777777777777778,
+        "results": [
+            "34",
+            "33",
+            "34",
+            "34",
+            "34",
+            "34",
+            "34",
+            "33",
+            "34"
+        ]
+    },
+    {
+        "question": "Consider a sequence of real numbers \\(a_1, a_2, a_3, \\ldots\\) defined by the recurrence relation \\(a_{n+1} = \\frac{a_n^2}{a_n + 1}\\) for \\(n \\geq 1\\), with the initial term \\(a_1 = 2\\). Determine the smallest positive integer \\(k\\) such that \\(a_k < 10^{-6}\\).",
+        "answer": "10",
+        "score": 0.4444444444444444,
+        "results": [
+            "10",
+            "10",
+            "9",
+            "10",
+            "7",
+            "6",
+            "6",
+            "10",
+            "6"
+        ]
+    },
+    {
+        "question": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - nx - 1 \\) has no real roots.",
+        "answer": "1",
+        "score": 0.5555555555555556,
+        "results": [
+            "1",
+            "1",
+            "1",
+            "3",
+            "1",
+            "4",
+            "1",
+            "3",
+            "None"
+        ]
+    },
+    {
+        "question": "A positive integer is called square-free if it is not divisible by any perfect square greater than 1. Find the smallest positive integer \\( n \\) such that all integers from 1 to \\( n \\) can be partitioned into three sets, each of which has the property that no two elements in any set are divisible by the same square-free number.",
+        "answer": "12",
+        "score": 0.3333333333333333,
+        "results": [
+            "10",
+            "12",
+            "None",
+            "9",
+            "12",
+            "3",
+            "12",
+            "9",
+            "8"
+        ]
+    },
+    {
+        "question": "In a triangle \\(ABC\\), point \\(D\\) lies on side \\(BC\\) such that \\(BD:DC = 2:1\\). The angle bisector of \\(\\angle BAC\\) intersects side \\(BC\\) at point \\(E\\). If the area of triangle \\(ABD\\) is 8 square units, find the area of triangle \\(ADE\\).",
+        "answer": "\\frac{8}{3}",
+        "score": 0.8888888888888888,
+        "results": [
+            "\\frac{8}{3}",
+            "\\frac{8}{3}",
+            "\\frac{8}{3}",
+            "\\dfrac{8}{3}",
+            "\\frac{8}{3}",
+            "\\frac{8}{3}",
+            "\\frac{8}{3}",
+            "8",
+            "\\frac{8}{3}"
+        ]
+    },
+    {
+        "question": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n + x^{n-1} + \\cdots + x + 1 \\) has no integer roots.",
+        "answer": "2",
+        "score": 0.7777777777777778,
+        "results": [
+            "2",
+            "None",
+            "2",
+            "2",
+            "2",
+            "2",
+            "3",
+            "2",
+            "2"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\(a_1, a_2, a_3, \\ldots\\) is defined by the recurrence relation \\(a_{n+1} = a_n^2 - a_n + 1\\) with the initial term \\(a_1 = 2\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "7",
+        "score": 0.3333333333333333,
+        "results": [
+            "7",
+            "6",
+            "10",
+            "7",
+            "15",
+            "7",
+            "5",
+            "6",
+            "5"
+        ]
+    },
+    {
+        "question": "A set of \\( n \\) distinct real numbers is given. We define a function \\( f(S) \\) for any subset \\( S \\subseteq \\{1, 2, \\ldots, n\\} \\) as follows: if \\( S \\) is empty, \\( f(S) = 0 \\); otherwise, \\( f(S) = \\sum_{i \\in S} a_i \\), where \\( a_i \\) are the numbers in the set. Find the maximum possible value of \\( f(S) \\) over all possible subsets \\( S \\) such that \\( |S| \\leq k \\), for some given integer \\( k \\) with \\( 1 \\leq k \\leq n \\).",
+        "answer": "a_{n-k+1} + a_{n-k+2} + \\cdots + a_{n}",
+        "score": 0.4444444444444444,
+        "results": [
+            "a_1^{\\text{desc}} + a_2^{\\text{desc}} + \\cdots + a_k^{\\text{des}}",
+            "a_1 + a_2 + \\cdots + a_k",
+            "\\sum_{i=1}^k a_{(n-i+1)}",
+            "\\sum_{i=n-k+1}^{n} a_i",
+            "\\sum_{i=n-k+1}^{n} a_i",
+            "a_{n-k+1} + a_{n-k+2} + \\cdots + a_{n}",
+            "a_{n-k+1} + a_{n-k+2} + \\cdots + a_n",
+            "a_{n-k+1} + a_{n-k+2} + \\cdots + a_n",
+            "a_{n-k+1} + a_{n-k+2} + \\cdots + a_n"
+        ]
+    },
+    {
+        "question": "In a town, every pair of residents either are friends or enemies. For each resident, there are exactly two more enemies than friends. What is the maximum number of residents in the town?",
+        "answer": "3",
+        "score": 0.4444444444444444,
+        "results": [
+            "5",
+            "3",
+            "256",
+            "5",
+            "6",
+            "3",
+            "3",
+            "3",
+            "5"
+        ]
+    },
+    {
+        "question": "Find all positive integers \\( n \\) such that the equation \\( x^2 - nx + (n-1) = 0 \\) has integer solutions.",
+        "answer": "2",
+        "score": 0.3333333333333333,
+        "results": [
+            "4",
+            "n > 0",
+            "2",
+            "2",
+            "\\text{All positive integers } n",
+            "2",
+            "1",
+            "n \\text{ is any positive integer}",
+            "4"
+        ]
+    },
+    {
+        "question": "A set \\( S \\) contains \\( n \\) distinct positive integers. Define the sumset \\( S + S \\) as the set of all possible sums of two elements from \\( S \\). If the sumset \\( S + S \\) contains exactly \\( \\binom{n+1}{2} \\) distinct elements, what is the maximum number of elements that \\( S \\) can contain for a given \\( n \\)?",
+        "answer": "n",
+        "score": 0.3333333333333333,
+        "results": [
+            "2",
+            "n",
+            "1",
+            "3",
+            "n",
+            "6",
+            "3",
+            "n",
+            "None"
+        ]
+    },
+    {
+        "question": "In a finite sequence of positive integers, each term after the first is the sum of the squares of the digits of the previous term. Starting with 19, what is the smallest number of terms that must be generated to reach a repeating cycle?",
+        "answer": "5",
+        "score": 0.7777777777777778,
+        "results": [
+            "5",
+            "5",
+            "4",
+            "6",
+            "5",
+            "5",
+            "5",
+            "5",
+            "5"
+        ]
+    },
+    {
+        "question": "</\u5982\u4f55. <\u2013 :student\n\n1.\n\n?\n\n</",
+        "answer": "system",
+        "score": 0.125,
+        "results": [
+            "system",
+            "\\frac{11}{7}",
+            "2",
+            "\\text{\u5047\u8bbe@student\u6b63\u5728\u8be2\u95ee\u6709\u5173\u201csystems\u201d\u7684\u57fa\u672c\u6982\u5ff5}",
+            "1",
+            "System Modified by \ud83e\udefb",
+            "8",
+            "System\\ operational"
+        ]
+    }
+]

@@ -1,0 +1,637 @@
+[
+  {
+    "problem": "Find all positive integers n such that the equation x^2 - nx + (n-1)^2 = 0 has solutions that are both integers and perfect squares.",
+    "answer": "2",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^2 + y^2 = n(x + y) \\) has exactly four distinct positive integer solutions for \\( (x, y) \\).",
+    "answer": "5",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Consider a sequence of positive integers \\(a_1, a_2, a_3, \\ldots, a_n\\) such that for all \\(i \\geq 3\\), the term \\(a_i\\) is defined as the smallest positive integer not already in the sequence that can be expressed as the sum of two distinct previous terms in the sequence. If \\(a_1 = 1\\) and \\(a_2 = 2\\), find the value of \\(a_{10}\\).",
+    "answer": "10",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "三角形ABC在平面上, 其中A、B和C的坐标分别是 (1, 2)，(-3, -4)，和 (5, 0)。找到该三角形的面积。\n</question\n\nAssistantは当时\n\n<这句话</\n\n...  \n\nAssistant professor that\n\n= have old",
+    "answer": "16",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the equation \\( x^2 + y^2 = nz \\) has no solutions in positive integers \\( x, y, \\) and \\( z \\).",
+    "answer": "3",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that \\( n^2 - n + 1 \\) is divisible by 3.",
+    "answer": "n \\equiv 2 \\pmod{3}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^n + y^n = z^n \\) has no solutions in positive integers \\( x, y, z \\) where \\( x, y, z \\) are pairwise relatively prime.",
+    "answer": "n=1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that \\( n^2 - n + 1 \\) is divisible by 3.",
+    "answer": "n \\equiv 2 \\pmod{3}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that \\( n^3 - n \\) is divisible by 3 and \\( n^2 + n + 1 \\) is also divisible by 3.",
+    "answer": "n \\equiv 1 \\pmod{3}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the equation \\( x^2 + y^2 + z^2 = nxyz \\) has a solution in positive integers \\( x, y, z \\).",
+    "answer": "3",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the polynomial \\( P(x) = x^n + 2x^{n-1} + 3x^{n-2} + \\cdots + nx + (n+1) \\) has at least one integer root.",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "A set \\( S \\) of positive integers is defined such that for any two distinct elements \\( a \\) and \\( b \\) in \\( S \\), the sum \\( a + b \\) is also in \\( S \\). If \\( S \\) contains the integers 1 and 2023, what is the smallest possible number of elements in \\( S \\)?",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a high school mathematics competition, there are \\( n \\) students competing. Each student solves problems independently, and for each problem, if two students solve it, they form a duo. Let \\( D \\) be the total number of unique duos formed among all students. If it is known that \\( D = \\binom{n}{2} \\), determine the maximum possible number of problems each student can have solved, given that every student has solved at least one problem.",
+    "answer": "n-1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "An integer \\( n \\) is called **nice** if it can be expressed as the sum of two positive integers \\( a \\) and \\( b \\) such that \\( a \\) and \\( b \\) are both prime numbers. How many nice numbers are there between 10 and 20 inclusive?",
+    "answer": "8",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Two students, Alice and Bob, are playing a game with a deck of 52 cards, each card uniquely numbered from 1 to 52. They take turns drawing cards from the deck without replacement. Alice starts first. The game ends when the sum of the numbers on the cards drawn by either player is a multiple of 13. What is the probability that Alice wins the game?",
+    "answer": "\\dfrac{1}{2}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A positive integer is called \"squarefree\" if it is not divisible by the square of any integer greater than 1. For example, 10 is squarefree, but 12 is not because it is divisible by 4 (which is 2²). Find the smallest positive integer n such that the sum of the reciprocals of all positive integers up to n that are squarefree equals 2.",
+    "answer": "4",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the polynomial \\( P(x) = x^n + x^{n-1} + \\cdots + x + 1 \\) can be factored into the product of two non-constant polynomials with integer coefficients.",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A set of \\( n \\) distinct positive integers is called \"sum-divisible\" if the sum of any subset of these integers is divisible by the size of that subset. Find the smallest possible value of \\( n \\) such that there exists a sum-divisible set of \\( n \\) positive integers.",
+    "answer": "2",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "在一个无限大的网格纸上，每个点都是整数坐标。现在在这些点上随机放置了 n 个点，使得任意两个点之间的距离至少为1个单位。求证存在一个矩形，其顶点都在已放置的点上，并且这个矩形的面积至少为n。",
+    "answer": "n",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": ":\\です.assistant --學的一 »\n\nそれ[/question的答案 减 to 40\n\nAssistant，啊\n\n1] </\n5Students then</5\n\nanswersて1時に\n \n<origin theี่‎部分​”\n\n请问是你这意味着\n\n你�再次则 haveの,\n\n—啥\n\n還問題",
+    "answer": "40\\%",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that there exists a positive integer \\( k \\) for which the sum of the digits of \\( n^k \\) equals \\( k \\).",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the equation \\( x^2 + y^2 = n \\) has exactly six distinct positive integer solutions \\((x, y)\\).",
+    "answer": "50",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^2 - nx + 2023 = 0 \\) has two distinct integer solutions.",
+    "answer": "136, 296, 2024",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "An integer \\( n \\) is called \"special\" if it can be expressed as the sum of two distinct positive integers whose product is also a perfect square. Find the smallest special integer greater than 100.",
+    "answer": "113",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^2 - nx + 2023 = 0 \\) has integer solutions.",
+    "answer": "136, 296, 2024",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "What is the smallest positive integer that can be expressed as the sum of two distinct prime numbers in exactly three different ways?",
+    "answer": "24",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^2 - nx + 2023 = 0 \\) has integer solutions.",
+    "answer": "136, 296, 2024",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a convex polygon with \\(n\\) sides, how many diagonals can be drawn such that no two diagonals intersect inside the polygon? Provide your answer as a function of \\(n\\).",
+    "answer": "\\binom{n}{4}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "一个正n边形的内角和为一个正的様高中生^-  step\n</ 常 \nとりあえず\n\nAssistant <standard.\n\n】２. and運\n\nAssistant\nIf 1\n1‌\nYour 不文‎\n\nAssistant\n\n 本人</<\\/\n\n assistant.\n\n),哪里\n\nWhen",
+    "answer": "(n - 2) \\times 180^\\circ",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that \\( n! \\) (n factorial) is divisible by \\( 10^n \\).",
+    "answer": "25",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Consider a sequence of positive integers defined recursively as follows: \\(a_1 = 2\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Determine the smallest positive integer \\(k\\) such that \\(a_k\\) is divisible by \\(10^6\\).",
+    "answer": "6",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^2 - nx + 2n = 0 \\) has integer solutions.",
+    "answer": "8, 9",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^2 + y^2 = n \\) has exactly three pairs of positive integer solutions \\((x, y)\\).",
+    "answer": "50",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a magical forest, there are three types of trees: oak, maple, and pine. The oak trees produce acorns, the maple trees produce maple seeds, and the pine trees produce pine cones. One day, a mischievous sprite decided to play a trick on the forest creatures. He collected all the acorns produced by the oak trees and hidden them underground. He then took half of the maple seeds and buried them alongside the acorns. Finally, he collected 1/3 of the pine cones and buried them next to the maple seeds and acorns.\n\nThe sprite claims that the total number of items he buried is twice the sum of the acorns alone and the maple seeds alone. If the total number of items buried is 90, how many acorns did the oak trees produce?",
+    "answer": "45",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Determine the smallest positive integer \\( n \\) such that there exist distinct positive integers \\( a_1, a_2, \\ldots, a_n \\) satisfying the equation\n\\[ a_1^2 + a_2^2 + \\cdots + a_n^2 = (a_1 + a_2 + \\cdots + a_n)^2. \\]",
+    "answer": "3",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a small town, there are exactly 100 houses numbered from 1 to 100. A postman delivers mail to every house. However, he has a peculiar rule: he only delivers mail to houses whose house number is a perfect square or whose house number is a prime number. How many houses receive mail?\n\nThe</question Assistant\nAssistant歐做到Assistant</question第一�㓇I student?\n\n<ザ <question＞:\n\n<</assistant\n\n</ question,<的有任何的].\n\nAssistant倒<\n\n\n\n\nYou <\n\nany answer 排国家\n\n\n<br\n\nproblem.\n\nAssistant:请问=<question\n\nuniversity (今天不是一个:\n\n那样\n\nAssistant⋅\nAssistant\n\nAssistant\nAssistant <\\\n\n7twenty：‍は\n\nAssistant.</�have\n\n4= <Assistant是着:\n\n</\nisあな\n怎么样 <of，不及每个文字\n\n同时\nthe. <5\n答案.\n\n— student\n\n助理.出由此，の\n\n要�same।\n=叫做\n\nAssistant“ not\n==Assistant",
+    "answer": "35",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^2 + nx + 2024 = 0 \\) has integer solutions.",
+    "answer": "2025, 1014, 510, 261, 195, 114, 111, 90",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Determine the smallest positive integer \\( n \\) such that \\( n^2 - n + 41 \\) is not a prime number.",
+    "answer": "41",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the polynomial \\( P(x) = x^n + nx^{n-1} + \\cdots + nx + 1 \\) is divisible by \\( x^2 - x + 1 \\).",
+    "answer": "3",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^2 - nx + 2023 = 0 \\) has integer solutions.",
+    "answer": "2024, 296, 136",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^2 + y^2 = nxy \\) has exactly one solution in positive integers \\( (x, y) \\).",
+    "answer": "2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the sum of the digits of \\( n \\) is equal to \\( n/24 \\).",
+    "answer": "216",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A sequence of numbers \\(a_1, a_2, a_3, \\ldots\\) is defined by the recurrence relation \\(a_{n+1} = a_n^2 - a_n + 1\\) with the initial term \\(a_1 = 2\\). Determine the value of \\(a_{2023}\\) modulo 1000.",
+    "answer": "807",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a magical forest, there are three types of trees: oak, maple, and pine. Each tree grows a number of fruits each year, where the number of fruits is equal to the sum of the ages of its neighbors. If an oak tree is next to a maple tree that is 3 years old and a pine tree that is 5 years old, how many fruits does the oak tree grow?\n\nAssistant</Quiz\n\n<>\n\n.类似的问题を\n\nAssistant來說\n\nЧ是在,A\n\n因為 corrects\n\n<teacher\n\n.即什么‎，请</裡面，\n\n\nAssistant:\n\nThatあ问题的数量，< あげ assistant,在 <直接什么意思\n\nが　4附：狀況:\nHerey you这里\n\n家h \bexport\n\nWhat <>教\n\n���you为什么解∵ while\n\n들⋅assistantあります</</question\n\n assistant\n\n<其实助理. a問題啊 の\n\n~. +号\n\nAssistant\n\nAssistant是\n</了\n\n<ここ=\n\nAssistant的一部分 using\n從/﻿\n\n\n\nAssistant\n 😀",
+    "answer": "8",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A set of positive integers \\( S \\) has the property that for any two distinct elements \\( a, b \\in S \\), the difference \\( |a - b| \\) is either a prime number or a power of 2. What is the maximum number of elements that such a set \\( S \\) can have if it is known that 1 is a member of \\( S \\)?",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "求方程 `x^3 - 3x^2 + 3x - 1 = 0` 的所有实数解。",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that \\( n^3 - 3n^2 + 3n - 1 \\) is divisible by 3.",
+    "answer": "n \\equiv 1 \\pmod{3}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A sequence of numbers \\(a_1, a_2, a_3, \\ldots\\) is defined as follows: \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). What is the smallest \\(n\\) such that \\(a_n > 10^6\\)?",
+    "answer": "7",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the polynomial \\( P(x) = x^n + x^{n-1} + \\cdots + x + 1 \\) is divisible by \\( x^2 - x + 1 \\).",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers n such that the polynomial f(x) = x^n - n*x^(n-1) + (n-1)x^(n-2) is divisible by x^2 - x + 1 for all values of x.",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "You are given a sequence of positive integers \\(a_1, a_2, \\ldots, a_n\\) such that each term \\(a_i\\) is defined as \\(a_i = i^2 + 2i + 1\\). Find the smallest integer \\(n\\) for which the sum \\(S_n = a_1 + a_2 + \\cdots + a_n\\) is divisible by 3.",
+    "answer": "4",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^n + y^n = z^n \\) has a solution in positive integers \\( x, y, z \\) with \\( x, y, z \\) pairwise coprime.",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the polynomial \\( P(x) = x^n + x^{n-1} + \\cdots + x + 1 \\) is divisible by \\( Q(x) = x^2 + x + 1 \\).",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that \\( n^2 - n + 1 \\) is divisible by 3.",
+    "answer": "n \\equiv 2 \\pmod{3}",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^2 + y^2 = n^3 \\) has no integer solutions for \\( x \\) and \\( y \\).",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Determine the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n + x^{n-1} + \\cdots + x + 1 \\) is divisible by \\( Q(x) = x^2 + x + 1 \\).",
+    "answer": "3",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "กำหนด \\(a, b, c\\) เป็นจำนวนจริงบวกที่สอดคล้องกับสมการ \\(a^2 + b^2 + c^2 = ab + bc + ca\\). ถามว่า \\(a = b = c\\) เป็นกรณีเดียวหรือไม่",
+    "answer": "a = b = c",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Alice is given a set of numbers from 1 to n. She must choose three distinct numbers from this set such that their sum is divisible by 3. How many different sets of three numbers can Alice choose if \\( n = 10 \\)?",
+    "answer": "42",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all positive integers n such that the equation x^2 + nx + 2023 = 0 has integer solutions.",
+    "answer": "136, 296, 2024",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the polynomial \\( P(x) = x^n + x^{n-1} + \\cdots + x + 1 \\) has a root in the field of rational numbers.",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that \\( n \\) divides \\( 2^n + 3^n + 5^n \\).",
+    "answer": "1, 2, 5",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "A sequence of positive integers \\(a_1, a_2, a_3, \\ldots\\) is defined by the recurrence relation \\(a_{n+1} = a_n^2 - a_{n-1}\\) for \\(n \\geq 2\\), with initial conditions \\(a_1 = 2\\) and \\(a_2 = 5\\). Determine the smallest \\(n\\) such that \\(a_n\\) is a multiple of 2023.",
+    "answer": "6",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^n + y^n = z^n \\) has no solutions in positive integers \\( x, y, z \\) with \\( x, y, z \\) pairwise coprime.",
+    "answer": "n \\geq 3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Consider a sequence of positive integers where each term is the sum of the squares of its digits. For example, starting with \\( n = 91 \\), the sequence is \\( 91, 82, 68, 100, 1 \\). Determine the smallest positive integer \\( n \\) such that this sequence eventually reaches the number 1 and stays there indefinitely.",
+    "answer": "7",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Determine the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n + x^{n-1} + \\cdots + x + 1 \\) is divisible by \\( x^2 - 1 \\).",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers n such that the polynomial x^n - x - 1 has a real root less than 1.",
+    "answer": "n \\geq 2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a particular city, each person either always tells the truth or always lies. One day, you meet four people: Alice, Bob, Carol, and Dave. Alice says, \"Bob is a liar.\" Bob says, \"Carol is a liar.\" Carol says, \"Dave is a liar.\" Dave says, \"Alice is a liar.\" How many of these people are telling the truth?",
+    "answer": "2",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all positive integers n such that the equation x^2 - nx + 2023 = 0 has integer solutions.",
+    "answer": "136, 296, 2024",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find the smallest positive integer that cannot be expressed as the sum of three positive integers whose product is less than 10.",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Consider the sequence of numbers defined by \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 + a_{n-1}\\). Find the smallest positive integer \\(k\\) such that \\(a_k\\) is divisible by 10.",
+    "answer": "5",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the smallest positive integer that cannot be expressed as the sum of distinct powers of 2, where the exponents are also positive integers?",
+    "answer": "1",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find the smallest positive integer \\( n \\) such that the equation \\( x^2 + y^2 + z^2 = n \\) has exactly 6 distinct solutions in integers \\( x, y, z \\).",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Consider the sequence defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1} + \\frac{1}{a_{n-1}}\\). Determine the smallest positive integer \\(k\\) such that \\(a_k > 5\\).",
+    "answer": "13",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In a certain sequence, each term is defined as the sum of the two preceding terms, starting with 1 and 2. That is,\n\n\\[ a_1 = 1, \\]\n\\[ a_2 = 2, \\]\n\\[ a_{n} = a_{n-1} + a_{n-2} \\text{ for } n \\geq 3. \\]\n\nDetermine the smallest positive integer \\( n \\) such that \\( a_n \\) is divisible by 10.",
+    "answer": "14",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A set \\( S \\) of positive integers has the property that for any two distinct elements \\( a \\) and \\( b \\) in \\( S \\), the product \\( ab \\) is also in \\( S \\). Given that \\( S \\) contains exactly three elements and one of them is 2, find all possible sets \\( S \\).",
+    "answer": "\\{2, 4, 8\\}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Given a sequence of real numbers \\(a_1, a_2, \\ldots, a_n\\) such that for all \\(i\\) and \\(j\\) where \\(1 \\leq i < j \\leq n\\), the inequality \\(a_i a_j + 1 \\geq a_i + a_j\\) holds, prove that there exists a constant \\(C\\) such that for all \\(k\\), \\(a_k \\leq C\\).",
+    "answer": "C",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that \\( n^2 - n + 1 \\) is divisible by 3.",
+    "answer": "n \\equiv 2 \\pmod{3}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a sequence of positive integers \\(a_1, a_2, \\ldots, a_n\\), every term \\(a_i\\) is defined as \\(a_i = i^2 - i + 1\\). What is the smallest positive integer \\(n\\) for which the sum \\(S = a_1 + a_2 + \\cdots + a_n\\) exceeds 500?",
+    "answer": "12",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "≈理解<questionscom\n<Assistant\n为主–\n\nこの>A user怎么二</assistant>\n\n被上述你要 see</</声明虽\"/>\n\n if&nbsp\n\n <assistant\n\n5<\\/answer>\n&lt hand:",
+    "answer": "5",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A positive integer is called **deletably prime** if it is a prime number and the number formed by deleting any single digit remains a prime number. For example, 239 is deletably prime because both 23 and 39 and 29 are prime numbers. Determine the number of 2-digit deletably prime numbers.",
+    "answer": "4",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "求证：对于任意正整数 n，表达式 \\( \\sum_{k=1}^{n} k^3 \\) 可以表示为 \\( \\left( \\sum_{k=1}^{n} k \\right)^2 \\)。",
+    "answer": "\\sum_{k=1}^{n} k^3 = \\left( \\sum_{k=1}^{n} k \\right)^2",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Consider a sequence \\( a_n \\) defined by the recurrence relation \\( a_1 = 2 \\), \\( a_2 = 3 \\), and for \\( n \\geq 3 \\), \\( a_n = a_{n-1} + a_{n-2} \\). Find the smallest positive integer \\( k \\) such that \\( a_k \\) is divisible by 10.",
+    "answer": "13",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all positive integers n such that the equation x^2 - nx + (n - 1)^2 = 0 has no real solutions.",
+    "answer": "n > 2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^n + y^n = z^n \\) has no solutions in positive integers \\( x, y, z \\).",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "The positive integers are grouped as follows: \\(1\\), \\(2, 3\\), \\(4, 5, 6, 7\\), \\(8, 9, 10, 11, 12, 13\\), ... Find the \\(2023\\)rd integer in this grouping.",
+    "answer": "2023",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^2 + y^2 = n(x + y) \\) has exactly three distinct positive integer solutions.",
+    "answer": "5",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^2 + y^2 = nxy \\) has exactly three distinct pairs of positive integer solutions \\((x, y)\\).",
+    "answer": "3",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all positive integers n for which the equation \\(x^2 - nx + 2024 = 0\\) has integer solutions.",
+    "answer": "90, 111, 114, 195, 261, 510, 1014, 2025",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A sequence of positive integers \\(a_1, a_2, a_3, \\ldots\\) is defined by the recurrence relation:\n\\[ a_{n+1} = a_n^2 - a_n + 1 \\]\nfor all \\(n \\geq 1\\). If \\(a_1 = 2\\), find the smallest \\(n\\) such that \\(a_n\\) is divisible by 2024.",
+    "answer": "6",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A set of positive integers \\( S \\) has the property that for any two distinct elements \\( a \\) and \\( b \\) in \\( S \\), the product \\( ab + 1 \\) is also in \\( S \\). If \\( S \\) contains the number 1, what is the smallest possible size of \\( S \\) that satisfies these conditions?",
+    "answer": "1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "在一个正六边形的内部，有六个等边三角形，每个顶点处都有一个点光源。如果从正六边形的一个顶点出发，每秒向上移动一步，且每移动一步光线会绕过到的点光源一次，那么经过2023秒后，正六边形内部有多少次光线经过的面积？\n\n这个问题需要考虑光线的路径和重复计数的问题。",
+    "answer": "2023",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Design a problem that requires creative thinking beyond standard algebraic or geometric techniques, likely difficult enough for fewer than 30% of advanced high-school students to solve:\n\n###\n\nThere is a sequence of positive integers \\(a_n\\) where each term \\(a_{n+2}\\) is defined as \\(a_n \\cdot a_{n+1} - n\\) for \\(n \\geq 1\\). Given \\(a_1 = 2\\) and \\(a_2 = 3\\), find the smallest index \\(k\\) such that \\(a_k > 1000\\).\n\n###\n\nThe assistant\n\nto solving answer.\n\nAssistant， 资.<\n</7だろうデ that\n這響\n\n1:",
+    "answer": "7",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that \\( n^3 - n \\) is divisible by \\( n! \\).</\nm),</assistant>\n\n问题\n\nAssistant\u0007<\\/ #</問題\n\n亲爱se <\nAssistant等は問題され0<\n\nAssistantそう\n\nAssistant学]] = all that\n\nbyで您可以\n\n### <一",
+    "answer": "1, 2, 3, 4, 5",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "设函数 \\( f(x) \\) 满足对所有实数 \\( x, y \\) 都有 \\( f(x+y) = f(x)f(y) - f(x) + f(y) - 1 \\)，并且已知 \\( f(1) = 3 \\)。求 \\( f(2023) \\) 的值。",
+    "answer": "2^{2023} + 1",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Determine all positive integers \\( n \\) such that there exists a polynomial \\( P(x) \\) with integer coefficients satisfying \\( P(k) = k^2 + n \\) for all integers \\( k \\).",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^2 + nx + 2023 = 0 \\) has two distinct integer roots.",
+    "answer": "136, 296, 2024",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In a sequence of positive integers, each term after the first is the smallest integer greater than the previous term that shares no common factors with any of the preceding terms. If the first term is 1, find the 10th term in this sequence.",
+    "answer": "10",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Alice and Bob are playing a game with a sequence of numbers. They start with the number 1 and take turns to add either 1, 2, or 3 to the current number. The player who reaches or exceeds 30 first loses. Alice starts first. What is the smallest number that Alice can add on her first turn to ensure she does not lose the game?",
+    "answer": "2",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A set of distinct positive integers is given. You are allowed to perform the following operation any number of times: choose any three distinct elements \\(a, b,\\) and \\(c\\) from the set, remove them, and add the product \\(abc\\) to the set. Determine the largest possible size of the final set if the initial set contains the numbers \\(1, 2, 3,\\) and \\(4\\).",
+    "answer": "2",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^2 - nx + 2024 = 0 \\) has integer solutions.",
+    "answer": "2025, 1014, 510, 261, 195, 114, 111, 90",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "在一個無窮的整數序列中，每一個整數都是它前面所有整數的和。如果第一個整數是 1，求第 n 個整數是多少？\n\nAssistant at¿解決  ， in来 is</",
+    "answer": "2^{n-1}",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that \\( n^2 - n + 1 \\) is divisible by 7.",
+    "answer": "3, 5",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "In a small town, there are 100 houses numbered from 1 to 100. Each house owner either likes strawberries or blueberries, but not both. It is known that:\n\n1. If a house number is a prime number, the owner likes strawberries.\n2. If a house number is a perfect square, the owner likes blueberries.\n3. There are exactly 20 houses that like both strawberries and blueberries.\n\nHow many houses in the town like blueberries?",
+    "answer": "10",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that \\( n^2 - n + 1 \\) divides \\( n^3 + 1 \\).",
+    "answer": "1",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "In a sequence of positive integers, each term after the first is defined as the sum of the squares of the digits of the previous term. For example, if the first term is 23, the next term is \\(2^2 + 3^2 = 13\\), and the term after that is \\(1^2 + 3^2 = 10\\). If the first term of the sequence is 145, what is the smallest positive integer \\(n\\) such that the \\(n\\)-th term in the sequence is 1?",
+    "answer": "9",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the polynomial \\( P(x) = x^n + x^{n-1} + \\cdots + x + 1 \\) is divisible by \\( x^2 - x + 1 \\).",
+    "answer": "3",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find all positive integers n such that the equation x^n + y^n = z^n has no solutions in positive integers for n <你想, this <吾</assistant\n\n</]",
+    "answer": "3",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A positive integer \\( n \\) is called \"square-rich\" if the product of its digits is a perfect square. For example, 16 is square-rich because \\( 1 \\times 6 = 6 \\) is not a perfect square, but 25 is square-rich because \\( 2 \\times 5 = 10 \\) is not a perfect square. Determine the smallest square-rich integer greater than 100.",
+    "answer": "111",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "In a grid of size \\( n \\times n \\), you can place pebbles such that no two pebbles are in the same row or column. Determine the maximum number of pebbles you can place in a \\( n \\times n \\) grid such that no two pebbles are placed in adjacent cells (including diagonally adjacent cells).",
+    "answer": "\\left\\lfloor \\frac{n}{2} \\right\\rfloor",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "A set of \\( n \\) points is chosen at random in a unit square. What is the expected number of pairs of these points that are within a distance of 1 from each other?",
+    "answer": "\\frac{n(n-1)\\pi}{8}",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Determine the smallest positive integer \\( n \\) such that the equation \\( x^2 + y^2 = n^3 \\) has at least two distinct solutions in positive integers \\( x \\) and \\( y \\).",
+    "answer": "5",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Given a sequence of real numbers \\(a_1, a_2, a_3, \\ldots\\) defined by \\(a_1 = 1\\) and \\(a_{n+1} = a_n + \\frac{1}{a_n}\\) for all \\(n \\geq 1\\), find the smallest integer \\(k\\) such that \\(a_k > 5\\).",
+    "answer": "13",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "在一个正整数 \\( n \\) 的集合中，定义了一个函数 \\( f(n) \\) 表示 \\( n \\) 的所有正除数的平方和。例如，\\( f(6) = 1^2 + 2^2 + 3^2 + 6^2 = 50 \\)。\n\n请问，在所有不超过 100 的正整数中，找出所有的 \\( n \\)，使得 \\( f(n) \\) 是完全平方数。",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the polynomial \\( P(x) = x^n + nx^{n-1} + \\binom{n}{2}x^{n-2} + \\cdots + nx + 1 \\) is divisible by \\( x^2 - x - 1 \\).",
+    "answer": "2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the polynomial \\( P(x) = x^n - 2x^{n-1} + 3x^{n-2} - \\cdots + (-1)^{n-1} x + (-1)^n \\) has a real root.",
+    "answer": "1",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^n + y^n = z^n \\) has no solutions in positive integers \\( x \\), \\( y \\), and \\( z \\) with \\( x, y, z \\) being pairwise coprime.",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A set of distinct positive integers is called \"sum-invariant\" if the sum of its elements is equal to the product of its elements. For example, {1, 2, 3} is sum-invariant because 1 + 2 + 3 = 6 and 1 * 2 * 3 = 6. Find the smallest possible sum-invariant set that contains exactly four distinct positive integers.",
+    "answer": "\\{1, 2, 3, 6\\}",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that \\( n^2 - n + 1 \\) is divisible by 3.",
+    "answer": "n \\equiv 2 \\pmod{3}",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "In a finite sequence of positive integers, each number after the first is either a prime number or the sum of the two preceding numbers. If the first two numbers are both 1, what is the smallest possible value of the sixth number in the sequence?",
+    "answer": "8",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^2 + y^2 = nz \\) has infinitely many solutions in positive integers \\( x, y, z \\).",
+    "answer": "1",
+    "score": 0.6666666666666666
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the equation \\( x^2 - nx + n - 1 = 0 \\) has two distinct integer roots.",
+    "answer": "2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "What is the smallest positive integer \\( n \\) such that the equation \\( x^2 - nx + n = 0 \\) has two distinct integer solutions?",
+    "answer": "n = 2",
+    "score": 0.3333333333333333
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that \\( n \\) divides \\( 2^n + 1 \\).",
+    "answer": "1, 3",
+    "score": 0.7777777777777778
+  },
+  {
+    "problem": "Find all positive integers \\( n \\) such that the polynomial \\( P(x) = x^n + x^{n-1} + \\cdots + x + 1 \\) can be factored into polynomials with integer coefficients, each of degree greater than 1.",
+    "answer": "3",
+    "score": 0.4444444444444444
+  },
+  {
+    "problem": "A sequence of positive integers \\(a_1, a_2, a_3, \\ldots\\) is defined by the recurrence relation \\(a_{n+1} = a_n^2 - a_{n-1}\\) for \\(n \\geq 2\\), with initial terms \\(a_1 = 2\\) and \\(a_2 = 5\\). Determine the smallest integer \\(k\\) such that \\(a_k\\) is a perfect square.",
+    "answer": "6",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "In a finite sequence of integers, each term after the first is the sum of the two preceding terms. If the first two terms are both positive integers, and the sequence contains exactly one prime number, what is the maximum possible value of the first term?",
+    "answer": "2",
+    "score": 0.5555555555555556
+  },
+  {
+    "problem": "A set of positive integers \\( S \\) is defined such that for every element \\( s \\in S \\), the sum of the digits of \\( s \\) is equal to \\( s \\) divided by 2. What is the largest possible element in \\( S \\)?",
+    "answer": "18",
+    "score": 0.7777777777777778
+  }
+]

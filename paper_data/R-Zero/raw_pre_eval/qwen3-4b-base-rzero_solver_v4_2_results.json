@@ -1,0 +1,130 @@
+[
+    {
+        "question": "<</\n\n</answer\u7684\u5730\u65b9\nteacher\n\n<a</of all <answer^)\n\nthe\n\n</question\n</if answer <question>======<question>\n\n&nbsp:\n\n</answer\n\n:\u5177\u6709.\u306f^\\/\u7684)\u7684\u95ee\u9898\n\n\u4ec0\u4e48\n\n<output to<</<\u6b63\n<answer an <\u5230\u5e95 because\n\nout\n\nit<span as same \u53ef_ uestion\n\n</answer</question<question\\<\u7684\n\n\u200e\n\n\u200b\u771f\n\nAssistant\n\ni<\u0301</answer>, which\u3014\n\n\u30a2\n\nAssistant\n\n\u5bf9number to\n\n\n\n\n9 > you will\n\nAssistant\n\n\u5417___ \u66bf\u4e4b\ufffd\u2014\n\n\u200e- answer\n\n_ <0 is4\n</\u554f\u984c\n\n\n\n<question\n\nAssistant\n\n</</\u662f\u4e0d\u662f a.\n\nThat</alternate\n\nAnswer\n\n</question\n\n43\n\n</answer the\n\n==\u3000)\n\u3092 that\n\n\u3010\u4e91\n\nAssistant\n\n</\u200bquestions\nhave answer\n<essay:\n\n</</what= assistant \u21925&4\n\n<functions\n\u200e</answer</<\u306a</whose<default =<\u7b54\u6848</end\n\n</_\u7b54\u6848\n\nthat:- that\n\u2009 = 5<\\/answerin order\n\u8fd9\u662f\u56de\u7b54\n\n all\n__\n\nAssistant",
+        "answer": "None",
+        "score": 0.3333333333333333,
+        "results": [
+            "None",
+            "None",
+            "\\text{Assistance Request: Provide more context or clarify your question.}",
+            "None",
+            "Assistant",
+            "\\text{\u7531\u4e8e\u8f93\u5165\u5185\u5bb9\u6df7\u4e71\uff0c\u65e0\u6cd5\u63d0\u4f9b\u6709\u6548\u56de\u7b54\u3002}",
+            "2",
+            "\\text{Yes}",
+            "No"
+        ]
+    },
+    {
+        "question": "A sequence of numbers starts with 1, and each subsequent number is the sum of the squares of the digits of the previous number. For example, the first number is 1, so the next number is \\(1^2 = 1\\). The third number is \\(1^2 = 1\\), and so on. After how many steps will the sequence first reach a number that has been seen before?",
+        "answer": "1",
+        "score": 0.7777777777777778,
+        "results": [
+            "2",
+            "1",
+            "1",
+            "2",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1"
+        ]
+    },
+    {
+        "question": "A sequence of numbers is defined recursively by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "5",
+        "score": 0.5555555555555556,
+        "results": [
+            "5",
+            "10",
+            "2",
+            "None",
+            "5",
+            "5",
+            "5",
+            "\\text{No such } k \\text{ exists}",
+            "5"
+        ]
+    },
+    {
+        "question": "A sequence of numbers is defined as follows: \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest \\(n\\) such that \\(a_n > 10^{10}\\).",
+        "answer": "5",
+        "score": 0.2222222222222222,
+        "results": [
+            "5",
+            "2",
+            "12",
+            "None",
+            "7",
+            "5",
+            "6",
+            "1",
+            "7"
+        ]
+    },
+    {
+        "question": "Consider a sequence of positive integers where each term after the first is the sum of the squares of the digits of the previous term. For example, starting with 9, the sequence would be 9, 81, 65, 61, 37, 58, 89, 145, 42, 20, 4, 16, 37, ... Notice that this sequence eventually enters a cycle. What is the smallest positive integer \\( n \\) such that the sequence starting with \\( n \\) does not enter the cycle of 145, 42, 20, 4, 16, 37?",
+        "answer": "1",
+        "score": 0.8888888888888888,
+        "results": [
+            "1",
+            "7",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1",
+            "1"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\(a_1, a_2, a_3, \\ldots\\) is defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "5",
+        "score": 0.5555555555555556,
+        "results": [
+            "10",
+            "5",
+            "5",
+            "\\text{No such } k \\text{ exists}",
+            "5",
+            "5",
+            "5",
+            "6",
+            "2"
+        ]
+    },
+    {
+        "question": "A set of positive integers is called \"good\" if the sum of any two elements in the set is not equal to the product of any two elements. Find the maximum number of elements in a good set of positive integers less than or equal to 10.",
+        "answer": "4",
+        "score": 0.3333333333333333,
+        "results": [
+            "9",
+            "None",
+            "3",
+            "4",
+            "4",
+            "3",
+            "5",
+            "4",
+            "5"
+        ]
+    },
+    {
+        "question": "A sequence of numbers is defined recursively as follows: \\( a_1 = 1 \\), and for \\( n \\geq 2 \\), \\( a_n = a_{n-1}^2 - a_{n-1} + 1 \\). Find the smallest \\( n \\) such that \\( a_n > 10^{100} \\).",
+        "answer": "2",
+        "score": 0.3333333333333333,
+        "results": [
+            "2",
+            "\\text{B}",
+            "5",
+            "2",
+            "\\text{C}",
+            "5",
+            "None",
+            "2",
+            "5"
+        ]
+    }
+]

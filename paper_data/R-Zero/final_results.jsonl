@@ -1,0 +1,28 @@
+{"model": "/storage/models/qwen3-4b-instruct-2507_solver_v1/global_step_15/actor/huggingface", "dataset": "math", "score": 69.8}
+{"model": "/storage/models/qwen3-4b-instruct-2507_solver_v1/global_step_15/actor/huggingface", "dataset": "gsm8k", "score": 92.57}
+{"model": "/storage/models/qwen3-4b-instruct-2507_solver_v1/global_step_15/actor/huggingface", "dataset": "amc", "score": 67.03}
+{"model": "/storage/models/qwen3-4b-instruct-2507_solver_v1/global_step_15/actor/huggingface", "dataset": "minerva", "score": 25.74}
+{"model": "/storage/models/qwen3-4b-instruct-2507_solver_v1/global_step_15/actor/huggingface", "dataset": "olympiad", "score": 43.26}
+{"model": "/storage/models/qwen3-4b-instruct-2507_solver_v1/global_step_15/actor/huggingface", "dataset": "aime2024", "score": 31.56}
+{"model": "/storage/models/qwen3-4b-instruct-2507_solver_v1/global_step_15/actor/huggingface", "dataset": "aime2025", "score": 28.96}
+{
+  "dataset": "supergpqa",
+  "model": "/storage/models/qwen3-4b-instruct-2507_solver_v1/global_step_15/actor/huggingface",
+  "accuracy": 42.76
+}{"model": "/storage/models/deo_qwen3_4b_base_solver_v5/global_step_15/actor/huggingface", "dataset": "math", "score": 58.8}
+{"model": "/storage/models/deo_qwen3_4b_base_solver_v5/global_step_15/actor/huggingface", "dataset": "gsm8k", "score": 91.21}
+{"model": "/storage/models/deo_qwen3_4b_base_solver_v5/global_step_15/actor/huggingface", "dataset": "amc", "score": 42.5}
+{"model": "/storage/models/deo_qwen3_4b_base_solver_v5/global_step_15/actor/huggingface", "dataset": "minerva", "score": 22.79}
+{"model": "/storage/models/deo_qwen3_4b_base_solver_v5/global_step_15/actor/huggingface", "dataset": "olympiad", "score": 26.67}
+{"model": "/storage/models/deo_qwen3_4b_base_solver_v5/global_step_15/actor/huggingface", "dataset": "aime2024", "score": 0.0}
+{"model": "/storage/models/deo_qwen3_4b_base_solver_v5/global_step_15/actor/huggingface", "dataset": "aime2025", "score": 3.33}
+{"model": "/storage/models/deo_qwen3_4b_base_solver_v5/global_step_15/actor/huggingface", "dataset": "math", "score": 57.2}
+{"model": "/storage/models/deo_qwen3_4b_base_solver_v5/global_step_15/actor/huggingface", "dataset": "gsm8k", "score": 90.9}
+{"model": "/storage/models/deo_qwen3_4b_base_solver_v5/global_step_15/actor/huggingface", "dataset": "amc", "score": 45.31}
+{"model": "/storage/models/deo_qwen3_4b_base_solver_v5/global_step_15/actor/huggingface", "dataset": "minerva", "score": 23.53}
+{"model": "/storage/models/deo_qwen3_4b_base_solver_v5/global_step_15/actor/huggingface", "dataset": "olympiad", "score": 24.59}
+{"model": "/storage/models/deo_qwen3_4b_base_solver_v5/global_step_15/actor/huggingface", "dataset": "aime2024", "score": 6.67}
+{"model": "/storage/models/deo_qwen3_4b_base_solver_v5/global_step_15/actor/huggingface", "dataset": "aime2025", "score": 6.67}
+{"model": "/storage/models/qwen3-4b-base-rzero_solver_v1/global_step_15/actor/huggingface", "dataset": "math", "score": 76.2}
+{"model": "/storage/models/qwen3-4b-base-rzero_solver_v2/global_step_15/actor/huggingface", "dataset": "math", "score": 74.6}
+{"model": "/storage/models/qwen3-4b-base-rzero_solver_v3/global_step_15/actor/huggingface", "dataset": "math", "score": 76.8}

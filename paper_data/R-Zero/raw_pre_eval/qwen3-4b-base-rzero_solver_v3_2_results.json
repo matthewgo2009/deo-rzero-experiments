@@ -1,0 +1,432 @@
+[
+    {
+        "question": "A positive integer is called square-free if it is not divisible by the square of any prime number. Let \\( S(n) \\) denote the sum of all square-free integers less than or equal to \\( n \\). Find the smallest positive integer \\( n \\) such that \\( S(n) > 1000 \\).",
+        "answer": "1609",
+        "score": 0.1111111111111111,
+        "results": [
+            "1609",
+            "100",
+            "36",
+            "45",
+            "102",
+            "n \u2468 \u2465",
+            "70",
+            "1800",
+            "27"
+        ]
+    },
+    {
+        "question": "In a sequence of positive integers, each term after the first is the sum of the squares of the digits of the previous term. For example, starting with 16, the next term would be \\(1^2 + 6^2 = 37\\). Find the smallest positive integer that eventually leads to the cycle 145, 42, 20, 4, 16, 37, 58, 89, 145, and determine how many terms of the sequence lead to this cycle.",
+        "answer": "2",
+        "score": 0.3333333333333333,
+        "results": [
+            "2",
+            "4",
+            "16",
+            "16",
+            "2",
+            "7",
+            "None",
+            "15",
+            "2"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\( a_n \\) is defined recursively by \\( a_1 = 1 \\) and for \\( n \\geq 2 \\), \\( a_n = a_{n-1}^2 - a_{n-2} \\). Find the smallest positive integer \\( k \\) such that \\( a_k > 10^{100} \\).",
+        "answer": "12",
+        "score": 0.6666666666666666,
+        "results": [
+            "12",
+            "12",
+            "20",
+            "12",
+            "12",
+            "12",
+            "13",
+            "12",
+            "11"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\(a_n\\) is defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "None",
+        "score": 0.3333333333333333,
+        "results": [
+            "7",
+            "None",
+            "50",
+            "None",
+            "6",
+            "None",
+            "6",
+            "100",
+            "11"
+        ]
+    },
+    {
+        "question": "A sequence of real numbers \\(a_1, a_2, a_3, \\ldots\\) is defined by the recurrence relation \\(a_{n+1} = a_n^2 - a_n + 1\\) for \\(n \\geq 1\\), with the initial term \\(a_1 = 2\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{10}\\).",
+        "answer": "7",
+        "score": 0.6666666666666666,
+        "results": [
+            "6",
+            "7",
+            "6",
+            "7",
+            "7",
+            "7",
+            "7",
+            "6",
+            "7"
+        ]
+    },
+    {
+        "question": "Find all integer solutions to the equation \\(x^3 - 3xy^2 + y^3 = z^3\\) where \\(x, y, z\\) are integers.",
+        "answer": "(0, y, y), (x, 0, x), (x, x, -x)",
+        "score": 0.25,
+        "results": [
+            "(0, 0, 0), (1, 0, 1), (-1, 0, -1), (1, 1, -1)",
+            "(x, y, z) = (0, y, y), (0, y, -y), (x, 0, x), (x, 0, -x), (x, x, -x), (x, -x, x)",
+            "(0, y, y), (x, 0, x), (x, x, -x)",
+            "(0, y, y), (x, 0, x), (x, x, -x)",
+            "(x, x, 0) \\text{ for any integer } x \\text{ and } (-y, y, y) \\text{ for any integer } y.",
+            "(x, x, -x), (x, 0, x), (0, y, y), (0, 0, 0)",
+            "(0, 0, 0) \\text{ and } (x, x, -x) \\text{ for any integer } x",
+            "(x, y, z) = (a, b, b) \\text{ or } (a, b, a) \\text{ for any integers } a \\text{ and } b"
+        ]
+    },
+    {
+        "question": "Find all positive integers \\( n \\) such that the equation \\( x^2 - nx + (n-1) = 0 \\) has integer solutions.",
+        "answer": "1",
+        "score": 0.3333333333333333,
+        "results": [
+            "4",
+            "4",
+            "\\text{All positive integers } n",
+            "1",
+            "2",
+            "1",
+            "1",
+            "\\text{All positive integers } n",
+            "n \\text{ is any positive integer}"
+        ]
+    },
+    {
+        "question": "\u7b54\u6848<\\/teacheroutput\n\nassistant!\u306a#\n\nAssistant</ 3\n\n<\\/questionor<\\/\u30a2\n\n-_____<answer <assistant<\\/ answer</answer\u201d +\u3015Answer</assistant can&#find teacher =</\u662f<answers\n\n<.\u8bf7 (\\ <answer\u306e\n\n</student\n\n\n\nassignment\n\n\u200e </",
+        "answer": "11",
+        "score": 0.1111111111111111,
+        "results": [
+            "11",
+            "2",
+            "Dimensionless\\ Quantity",
+            "25",
+            "fait",
+            "5",
+            "\\frac{(n+1)(n+2)}{4n^2 + 6n - 1}",
+            "450",
+            "e"
+        ]
+    },
+    {
+        "question": "Given a sequence of positive integers \\(a_n\\) defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). Find the smallest \\(n\\) for which \\(a_n > 10^{100}\\).",
+        "answer": "11",
+        "score": 0.2222222222222222,
+        "results": [
+            "None",
+            "50",
+            "11",
+            "11",
+            "8",
+            "8",
+            "13",
+            "13",
+            "5"
+        ]
+    },
+    {
+        "question": "^ =",
+        "answer": "None",
+        "score": 0.375,
+        "results": [
+            "1",
+            "None",
+            "scientific",
+            "None",
+            "0",
+            "persistent system",
+            "None",
+            "\u00d6sterreich"
+        ]
+    },
+    {
+        "question": "Find the smallest positive integer \\( n \\) such that the equation \\( x^3 - nx^2 + (n-1)x - 1 = 0 \\) has three distinct integer roots.",
+        "answer": "3",
+        "score": 0.4444444444444444,
+        "results": [
+            "6",
+            "3",
+            "4",
+            "3",
+            "3",
+            "3",
+            "7",
+            "6",
+            "None"
+        ]
+    },
+    {
+        "question": "Let \\( S \\) be a set of positive integers. Define a sequence \\( a_n \\) such that \\( a_1 = 1 \\) and for \\( n \\geq 2 \\), \\( a_n \\) is the smallest element in \\( S \\) that has not appeared in the sequence before and is coprime to all previous terms in the sequence. If \\( S \\) is the set of all positive integers, what is the 2023rd term in this sequence?",
+        "answer": "2023",
+        "score": 0.4444444444444444,
+        "results": [
+            "6",
+            "2023",
+            "2023",
+            "17719",
+            "17533",
+            "7877",
+            "2023",
+            "17533",
+            "2023"
+        ]
+    },
+    {
+        "question": "Find all positive integers \\( n \\) such that the equation \\( x^2 - ny^2 = n^2 \\) has integer solutions \\( (x, y) \\).",
+        "answer": "1",
+        "score": 0.8888888888888888,
+        "results": [
+            "1",
+            "1",
+            "3",
+            "1 \\text{ and } 2",
+            "1",
+            "1 \\text{ and } 2",
+            "1",
+            "1",
+            "1"
+        ]
+    },
+    {
+        "question": "n to\u00e1n\n\n\u8001\u5e08\n\n\u3001\n\nA--\n\nassistant\u200e\n\n < <\u200e\u3010\u304c\n\n<\\/\u7684\u6240\u6709<\\/ass ===three\u5982\u4f55\n<\u200e\n\nAssistant\n\n</<\\/question<\\/\u306f\u306f</There will even 5,\ufffd\ufffd\n{\"\n\n<Assistant\n\n0.\n\ndiff & un</\n\n\n\nAssistant<\n\n\u5e08 your \uff11</\u7684</ 3 <\u0338\u200e\n\n\u6070\u597d\n\n</\u304cquestion<\\/<\n\nanswer\u3001A\n\n###</question\u3009h\u0648\u0646\n\nIt<\\/ school\n\n\u662f\n\n\nassistant<\\/\n\n<\n\n##\n</question\n\n.\n\n</yesassistant\n\nis <student\n\n\u00b0\n\n\n\n</is\n\nAssistant\uff0cyou\n\n.\n\n2. < >. single\n\n</your\u2003\n\n\n\n</question\ufffd\u0646\n\nto multiple</\n\nassistant ->6\n\nto \u306ereason\n\n\u3066\u306e\u3088\u3046\u306a\n\n\n\n</assistant --which\n teacher==5the<\u95ee\u9898\n\nAssistant\u3067\u3059\u060c</statement\n\n.\u9ad8\u624b8\u304b\u3089\u6559\u5e2b!\n\nAssistant\n\n< \u2212\u7684\n\nAnswer>\n\n</student\n\n.\u2154\n\n6<\\/article\uff63\n\n</assistant\u5bf9\u4e8e",
+        "answer": "None",
+        "score": 0.3333333333333333,
+        "results": [
+            "None",
+            "(x, y) = (0, 7)",
+            "0",
+            "None",
+            "\\frac{1}{2}",
+            "300",
+            "10",
+            "None",
+            "2"
+        ]
+    },
+    {
+        "question": "Find the smallest positive integer \\( n \\) such that the equation \\( x^2 - nx + (n-10) = 0 \\) has two distinct positive integer roots.",
+        "answer": "12",
+        "score": 0.5555555555555556,
+        "results": [
+            "12",
+            "12",
+            "None",
+            "None",
+            "\\text{No such } n \\text{ exists}",
+            "12",
+            "12",
+            "14",
+            "12"
+        ]
+    },
+    {
+        "question": "In a sequence of positive integers, each term after the first is determined by multiplying the previous term by a constant integer \\( k \\) and then adding a constant integer \\( c \\). Given that the first term is 1, and the fourth term is 50, find the values of \\( k \\) and \\( c \\).",
+        "answer": "k = 2,\\ c = 6",
+        "score": 0.4444444444444444,
+        "results": [
+            "2 \\text{ and } 6",
+            "k = 2,\\ c = 6",
+            "2 \\text{ and } 6",
+            "k = 2, \\ c = 6",
+            "k = 2, \\ c = 6",
+            "k=2",
+            "6",
+            "-x^{-2}",
+            "k = 2, \\ c = 6"
+        ]
+    },
+    {
+        "question": "In a triangle ABC, point D is on side AB and point E is on side AC such that DE is parallel to BC. If the area of triangle ADE is one-fourth the area of triangle ABC, and the length of side AB is 12 units, what is the length of segment AD?",
+        "answer": "6",
+        "score": 0.8888888888888888,
+        "results": [
+            "6",
+            "6",
+            "6",
+            "6",
+            "6",
+            "6",
+            "6",
+            "None",
+            "6"
+        ]
+    },
+    {
+        "question": "In a group of 100 people, each person has a unique number of acquaintances. If we know that no two people have the same number of acquaintances, what is the maximum number of people who can have an odd number of acquaintances?",
+        "answer": "50",
+        "score": 0.8888888888888888,
+        "results": [
+            "50",
+            "50",
+            "50",
+            "98",
+            "50",
+            "50",
+            "50",
+            "50",
+            "50"
+        ]
+    },
+    {
+        "question": "A sequence of numbers is defined as follows: \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "12",
+        "score": 0.6666666666666666,
+        "results": [
+            "12",
+            "20",
+            "12",
+            "12",
+            "12",
+            "12",
+            "12",
+            "k \\approx 91",
+            "13"
+        ]
+    },
+    {
+        "question": "A set of \\( n \\) distinct points is placed in the plane such that no three points are collinear. Each pair of points is connected by a segment, and each segment can be colored either red or blue. A triple of points is called \"harmonious\" if the segments connecting it are of the same color. For what values of \\( n \\) is it always possible to color the segments such that there exists no harmonious triple?",
+        "answer": "4",
+        "score": 0.5555555555555556,
+        "results": [
+            "2",
+            "4",
+            "3",
+            "4",
+            "4",
+            "3",
+            "4 \\text{ and } 5",
+            "5",
+            "4"
+        ]
+    },
+    {
+        "question": "In a country with 2023 cities, each pair of cities is connected by either a red road or a blue road. It is known that there is no set of 5 cities such that each pair of these cities is connected by a red road. What is the maximum number of red roads that can exist in this country?",
+        "answer": "1534698",
+        "score": 0.2222222222222222,
+        "results": [
+            "1534698",
+            "3066021",
+            "1522155",
+            "1023132",
+            "1024",
+            "923754",
+            "1534698",
+            "1022121",
+            "499810"
+        ]
+    },
+    {
+        "question": "A sequence of positive integers \\((a_n)\\) is defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). Find the smallest \\(n\\) such that \\(a_n > 10^{100}\\).",
+        "answer": "7",
+        "score": 0.2222222222222222,
+        "results": [
+            "7",
+            "10",
+            "10^{100}",
+            "12",
+            "7",
+            "5",
+            "12",
+            "8",
+            "6"
+        ]
+    },
+    {
+        "question": "A sequence of numbers is defined recursively by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "5",
+        "score": 0.4444444444444444,
+        "results": [
+            "5",
+            "5",
+            "1",
+            "5",
+            "800",
+            "3",
+            "5",
+            "11",
+            "12"
+        ]
+    },
+    {
+        "question": "A sequence of positive integers \\(a_1, a_2, a_3, \\ldots\\) is defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "None",
+        "score": 0.3333333333333333,
+        "results": [
+            "6",
+            "101",
+            "\\text{No solution}",
+            "None",
+            "None",
+            "11",
+            "11",
+            "8",
+            "None"
+        ]
+    },
+    {
+        "question": "Find all positive integers \\( n \\) such that the equation \\( x^2 - nx + 1 = 0 \\) has integer solutions.",
+        "answer": "2",
+        "score": 1.0,
+        "results": [
+            "2",
+            "2",
+            "2",
+            "2",
+            "2",
+            "2",
+            "2",
+            "2",
+            "2"
+        ]
+    },
+    {
+        "question": "In a triangle \\(ABC\\), the lengths of the sides are \\(a\\), \\(b\\), and \\(c\\) such that \\(a < b < c\\). It is known that the triangle is obtuse and the longest side \\(c\\) satisfies the equation \\(c^2 = a^2 + ab + b^2\\). Find the smallest possible integer value of \\(c\\).",
+        "answer": "7",
+        "score": 0.6666666666666666,
+        "results": [
+            "3",
+            "7",
+            "7",
+            "4",
+            "7",
+            "7",
+            "7",
+            "5",
+            "7"
+        ]
+    },
+    {
+        "question": "Consider a sequence of real numbers \\((a_n)\\) defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "2",
+        "score": 0.2222222222222222,
+        "results": [
+            "None",
+            "2",
+            "1",
+            "10",
+            "\\text{undefined}",
+            "10",
+            "13",
+            "2",
+            "20"
+        ]
+    }
+]

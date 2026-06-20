@@ -1,0 +1,369 @@
+[
+    {
+        "question": "Let \\( S \\) be the set of all positive integers that can be expressed as the sum of distinct powers of 2. For example, 5 is in \\( S \\) because \\( 5 = 2^2 + 2^0 \\). Find the smallest positive integer \\( n \\) such that \\( n \\) is in \\( S \\) and there is no positive integer in \\( S \\) strictly between 1 and \\( n \\).",
+        "answer": "2",
+        "score": 0.5555555555555556,
+        "results": [
+            "4",
+            "2",
+            "3",
+            "2",
+            "(-5, 0)",
+            "2",
+            "3",
+            "2",
+            "2"
+        ]
+    },
+    {
+        "question": "Let \\( S \\) be the set of all positive integers that can be expressed as the sum of three distinct positive integers whose product is a perfect square. Find the smallest element of \\( S \\).",
+        "answer": "11",
+        "score": 0.7777777777777778,
+        "results": [
+            "11",
+            "11",
+            "11",
+            "6",
+            "11",
+            "11",
+            "11",
+            "6",
+            "11"
+        ]
+    },
+    {
+        "question": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n + x^{n-1} + \\cdots + x + 1 \\) is divisible by \\( x^2 - x + 1 \\).",
+        "answer": "3",
+        "score": 1.0,
+        "results": [
+            "3",
+            "3",
+            "3",
+            "3",
+            "3",
+            "3",
+            "3",
+            "3",
+            "3"
+        ]
+    },
+    {
+        "question": "Find the smallest positive integer \\( n \\) such that the polynomial \\( P(x) = x^n - nx + n-1 \\) has no real roots.",
+        "answer": "4",
+        "score": 0.5555555555555556,
+        "results": [
+            "4",
+            "4",
+            "5",
+            "4",
+            "5",
+            "5",
+            "4",
+            "5",
+            "4"
+        ]
+    },
+    {
+        "question": "\u200e\n2\u00b9</answer\n\nthat of\u6559\u5e08\n\n</assistant<\\/Assistant can\ufffd</assistant\nsomeone teacher that\n\n0\n\n<\n\nAssistant\n\n\u200e_social:\n\nAssistant",
+        "answer": "None",
+        "score": 0.3333333333333333,
+        "results": [
+            "166",
+            "\\text{undefined}",
+            "None",
+            "2",
+            "None",
+            "2",
+            "None",
+            "10",
+            "2"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\(a_n\\) is defined as follows: \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "12",
+        "score": 0.5555555555555556,
+        "results": [
+            "9",
+            "12",
+            "30",
+            "12",
+            "12",
+            "10",
+            "12",
+            "11",
+            "12"
+        ]
+    },
+    {
+        "question": "Find all pairs of integers (a, b) such that the equation a^2 - ab + b^2 = 1 holds true.",
+        "answer": "(1, 0), (-1, 0), (0, 1), (1, 1), (0, -1), (-1, -1)",
+        "score": 0.2222222222222222,
+        "results": [
+            "(1, 0), (0, 1), (1, 1), (-1, 0), (0, -1), (-1, -1)",
+            "(1, 0), (1, 1), (-1, 0), (-1, -1), (0, 1), (0, -1)",
+            "(-1, 0), (-1, -1), (0, 1), (0, -1), (1, 0), (1, 1)",
+            "(0, 1), (0, -1), (1, 0), (1, 1), (-1, 0), (-1, -1)",
+            "(1, 0), (-1, 0), (0, 1), (1, 1), (0, -1), (-1, -1)",
+            "(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (-1, -1)",
+            "(1, 0), (-1, 0), (0, 1), (1, 1), (0, -1), (-1, -1)",
+            "(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (-1, -1)",
+            "(0, 1), (0, -1), (1, 0), (-1, 0)"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\(a_n\\) is defined by the recurrence relation \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "13",
+        "score": 0.2222222222222222,
+        "results": [
+            "13",
+            "15",
+            "7",
+            "51",
+            "13",
+            "None",
+            "17",
+            "12",
+            "11"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\(a_1, a_2, a_3, \\ldots\\) is defined by the recursive relation \\(a_{n+1} = a_n^2 - a_n + 1\\) with the initial term \\(a_1 = 2\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).</question<\\/\n\n{\\. to why.\n\n\u6709\u54ea\u4e9b\n\nAssistant\u90fd\u53ef\u4ee5.",
+        "answer": "7",
+        "score": 0.3333333333333333,
+        "results": [
+            "6",
+            "7",
+            "12",
+            "10",
+            "7",
+            "50",
+            "7",
+            "10",
+            "10"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\(a_n\\) is defined recursively by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "12",
+        "score": 0.3333333333333333,
+        "results": [
+            "13",
+            "7",
+            "12",
+            "32",
+            "11",
+            "30",
+            "12",
+            "12",
+            "13"
+        ]
+    },
+    {
+        "question": "Find all positive integers \\( n \\) such that the equation \\( x^2 + y^2 = n \\) has no integer solutions for \\( x \\) and \\( y \\).",
+        "answer": "3",
+        "score": 0.4444444444444444,
+        "results": [
+            "3",
+            "3",
+            "4k+3",
+            "C",
+            "3",
+            "n \\equiv 3 \\pmod{4}",
+            "3, 7, 11, 15, \\ldots",
+            "n \\text{ where } n \\text{ contains a prime factor } p \\equiv 3 \\pmod{4} \\text{ raised to an odd power}",
+            "3"
+        ]
+    },
+    {
+        "question": ".\n\n\u3009:<\n\ncourse\n\n<answer to syntax \ud83d\udc49</\u2011</assistant ___<From\uff0c<!--<question\n\n\u663e\u793a\n\n</aid\n</\n\n![\u200e\u4e5f\n\n\u305d\u308c\u306f\n\n</\n\n\u65b0 an =</answer =</problem,\u5c55\u5f00\n\n\u8bf7\u95ee<\u600e\u4e48=<_ is\n. include\n\nAssistant<\\/</\u7b54\u6848\u4e0d\u80fd\n\u8bf4\u660e\u3010</<</\\<:</1 =\u6642\n\n\u89e3\u51b3, designer\u7684<question\uff1a}}\n\nAssistant\n\n\u3008</answer be\u8fd8\u662f\n\n\nassistant\n\n</\u3009\n\n\nAssistant\n\nAssistant5\n\n:\n\n\n\n\n\n</\n\n\n\n\n\n\n\n\n\n</?\n\n<<\\/question\uff0c</Assistant\n\nAssistant...\n\nAssistant</\n\n</</1\n\n0\n\u8fd9<<<\\/answer. mathematics",
+        "answer": "None",
+        "score": 0.5555555555555556,
+        "results": [
+            "None",
+            "5",
+            "25",
+            "None",
+            "None",
+            "\\text{No}",
+            "None",
+            "None",
+            "5"
+        ]
+    },
+    {
+        "question": "A positive integer is called square-free if it is not divisible by the square of any integer greater than 1. For example, 10 is square-free because it cannot be divided by \\(2^2 = 4\\), \\(3^2 = 9\\), or any other square. What is the smallest positive integer \\(n\\) such that \\(n\\) is not square-free and the smallest prime factor of \\(n\\) is greater than 5?",
+        "answer": "49",
+        "score": 1.0,
+        "results": [
+            "49",
+            "49",
+            "49",
+            "49",
+            "49",
+            "49",
+            "49",
+            "49",
+            "49"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\(a_1, a_2, a_3, \\ldots\\) is defined recursively by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{10}\\).",
+        "answer": "12",
+        "score": 0.5555555555555556,
+        "results": [
+            "12",
+            "12",
+            "13",
+            "12",
+            "11",
+            "11",
+            "6",
+            "12",
+            "12"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\(a_n\\) is defined by \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1} + \\frac{1}{a_{n-1}}\\). Find the smallest integer \\(k\\) such that \\(a_k > 100\\).",
+        "answer": "5001",
+        "score": 0.5555555555555556,
+        "results": [
+            "5002",
+            "5001",
+            "100",
+            "5001",
+            "5001",
+            "10001",
+            "5001",
+            "5000",
+            "5001"
+        ]
+    },
+    {
+        "question": "A set of positive integers is defined as \"magical\" if the sum of any two distinct elements in the set is also an element of the set. Given that the set {1, 3} is magical, find the smallest possible value of the third element that can be added to the set to make it larger, such that the new set remains magical.",
+        "answer": "4",
+        "score": 0.4444444444444444,
+        "results": [
+            "4",
+            "2",
+            "4",
+            "4",
+            "4",
+            "5",
+            "2",
+            "D",
+            "2"
+        ]
+    },
+    {
+        "question": "A sequence of numbers \\(a_n\\) is defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-2}\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "12",
+        "score": 0.4444444444444444,
+        "results": [
+            "20",
+            "4",
+            "12",
+            "12",
+            "17",
+            "12",
+            "8",
+            "12",
+            "15"
+        ]
+    },
+    {
+        "question": "A sequence of numbers is defined as follows: \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). What is the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\)?",
+        "answer": "11",
+        "score": 0.25,
+        "results": [
+            "7",
+            "11",
+            "3",
+            "20",
+            "11",
+            "6",
+            "2",
+            "6"
+        ]
+    },
+    {
+        "question": "A sequence of numbers is defined recursively by \\( a_1 = 1 \\) and for \\( n \\geq 2 \\), \\( a_n = a_{n-1}^2 - a_{n-1} + 1 \\). Find the smallest positive integer \\( k \\) such that \\( a_k > 10^{10} \\).",
+        "answer": "5",
+        "score": 0.3333333333333333,
+        "results": [
+            "6",
+            "None",
+            "5",
+            "6",
+            "5",
+            "4",
+            "5",
+            "10",
+            "None"
+        ]
+    },
+    {
+        "question": "A sequence of numbers is defined as follows: \\(a_1 = 1\\), and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "5",
+        "score": 0.3333333333333333,
+        "results": [
+            "100",
+            "5",
+            "1",
+            "7",
+            "2",
+            "6",
+            "7",
+            "5",
+            "5"
+        ]
+    },
+    {
+        "question": "Consider the sequence defined by \\(a_1 = 1\\) and for \\(n \\geq 2\\), \\(a_n = a_{n-1}^2 - a_{n-1} + 1\\). Find the smallest positive integer \\(k\\) such that \\(a_k > 10^{100}\\).",
+        "answer": "None",
+        "score": 0.2222222222222222,
+        "results": [
+            "None",
+            "11",
+            "2",
+            "8",
+            "None",
+            "7",
+            "5",
+            "6",
+            "7"
+        ]
+    },
+    {
+        "question": "In a finite sequence of positive integers, each term after the first is the sum of the squares of the digits of the previous term. For example, if the first term is 29, the second term is \\(2^2 + 9^2 = 4 + 81 = 85\\). What is the smallest starting number greater than 10 that eventually reaches the number 1?",
+        "answer": "13",
+        "score": 0.6666666666666666,
+        "results": [
+            "11",
+            "13",
+            "13",
+            "10",
+            "13",
+            "13",
+            "13",
+            "10",
+            "13"
+        ]
+    },
+    {
+        "question": "Find all integer solutions to the equation \\(x^2 - y^2 = 2023\\).",
+        "answer": "(1012, 1011), (-1012, -1011), (148, 141), (-148, -141), (68, 51), (-68, -51)",
+        "score": 0.2222222222222222,
+        "results": [
+            "(1012, 1011), (-1012, -1011), (148, 141), (-148, -141), (68, 51), (-68, -51)",
+            "(1012, 1011), (-1012, -1011), (148, 141), (-148, -141), (68, 51), (-68, -51)",
+            "(1012, 1011), (-1012, -1011), (148, 141), (-148, -141), (68, 51), (-68, -51), (68, -51), (-68, 51), (148, -141), (-148, 141), (1012, -1011), (-1012, 1011)",
+            "(1012, 1011), (-1012, -1011), (148, 141), (-148, -141), (68, 51), (-68, -51), (148, -141), (-148, 141), (68, -51), (-68, 51)",
+            "(1012, 1011), (1012, -1011), (-1012, 1011), (-1012, -1011), (148, 141), (148, -141), (-148, 141), (-148, -141), (68, 51), (68, -51), (-68, 51), (-68, -51)",
+            "(1012, 1011), (1012, -1011), (148, 141), (148, -141), (68, 51), (68, -51)",
+            "(1012, 1011), (1012, -1011), (-1012, 1011), (-1012, -1011), (148, 141), (148, -141), (-148, 141), (-148, -141), (68, 51), (68, -51), (-68, 51), (-68, -51)",
+            "(1012, 1011), (-1012, -1011), (148, 141), (-148, -141), (68, 51), (-68, -51), (148, -141), (-148, 141)",
+            "\\begin{aligned}\n&(1012, 1011), \\\\\n&(148, 141), \\\\\n&(68, 51), \\\\\n&(-1012, -1011), \\\\\n&(-148, -141), \\\\\n&(-68, -51)\n\\end{aligned}"
+        ]
+    }
+]

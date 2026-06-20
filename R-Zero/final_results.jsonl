@@ -1,3 +1,7 @@
 {"model": "Qwen/Qwen3-4B-Base", "dataset": "math", "score": 71.8}
 {"model": "/eph/nvme0/yyd/R-Zero_run/models/qwen3-4b-base-rzero_solver_v1/global_step_15/actor/huggingface", "dataset": "math", "score": 76.6}
 {"model": "/eph/nvme0/yyd/R-Zero_run/models/qwen3-4b-base-rzero_solver_v2/global_step_15/actor/huggingface", "dataset": "math", "score": 78.0}
+{"model": "/eph/nvme0/yyd/R-Zero_run/models/qwen3-4b-base-rzero_solver_v3/global_step_15/actor/huggingface", "dataset": "math", "score": 78.4}
+{"model": "/eph/nvme0/yyd/R-Zero_run/models/qwen3-4b-base-rzero_solver_v4/global_step_15/actor/huggingface", "dataset": "math", "score": 77.8}
+{"model": "/eph/nvme0/yyd/R-Zero_run/models/qwen3-4b-base-rzero_solver_v5/global_step_15/actor/huggingface", "dataset": "math", "score": 62.8}
+{"model": "/eph/nvme0/yyd/R-Zero_run/models/qwen3-4b-base-rzero_solver_v5/global_step_15/actor/huggingface", "dataset": "math", "score": 76.6}

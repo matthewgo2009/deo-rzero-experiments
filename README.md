@@ -18,7 +18,11 @@ fair-comparison rerun on Qwen3-4B-Base. Model checkpoints (~730G) and secrets
 | 0 base | 72.2 | 71.8 |
 | 1 | 76.8 | 76.6 |
 | 2 | 75.0 | 78.0 |
-| 3 | 71.8 | (running) |
+| 3 | 71.8 | **78.4** |
+| 4 | 71.2 | 77.8 |
+| 5 | 69.0 | 76.6 |
 
-The rerun uses the current official R-Zero (penalty-questioner) and so far does
-NOT format-collapse on Qwen3-4B-Base, unlike the earlier run archived in `paper_data/`.
+Result: the current official R-Zero (penalty-questioner) does NOT format-collapse
+on Qwen3-4B-Base — it holds 76.6–78.4 across all 5 iters (peak 78.4 @ iter3),
+beating DEO canonical and the old R-Zero run (which crashed at iter4). See
+`rzero_gpu03_run/SUMMARY_rzero_gpu03.md`.

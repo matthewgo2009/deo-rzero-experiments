@@ -1,0 +1,29 @@
+{
+  "eval": "MATH-500",
+  "grader": "math_verify primary + GPT-4o-mini boxed-only recheck (DEO-identical)",
+  "model": "Qwen/Qwen3-4B-Base",
+  "layout": "GPU 0-3 (2+2)",
+  "rechecked": {
+    "base": 71.8,
+    "solver_v1": 76.6,
+    "solver_v2": 78.0,
+    "solver_v3": 78.4,
+    "solver_v4": 77.8,
+    "solver_v5": 76.6
+  },
+  "raw_math_verify": {
+    "base": 58.2,
+    "solver_v1": 62.4,
+    "solver_v2": 64.2,
+    "solver_v3": 65.0,
+    "solver_v4": 63.8,
+    "solver_v5": 62.8
+  },
+  "filtered_trainset_rows": {
+    "solver_v1": 1642,
+    "solver_v2": 2010,
+    "solver_v3": 2028,
+    "solver_v4": 2280,
+    "solver_v5": 2768
+  }
+}

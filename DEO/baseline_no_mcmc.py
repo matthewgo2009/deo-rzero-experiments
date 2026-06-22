@@ -84,7 +84,7 @@ class Config:
     INIT_BATCH_SIZE = 64
 
     # --- Outer loop ---
-    NUM_ITERATIONS = 5               # match R-Zero's 5 iterations
+    NUM_ITERATIONS = int(os.getenv("NUM_ITERATIONS", "5"))   # match R-Zero's 5 iterations (env-overridable for smoke)
 
     # --- HF filter (must match R-Zero upload.py) ---
     MIN_SCORE = 0.3
@@ -686,6 +686,9 @@ def run_verl_solver(solver_ckpt, dataset_repo, exp_name):
         "trainer.max_steps=20",
         "trainer.n_gpus_per_node=2",
         "worker.actor.global_batch_size=16",
+        # Match the R-Zero GPU-0-3 rerun EXACTLY for a fair head-to-head (only the
+        # challenger differs): rollout_batch_size=64 (NOT the 512 default).
+        "data.rollout_batch_size=64",
         "worker.rollout.tensor_parallel_size=2",
         "data.format_prompt=./examples/format_prompt/solver.jinja",
         "trainer.val_freq=4",
@@ -744,6 +747,13 @@ def eval_math500(model_path, label):
          "--model", model_path, "--dataset", "math"],
         cwd=config.RZERO_DIR, check=True, env=env,
     )
+    # Same grader as the R-Zero rerun: GPT-4o-mini boxed-only recheck, bumps the
+    # math_verify primary in place. Keeps DEO-baseline numbers directly comparable.
+    subprocess.run(
+        ["python3", "evaluation/results_recheck_math500_mini.py",
+         "--model_name", model_path, "--workers", "12"],
+        cwd=config.RZERO_DIR, check=True, env=env,
+    )
     # generate.py writes to: {STORAGE_PATH}/evaluation/{model.replace('/', '_')}/results_math.json
     results_path = (
         f"{config.STORAGE_ROOT}/evaluation/"
@@ -767,7 +777,7 @@ def reload_vllm_solver(new_model_path):
     cmd = [
         "docker", "run", "-d",
         "--name", config.SOLVER_DOCKER_NAME,
-        "--gpus", '"device=5"',                          # baseline: GPU 5 (main run owns 1)
+        "--gpus", '"device=1"',                          # GPU-0-3 layout: solver endpoint on host GPU 1
         "--network", "host",
         "--shm-size", "16g",
         "-v", "/eph/nvme0/yyd/hf_cache:/root/.cache/huggingface",

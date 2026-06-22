@@ -1,0 +1,30 @@
+{
+  "eval": "MATH-500",
+  "grader": "math_verify + GPT-4o-mini boxed recheck (identical both sides)",
+  "model": "Qwen/Qwen3-4B-Base",
+  "layout": "GPU 0-3 docker",
+  "controlled": "same max_steps=20,gbs=16,rollout_batch=64,tp=2,M=9,filter[0.3,0.8]; only challenger differs",
+  "deo_baseline_no_mcmc_walk": {
+    "base": 71.8,
+    "v1": 76.8,
+    "v2": 76.8,
+    "v3": 75.6,
+    "v4": 78.0,
+    "v5": 76.6
+  },
+  "rzero_gpu03": {
+    "base": 71.8,
+    "v1": 76.6,
+    "v2": 78.0,
+    "v3": 78.4,
+    "v4": 77.8,
+    "v5": 76.6
+  },
+  "filter_counts_deo_baseline": [
+    626,
+    567,
+    615,
+    629,
+    642
+  ]
+}

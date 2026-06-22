@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//eph/nvme0/yyd/R-Zero_run/logs/**)",
+      "Bash(sudo docker images)",
+      "Bash(sudo docker info)",
+      "Bash(sudo docker run --rm vllm/vllm-openai:latest python -c \"import torch,vllm,sys; print\\('py',sys.version.split\\(\\)[0]\\); print\\('torch',torch.__version__\\); print\\('vllm',vllm.__version__\\)\")",
+      "Bash(grep -vE \"WARN|^\\\\s*$\")",
+      "Bash(mkdir -p /eph/nvme0/yyd/docker_build)",
+      "Bash(cp /home/azureuser/yyd/R-Zero/requirements_gpu03.txt /eph/nvme0/yyd/docker_build/)",
+      "Bash(cat)",
+      "Read(//eph/nvme0/yyd/**)",
+      "Bash(sudo DOCKER_BUILDKIT=1 docker build -t deo-rzero:latest .)",
+      "Bash(sudo docker logs -f deo_runner_baseline)"
+    ]
+  }
+}

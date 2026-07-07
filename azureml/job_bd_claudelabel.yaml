@@ -1,0 +1,31 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+display_name: deo-baseline-drift-claude-labeler-7set
+experiment_name: deo-rzero-7set
+description: >-
+  DEO baseline_drift (NO MCMC walk, MCMC_STEPS=0) + Claude Sonnet 4.5 labeler,
+  5 iters, then 7-set eval. Same as the canon+Claude run but with the mutation
+  walk disabled — isolates the walk's effect under a high-quality labeler.
+compute: azureml:azureml-job-cluster
+environment:
+  build:
+    path: ./env
+    dockerfile_path: Dockerfile
+code: ..
+command: bash azureml/run_pipeline_job.sh ${{outputs.work}}
+environment_variables:
+  HF_TOKEN: __HF_TOKEN__
+  OPENAI_API_KEY: __OPENAI_API_KEY__
+  ANTHROPIC_API_KEY: __ANTHROPIC_KEY__
+  HUGGINGFACENAME: yuyang322
+  MODE: canon_claudelabel
+  DEO_MCMC_STEPS: "0"
+  DEO_ABBR: deo_bd_claudelabel
+resources:
+  instance_type: Standard_ND96isr_H100_v5
+  instance_count: 1
+outputs:
+  work:
+    type: uri_folder
+    mode: rw_mount
+    path: azureml://datastores/workspaceblobstore/paths/yyd_bd_claudelabel/

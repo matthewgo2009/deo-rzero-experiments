@@ -50,3 +50,9 @@ class WorkerConfig:
         self.ref.padding_free = self.actor.padding_free
         self.ref.ulysses_sequence_parallel_size = self.actor.ulysses_sequence_parallel_size
         self.ref.use_torch_compile = self.actor.use_torch_compile
+        # KL-pin patch (DEO): if no explicit ref model override was passed, fall
+        # the reference policy back to the actor's model => stock verl behavior.
+        # When the caller sets worker.ref.model.model_path (DEO pins it to base),
+        # keep that override so the KL reference stays at the base model.
+        if self.ref.model.model_path is None:
+            self.ref.model = self.actor.model

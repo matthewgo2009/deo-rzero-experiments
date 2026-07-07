@@ -28,7 +28,7 @@ sudo docker run -d \
     --network host \
     --shm-size 16g \
     -v "${HF_CACHE}:/root/.cache/huggingface" \
-    vllm/vllm-openai:latest \
+    vllm/vllm-openai:v0.9.1 \
     --model "${MODEL_NAME}" \
     --served-model-name "${MODEL_NAME}" \
     --dtype bfloat16 \
@@ -48,7 +48,7 @@ launch_solver() {
         -v "${HF_CACHE}:/root/.cache/huggingface" \
         -v "${DEO_STORAGE}:/storage" \
         -v "${RZERO_STORAGE}:/storage_rzero" \
-        vllm/vllm-openai:latest \
+        vllm/vllm-openai:v0.9.1 \
         --model "${MODEL_NAME}" \
         --served-model-name "${MODEL_NAME}" \
         --dtype bfloat16 \

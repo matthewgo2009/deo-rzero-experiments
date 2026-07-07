@@ -101,6 +101,12 @@ class ActorConfig:
 @dataclass
 class RefConfig:
     strategy: str = "fsdp"
+    # KL-pin patch (DEO): give the reference policy its own model path. When left
+    # at the default (model_path=None), WorkerConfig.post_init() falls this back to
+    # the actor's model => stock verl behavior (ref initialized from current actor).
+    # DEO passes worker.ref.model.model_path=<base> to pin the KL reference to the
+    # base model across all self-evolving iters (prevents cumulative KL drift).
+    model: ModelConfig = field(default_factory=ModelConfig)
     fsdp: FSDPConfig = field(default_factory=FSDPConfig)
     offload: OffloadConfig = field(default_factory=OffloadConfig)
     """auto keys"""

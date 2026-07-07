@@ -1,0 +1,22 @@
+# Files excluded from the AzureML code snapshot upload (code: ..).
+# Secrets — must never be uploaded:
+tmp/
+*.submit.yaml
+tokens.json
+**/tokens.json
+# VCS + caches:
+.git/
+__pycache__/
+*.pyc
+# Large prior-result archives not needed at runtime:
+paper_data/
+deo_baseline_run/
+rzero_gpu03_run/
+memory/
+memory_live/
+# Local-only env artifacts:
+rzero_venv/
+.venv/
+*.safetensors
+*.pt
+*.bin

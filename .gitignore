@@ -1,6 +1,8 @@
 # never commit secrets or huge artifacts
 tokens.json
 **/tokens.json
+tmp/
+*.submit.yaml
 *.safetensors
 *.pt
 *.bin

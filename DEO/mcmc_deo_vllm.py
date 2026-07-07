@@ -1127,7 +1127,7 @@ def reload_vllm_solver(new_model_path):
             "-v", "/eph/nvme0/yyd/hf_cache:/root/.cache/huggingface",
             "-v", "/eph/nvme0/yyd/DEO:/storage",
             "-v", "/eph/nvme0/yyd/R-Zero:/storage_rzero",
-            "vllm/vllm-openai:latest",
+            "vllm/vllm-openai:v0.9.1",
             "--model", new_model_path,
             "--served-model-name", config.MODEL_NAME,
             "--dtype", "bfloat16",

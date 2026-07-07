@@ -342,7 +342,9 @@ class FSDPWorker(Worker):
             padding_free = self.config.actor.padding_free
             role = "actor"
         elif self._is_ref:
-            model_config = self.config.actor.model
+            # KL-pin patch (DEO): use the ref's own model (falls back to actor's
+            # model in WorkerConfig.post_init when no override is passed).
+            model_config = self.config.ref.model
             fsdp_config = self.config.ref.fsdp
             optim_config = None
             padding_free = self.config.ref.padding_free

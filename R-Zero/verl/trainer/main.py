@@ -102,7 +102,7 @@ def main():
     with open('tokens.json', 'r') as f:
         tokens = json.load(f)
     os.environ['HF_TOKEN'] = tokens['huggingface']
-    os.environ['WANDB_API_KEY'] = tokens['wandb']
+    os.environ['WANDB_API_KEY'] = tokens.get('wandb', '')  # optional; WANDB_MODE=disabled keeps it offline
     if hasattr(cli_args, "config"):
         config_path = cli_args.pop("config", None)
         file_config = OmegaConf.load(config_path)

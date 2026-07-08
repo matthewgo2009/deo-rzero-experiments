@@ -29,6 +29,9 @@ deo.config.MODEL_ABBR = os.environ.get("DEO_ABBR", "deo_curriculum")
 deo.config.MCMC_STEPS = int(os.environ.get("DEO_MCMC_STEPS", "5"))     # canonical walk
 deo.config.NUM_ITERATIONS = int(os.environ.get("DEO_NUM_ITERS", deo.config.NUM_ITERATIONS))
 deo.config.TOTAL_QUESTIONS = int(os.environ.get("DEO_TOTAL_Q", deo.config.TOTAL_QUESTIONS))
+# repetition-penalty weight in energy (default 10); set 2 to exactly match R-Zero's
+# challenger reward scale (r_c^DEO = 2*(min(p,1-p) - penalty)) alongside beta=0.02.
+deo.config.LAMBDA_REP = float(os.environ.get("DEO_LAMBDA_REP", deo.config.LAMBDA_REP))
 
 # per-iteration MH temperature schedule (annealed down => greedier toward hard edge)
 BETA_SCHEDULE = [float(x) for x in

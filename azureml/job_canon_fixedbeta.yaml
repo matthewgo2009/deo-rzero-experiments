@@ -1,0 +1,29 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+display_name: deo-canonical-fixedbeta-collapse-check
+experiment_name: deo-rzero-7set
+description: >-
+  Curriculum-DEO: canonical MCMC walk + solver M-vote labeler + per-iter BETA
+  anneal [1.0,0.5,0.25,0.1,0.05] (explore->greedy toward hard edge). 5 iters + 7-set eval.
+compute: azureml:azureml-job-cluster
+environment:
+  build:
+    path: ./env
+    dockerfile_path: Dockerfile
+code: ..
+command: bash azureml/run_pipeline_job.sh ${{outputs.work}}
+environment_variables:
+  HF_TOKEN: __HF_TOKEN__
+  OPENAI_API_KEY: __OPENAI_API_KEY__
+  HUGGINGFACENAME: yuyang322
+  MODE: curriculum
+  DEO_ABBR: deo_canon_fixedbeta
+  DEO_BETA_SCHEDULE: "0.1,0.1,0.1,0.1,0.1"
+resources:
+  instance_type: Standard_ND96isr_H100_v5
+  instance_count: 1
+outputs:
+  work:
+    type: uri_folder
+    mode: rw_mount
+    path: azureml://datastores/workspaceblobstore/paths/yyd_canon_fixedbeta/

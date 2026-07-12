@@ -135,6 +135,21 @@ Self-evolving math training on **Qwen/Qwen3-4B-Base**. Eval on the 7 R-Zero math
    MATH AVG 46-47.4 / MATH-500 75-79. On the large reliable sets the ordering is stable; on
    amc(40)/aime(30) it is dominated by 1-3 problem flips.
 
+## Batch-size ablation (why the paper's absolute numbers weren't matched)
+
+A stock 8-GPU R-Zero run with `rollout_batch_size=512` (paper default) was tested
+against our `=64`. **Iter-1 solver MATH-500 was 76.0 (512) vs 75.8 (64) — no
+meaningful difference.** So the ~2-pt gap to the R-Zero paper's Qwen3-4B-Base
+numbers (MATH AVG 49.07 @ iter3) is **not** a batch-size artifact; it is the
+**grader** (paper: gpt-4o full-text, ~33% false-positive → inflates; ours:
+gpt-4o-mini boxed-only, ~0% FP). Matching the paper's absolute scores would
+require re-grading with their lenient grader, not larger batches.
+
+Wall-clock (8×H100, rollout_batch_size=512, max_response_length=4096, 1 iter):
+questioner GRPO (6 steps) ≈ 4.75 h; solver GRPO (20 steps) ≈ 29 h — the 512×4096
+rollout is ~8× the compute of the =64 runs, i.e. ~7 days for 5 iters, with no
+expected change in outcome. The full 512 run was therefore **not** executed.
+
 ## Methodology & caveats
 
 - **Dataset sizes (unique problems):** math=500, gsm8k=1319, olympiad=675, minerva=272, amc=40,

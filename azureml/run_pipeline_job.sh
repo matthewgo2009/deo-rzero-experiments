@@ -46,7 +46,7 @@ sync_once(){
     --include='*/global_step_*/actor/huggingface/***' \
     --exclude='*' "$DEO_STORAGE/" "$OUT/DEO/" 2>/dev/null
   rsync -a --prune-empty-dirs --include='*/' \
-    --include='final_results.jsonl' --include='evaluation/***' --include='generated_question/***' \
+    --include='final_results.jsonl' --include='iter_wallclock.tsv' --include='evaluation/***' --include='generated_question/***' \
     --include='*/global_step_*/actor/huggingface/***' \
     --exclude='*' "$RZERO_STORAGE/" "$OUT/R-Zero_run/" 2>/dev/null
   rsync -a "$EVAL_ROOT/" "$OUT/eval7/" 2>/dev/null

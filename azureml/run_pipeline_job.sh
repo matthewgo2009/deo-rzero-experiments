@@ -29,34 +29,63 @@ export VLLM_PIDDIR=/tmp/vllm_pids VLLM_LOGDIR=/tmp/vllm_logs
 DEO_STORAGE=$WORK/DEO; RZERO_STORAGE=$WORK/R-Zero_run; EVAL_ROOT=$WORK/eval7
 mkdir -p "$DEO_STORAGE" "$RZERO_STORAGE" "$EVAL_ROOT/evaluation" "$WORK/logs" "$OUT"
 
+# NOTE: the container has NO rsync (only cp). Every prior job's dir-sync used
+# `rsync -a` and failed silently ("rsync: command not found"), so checkpoints and
+# eval dirs never persisted — only cp'd files (final_results.jsonl) survived. All
+# copying below therefore uses cp.
+cpdir(){ [ -d "$1" ] || return 0; mkdir -p "$2"; cp -a "$1/." "$2/" 2>/dev/null; }
+
+# ---- self-test persistence to OUT at startup; abort in <1 min if it fails ----
+mkdir -p "$OUT/.persist_selftest/sub"; echo probe > "$OUT/.persist_selftest/sub/f.txt"
+if [ "$(cat "$OUT/.persist_selftest/sub/f.txt" 2>/dev/null)" != "probe" ]; then
+  echo "FATAL: cannot persist to OUT ($OUT) — aborting before wasting compute"; exit 1
+fi
+echo "[persist] self-test OK: dir+file persisted to OUT"
+
 # ---- restore prior durable artifacts from the mount (resume) ----
 if [ -d "$OUT/DEO" ] || [ -d "$OUT/R-Zero_run" ]; then
   echo "=== restoring prior artifacts from $OUT -> $WORK ==="
-  rsync -a "$OUT/DEO/"        "$DEO_STORAGE/"     2>/dev/null || true
-  rsync -a "$OUT/R-Zero_run/" "$RZERO_STORAGE/"   2>/dev/null || true
-  rsync -a "$OUT/eval7/"      "$EVAL_ROOT/"       2>/dev/null || true
+  cpdir "$OUT/DEO" "$DEO_STORAGE"
+  cpdir "$OUT/R-Zero_run" "$RZERO_STORAGE"
+  cpdir "$OUT/eval7" "$EVAL_ROOT"
 fi
 
-# ---- background sync daemon: WORK durable artifacts -> OUT every 300s ----
+# ---- durable persistence: WORK -> OUT (explicit cp; robust to dir depth) ----
+# Copies EVERY merged HF checkpoint (find .../global_step_*/actor/huggingface at
+# any depth), the full evaluation dirs (results_*.json keep per-problem responses,
+# so any grader can be re-applied offline), datasets, generated questions, summaries,
+# wallclock, logs.
+persist_ckpts(){  # $1 = storage base, $2 = out subdir
+  local base=$1 outb=$2
+  [ -d "$base/models" ] || return 0
+  find "$base/models" -type d -path "*/global_step_*/actor/huggingface" 2>/dev/null | while read -r hf; do
+    cpdir "$hf" "$outb/${hf#$base/}"
+  done
+}
 sync_once(){
   mkdir -p "$OUT/DEO" "$OUT/R-Zero_run" "$OUT/eval7" "$OUT/logs"
-  rsync -a --prune-empty-dirs --include='*/' \
-    --include='results_summary*.json' --include='final_results.jsonl' \
-    --include='datasets/***' --include='evaluation/***' --include='generated_question/***' \
-    --include='*/global_step_*/actor/huggingface/***' \
-    --exclude='*' "$DEO_STORAGE/" "$OUT/DEO/" 2>/dev/null
-  rsync -a --prune-empty-dirs --include='*/' \
-    --include='final_results.jsonl' --include='iter_wallclock.tsv' --include='evaluation/***' --include='generated_question/***' \
-    --include='*/global_step_*/actor/huggingface/***' \
-    --exclude='*' "$RZERO_STORAGE/" "$OUT/R-Zero_run/" 2>/dev/null
-  rsync -a "$EVAL_ROOT/" "$OUT/eval7/" 2>/dev/null
-  cp -f "$WORK"/logs/* "$OUT/logs/" 2>/dev/null
+  cp -f "$DEO_STORAGE"/results_summary*.json "$OUT/DEO/" 2>/dev/null
+  cp -f "$RZERO_STORAGE"/iter_wallclock.tsv "$OUT/R-Zero_run/" 2>/dev/null
   cp -f "$ROOT/R-Zero/final_results.jsonl" "$OUT/final_results.jsonl" 2>/dev/null
-  cp -f "$ROOT/RESULTS_7sets.md" "$OUT/RESULTS_7sets.md" 2>/dev/null
+  for sub in datasets evaluation generated_question; do
+    cpdir "$DEO_STORAGE/$sub" "$OUT/DEO/$sub"
+    cpdir "$RZERO_STORAGE/$sub" "$OUT/R-Zero_run/$sub"
+  done
+  cpdir "$EVAL_ROOT" "$OUT/eval7"
+  persist_ckpts "$DEO_STORAGE" "$OUT/DEO"
+  persist_ckpts "$RZERO_STORAGE" "$OUT/R-Zero_run"
+  cp -f "$WORK"/logs/* "$OUT/logs/" 2>/dev/null
+}
+persist_verify(){   # foreground final persist + report counts (proof it landed)
+  echo "[persist] FINAL sync starting..."; sync_once; sync
+  echo "[persist] OUT huggingface ckpt dirs: $(find "$OUT" -type d -name huggingface 2>/dev/null | wc -l)"
+  echo "[persist] OUT results_*.json (with responses): $(find "$OUT" -name 'results_*.json' 2>/dev/null | wc -l)"
+  find "$OUT" -type d -name huggingface 2>/dev/null | sed "s#$OUT/##" | head -20
+  echo "[persist] FINAL sync done."
 }
 ( while true; do sleep 300; sync_once; done ) &
 SYNC_PID=$!
-trap 'echo "[trap] final sync"; sync_once; kill $SYNC_PID 2>/dev/null' EXIT
+trap 'echo "[trap] final persist+verify"; kill $SYNC_PID 2>/dev/null; persist_verify' EXIT
 
 # Thoroughly free all GPUs between phases: kill every process nvidia-smi reports
 # as using a GPU (vllm spawns orphan EngineCore workers that a name-based pkill

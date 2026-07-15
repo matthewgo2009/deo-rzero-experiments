@@ -86,7 +86,7 @@ def generate_results(data):
     # GPU-0-3 (2+2) layout: only 2 solver-scoring vllm servers run (ports 5000,5001
     # on GPU 2,3). Shard the reward batch across N_SERVERS instead of the stock 4.
     # Algorithm-neutral: same questions, same M-vote, just fewer concurrent servers.
-    N_SERVERS = 4
+    N_SERVERS = 2
     datas = split_list(data, N_SERVERS)
     random_names = [generate_temp_filename(prefix=f"temp_{i}", suffix=".json") for i in range(N_SERVERS)]
     for i in range(N_SERVERS):

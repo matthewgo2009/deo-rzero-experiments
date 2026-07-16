@@ -206,10 +206,10 @@ run_eval_rzero(){
   cd "$ROOT/R-Zero"
   export STORAGE_PATH=$EVAL_ROOT PYTHONPATH=$ROOT/R-Zero VLLM_DISABLE_COMPILE_CACHE=1
   MODELS=("Qwen/Qwen3-4B-Base")
-  for n in 1 2 3 4 5; do MODELS+=("$RZERO_STORAGE/models/qwen3-4b-base-rzero_solver_v$n/global_step_15/actor/huggingface"); done
+  for n in 1 2 3 4 5; do MODELS+=("$RZERO_STORAGE/models/qwen3-4b-base-rzero_solver_v$n/global_step_${RZ_S_GSTEP:-15}/actor/huggingface"); done
   _eval_fanout "${MODELS[@]}"
   ORDER=("Qwen_Qwen3-4B-Base")
-  for n in 1 2 3 4 5; do ORDER+=("$(echo "$RZERO_STORAGE/models/qwen3-4b-base-rzero_solver_v$n/global_step_15/actor/huggingface" | tr '/' '_')"); done
+  for n in 1 2 3 4 5; do ORDER+=("$(echo "$RZERO_STORAGE/models/qwen3-4b-base-rzero_solver_v$n/global_step_${RZ_S_GSTEP:-15}/actor/huggingface" | tr '/' '_')"); done
   python3 evaluation/aggregate_7sets.py --eval_root "$EVAL_ROOT/evaluation" --models "${ORDER[@]}" --out "$ROOT/RESULTS_7sets_rzero.md"
   cd "$ROOT"; sync_once
   echo "===== R-ZERO RESULTS ====="; cat "$ROOT/RESULTS_7sets_rzero.md"
@@ -219,7 +219,7 @@ run_eval_rzero(){
 # solver_v1 checkpoint is produced (~1.5-2h), before committing to the full run.
 run_rzero_smoke(){
   RZERO_ITERS=1 run_rzero
-  ck="$RZERO_STORAGE/models/qwen3-4b-base-rzero_solver_v1/global_step_15/actor/huggingface"
+  ck="$RZERO_STORAGE/models/qwen3-4b-base-rzero_solver_v1/global_step_${RZ_S_GSTEP:-15}/actor/huggingface"
   if [ -d "$ck" ]; then echo "SMOKE_OK: solver_v1 checkpoint present at $ck"; ls "$ck" | head;
   else echo "SMOKE_FAIL: solver_v1 checkpoint MISSING ($ck)"; fi
 }

@@ -14,6 +14,8 @@ Base_model=${1:-Qwen/Qwen3-4B-Base}
 Model_abbr=${2:-qwen3-4b-base-rzero}
 MAX_ITERS=${3:-5}
 START_ITER=${START_ITER:-1}   # set >1 to resume, reusing already-trained earlier iters
+S_GSTEP=${RZ_S_GSTEP:-15}     # solver merged-checkpoint step (smoke: 1)
+Q_GSTEP=${RZ_Q_GSTEP:-5}      # questioner merged-checkpoint step (smoke: 1)
 LOG=${STORAGE_PATH}/logs/run_${Model_abbr}_$(date +%Y%m%d_%H%M%S).log
 WCLOG=${STORAGE_PATH}/iter_wallclock.tsv
 mkdir -p "${STORAGE_PATH}/logs"
@@ -44,7 +46,7 @@ iter_total() { # print iter total = sum of its phases from WCLOG
 if [ "${START_ITER}" -le 1 ]; then
     run bash evaluation/evaluate.bash "$Base_model"     # iter 0 baseline eval
     rec 1 questioner bash scripts/questioner_train_penalty.sh "$Base_model" "$Base_model" ${Model_abbr}_questioner_v1
-    rec 1 solver     bash scripts/solver_train.sh "$Base_model" ${STORAGE_PATH}/models/${Model_abbr}_questioner_v1/global_step_5/actor/huggingface ${Model_abbr}_solver_v1
+    rec 1 solver     bash scripts/solver_train.sh "$Base_model" ${STORAGE_PATH}/models/${Model_abbr}_questioner_v1/global_step_${Q_GSTEP}/actor/huggingface ${Model_abbr}_solver_v1
     iter_total 1
     START_ITER=2
 fi
@@ -52,12 +54,12 @@ fi
 for i in $(seq ${START_ITER} ${MAX_ITERS}); do
     prev=$((i-1))
     rec $i questioner bash scripts/questioner_train_penalty.sh \
-        ${STORAGE_PATH}/models/${Model_abbr}_solver_v${prev}/global_step_15/actor/huggingface \
-        ${STORAGE_PATH}/models/${Model_abbr}_questioner_v${prev}/global_step_5/actor/huggingface \
+        ${STORAGE_PATH}/models/${Model_abbr}_solver_v${prev}/global_step_${S_GSTEP}/actor/huggingface \
+        ${STORAGE_PATH}/models/${Model_abbr}_questioner_v${prev}/global_step_${Q_GSTEP}/actor/huggingface \
         ${Model_abbr}_questioner_v${i}
     rec $i solver bash scripts/solver_train.sh \
-        ${STORAGE_PATH}/models/${Model_abbr}_solver_v${prev}/global_step_15/actor/huggingface \
-        ${STORAGE_PATH}/models/${Model_abbr}_questioner_v${i}/global_step_5/actor/huggingface \
+        ${STORAGE_PATH}/models/${Model_abbr}_solver_v${prev}/global_step_${S_GSTEP}/actor/huggingface \
+        ${STORAGE_PATH}/models/${Model_abbr}_questioner_v${i}/global_step_${Q_GSTEP}/actor/huggingface \
         ${Model_abbr}_solver_v${i}
     iter_total $i
 done

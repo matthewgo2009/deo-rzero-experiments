@@ -150,6 +150,28 @@ questioner GRPO (6 steps) ≈ 4.75 h; solver GRPO (20 steps) ≈ 29 h — the 51
 rollout is ~8× the compute of the =64 runs, i.e. ~7 days for 5 iters, with no
 expected change in outcome. The full 512 run was therefore **not** executed.
 
+## Wall-clock / compute efficiency (Standard_ND96isr_H100_v5, 8×H100 node)
+
+Per-iteration wall-clock (measured via iter_wallclock.tsv / job logs):
+
+| method | GPUs used | per-iter | 5 iters + eval |
+|---|:--:|---|---|
+| R-Zero (4-GPU, rollout 64) | 4 | ~11 h (questioner ~6.5 h + solver ~4.8 h) | **~55 h (~2.3 d)** |
+| R-Zero (8-GPU, rollout 64) | 8 | ~10 h (questioner ~5 h + solver ~5 h) | **~50 h (~2 d)** |
+| DEO canonical (MCMC walk) | 7 (base0/solverDP1,4,5/verl2,3/eval6) | ~4-5 h (walk ~2.5-3 h + verl ~1.5 h) | **~20-24 h (~1 d)** |
+| DEO baseline_drift (no walk) | 7 | ~2-2.5 h | **~10-14 h** |
+
+Notes:
+- **DEO is 2-5× faster than R-Zero.** R-Zero *trains* a challenger every iter (questioner
+  GRPO + 8-shard question generation + M-vote scoring ≈ 5-6.5 h) on top of solver training;
+  DEO skips challenger training and *samples* the optimal challenger via MCMC — exactly the
+  efficiency claim of the DEO paper. Combined with §finding-3 (equal accuracy under the fair
+  β), this supports "MCMC sampling can replace challenger training, cheaper."
+- **More GPUs barely helped R-Zero at rollout_batch_size=64**: 64 prompts across 8 GPUs
+  underutilizes them, and the fixed per-iter cost (question gen + M-vote eval) dominates, so
+  8-GPU (~10 h/iter) ≈ 4-GPU (~11 h/iter). Large batch (512) uses 8 GPUs but is ~8× the compute
+  and thus slower overall (~7 d for 5 iters), with no accuracy gain (76.0 ≈ 75.8).
+
 ## Methodology & caveats
 
 - **Dataset sizes (unique problems):** math=500, gsm8k=1319, olympiad=675, minerva=272, amc=40,

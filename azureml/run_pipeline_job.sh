@@ -127,6 +127,15 @@ run_curriculum(){
   python3 "$ROOT/DEO/curriculum_deo_native_main.py"
   free_gpus; sync_once
 }
+# adaptive-temperature DEO: canonical walk + solver labeler + beta updated each
+# iter to keep in-band r_unc fraction near delta (DEO paper §1.4)
+run_adaptive(){
+  echo "=== [$(date '+%T')] adaptive-temp DEO (auto-beta, ${DEO_NUM_ITERS:-5} iters) ==="
+  export STORAGE_PATH=$DEO_STORAGE PYTHONPATH=$ROOT/R-Zero DEO_NUM_ITERS=${DEO_NUM_ITERS:-5}
+  bash "$ROOT/DEO/start_vllm_native.sh"
+  python3 "$ROOT/DEO/adaptive_temp_deo_native_main.py"
+  free_gpus; sync_once
+}
 # canonical DEO (MCMC walk) with Claude (Sonnet 4.5) as labeler
 run_canon(){
   echo "=== [$(date '+%T')] canonical DEO + Claude labeler (${DEO_NUM_ITERS:-5} iters) ==="
@@ -233,6 +242,7 @@ case $MODE in
   canon_claudelabel) run_canon; run_eval_canon ;;
   canon_claude_smoke) DEO_NUM_ITERS=1 run_canon ;;
   curriculum) run_curriculum; run_eval_canon ;;
+  adaptive) run_adaptive; run_eval_canon ;;
   full)        run_deo; run_rzero; run_eval ;;
 esac
 sync_once

@@ -244,17 +244,22 @@ run_regrade(){
   for n in 1 2 3 4 5; do MODELS+=("$CKROOT/models/qwen3-4b-base-rzero_solver_v$n/global_step_${RZ_S_GSTEP:-15}/actor/huggingface"); done
   local DATASETS=(math gsm8k amc minerva olympiad aime2024 aime2025)
   # 1) fresh generation (raw), one model per GPU (generate.py only — NO recheck mutation)
-  local gpu=0; local pids=()
-  for m in "${MODELS[@]}"; do
-    if [ "$m" != "Qwen/Qwen3-4B-Base" ] && [ ! -d "$m" ]; then echo "REGRADE skip missing $m"; continue; fi
-    ( for ds in "${DATASETS[@]}"; do
-        CUDA_VISIBLE_DEVICES=$gpu python evaluation/generate.py --model "$m" --dataset "$ds"
-      done ) > "$WORK/logs/regen_g${gpu}_$(echo "$m" | tr '/' '_').log" 2>&1 &
-    pids+=($!); gpu=$(((gpu+1)%8))
-    if [ ${#pids[@]} -ge 8 ]; then wait "${pids[@]}"; pids=(); fi
-  done
-  [ ${#pids[@]} -gt 0 ] && wait "${pids[@]}"
-  sync_once
+  #    REGRADE_SKIP_GEN=1 -> responses already generated; just (re)grade them.
+  if [ -z "${REGRADE_SKIP_GEN:-}" ]; then
+    local gpu=0; local pids=()
+    for m in "${MODELS[@]}"; do
+      if [ "$m" != "Qwen/Qwen3-4B-Base" ] && [ ! -d "$m" ]; then echo "REGRADE skip missing $m"; continue; fi
+      ( for ds in "${DATASETS[@]}"; do
+          CUDA_VISIBLE_DEVICES=$gpu python evaluation/generate.py --model "$m" --dataset "$ds"
+        done ) > "$WORK/logs/regen_g${gpu}_$(echo "$m" | tr '/' '_').log" 2>&1 &
+      pids+=($!); gpu=$(((gpu+1)%8))
+      if [ ${#pids[@]} -ge 8 ]; then wait "${pids[@]}"; pids=(); fi
+    done
+    [ ${#pids[@]} -gt 0 ] && wait "${pids[@]}"
+    sync_once
+  else
+    echo "[regrade] REGRADE_SKIP_GEN set — grading existing responses in $RGROOT/evaluation"
+  fi
   # 2) dual grade (CPU + OpenAI API only)
   rm -f "$ROOT/R-Zero/regrade_compare.jsonl"
   for m in "${MODELS[@]}"; do

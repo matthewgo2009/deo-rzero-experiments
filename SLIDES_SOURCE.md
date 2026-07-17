@@ -59,20 +59,87 @@ Reward detail:
 
 ---
 
-## Slide 5 — NEW: Adaptive temperature β (paper §1.4)
+## Slide 5a — NEW: Adaptive temperature β — problem & Lagrangian (paper §1.4)
 
-**Motivation:** control question *hardness* — keep the uncertainty score `r_unc` in a target
-band `[r_min, r_max]` for a target fraction δ of questions, instead of hand-tuning β.
+**Motivation:** control question *hardness* automatically. Keep the uncertainty score
+`r_unc(x;θ)` inside a target band `[r_min, r_max]` for a target fraction δ of questions,
+instead of hand-tuning β.
 
-- Constrained problem: `max_β β  s.t.  E_{X∼q(β)}[V(X)] ≤ δ`, where
-  `V(X) = fraction of batch X with r_min ≤ r_unc ≤ r_max`.
-- Lagrangian → **gradient descent-ascent** on (β, λ), estimated from B batch-samples per iter:
-  - `∇_β L = −1/β − (λ/β²)·Cov(V, r_c)`
-  - `∇_λ L = mean(V) − δ`
-  - `β ← β − η_β ∇_β L` (clamped),  `λ ← λ + η_λ ∇_λ L` (≥0)
-- β is updated **after each iteration** and fed to the next iteration's MCMC walk.
-- Config used: band **[0.3, 0.8]**, δ=**0.5**, β₀=1.0, λ₀=1.0, η=0.1.
-- **Status: running now** (results pending).
+**Sampling distribution** (the optimal challenger): `q_β(X) ∝ π_base(X)·exp( r_c(X,θ) / β )`.
+
+**In-band counter:** `V(X) = |{ x ∈ X : r_min ≤ r_unc(x;θ) ≤ r_max }|`
+(computed per *batch* X — `r_c` and the repetition penalty are batch-level quantities).
+
+**Constrained problem for β** — prefer the *largest* β (most diverse / closest to base)
+whose in-band mass stays at the target:
+
+$$\max_{\beta}\ \beta \quad\text{s.t.}\quad \mathbb{E}_{X\sim q_\beta}[V(X)] \le \delta
+\qquad\Longleftrightarrow\qquad \min_{\beta}\ -\log\beta \quad\text{s.t.}\quad \mathbb{E}_{X\sim q_\beta}[V(X)] \le \delta$$
+
+**Lagrangian** (dual variable λ ≥ 0):
+
+$$\mathcal{L}(\beta,\lambda) \;=\; -\log\beta \;+\; \lambda\big(\mathbb{E}_{X\sim q_\beta}[V(X)] - \delta\big)$$
+
+solved as a **max-min / gradient descent–ascent**: descend β, ascend λ.
+
+---
+
+## Slide 5b — NEW: Adaptive temperature β — derivatives & update (paper §1.4)
+
+**Gradient w.r.t. β.** Since `log q_β(X) = log π_base(X) + r_c(X,θ)/β − log Z(θ,β)`:
+
+$$\frac{\partial}{\partial\beta}\log q_\beta(X) = -\frac{r_c(X,\theta)}{\beta^2} + \frac{1}{\beta^2}\,\mathbb{E}_{\pi_{base}}[r_c(X,\theta)]$$
+
+$$\Rightarrow\quad \frac{\partial q_\beta(X)}{\partial\beta} = q_\beta(X)\frac{\partial \log q_\beta(X)}{\partial\beta} = -\frac{q_\beta(X)}{\beta^2}\Big(r_c(X,\theta) - \mathbb{E}_{\pi_{base}}[r_c(X,\theta)]\Big)$$
+
+Therefore
+
+$$\nabla_\beta \mathcal{L} = -\frac{1}{\beta} + \lambda\frac{d}{d\beta}\mathbb{E}_{q_\beta}[V]
+= -\frac{1}{\beta} - \frac{\lambda}{\beta^2}\Big(\underbrace{\mathbb{E}[r_c V] - \mathbb{E}[r_c]\,\mathbb{E}[V]}_{\mathrm{Cov}(V,\;r_c)}\Big)$$
+
+**Gradient w.r.t. λ:**  `∇_λ L = E_{q_β}[V] − δ`.
+
+**Empirical estimators** from B batch-samples `X_1,…,X_B` (with `V̄ = mean V(X_i)`, `R̄ = mean r_c(X_i)`):
+
+$$\widehat{\nabla}_\beta \mathcal{L} = -\frac{1}{\beta} - \frac{\lambda}{\beta^2}\cdot\frac{1}{B-1}\sum_{i=1}^{B}\big(V(X_i)-\bar V\big)\big(r_c(X_i)-\bar R\big)
+\qquad\qquad \widehat{\nabla}_\lambda \mathcal{L} = \bar V - \delta$$
+
+**Gradient descent–ascent update** (a few steps per iteration):
+
+$$\beta^{t+1} = \beta^{t} - \eta_\beta\,\widehat{\nabla}_\beta\mathcal{L}(\beta^t,\lambda^t)
+\qquad\qquad \lambda^{t+1} = \big[\lambda^{t} + \eta_\lambda\,\widehat{\nabla}_\lambda\mathcal{L}(\beta^t,\lambda^t)\big]_+$$
+
+- β is updated **after each self-evolving iteration**, then fed to the next iteration's MCMC walk.
+- **λ drives the in-band fraction V̄ → δ**; the **Cov(V, r_c)** term steers β by how in-band-ness
+  co-varies with question difficulty.
+- Our implementation: split each iter's MCMC pool into K batch-chunks (chunk size 64) to form the
+  B samples; β, λ persist across iters and are logged every iter.
+- Config: band **[0.3, 0.8]**, δ=**0.5**, β₀=1.0, λ₀=1.0, η_β=η_λ=0.1, β clamped to [0.02, 2.0].
+
+---
+
+## Slide 5c — Adaptive temperature: result (5 iters)
+
+**β / λ trajectory (measured):**
+
+| iter | V̄ (in-band frac) | Cov(V, r_c) | β (→) | λ |
+|--|--|--|--|--|
+| 1 | 0.471 | 0.0004 | 1.00 → **2.00** | 0.943 |
+| 2 | 0.485 | 0.0007 | 2.00 → 2.00 | 0.912 |
+| 3 | 0.500 | 0.0002 | 2.00 → 2.00 | 0.912 |
+| 4 | 0.495 | 0.0003 | 2.00 → 2.00 | 0.902 |
+| 5 | 0.480 | 0.0001 | 2.00 → 2.00 | 0.862 |
+
+**MATH-500:** 71.6 (base) → 76.0 → 76.8 → **77.6** → 77.0 → 76.8 — on par with fixed-β / curriculum DEO.
+
+**What happened:** the target band [0.3,0.8] already holds ≈½ the questions at any β (V̄≈δ=0.5 from
+iter 1), so the constraint is **slack** and `Cov(V, r_c)≈0`. With no counteracting force, the `−1/β`
+("maximize β") term dominates ⇒ **β saturates at its clamp (2.0)** — the mildest, most base-like
+reweighting. Accuracy is unchanged (~77), consistent with DEO being robust to β.
+
+**Takeaway:** the GDA controller behaves correctly (V̄ tracks δ, β/λ update stably), but a *loose*
+band makes β run to its ceiling. To make β adapt non-trivially, tighten the band (or raise δ) so the
+constraint binds and Cov(V, r_c) drives β.
 
 ---
 

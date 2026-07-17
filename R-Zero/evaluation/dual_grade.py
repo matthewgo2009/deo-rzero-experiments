@@ -27,6 +27,9 @@ _BOXED_OPEN_RE = re.compile(r"\\boxed\{")
 
 
 def extract_last_boxed(text):
+    if text is None:
+        return None
+    text = str(text)   # amc/aime ground-truth answers can be numeric, not str
     if not text:
         return None
     starts = [m.end() for m in _BOXED_OPEN_RE.finditer(text)]
@@ -61,7 +64,7 @@ def ours_msg(model_response, ground_truth):
 
 def paper_msg(answer, response):
     """gpt-4o full-text (results_recheck.process_example: answer=GT soln, response=model gen)."""
-    return (f"Hi, there is a answer: {answer}\n\n, and the ground truth answer is: {response}\n\n, "
+    return (f"Hi, there is a answer: {str(answer)}\n\n, and the ground truth answer is: {str(response)}\n\n, "
             "please check whether the answer is correct or not, and return the **only** Yes or No.")
 
 

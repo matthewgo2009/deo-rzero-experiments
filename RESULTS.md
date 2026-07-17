@@ -157,7 +157,7 @@ Per-iteration wall-clock (measured via iter_wallclock.tsv / job logs):
 | method | GPUs used | per-iter | 5 iters + eval |
 |---|:--:|---|---|
 | R-Zero (4-GPU, rollout 64) | 4 | ~11 h (questioner ~6.5 h + solver ~4.8 h) | **~55 h (~2.3 d)** |
-| R-Zero (8-GPU, rollout 64) | 8 | ~10 h (questioner ~5 h + solver ~5 h) | **~50 h (~2 d)** |
+| R-Zero (8-GPU, rollout 64) | 8 | 10.0 h avg (questioner 4.9–5.3 h + solver 5.0–5.2 h) | **50.8 h (2.1 d)** (measured, 5 iters) |
 | DEO canonical (MCMC walk) | 7 (base0/solverDP1,4,5/verl2,3/eval6) | ~4-5 h (walk ~2.5-3 h + verl ~1.5 h) | **~20-24 h (~1 d)** |
 | DEO baseline_drift (no walk) | 7 | ~2-2.5 h | **~10-14 h** |
 

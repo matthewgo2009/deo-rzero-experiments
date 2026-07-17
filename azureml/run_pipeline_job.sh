@@ -43,7 +43,9 @@ fi
 echo "[persist] self-test OK: dir+file persisted to OUT"
 
 # ---- restore prior durable artifacts from the mount (resume) ----
-if [ -d "$OUT/DEO" ] || [ -d "$OUT/R-Zero_run" ]; then
+# (skipped for MODE=regrade — it reads checkpoints straight from the mount, so no
+#  need to copy ~80-100GB of checkpoints + FSDP shards to local disk.)
+if [ "$MODE" != regrade ] && { [ -d "$OUT/DEO" ] || [ -d "$OUT/R-Zero_run" ]; }; then
   echo "=== restoring prior artifacts from $OUT -> $WORK ==="
   cpdir "$OUT/DEO" "$DEO_STORAGE"
   cpdir "$OUT/R-Zero_run" "$RZERO_STORAGE"
@@ -224,6 +226,47 @@ run_eval_rzero(){
   echo "===== R-ZERO RESULTS ====="; cat "$ROOT/RESULTS_7sets_rzero.md"
 }
 
+# REGRADE: fresh 7-set generation (raw math_verify) on the persisted R-Zero
+# checkpoints, then DUAL grading (ours=gpt-4o-mini boxed | paper=gpt-4o full-text)
+# without mutating raw scores. Answers "does R-Zero reach ~49 MATH AVG under the
+# paper's lenient grader?". Mount an existing R-Zero run's OUT (checkpoints in
+# $RZERO_STORAGE). RZ_S_GSTEP defaults to 15 (matches the full run).
+run_regrade(){
+  echo "=== [$(date '+%T')] REGRADE: fresh 7-set gen + dual grader ==="
+  free_gpus
+  cd "$ROOT/R-Zero"
+  local RGROOT=$OUT/regrade   # write responses + compare straight to the mount
+  mkdir -p "$RGROOT/evaluation"
+  export STORAGE_PATH=$RGROOT PYTHONPATH=$ROOT/R-Zero VLLM_DISABLE_COMPILE_CACHE=1
+  # read checkpoints straight from the mounted prior run (no local restore)
+  local CKROOT=${REGRADE_CKROOT:-$OUT/R-Zero_run}
+  local MODELS=("Qwen/Qwen3-4B-Base")
+  for n in 1 2 3 4 5; do MODELS+=("$CKROOT/models/qwen3-4b-base-rzero_solver_v$n/global_step_${RZ_S_GSTEP:-15}/actor/huggingface"); done
+  local DATASETS=(math gsm8k amc minerva olympiad aime2024 aime2025)
+  # 1) fresh generation (raw), one model per GPU (generate.py only — NO recheck mutation)
+  local gpu=0; local pids=()
+  for m in "${MODELS[@]}"; do
+    if [ "$m" != "Qwen/Qwen3-4B-Base" ] && [ ! -d "$m" ]; then echo "REGRADE skip missing $m"; continue; fi
+    ( for ds in "${DATASETS[@]}"; do
+        CUDA_VISIBLE_DEVICES=$gpu python evaluation/generate.py --model "$m" --dataset "$ds"
+      done ) > "$WORK/logs/regen_g${gpu}_$(echo "$m" | tr '/' '_').log" 2>&1 &
+    pids+=($!); gpu=$(((gpu+1)%8))
+    if [ ${#pids[@]} -ge 8 ]; then wait "${pids[@]}"; pids=(); fi
+  done
+  [ ${#pids[@]} -gt 0 ] && wait "${pids[@]}"
+  sync_once
+  # 2) dual grade (CPU + OpenAI API only)
+  rm -f "$ROOT/R-Zero/regrade_compare.jsonl"
+  for m in "${MODELS[@]}"; do
+    if [ "$m" != "Qwen/Qwen3-4B-Base" ] && [ ! -d "$m" ]; then continue; fi
+    python3 evaluation/dual_grade.py --model_name "$m" --workers 16
+  done
+  cp -f "$ROOT/R-Zero/regrade_compare.jsonl" "$RGROOT/regrade_compare.jsonl" 2>/dev/null || true
+  echo "===== REGRADE COMPARE (raw | ours=4o-mini boxed | paper=4o full-text) ====="
+  cat "$RGROOT/regrade_compare.jsonl"
+  cd "$ROOT"; sync_once
+}
+
 # fast smoke: ONE R-Zero iter to confirm the questioner no longer NCCL-hangs and
 # solver_v1 checkpoint is produced (~1.5-2h), before committing to the full run.
 run_rzero_smoke(){
@@ -238,6 +281,7 @@ case $MODE in
   rzero)       run_rzero ;;
   eval)        run_eval ;;
   rzero_eval)  run_rzero; run_eval_rzero ;;
+  regrade)     run_regrade ;;
   rzero_smoke) run_rzero_smoke ;;
   canon_claudelabel) run_canon; run_eval_canon ;;
   canon_claude_smoke) DEO_NUM_ITERS=1 run_canon ;;

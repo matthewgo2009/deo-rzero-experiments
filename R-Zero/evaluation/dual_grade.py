@@ -76,10 +76,11 @@ def load_key():
     return tok
 
 
-def grade_dataset(client, model_name, dataset, workers, retries=4):
-    path = f"{STORAGE_PATH}/evaluation/{model_name.replace('/', '_')}/results_{dataset}.json"
+def grade_dataset(client, eval_dir, label, dataset, workers, retries=4):
+    path = f"{eval_dir}/results_{dataset}.json"
     if not os.path.exists(path):
         print(f"[dual {dataset}] MISSING {path}"); return None
+    model_name = label
     with open(path) as f:
         results = json.load(f)
     entries = results[:-1] if (results and isinstance(results[-1], dict)
@@ -131,13 +132,21 @@ def grade_dataset(client, model_name, dataset, workers, retries=4):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--model_name", required=True)
+    ap.add_argument("--model_name", help="reconstruct eval dir as $STORAGE_PATH/evaluation/<name_/>")
+    ap.add_argument("--eval_dir", help="grade this dir of results_<ds>.json directly (robust to path renaming)")
+    ap.add_argument("--label", help="model label for output when --eval_dir is used")
     ap.add_argument("--workers", type=int, default=16)
     args = ap.parse_args()
     client = openai.OpenAI(api_key=load_key())
-    print(f"=== dual_grade {args.model_name} ===")
+    if args.eval_dir:
+        eval_dir = args.eval_dir.rstrip("/")
+        label = args.label or os.path.basename(eval_dir)
+    else:
+        eval_dir = f"{STORAGE_PATH}/evaluation/{args.model_name.replace('/', '_')}"
+        label = args.model_name
+    print(f"=== dual_grade {label} (dir={eval_dir}) ===")
     for ds in DATASETS:
-        grade_dataset(client, args.model_name, ds, args.workers)
+        grade_dataset(client, eval_dir, label, ds, args.workers)
 
 
 if __name__ == "__main__":

@@ -260,11 +260,18 @@ run_regrade(){
   else
     echo "[regrade] REGRADE_SKIP_GEN set — grading existing responses in $RGROOT/evaluation"
   fi
-  # 2) dual grade (CPU + OpenAI API only)
+  # 2) dual grade (CPU + OpenAI API only) — iterate the ACTUAL response dirs present
+  #    (generate.py names dirs by the full checkpoint path, which carries a per-job id,
+  #    so glob what exists instead of reconstructing paths).
   rm -f "$ROOT/R-Zero/regrade_compare.jsonl"
-  for m in "${MODELS[@]}"; do
-    if [ "$m" != "Qwen/Qwen3-4B-Base" ] && [ ! -d "$m" ]; then continue; fi
-    python3 evaluation/dual_grade.py --model_name "$m" --workers 16
+  for d in "$RGROOT"/evaluation/*/; do
+    [ -d "$d" ] || continue
+    dn=$(basename "$d"); lab="$dn"
+    case "$dn" in
+      *solver_v1*) lab=solver_v1;; *solver_v2*) lab=solver_v2;; *solver_v3*) lab=solver_v3;;
+      *solver_v4*) lab=solver_v4;; *solver_v5*) lab=solver_v5;; *Qwen3-4B-Base*) lab=base;;
+    esac
+    python3 evaluation/dual_grade.py --eval_dir "$d" --label "$lab" --workers 16
   done
   cp -f "$ROOT/R-Zero/regrade_compare.jsonl" "$RGROOT/regrade_compare.jsonl" 2>/dev/null || true
   echo "===== REGRADE COMPARE (raw | ours=4o-mini boxed | paper=4o full-text) ====="

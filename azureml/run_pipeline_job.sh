@@ -238,10 +238,13 @@ run_regrade(){
   local RGROOT=$OUT/regrade   # write responses + compare straight to the mount
   mkdir -p "$RGROOT/evaluation"
   export STORAGE_PATH=$RGROOT PYTHONPATH=$ROOT/R-Zero VLLM_DISABLE_COMPILE_CACHE=1
-  # read checkpoints straight from the mounted prior run (no local restore)
-  local CKROOT=${REGRADE_CKROOT:-$OUT/R-Zero_run}
+  # read checkpoints straight from the mounted prior run (no local restore).
+  # REGRADE_CKROOT: dir containing models/ (R-Zero_run default; DEO variants use $OUT/DEO).
+  # REGRADE_ABBR:   solver checkpoint prefix (qwen3-4b-base-rzero | deo_curriculum | deo_adaptive | ...).
+  local CKROOT=${REGRADE_CKROOT:-$OUT/${REGRADE_CKSUB:-R-Zero_run}}
+  local ABBR=${REGRADE_ABBR:-qwen3-4b-base-rzero}
   local MODELS=("Qwen/Qwen3-4B-Base")
-  for n in 1 2 3 4 5; do MODELS+=("$CKROOT/models/qwen3-4b-base-rzero_solver_v$n/global_step_${RZ_S_GSTEP:-15}/actor/huggingface"); done
+  for n in 1 2 3 4 5; do MODELS+=("$CKROOT/models/${ABBR}_solver_v$n/global_step_${RZ_S_GSTEP:-15}/actor/huggingface"); done
   local DATASETS=(math gsm8k amc minerva olympiad aime2024 aime2025)
   # 1) fresh generation (raw), one model per GPU (generate.py only — NO recheck mutation)
   #    REGRADE_SKIP_GEN=1 -> responses already generated; just (re)grade them.

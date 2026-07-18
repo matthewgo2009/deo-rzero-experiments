@@ -244,8 +244,18 @@ Per-iteration wall-clock (8×H100 node):
   - Even the untrained base scores 41.36 (ours) — the gap is present at iteration 0.
 - Batch-size ablation: iter-1 solver MATH-500 = 76.0 (batch 512) vs 75.8 (batch 64) ⇒ **no effect**.
 
-**In progress:** re-grading a fresh R-Zero run with the paper's lenient gpt-4o grader to confirm
-the absolute numbers reconcile.
+**Confirmed by re-grading the SAME responses under both graders** (fresh 8-GPU R-Zero run):
+
+| MATH AVG (7-set) | base | v1 | v2 | v3 | v4 | v5 |
+|---|--|--|--|--|--|--|
+| ours (gpt-4o-mini boxed) | 43.3 | 45.9 | 47.3 | 45.3 | 47.3 | 46.8 |
+| **paper (gpt-4o full-text)** | 48.4 | 49.1 | **50.2** | 47.9 | 50.2 | 49.8 |
+
+- **Under the paper's own grader, our R-Zero reproduction hits ~49–50 MATH AVG (peak 50.2) —
+  matching/exceeding the paper's ≈49.07.** Identical model + responses; only the grader changed.
+- The gap is **100% the grader**, not the method. (Note the grader is so lenient that even the
+  *untrained base* scores 48.4 — the paper's absolute numbers are inflated; strict-grader gain is +4.1
+  vs lenient +1.9.)
 
 ---
 

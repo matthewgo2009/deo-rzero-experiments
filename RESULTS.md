@@ -150,6 +150,42 @@ questioner GRPO (6 steps) ≈ 4.75 h; solver GRPO (20 steps) ≈ 29 h — the 51
 rollout is ~8× the compute of the =64 runs, i.e. ~7 days for 5 iters, with no
 expected change in outcome. The full 512 run was therefore **not** executed.
 
+## Re-grade with the paper's gpt-4o grader — confirms the gap IS the grader
+
+A fresh 8-GPU R-Zero run (base + solver_v1..v5) was re-generated on all 7 sets and graded
+under **both** graders on the *same* responses: ours (gpt-4o-mini, boxed-only) vs the paper's
+(gpt-4o, full-text answer-vs-response, only bumps math_verify-failed items — never lowers).
+
+**MATH AVG (7-set) per iteration, same responses, two graders:**
+
+| grader | base | v1 | v2 | v3 | v4 | v5 | peak |
+|---|--|--|--|--|--|--|--|
+| ours (gpt-4o-mini boxed) | 43.25 | 45.94 | 47.34 | 45.29 | 47.31 | 46.80 | 47.34 |
+| **paper (gpt-4o full-text)** | 48.37 | 49.11 | **50.23** | 47.87 | 50.17 | 49.81 | **50.23** |
+| Δ (paper − ours) | +5.12 | +3.17 | +2.88 | +2.58 | +2.86 | +3.01 | |
+
+**Under the paper's own grader our R-Zero reproduction reaches ~49–50 MATH AVG (peak 50.23 @ v2),
+matching/exceeding the paper's reported ≈49.07.** Same model, same responses — the only change is
+the grader. So the ~2–3 pt gap between our earlier numbers and the paper is **entirely the grader's
+leniency**, not a method/implementation difference.
+
+Caveat worth stating: the paper's grader is lenient enough that even the **untrained base scores
+48.37** (≈ the paper's trained-R-Zero 49). Its absolute numbers are inflated; the *real* self-evolving
+gain (base→peak) is clearer under the strict grader (ours **+4.1**) than under the lenient one (paper **+1.9**).
+
+### R-Zero (8-GPU) under the PAPER grader (gpt-4o full-text)
+| iter | math | gsm8k | amc | minerva | olympiad | aime24 | aime25 | AVG |
+|--|--|--|--|--|--|--|--|--|
+| base | 76.2 | 90.0 | 50.5 | 48.5 | 43.1 | 13.3 | 16.9 | **48.37** |
+| v1 | 76.8 | 92.3 | 47.7 | 52.9 | 45.5 | 18.5 | 10.1 | **49.11** |
+| v2 | 77.0 | 91.7 | 52.6 | 55.1 | 45.2 | 16.7 | 13.3 | **50.23** |
+| v3 | 75.8 | 91.7 | 48.3 | 56.2 | 43.6 | 12.2 | 7.3 | **47.87** |
+| v4 | 78.0 | 91.7 | 53.1 | 54.4 | 45.2 | 22.1 | 6.7 | **50.17** |
+| v5 | 78.0 | 91.4 | 54.1 | 55.9 | 46.1 | 16.6 | 6.7 | **49.81** |
+
+(Biggest grader gaps: minerva +8–12, gsm8k on base +8, aime +3–5 — the lenient full-text check
+accepts unboxed / partially-correct generations that the boxed-only grader rejects.)
+
 ## Wall-clock / compute efficiency (Standard_ND96isr_H100_v5, 8×H100 node)
 
 Per-iteration wall-clock (measured via iter_wallclock.tsv / job logs):

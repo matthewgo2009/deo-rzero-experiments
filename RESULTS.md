@@ -186,6 +186,51 @@ gain (base→peak) is clearer under the strict grader (ours **+4.1**) than under
 (Biggest grader gaps: minerva +8–12, gsm8k on base +8, aime +3–5 — the lenient full-text check
 accepts unboxed / partially-correct generations that the boxed-only grader rejects.)
 
+### adaptive-DEO vs R-Zero under both graders (dual-graded, same protocol)
+
+adaptive-DEO was re-run this cycle (post persistence-fix), so its checkpoints persisted and it could
+be dual-graded identically. **MATH AVG (7-set) per iteration:**
+
+| method / grader | base | v1 | v2 | v3 | v4 | v5 | **peak** |
+|---|--|--|--|--|--|--|--|
+| adaptive-DEO · ours | 43.03 | 45.04 | 47.55 | 47.82 | 47.03 | 48.15 | **48.15** |
+| R-Zero · ours | 43.25 | 45.94 | 47.34 | 45.29 | 47.31 | 46.80 | 47.34 |
+| adaptive-DEO · paper | 48.27 | 48.15 | 51.04 | 50.99 | 49.86 | **51.28** | **51.28** |
+| R-Zero · paper | 48.37 | 49.11 | 50.23 | 47.87 | 50.17 | 49.81 | 50.23 |
+
+**adaptive-DEO slightly beats R-Zero under both graders (ours 48.15 vs 47.34; paper 51.28 vs 50.23)
+and improves more monotonically** (still rising at v5, vs R-Zero peaking at v2 then wobbling). Note
+the adaptive β saturated at its clamp (2.0) because the [0.3,0.8] band was already ≈½-full (constraint
+slack, Cov(V,r_c)≈0) — so this is essentially canonical DEO at a mild, near-base temperature; the
+adaptive controller kept it stable and it generalized best across the 7 sets (esp. amc: v3 62.6).
+
+adaptive-DEO per-dataset (both graders):
+
+#### adaptive-DEO under PAPER grader (gpt-4o full-text)
+| iter | math | gsm8k | amc | minerva | olympiad | aime24 | aime25 | AVG |
+|--|--|--|--|--|--|--|--|--|
+| base | 76.0 | 90.0 | 49.3 | 48.5 | 43.3 | 13.5 | 17.3 | **48.27** |
+| v1 | 78.6 | 92.0 | 47.6 | 55.5 | 45.5 | 11.0 | 6.8 | **48.15** |
+| v2 | 79.4 | 92.1 | 56.0 | 54.8 | 44.1 | 17.5 | 13.3 | **51.04** |
+| v3 | 80.2 | 92.4 | 62.6 | 57.0 | 43.7 | 11.0 | 10.0 | **50.99** |
+| v4 | 79.4 | 91.5 | 60.1 | 54.8 | 43.9 | 9.9 | 9.5 | **49.86** |
+| v5 | 78.2 | 91.8 | 56.7 | 53.7 | 45.0 | 20.2 | 13.3 | **51.28** |
+
+#### adaptive-DEO under OUR grader (gpt-4o-mini boxed)
+| iter | math | gsm8k | amc | minerva | olympiad | aime24 | aime25 | AVG |
+|--|--|--|--|--|--|--|--|--|
+| base | 71.6 | 81.9 | 48.0 | 34.9 | 38.2 | 10.0 | 16.6 | **43.03** |
+| v1 | 76.2 | 92.0 | 47.6 | 45.2 | 40.9 | 6.7 | 6.8 | **45.04** |
+| v2 | 76.6 | 92.0 | 55.0 | 46.3 | 39.6 | 10.0 | 13.3 | **47.55** |
+| v3 | 77.4 | 92.3 | 62.6 | 46.7 | 39.3 | 6.7 | 9.9 | **47.82** |
+| v4 | 77.0 | 91.5 | 60.0 | 45.6 | 39.0 | 6.7 | 9.5 | **47.03** |
+| v5 | 76.2 | 91.8 | 55.1 | 46.7 | 40.6 | 13.3 | 13.3 | **48.15** |
+
+> **DEO baseline_drift, curriculum-DEO, and canonical fixed-β=0.1 could NOT be dual-graded:** they ran
+> *before* the persistence fix, so their per-iter checkpoints + per-problem responses were lost to the
+> rsync bug (only aggregate `final_results.jsonl` survived). Re-grading them requires re-running the
+> variants (each ~10–24 h) with the fixed cp-based persistence.
+
 ## Wall-clock / compute efficiency (Standard_ND96isr_H100_v5, 8×H100 node)
 
 Per-iteration wall-clock (measured via iter_wallclock.tsv / job logs):

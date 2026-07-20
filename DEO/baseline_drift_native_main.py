@@ -25,7 +25,7 @@ import mcmc_deo_vllm as deo
 deo.config.STORAGE_ROOT = os.environ["STORAGE_PATH"]          # AzureML output mount
 deo.config.RZERO_DIR = os.environ.get("RZERO_DIR", "/workspace")
 deo.config.HF_USER = os.environ.get("HUGGINGFACENAME", "yuyang322")
-deo.config.MODEL_ABBR = "deo_baseline_drift"
+deo.config.MODEL_ABBR = os.environ.get("DEO_ABBR", "deo_baseline_drift")
 deo.config.MCMC_STEPS = 0                                     # no walk (init pool only)
 
 VERL_GPUS = os.environ.get("DEO_VERL_GPUS", "2,3")

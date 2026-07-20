@@ -51,7 +51,7 @@ except Exception:
 # ==========================================
 class Config:
     # --- Model ---
-    MODEL_NAME = "Qwen/Qwen3-4B-Base"          # base model: questioner + initial solver
+    MODEL_NAME = os.getenv("BASE_MODEL", "Qwen/Qwen3-4B-Base")  # env-overridable (e.g. Qwen/Qwen3-8B-Base)
     MODEL_ABBR = "deo_qwen3_4b_base"
 
     # --- Storage ---

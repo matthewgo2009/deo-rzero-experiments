@@ -22,7 +22,11 @@ export WANDB_MODE=disabled
 python3 -c "import json,os;open('$ROOT/R-Zero/tokens.json','w').write(json.dumps({'huggingface':os.environ['HF_TOKEN'],'openai':os.environ['OPENAI_API_KEY'],'anthropic':os.environ.get('ANTHROPIC_API_KEY',''),'wandb':os.environ.get('WANDB_API_KEY','')}))"
 
 export HUGGINGFACENAME=${HUGGINGFACENAME:-yuyang322}
-export MODEL_NAME=Qwen/Qwen3-4B-Base
+# base model is env-overridable (e.g. BASE_MODEL=Qwen/Qwen3-8B-Base); DEO reads BASE_MODEL too
+export BASE_MODEL=${BASE_MODEL:-Qwen/Qwen3-4B-Base}
+export MODEL_NAME=$BASE_MODEL
+RZERO_ABBR=${RZERO_ABBR:-qwen3-4b-base-rzero}   # R-Zero checkpoint prefix
+BASE_UND=$(echo "$BASE_MODEL" | tr "/" "_")   # underscored base name for eval dir
 export HF_HOME=/tmp/hf_cache HUGGINGFACE_HUB_CACHE=/tmp/hf_cache/hub
 export RZERO_DIR=$ROOT/R-Zero RZERO_CODE_DIR=$ROOT/R-Zero
 export VLLM_PIDDIR=/tmp/vllm_pids VLLM_LOGDIR=/tmp/vllm_logs
@@ -152,10 +156,10 @@ run_eval_canon(){
   free_gpus
   cd "$ROOT/R-Zero"
   export STORAGE_PATH=$EVAL_ROOT PYTHONPATH=$ROOT/R-Zero VLLM_DISABLE_COMPILE_CACHE=1
-  MODELS=("Qwen/Qwen3-4B-Base")
+  MODELS=("$BASE_MODEL")
   for n in 1 2 3 4 5; do MODELS+=("$DEO_STORAGE/models/${abbr}_solver_v$n/global_step_15/actor/huggingface"); done
   _eval_fanout "${MODELS[@]}"
-  ORDER=("Qwen_Qwen3-4B-Base")
+  ORDER=("$BASE_UND")
   for n in 1 2 3 4 5; do ORDER+=("$(echo "$DEO_STORAGE/models/${abbr}_solver_v$n/global_step_15/actor/huggingface" | tr '/' '_')"); done
   python3 evaluation/aggregate_7sets.py --eval_root "$EVAL_ROOT/evaluation" --models "${ORDER[@]}" --out "$ROOT/RESULTS_7sets_${abbr}.md"
   cd "$ROOT"; sync_once
@@ -181,20 +185,20 @@ run_rzero(){
   export NCCL_ASYNC_ERROR_HANDLING=1 TORCH_NCCL_BLOCKING_WAIT=0
   export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
   source ./run_env.sh
-  bash scripts/run_rzero_gpu03.sh Qwen/Qwen3-4B-Base qwen3-4b-base-rzero "$iters"
+  bash scripts/run_rzero_gpu03.sh "$BASE_MODEL" "$RZERO_ABBR" "$iters"
   cd "$ROOT"; free_gpus; sync_once
 }
 run_eval(){
   echo "=== [$(date '+%T')] PHASE 3 eval 7 sets ==="
   cd "$ROOT/R-Zero"
   export STORAGE_PATH=$EVAL_ROOT PYTHONPATH=$ROOT/R-Zero VLLM_DISABLE_COMPILE_CACHE=1
-  MODELS=("Qwen/Qwen3-4B-Base")
+  MODELS=("$BASE_MODEL")
   for n in 1 2 3 4 5; do MODELS+=("$DEO_STORAGE/models/deo_baseline_drift_solver_v$n/global_step_15/actor/huggingface"); done
-  for n in 1 2 3 4 5; do MODELS+=("$RZERO_STORAGE/models/qwen3-4b-base-rzero_solver_v$n/global_step_15/actor/huggingface"); done
+  for n in 1 2 3 4 5; do MODELS+=("$RZERO_STORAGE/models/${RZERO_ABBR}_solver_v$n/global_step_15/actor/huggingface"); done
   _eval_fanout "${MODELS[@]}"
-  ORDER=("Qwen_Qwen3-4B-Base")
+  ORDER=("$BASE_UND")
   for n in 1 2 3 4 5; do ORDER+=("$(echo "$DEO_STORAGE/models/deo_baseline_drift_solver_v$n/global_step_15/actor/huggingface" | tr '/' '_')"); done
-  for n in 1 2 3 4 5; do ORDER+=("$(echo "$RZERO_STORAGE/models/qwen3-4b-base-rzero_solver_v$n/global_step_15/actor/huggingface" | tr '/' '_')"); done
+  for n in 1 2 3 4 5; do ORDER+=("$(echo "$RZERO_STORAGE/models/${RZERO_ABBR}_solver_v$n/global_step_15/actor/huggingface" | tr '/' '_')"); done
   python3 evaluation/aggregate_7sets.py --eval_root "$EVAL_ROOT/evaluation" --models "${ORDER[@]}" --out "$ROOT/RESULTS_7sets.md"
   cd "$ROOT"; sync_once
   echo "===== RESULTS ====="; cat "$ROOT/RESULTS_7sets.md"
@@ -203,7 +207,7 @@ run_eval(){
 _eval_fanout(){
   local gpu=0; local pids=()
   for m in "$@"; do
-    if [ "$m" != "Qwen/Qwen3-4B-Base" ] && [ ! -d "$m" ]; then echo "skip missing $m"; continue; fi
+    if [ "$m" != "$BASE_MODEL" ] && [ ! -d "$m" ]; then echo "skip missing $m"; continue; fi
     bash evaluation/eval_7sets.bash "$m" "$gpu" > "$WORK/logs/eval_g${gpu}_$(echo "$m" | tr '/' '_').log" 2>&1 &
     pids+=($!); gpu=$(((gpu+1)%8))
     if [ ${#pids[@]} -ge 8 ]; then wait "${pids[@]}"; pids=(); fi
@@ -216,11 +220,11 @@ run_eval_rzero(){
   free_gpus
   cd "$ROOT/R-Zero"
   export STORAGE_PATH=$EVAL_ROOT PYTHONPATH=$ROOT/R-Zero VLLM_DISABLE_COMPILE_CACHE=1
-  MODELS=("Qwen/Qwen3-4B-Base")
-  for n in 1 2 3 4 5; do MODELS+=("$RZERO_STORAGE/models/qwen3-4b-base-rzero_solver_v$n/global_step_${RZ_S_GSTEP:-15}/actor/huggingface"); done
+  MODELS=("$BASE_MODEL")
+  for n in 1 2 3 4 5; do MODELS+=("$RZERO_STORAGE/models/${RZERO_ABBR}_solver_v$n/global_step_${RZ_S_GSTEP:-15}/actor/huggingface"); done
   _eval_fanout "${MODELS[@]}"
-  ORDER=("Qwen_Qwen3-4B-Base")
-  for n in 1 2 3 4 5; do ORDER+=("$(echo "$RZERO_STORAGE/models/qwen3-4b-base-rzero_solver_v$n/global_step_${RZ_S_GSTEP:-15}/actor/huggingface" | tr '/' '_')"); done
+  ORDER=("$BASE_UND")
+  for n in 1 2 3 4 5; do ORDER+=("$(echo "$RZERO_STORAGE/models/${RZERO_ABBR}_solver_v$n/global_step_${RZ_S_GSTEP:-15}/actor/huggingface" | tr '/' '_')"); done
   python3 evaluation/aggregate_7sets.py --eval_root "$EVAL_ROOT/evaluation" --models "${ORDER[@]}" --out "$ROOT/RESULTS_7sets_rzero.md"
   cd "$ROOT"; sync_once
   echo "===== R-ZERO RESULTS ====="; cat "$ROOT/RESULTS_7sets_rzero.md"
@@ -243,7 +247,7 @@ run_regrade(){
   # REGRADE_ABBR:   solver checkpoint prefix (qwen3-4b-base-rzero | deo_curriculum | deo_adaptive | ...).
   local CKROOT=${REGRADE_CKROOT:-$OUT/${REGRADE_CKSUB:-R-Zero_run}}
   local ABBR=${REGRADE_ABBR:-qwen3-4b-base-rzero}
-  local MODELS=("Qwen/Qwen3-4B-Base")
+  local MODELS=("$BASE_MODEL")
   for n in 1 2 3 4 5; do MODELS+=("$CKROOT/models/${ABBR}_solver_v$n/global_step_${RZ_S_GSTEP:-15}/actor/huggingface"); done
   local DATASETS=(math gsm8k amc minerva olympiad aime2024 aime2025)
   # 1) fresh generation (raw), one model per GPU (generate.py only — NO recheck mutation)
@@ -251,7 +255,7 @@ run_regrade(){
   if [ -z "${REGRADE_SKIP_GEN:-}" ]; then
     local gpu=0; local pids=()
     for m in "${MODELS[@]}"; do
-      if [ "$m" != "Qwen/Qwen3-4B-Base" ] && [ ! -d "$m" ]; then echo "REGRADE skip missing $m"; continue; fi
+      if [ "$m" != "$BASE_MODEL" ] && [ ! -d "$m" ]; then echo "REGRADE skip missing $m"; continue; fi
       ( for ds in "${DATASETS[@]}"; do
           CUDA_VISIBLE_DEVICES=$gpu python evaluation/generate.py --model "$m" --dataset "$ds"
         done ) > "$WORK/logs/regen_g${gpu}_$(echo "$m" | tr '/' '_').log" 2>&1 &
@@ -272,7 +276,7 @@ run_regrade(){
     dn=$(basename "$d"); lab="$dn"
     case "$dn" in
       *solver_v1*) lab=solver_v1;; *solver_v2*) lab=solver_v2;; *solver_v3*) lab=solver_v3;;
-      *solver_v4*) lab=solver_v4;; *solver_v5*) lab=solver_v5;; *Qwen3-4B-Base*) lab=base;;
+      *solver_v4*) lab=solver_v4;; *solver_v5*) lab=solver_v5;; *Qwen3-*Base*) lab=base;;
     esac
     python3 evaluation/dual_grade.py --eval_dir "$d" --label "$lab" --workers 16
   done
@@ -286,7 +290,7 @@ run_regrade(){
 # solver_v1 checkpoint is produced (~1.5-2h), before committing to the full run.
 run_rzero_smoke(){
   RZERO_ITERS=1 run_rzero
-  ck="$RZERO_STORAGE/models/qwen3-4b-base-rzero_solver_v1/global_step_${RZ_S_GSTEP:-15}/actor/huggingface"
+  ck="$RZERO_STORAGE/models/${RZERO_ABBR}_solver_v1/global_step_${RZ_S_GSTEP:-15}/actor/huggingface"
   if [ -d "$ck" ]; then echo "SMOKE_OK: solver_v1 checkpoint present at $ck"; ls "$ck" | head;
   else echo "SMOKE_FAIL: solver_v1 checkpoint MISSING ($ck)"; fi
 }

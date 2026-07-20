@@ -1143,7 +1143,7 @@ def reload_vllm_solver(new_model_path):
     _clients_solver = None
 
 
-def wait_for_vllm_ready(url, label="vllm", timeout=600):
+def wait_for_vllm_ready(url, label="vllm", timeout=int(os.getenv("VLLM_READY_TIMEOUT", "600"))):
     """Poll /v1/models until the server returns 200 or we time out."""
     health = url.rstrip("/").replace("/v1", "") + "/v1/models"
     print(f"[{label}] waiting on {health} ...")

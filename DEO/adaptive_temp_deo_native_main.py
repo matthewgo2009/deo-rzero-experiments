@@ -6,20 +6,23 @@ deo.filter_and_push, NOT Claude), but instead of a FIXED beta schedule
 (curriculum_deo_native_main.py) the MH temperature beta is UPDATED after each
 iteration by the adaptive-temperature rule of DEO paper §1.4.
 
-Goal: keep as many questions' uncertainty r_unc(x;theta) inside a target band
-[r_min, r_max]. Cast as a constrained problem for beta (Eq 5-6):
+Goal: keep questions' uncertainty r_unc(x;theta) inside a target band [r_min, r_max].
+delta is the VIOLATION rate (allowed fraction OUTSIDE the band). Constrained
+problem for beta (paper §1.4, Eq 5-6):
 
-    max_beta beta   s.t.   E_{X~q(beta)}[V(X)] <= delta,
-    V(X) = 1[ r_min <= r_unc(x;theta) <= r_max ],   q(beta) ~ pi_base * exp(r_c/beta)
+    max_{beta in [bmin,bmax]} beta   s.t.   1 - E_{X~q(beta)}[V(X)] <= delta,
+    V(X) = (1/N) sum_x 1{ r_min <= r_unc(x;theta) <= r_max }   (in-band fraction),
+    r_c(X) = sum_x max(0, r_unc(x) - lambda_rep*r_rep(x)),   q(beta) ~ pi_base*exp(r_c/beta)
 
-Lagrangian L = -log beta + lambda (E[V] - delta), solved by gradient
-descent-ascent (paper lines 57-62). Estimated from this iter's B MCMC samples
-with per-question V_i and R_i = r_c(x_i):
+Lagrangian L = -log beta + lambda (1 - E[V] - delta), lambda >= 0, min_beta max_lambda.
+Using dE[V]/dbeta = -(1/beta^2) Cov_{q(beta)}(V, r_c), estimated from this iter's
+B batch-chunk samples X_1..X_B (V_i, R_i=r_c(X_i)):
 
-    grad_beta L   = -1/beta - (lambda/beta^2) * Cov_hat(V, r_c)      # sample cov, 1/(B-1)
-    grad_lambda L = mean(V) - delta
-    beta   <- beta   - eta_beta   * grad_beta L      (clamped to [BMIN, BMAX])
-    lambda <- lambda + eta_lambda * grad_lambda L    (>= 0)
+    grad_beta L   = -1/beta + (lambda/beta^2) * Cov_hat(V, r_c)      # sample cov, 1/(B-1)  (Eq 11)
+    grad_lambda L = 1 - mean(V) - delta
+    beta   <- clamp_[bmin,bmax]( beta - eta_beta * grad_beta L )
+    lambda <- [ lambda + eta_lambda * grad_lambda L ]_+
+smaller delta => tighter (want more in-band); e.g. delta=0.2 targets >=80% in-band.
 
 Note V_i and r_c_i depend only on the current solver theta (not on beta), so
 within one iteration mean(V)/Cov are constants; beta moves via the -1/beta and
@@ -54,7 +57,7 @@ deo.config.LAMBDA_REP = float(os.environ.get("DEO_LAMBDA_REP", deo.config.LAMBDA
 # --- adaptive-temperature knobs (DEO paper §1.4) ---
 R_MIN = float(os.environ.get("DEO_RMIN", "0.3"))
 R_MAX = float(os.environ.get("DEO_RMAX", "0.8"))
-DELTA = float(os.environ.get("DEO_DELTA", "0.5"))         # target in-band fraction
+DELTA = float(os.environ.get("DEO_DELTA", "0.5"))         # VIOLATION rate cap (out-of-band frac); smaller=more in-band
 ETA_BETA = float(os.environ.get("DEO_ETA_BETA", "0.1"))
 ETA_LAMBDA = float(os.environ.get("DEO_ETA_LAMBDA", "0.1"))
 BETA0 = float(os.environ.get("DEO_BETA0", "1.0"))
@@ -167,10 +170,13 @@ def chunk_stats(train_data):
         r_unc = np.asarray([float(d["r_unc"]) for d in chunk], dtype=float)
         _, _, cluster_size = deo.calculate_batch_energy(qs, r_unc)   # within-chunk BLEU
         r_rep = cluster_size / len(chunk)
-        r_c = np.maximum(0.0, r_unc - deo.config.LAMBDA_REP * r_rep)
         inband = ((r_unc >= R_MIN) & (r_unc <= R_MAX)).astype(float)
-        Vs.append(float(inband.mean()))   # in-band FRACTION of the batch
-        Rs.append(float(r_c.mean()))      # mean r_c of the batch
+        Vs.append(float(inband.mean()))   # V(X): in-band FRACTION of the batch
+        # batch reward = MCMC energy of the batch = sum of PER-QUESTION clamped r_c
+        # r_c(X) = sum_x max(0, r_unc(x) - lambda_rep * r_rep(x))  (matches energy_from_state;
+        # NOTE: paper §1.4 writes max(0, sum(...)) with the max OUTSIDE — that is inconsistent
+        # with p.2's per-question r_c and with the sampler, so we clamp per-question then sum.)
+        Rs.append(float(np.maximum(0.0, r_unc - deo.config.LAMBDA_REP * r_rep).sum()))
         all_runc.append(r_unc)
     runc_mean = float(np.concatenate(all_runc).mean()) if all_runc else 0.0
     return np.asarray(Vs), np.asarray(Rs), runc_mean
@@ -191,12 +197,14 @@ def update_beta_lambda(beta, lam, train_data):
         cov = 0.0
     b, l = beta, lam
     for _ in range(NGDA):
-        g_beta = -1.0 / b - (l / (b * b)) * cov          # grad_beta L
+        # constraint on VIOLATION rate: 1 - E[V] <= delta  (paper §1.4)
+        # L = -log b + lambda*(1 - E[V] - delta);  dE[V]/db = -(1/b^2)Cov(V,r_c)
+        g_beta = -1.0 / b + (l / (b * b)) * cov          # grad_beta L (Eq 11)
         b = b - ETA_BETA * g_beta
         b = min(BMAX, max(BMIN, b))
-        g_lam = Vbar - DELTA                             # grad_lambda L
+        g_lam = 1.0 - Vbar - DELTA                       # grad_lambda L = 1 - mean(V) - delta
         l = max(0.0, l + ETA_LAMBDA * g_lam)
-    stats = {"beta_used": beta, "Vbar": Vbar, "cov_V_rc": cov,
+    stats = {"beta_used": beta, "Vbar": Vbar, "violation": 1.0 - Vbar, "cov_V_rc": cov,
              "r_unc_mean": runc_mean, "R_mean": float(R.mean()) if B else 0.0,
              "beta_new": b, "lambda_new": l, "K_chunks": B}
     return b, l, stats
@@ -271,8 +279,8 @@ def main():
         # --- adaptive temperature: update (beta, lambda) from this iter's samples ---
         beta, lam, stats = update_beta_lambda(beta, lam, train_data)
         beta_traj[f"iter_{it}"] = stats
-        print(f"[adaptive] iter {it}: Vbar={stats['Vbar']:.3f} (target {DELTA}) "
-              f"cov(V,r_c)={stats['cov_V_rc']:.4f} r_unc_mean={stats['r_unc_mean']:.3f} "
+        print(f"[adaptive] iter {it}: in-band={stats['Vbar']:.3f} violation={stats['violation']:.3f} "
+              f"(cap delta={DELTA}) cov(V,r_c)={stats['cov_V_rc']:.4f} r_unc_mean={stats['r_unc_mean']:.3f} "
               f"-> beta {stats['beta_used']:.4f}->{beta:.4f}, lambda->{lam:.4f}", flush=True)
         save()
 

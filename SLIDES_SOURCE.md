@@ -65,22 +65,22 @@ Reward detail:
 `r_unc(x;θ)` inside a target band `[r_min, r_max]` for a target fraction δ of questions,
 instead of hand-tuning β.
 
-**Sampling distribution** (the optimal challenger): `q_β(X) ∝ π_base(X)·exp( r_c(X,θ) / β )`.
+**Sampling distribution** (the optimal challenger): `q_β(X) ∝ π_base(X)·exp( r_c(X,θ) / β )`,
+with batch reward `r_c(X,θ) = Σ_{x∈X} max(0, r_unc(x;θ) − λ_rep·r_rep(x))` (per-question clamp, summed = MCMC energy).
 
-**In-band counter:** `V(X) = |{ x ∈ X : r_min ≤ r_unc(x;θ) ≤ r_max }|`
-(computed per *batch* X — `r_c` and the repetition penalty are batch-level quantities).
+**In-band fraction:** `V(X) = (1/N) Σ_{x∈X} 1{ r_min ≤ r_unc(x;θ) ≤ r_max }` (per batch X).
 
-**Constrained problem for β** — prefer the *largest* β (most diverse / closest to base)
-whose in-band mass stays at the target:
+**Constrained problem for β** — δ is the **violation rate** (allowed fraction *outside* the band).
+Prefer the *largest* β (most diverse / closest to base) that keeps violation within δ:
 
-$$\max_{\beta}\ \beta \quad\text{s.t.}\quad \mathbb{E}_{X\sim q_\beta}[V(X)] \le \delta
-\qquad\Longleftrightarrow\qquad \min_{\beta}\ -\log\beta \quad\text{s.t.}\quad \mathbb{E}_{X\sim q_\beta}[V(X)] \le \delta$$
+$$\max_{\beta\in[\beta_{\min},\beta_{\max}]}\ \beta \quad\text{s.t.}\quad 1-\mathbb{E}_{X\sim q_\beta}[V(X)] \le \delta
+\;\Longleftrightarrow\; \min_{\beta}\ -\log\beta \ \ \text{s.t.}\ \ 1-\mathbb{E}_{X\sim q_\beta}[V(X)] \le \delta$$
 
 **Lagrangian** (dual variable λ ≥ 0):
 
-$$\mathcal{L}(\beta,\lambda) \;=\; -\log\beta \;+\; \lambda\big(\mathbb{E}_{X\sim q_\beta}[V(X)] - \delta\big)$$
+$$\mathcal{L}(\beta,\lambda) \;=\; -\log\beta \;+\; \lambda\big(1-\mathbb{E}_{X\sim q_\beta}[V(X)] - \delta\big)$$
 
-solved as a **max-min / gradient descent–ascent**: descend β, ascend λ.
+solved as **min_β max_λ / gradient descent–ascent**: descend β, ascend λ. (smaller δ ⇒ want more in-band.)
 
 ---
 
@@ -88,26 +88,25 @@ solved as a **max-min / gradient descent–ascent**: descend β, ascend λ.
 
 **Gradient w.r.t. β.** Since `log q_β(X) = log π_base(X) + r_c(X,θ)/β − log Z(θ,β)`:
 
-$$\frac{\partial}{\partial\beta}\log q_\beta(X) = -\frac{r_c(X,\theta)}{\beta^2} + \frac{1}{\beta^2}\,\mathbb{E}_{\pi_{base}}[r_c(X,\theta)]$$
+$$\frac{\partial}{\partial\beta}\log q_\beta(X) = -\frac{r_c(X,\theta)}{\beta^2} + \frac{1}{\beta^2}\,\mathbb{E}_{q_\beta}[r_c(X,\theta)]
+\;\Rightarrow\; \frac{\partial q_\beta(X)}{\partial\beta} = -\frac{q_\beta(X)}{\beta^2}\Big(r_c(X,\theta) - \mathbb{E}_{q_\beta}[r_c]\Big)$$
 
-$$\Rightarrow\quad \frac{\partial q_\beta(X)}{\partial\beta} = q_\beta(X)\frac{\partial \log q_\beta(X)}{\partial\beta} = -\frac{q_\beta(X)}{\beta^2}\Big(r_c(X,\theta) - \mathbb{E}_{\pi_{base}}[r_c(X,\theta)]\Big)$$
+so `dE_{q_β}[V]/dβ = −(1/β²)Cov_{q_β}(V, r_c)`, and (constraint `1−E[V]≤δ`):
 
-Therefore
+$$\nabla_\beta \mathcal{L} = -\frac{1}{\beta} - \lambda\frac{d}{d\beta}\mathbb{E}_{q_\beta}[V]
+= -\frac{1}{\beta} + \frac{\lambda}{\beta^2}\Big(\underbrace{\mathbb{E}[r_c V] - \mathbb{E}[r_c]\,\mathbb{E}[V]}_{\mathrm{Cov}_{q_\beta}(V,\;r_c)}\Big)$$
 
-$$\nabla_\beta \mathcal{L} = -\frac{1}{\beta} + \lambda\frac{d}{d\beta}\mathbb{E}_{q_\beta}[V]
-= -\frac{1}{\beta} - \frac{\lambda}{\beta^2}\Big(\underbrace{\mathbb{E}[r_c V] - \mathbb{E}[r_c]\,\mathbb{E}[V]}_{\mathrm{Cov}(V,\;r_c)}\Big)$$
+**Gradient w.r.t. λ:**  `∇_λ L = 1 − E_{q_β}[V] − δ`.
 
-**Gradient w.r.t. λ:**  `∇_λ L = E_{q_β}[V] − δ`.
+**Empirical estimators** from B batch-samples `X_1,…,X_B` (`V̄ = mean V(X_i)`, `R̄ = mean r_c(X_i)`):
 
-**Empirical estimators** from B batch-samples `X_1,…,X_B` (with `V̄ = mean V(X_i)`, `R̄ = mean r_c(X_i)`):
+$$\widehat{\nabla}_\beta \mathcal{L} = -\frac{1}{\beta} + \frac{\lambda}{\beta^2}\cdot\frac{1}{B-1}\sum_{i=1}^{B}\big(V(X_i)-\bar V\big)\big(r_c(X_i)-\bar R\big)
+\qquad \widehat{\nabla}_\lambda \mathcal{L} = 1-\bar V - \delta$$
 
-$$\widehat{\nabla}_\beta \mathcal{L} = -\frac{1}{\beta} - \frac{\lambda}{\beta^2}\cdot\frac{1}{B-1}\sum_{i=1}^{B}\big(V(X_i)-\bar V\big)\big(r_c(X_i)-\bar R\big)
-\qquad\qquad \widehat{\nabla}_\lambda \mathcal{L} = \bar V - \delta$$
+**Projected gradient descent–ascent update** (a few steps per iteration):
 
-**Gradient descent–ascent update** (a few steps per iteration):
-
-$$\beta^{t+1} = \beta^{t} - \eta_\beta\,\widehat{\nabla}_\beta\mathcal{L}(\beta^t,\lambda^t)
-\qquad\qquad \lambda^{t+1} = \big[\lambda^{t} + \eta_\lambda\,\widehat{\nabla}_\lambda\mathcal{L}(\beta^t,\lambda^t)\big]_+$$
+$$\beta^{t+1} = \mathcal{P}_{[\beta_{\min},\beta_{\max}]}\!\big(\beta^{t} - \eta_\beta\,\widehat{\nabla}_\beta\mathcal{L}\big)
+\qquad \lambda^{t+1} = \big[\lambda^{t} + \eta_\lambda\,\widehat{\nabla}_\lambda\mathcal{L}\big]_+$$
 
 - β is updated **after each self-evolving iteration**, then fed to the next iteration's MCMC walk.
 - **λ drives the in-band fraction V̄ → δ**; the **Cov(V, r_c)** term steers β by how in-band-ness

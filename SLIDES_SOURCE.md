@@ -243,6 +243,25 @@ Per-iteration wall-clock (8×H100 node):
 
 ---
 
+## Slide 10b — Hard-set (competition) trajectory
+
+Hard-set = mean of {AMC, Minerva, OlympiadBench, AIME-24, AIME-25} — drops the near-saturated MATH/GSM8K.
+Per-iteration hard-set average (ours grader; paper grader same shape, ~+4–5):
+
+| method | base | v1 | v2 | v3 | v4 | v5 |
+|--|--|--|--|--|--|--|
+| baseline_drift (no walk) | 29.6 | **33.7** | 31.8 | 30.9 | 30.7 | 31.5 |
+| curriculum-DEO | 29.5 | 30.2 | 31.2 | 30.8 | **33.2** | 31.2 |
+| **adaptive-DEO** | 29.6 | 29.4 | 32.8 | 33.0 | 32.1 | **33.8** |
+| R-Zero | 29.8 | 30.8 | **33.0** | 30.3 | 32.6 | 32.2 |
+
+- **Trajectory shape is the story:** baseline_drift (no MCMC walk) **front-loads** — peaks at v1 then decays;
+  R-Zero peaks at v2 then wobbles; **adaptive-DEO climbs most monotonically and is highest at v5.**
+- Per-set: Minerva rises & holds (~35→47); Olympiad plateaus (~38→41); **AIME is noise-dominated for
+  every method** (30 problems, greedy@T=0 → 7–17% jitter) — none genuinely masters the hardest problems.
+
+---
+
 ## Slide 11 — Why our absolute numbers differ from the R-Zero paper
 
 - The R-Zero paper reports MATH AVG ≈ 49 (iter 3); we see ~46–47 on the *same* model.

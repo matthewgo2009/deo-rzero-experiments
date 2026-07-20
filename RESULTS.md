@@ -226,10 +226,37 @@ adaptive-DEO per-dataset (both graders):
 | v4 | 77.0 | 91.5 | 60.0 | 45.6 | 39.0 | 6.7 | 9.5 | **47.03** |
 | v5 | 76.2 | 91.8 | 55.1 | 46.7 | 40.6 | 13.3 | 13.3 | **48.15** |
 
-> **DEO baseline_drift, curriculum-DEO, and canonical fixed-β=0.1 could NOT be dual-graded:** they ran
-> *before* the persistence fix, so their per-iter checkpoints + per-problem responses were lost to the
-> rsync bug (only aggregate `final_results.jsonl` survived). Re-grading them requires re-running the
-> variants (each ~10–24 h) with the fixed cp-based persistence.
+> **Note:** DEO baseline_drift / curriculum / canonical fixed-β=0.1 lost their original checkpoints to
+> the pre-fix rsync bug, so they were **re-run with cp persistence and dual-graded** (baseline, curriculum
+> done; fixed-β in progress). Numbers below are from those re-runs.
+
+### Hard-set (competition) trajectory — dual-graded
+
+Hard-set = mean of {amc, minerva, olympiad, aime2024, aime2025} (drops the near-saturated math/gsm8k).
+Per-iteration hard-set average:
+
+**ours grader (gpt-4o-mini boxed):**
+| method | base | v1 | v2 | v3 | v4 | v5 |
+|--|--|--|--|--|--|--|
+| baseline_drift | 29.6 | **33.7** | 31.8 | 30.9 | 30.7 | 31.5 |
+| curriculum | 29.5 | 30.2 | 31.2 | 30.8 | **33.2** | 31.2 |
+| **adaptive** | 29.6 | 29.4 | 32.8 | 33.0 | 32.1 | **33.8** |
+| R-Zero | 29.8 | 30.8 | **33.0** | 30.3 | 32.6 | 32.2 |
+
+**paper grader (gpt-4o full-text):**
+| method | base | v1 | v2 | v3 | v4 | v5 |
+|--|--|--|--|--|--|--|
+| baseline_drift | 34.7 | **37.5** | 35.9 | 34.2 | 35.0 | 34.8 |
+| curriculum | 34.7 | 34.1 | 36.0 | 35.2 | **36.8** | 36.0 |
+| **adaptive** | 34.4 | 33.3 | 37.2 | 36.9 | 35.6 | **37.8** |
+| R-Zero | 34.5 | 34.9 | **36.6** | 33.5 | 36.3 | 35.8 |
+
+Trajectory shape differs by method: **baseline_drift (no walk) peaks early (v1) then decays** — it
+front-loads hard-set gains and doesn't sustain; **R-Zero peaks at v2 then wobbles**; curriculum peaks
+late (v4); **adaptive-DEO is the most monotone and highest at v5 (33.8 ours / 37.8 paper).** Per-set:
+minerva rises and holds for all (~35→47); olympiad plateaus (~38→41); **AIME stays noise-dominated for
+every method** (30 problems, greedy@T=0 → 7–17% jitter, no method genuinely learns the hardest problems).
+adaptive has the single best amc (v3 62.6, ours).
 
 ## Wall-clock / compute efficiency (Standard_ND96isr_H100_v5, 8×H100 node)
 

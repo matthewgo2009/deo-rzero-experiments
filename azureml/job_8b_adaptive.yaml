@@ -1,0 +1,27 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+display_name: qwen8b-adaptive
+experiment_name: deo-rzero-7set
+description: "Qwen3-8B-Base adaptive - 5 iters, cp persistence."
+compute: azureml:azureml-job-cluster
+environment:
+  build:
+    path: ./env
+    dockerfile_path: Dockerfile
+code: ..
+command: bash azureml/run_pipeline_job.sh ${{outputs.work}}
+environment_variables:
+  HF_TOKEN: __HF_TOKEN__
+  OPENAI_API_KEY: __OPENAI_API_KEY__
+  HUGGINGFACENAME: yuyang322
+  BASE_MODEL: Qwen/Qwen3-8B-Base
+  MODE: adaptive
+  DEO_ABBR: "deo_adaptive"
+resources:
+  instance_type: Standard_ND96isr_H100_v5
+  instance_count: 1
+outputs:
+  work:
+    type: uri_folder
+    mode: rw_mount
+    path: azureml://datastores/workspaceblobstore/paths/yyd_8b_adaptive/

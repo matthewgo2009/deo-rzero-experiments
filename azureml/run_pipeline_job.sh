@@ -28,6 +28,12 @@ export MODEL_NAME=$BASE_MODEL
 RZERO_ABBR=${RZERO_ABBR:-qwen3-4b-base-rzero}   # R-Zero checkpoint prefix
 BASE_UND=$(echo "$BASE_MODEL" | tr "/" "_")   # underscored base name for eval dir
 export HF_HOME=/tmp/hf_cache HUGGINGFACE_HUB_CACHE=/tmp/hf_cache/hub
+# Pre-fetch base weights to local cache BEFORE any vllm launch, so vllm does a pure
+# (fast, deterministic) load instead of racing a 16GB download against the readiness
+# timeout — the 8B first-load intermittently exceeded even 1800s otherwise.
+echo "[prefetch] downloading $BASE_MODEL to cache..."
+HF_HUB_ENABLE_HF_TRANSFER=1 python3 -c "import os;from huggingface_hub import snapshot_download;snapshot_download(os.environ['BASE_MODEL'],max_workers=8)" 2>&1 | tail -2 || echo "[prefetch] warn: snapshot_download returned nonzero (vllm will fall back to its own download)"
+echo "[prefetch] done"
 export RZERO_DIR=$ROOT/R-Zero RZERO_CODE_DIR=$ROOT/R-Zero
 export VLLM_PIDDIR=/tmp/vllm_pids VLLM_LOGDIR=/tmp/vllm_logs
 DEO_STORAGE=$WORK/DEO; RZERO_STORAGE=$WORK/R-Zero_run; EVAL_ROOT=$WORK/eval7

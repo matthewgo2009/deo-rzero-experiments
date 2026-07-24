@@ -283,30 +283,38 @@ Notes:
 ## Qwen3-8B-Base results (dual-graded)
 
 Same protocol scaled to **Qwen/Qwen3-8B-Base** (verl FSDP + CPU offload lets 8B train on the
-2-GPU DEO layout; base weights pre-fetched to cache so vllm loads cleanly). R-Zero-8B still
-running — will be added. **MATH AVG (7-set) per iteration:**
+2-GPU DEO layout; base weights pre-fetched to cache so vllm loads cleanly). **MATH AVG (7-set)
+per iteration:**
 
 | method / grader | base | v1 | v2 | v3 | v4 | v5 | **peak** |
 |---|--|--|--|--|--|--|--|
-| baseline_drift · ours | 43.5 | 49.5 | 50.2 | 51.9 | 50.7 | 50.1 | **51.9** |
+| **R-Zero** · ours | 43.3 | 51.3 | 50.6 | 52.2 | 52.2 | 53.7 | **53.7** |
+| baseline_drift · ours | 43.5 | 49.5 | 50.2 | 51.9 | 50.7 | 50.1 | 51.9 |
 | adaptive · ours | 43.5 | 48.4 | 49.4 | 51.3 | 50.2 | 49.5 | 51.3 |
 | fixed-β=0.1 · ours | 43.3 | 49.3 | 50.3 | 50.4 | 49.8 | 49.9 | 50.5 |
-| baseline_drift · paper | 49.0 | 52.5 | 53.6 | **55.2** | 53.8 | 54.3 | **55.2** |
+| **R-Zero** · paper | 48.5 | 54.9 | 53.6 | 55.9 | 55.1 | 56.1 | **56.1** |
+| baseline_drift · paper | 49.0 | 52.5 | 53.6 | 55.2 | 53.8 | 54.3 | 55.2 |
 | adaptive · paper | 48.8 | 52.8 | 53.1 | 55.0 | 53.5 | 53.3 | 55.0 |
 | fixed-β=0.1 · paper | 48.9 | 52.7 | 53.3 | 53.8 | 52.8 | 54.1 | 54.2 |
 
 MATH-500 (gpt-mini): base 69.6 → baseline peak **81.4**, fixed-β **81.2**, adaptive **80.0**.
 
-**Hard-set (amc/minerva/olympiad/aime24/aime25) avg per iter, ours grader** — all peak at v3:
+**Hard-set (amc/minerva/olympiad/aime24/aime25) avg per iter, ours grader:**
 | method | base | v1 | v2 | v3 | v4 | v5 |
 |--|--|--|--|--|--|--|
+| **R-Zero** | 28.9 | 37.0 | 36.1 | 38.1 | 37.9 | **40.2** |
 | baseline_drift | 29.2 | 34.5 | 35.6 | **38.2** | 35.9 | 35.6 |
 | adaptive | 29.2 | 33.2 | 34.7 | 37.2 | 35.5 | 34.6 |
 | fixed-β=0.1 | 28.9 | 34.4 | 35.8 | 35.7 | 34.7 | 35.2 |
 
-Takeaways: (1) **8B gains are larger than 4B** — MATH AVG base 43.5 → ~51-52 (ours) / 49 → ~55
-(paper); hard-set peak ~38 (ours, 8B) vs ~34 (4B). (2) The three DEO variants are close (baseline_drift
-marginally best), all peaking at v3. (3) amc/minerva jump most; AIME stays noise-dominated even at 8B.
+Takeaways: (1) **8B gains are larger than 4B** — MATH AVG base 43.5 → 50-54 (ours) / 49 → 54-56 (paper);
+hard-set peak ~40 (ours, 8B) vs ~34 (4B). (2) **The DEO-vs-R-Zero ranking FLIPS with scale:** at 4B the
+DEO variants tie/edge out R-Zero (peak ours 47-48 vs 47.3), but **at 8B R-Zero clearly leads (ours 53.7
+vs DEO ~51-52; paper 56.1 vs ~55) and keeps climbing to v5**, while the DEO variants plateau at v3. The
+larger solver seems to benefit more from R-Zero's *trained* challenger (which adapts question difficulty
+upward as the solver improves) than from DEO's MCMC sampling — at the cost of ~4× the compute (8B R-Zero
+≈ 17-18 h/iter, ~4.5 days for 5 iters, vs DEO ~1-1.5 days). (3) amc/minerva jump most; AIME stays
+noise-dominated even at 8B.
 
 ## Adaptive-temperature β: ablations & findings (paper §1.4, 4B)
 

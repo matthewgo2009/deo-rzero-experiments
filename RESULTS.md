@@ -319,13 +319,21 @@ The controller keeps in-band mass at a target by GDA on (β, λ): `1 − E[V] �
 | default | [0.3,0.8] | 0.5 | 1.0→**2.0** (ceiling) | ~0.49 | constraint slack → β pins at βmax |
 | tight δ | [0.3,0.8] | 0.2 | 1.0→**2.0** | ~0.49 | infeasible target → λ diverges, β still pins |
 | filter-aligned | [0.4,1.0] | 0.3 | 1.0→**2.0** | ~0.68 | in-band≈target → λ barely grows → β pins |
-| strong control | [0.4,1.0] | 0.1 | **1.0→0.02** (iter1) | — | η_λ=2, λ₀=10 → β driven to βmin (run in progress) |
+| strong control | [0.4,1.0] | 0.1 | **1.0→0.02** (iter1, stays) | 0.67→**0.90** | η_λ=2, λ₀=10 → **closed loop converges** |
 
-**Finding:** at the paper's default step sizes (η=0.1, 5 iters) the **β-controller is effectively inert
-— β always pins at βmax** because the `−1/β` ("prefer large β / diversity") term dominates and the
-constraint feedback (λ·Cov/β²) can't accumulate enough weight in 5 iters. Only with a much larger η_λ
-and warm-started λ does β actually move (then it overshoots to βmin unless tuned). MATH-500 stays ~75-77
-regardless — i.e. accuracy is insensitive to β in the near-base regime the controller settles into.
+**Finding 1 — default is inert:** at the paper's default step sizes (η=0.1, 5 iters) the **β-controller
+never moves — β pins at βmax** because the `−1/β` ("prefer large β / diversity") term dominates and the
+constraint feedback (λ·Cov/β²) can't accumulate enough weight in 5 iters. MATH-500 stays ~75-77 there.
+
+**Finding 2 — with a feasible band + strong control, the closed loop works.** Band [0.4,1.0]
+(= the real p̂ filter band), δ=0.1, η_λ=2, λ₀=10: β drops to βmin=0.02 at iter 1; the walk then
+concentrates on high-uncertainty questions, so **in-band jumps 0.67 → ~0.90 and the violation rate
+converges right onto the target δ=0.1** (0.096–0.104) for iters 2–5, with β, λ stable. This is the
+positive existence proof that adaptive-β *can* control the in-band fraction to a set target — but it
+requires (a) the V band aligned to the actual filter (r_unc∈[0.4,1.0]) and (b) step sizes far larger
+than the paper's defaults. MATH-500 stays ~76 throughout — **accuracy is insensitive to β** across the
+whole βmin→βmax range explored, so the temperature control changes *what* questions are sampled without
+moving downstream MATH accuracy.
 
 **The V band vs the actual training filter (important mismatch):** the adaptive V uses `r_unc∈[r_min,r_max]`,
 but `filter_and_push` selects training questions by **`p̂∈[0.3,0.8]`**. Since `r_unc=1−2|p̂−½|`, the filter

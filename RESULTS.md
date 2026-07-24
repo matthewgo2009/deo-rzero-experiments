@@ -280,6 +280,69 @@ Notes:
   8-GPU (~10 h/iter) ≈ 4-GPU (~11 h/iter). Large batch (512) uses 8 GPUs but is ~8× the compute
   and thus slower overall (~7 d for 5 iters), with no accuracy gain (76.0 ≈ 75.8).
 
+## Qwen3-8B-Base results (dual-graded)
+
+Same protocol scaled to **Qwen/Qwen3-8B-Base** (verl FSDP + CPU offload lets 8B train on the
+2-GPU DEO layout; base weights pre-fetched to cache so vllm loads cleanly). R-Zero-8B still
+running — will be added. **MATH AVG (7-set) per iteration:**
+
+| method / grader | base | v1 | v2 | v3 | v4 | v5 | **peak** |
+|---|--|--|--|--|--|--|--|
+| baseline_drift · ours | 43.5 | 49.5 | 50.2 | 51.9 | 50.7 | 50.1 | **51.9** |
+| adaptive · ours | 43.5 | 48.4 | 49.4 | 51.3 | 50.2 | 49.5 | 51.3 |
+| fixed-β=0.1 · ours | 43.3 | 49.3 | 50.3 | 50.4 | 49.8 | 49.9 | 50.5 |
+| baseline_drift · paper | 49.0 | 52.5 | 53.6 | **55.2** | 53.8 | 54.3 | **55.2** |
+| adaptive · paper | 48.8 | 52.8 | 53.1 | 55.0 | 53.5 | 53.3 | 55.0 |
+| fixed-β=0.1 · paper | 48.9 | 52.7 | 53.3 | 53.8 | 52.8 | 54.1 | 54.2 |
+
+MATH-500 (gpt-mini): base 69.6 → baseline peak **81.4**, fixed-β **81.2**, adaptive **80.0**.
+
+**Hard-set (amc/minerva/olympiad/aime24/aime25) avg per iter, ours grader** — all peak at v3:
+| method | base | v1 | v2 | v3 | v4 | v5 |
+|--|--|--|--|--|--|--|
+| baseline_drift | 29.2 | 34.5 | 35.6 | **38.2** | 35.9 | 35.6 |
+| adaptive | 29.2 | 33.2 | 34.7 | 37.2 | 35.5 | 34.6 |
+| fixed-β=0.1 | 28.9 | 34.4 | 35.8 | 35.7 | 34.7 | 35.2 |
+
+Takeaways: (1) **8B gains are larger than 4B** — MATH AVG base 43.5 → ~51-52 (ours) / 49 → ~55
+(paper); hard-set peak ~38 (ours, 8B) vs ~34 (4B). (2) The three DEO variants are close (baseline_drift
+marginally best), all peaking at v3. (3) amc/minerva jump most; AIME stays noise-dominated even at 8B.
+
+## Adaptive-temperature β: ablations & findings (paper §1.4, 4B)
+
+The controller keeps in-band mass at a target by GDA on (β, λ): `1 − E[V] ≤ δ` (δ = violation rate),
+`∇_β L = −1/β + (λ/β²)Cov(V,r_c)`, `∇_λ L = 1 − V̄ − δ`, batch reward `r_c(X)=Σ_x max(0,r_unc−λ_rep·r_rep)`.
+
+**Per-iter β trajectory across settings (4B):**
+| setting | band | δ | β path | in-band | note |
+|---|--|--|--|--|--|
+| default | [0.3,0.8] | 0.5 | 1.0→**2.0** (ceiling) | ~0.49 | constraint slack → β pins at βmax |
+| tight δ | [0.3,0.8] | 0.2 | 1.0→**2.0** | ~0.49 | infeasible target → λ diverges, β still pins |
+| filter-aligned | [0.4,1.0] | 0.3 | 1.0→**2.0** | ~0.68 | in-band≈target → λ barely grows → β pins |
+| strong control | [0.4,1.0] | 0.1 | **1.0→0.02** (iter1) | — | η_λ=2, λ₀=10 → β driven to βmin (run in progress) |
+
+**Finding:** at the paper's default step sizes (η=0.1, 5 iters) the **β-controller is effectively inert
+— β always pins at βmax** because the `−1/β` ("prefer large β / diversity") term dominates and the
+constraint feedback (λ·Cov/β²) can't accumulate enough weight in 5 iters. Only with a much larger η_λ
+and warm-started λ does β actually move (then it overshoots to βmin unless tuned). MATH-500 stays ~75-77
+regardless — i.e. accuracy is insensitive to β in the near-base regime the controller settles into.
+
+**The V band vs the actual training filter (important mismatch):** the adaptive V uses `r_unc∈[r_min,r_max]`,
+but `filter_and_push` selects training questions by **`p̂∈[0.3,0.8]`**. Since `r_unc=1−2|p̂−½|`, the filter
+band `p̂∈[0.3,0.8]` corresponds to **`r_unc∈[0.4,1.0]`** (keeps the *most* uncertain, r_unc→1), whereas the
+default V band [0.3,0.8] *excludes* r_unc>0.8 — nearly opposite at the hard end. Fraction of the MCMC pool
+landing in the real filter band `p̂∈[0.3,0.8]` (4B, mean over 5 iters):
+
+| method | **p̂∈[0.3,0.8]** (filter) | r_unc∈[0.3,0.8] | r_unc∈[0.4,1.0] |
+|---|--|--|--|
+| fixed-β=0.1 | **0.679** | 0.519 | 0.876 |
+| baseline_drift | 0.500 | 0.505 | 0.703 |
+| adaptive (δ=0.5, β→2) | 0.449 | 0.486 | 0.682 |
+
+So on the metric that actually decides training data, **fixed-β=0.1 puts the most questions in-band (~68%)**
+(small β greedily targets p̂≈0.5), baseline ~50%, and the default-adaptive run (β pinned near base) the
+*fewest* (~45%). Aligning the controller's band to [0.4,1.0] is what makes V measure the true filter rate.
+
 ## Methodology & caveats
 
 - **Dataset sizes (unique problems):** math=500, gsm8k=1319, olympiad=675, minerva=272, amc=40,

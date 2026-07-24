@@ -10,3 +10,5 @@ __pycache__/
 *.pyc
 .venv/
 rzero_venv/
+.DS_Store
+**/.DS_Store

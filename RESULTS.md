@@ -359,6 +359,31 @@ So on the metric that actually decides training data, **fixed-β=0.1 puts the mo
 (small β greedily targets p̂≈0.5), baseline ~50%, and the default-adaptive run (β pinned near base) the
 *fewest* (~45%). Aligning the controller's band to [0.4,1.0] is what makes V measure the true filter rate.
 
+**Bracket distribution — what controlling β does to question difficulty (4B adaptive, p̂ histogram,
+MCMC pool, mean over 5 iters):**
+
+| p̂ bin | β→2 (inert, default) | β→0.02 (strong control) |
+|---|--|--|
+| 0.0–0.1 | 0.001 | 0.000 |
+| 0.1–0.2 | **0.280** | 0.121 |
+| 0.2–0.3 | 0.233 | 0.196 |
+| 0.3–0.4 | 0.157 | 0.198 |
+| 0.4–0.5 | 0.108 | **0.200** |
+| 0.5–0.6 | 0.087 | 0.145 |
+| 0.6–0.7 | 0.058 | 0.077 |
+| 0.7–0.8 | 0.039 | 0.039 |
+| 0.8–0.9 | 0.027 | 0.018 |
+| 0.9–1.0 | 0.010 | 0.006 |
+| **p̂<0.3** (too ambiguous, filtered out) | **0.514** | 0.318 |
+| **p̂∈[0.3,0.8]** (filter band) | 0.449 | **0.658** |
+| **p̂>0.8** (too easy) | 0.037 | 0.024 |
+
+Driving β to βmin shifts the distribution right (peak 0.1–0.2 → 0.4–0.5): mass moves **out of the
+too-ambiguous p̂<0.3 bucket (0.51→0.32) and into the useful [0.3,0.8] filter band (0.45→0.66)** — the
+controller does exactly what it is designed to do, concentrating the pool on moderately-uncertain
+questions. (The strong run's logged in-band 0.90 is on the r_unc∈[0.4,1.0] band ≡ p̂∈[0.2,0.8]; the
+stricter p̂∈[0.3,0.8] here is 0.66 — consistent.)
+
 ## Methodology & caveats
 
 - **Dataset sizes (unique problems):** math=500, gsm8k=1319, olympiad=675, minerva=272, amc=40,

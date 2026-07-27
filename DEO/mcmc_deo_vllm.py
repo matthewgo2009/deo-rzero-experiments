@@ -15,6 +15,7 @@ import json
 import time
 import random
 import subprocess
+import itertools
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -82,6 +83,11 @@ class Config:
 
     # --- Sampling for r_unc (matches R-Zero question_evaluate.py defaults) ---
     M_SAMPLES   = 9
+    # --- Ceperley-Dewing U-statistic penalty acceptance (paper §1.4) ---
+    CD_ENABLE    = os.getenv("DEO_CD_ACCEPT", "0") == "1"   # gate: use noise-debiased CD acceptance
+    USTAT_M      = int(os.getenv("DEO_USTAT_M", "9"))       # subset size for order-m U-statistic
+    USTAT_N      = int(os.getenv("DEO_USTAT_N", "12"))      # responses generated per question when CD on
+    CD_FRESH_OLD = os.getenv("DEO_CD_FRESH_OLD", "0") == "1"  # re-score current state each step (else cache labels)
     SOLVER_TEMP = 1.0
     SOLVER_TOP_P = 1.0
     SOLVER_TOP_K = 40
@@ -492,18 +498,22 @@ def robust_grade(student_answer, gt_answer):
 # ==========================================
 # 5. r_unc evaluation (uses solver vllm, R-Zero-aligned sampling)
 # ==========================================
-def evaluate_r_unc_vllm(tokenizer, questions):
+def evaluate_r_unc_vllm(tokenizer, questions, return_labels=False):
     """Score each question by majority-vote consistency on the current solver.
 
     Sampling settings + chat template match R-Zero's question_evaluate.py and
     verl/utils/dataset.py:196 so pseudo-labels are drawn from the same
     distribution verl will train on.
 
-    Returns: (r_unc_list, p_hat_list, pseudo_label_list)
+    Samples n=USTAT_N responses when CD acceptance is enabled (so the MCMC step
+    can form the order-USTAT_M U-statistic), else M_SAMPLES.
+
+    Returns: (r_unc_list, p_hat_list, pseudo_label_list[, labels_list])
+    where labels_list[i] is the list of n canonical answers for question i.
     """
     if not questions:
-        return [], [], []
-    m = config.M_SAMPLES
+        return ([], [], [], []) if return_labels else ([], [], [])
+    m = config.USTAT_N if config.CD_ENABLE else config.M_SAMPLES
 
     prompts = [
         apply_chat_template(tokenizer, RZERO_SOLVER_SYSTEM, q)
@@ -545,9 +555,10 @@ def evaluate_r_unc_vllm(tokenizer, questions):
     texts = [t for shard in texts_by_shard for t in shard]
     answers = [extract_solver_answer(t) for t in texts]
 
-    r_unc_list, p_hat_list, pseudo_list = [], [], []
+    r_unc_list, p_hat_list, pseudo_list, labels_list = [], [], [], []
     for i in range(len(questions)):
         chunk = answers[i * m: (i + 1) * m]
+        labels_list.append(chunk)
         valid = [a for a in chunk if a is not None and a != "GUESSED_FAIL_FORMAT"]
         if not valid:
             r_unc_list.append(0.0)
@@ -568,6 +579,8 @@ def evaluate_r_unc_vllm(tokenizer, questions):
         p_hat_list.append(p_hat)
         pseudo_list.append(None if is_garbage else major_ans)
 
+    if return_labels:
+        return r_unc_list, p_hat_list, pseudo_list, labels_list
     return r_unc_list, p_hat_list, pseudo_list
 
 
@@ -617,6 +630,62 @@ def energy_from_state(r_unc_arr, cluster_size, n):
     return float(r_c.sum())
 
 
+# ==========================================
+# Ceperley-Dewing U-statistic penalty acceptance helpers (paper §1.4.1)
+# ==========================================
+_USTAT_FULL = {}   # n -> list of size-m subset index tuples
+_USTAT_JK = {}     # n -> [ per deleted-j: list of size-m subsets excluding j ]
+
+
+def _ustat_index_cache(n, m):
+    if n not in _USTAT_FULL:
+        full = list(itertools.combinations(range(n), m))
+        _USTAT_FULL[n] = full
+        _USTAT_JK[n] = [[s for s in full if j not in s] for j in range(n)]
+    return _USTAT_FULL[n], _USTAT_JK[n]
+
+
+def ustat_jackknife(labels, r_rep_k, m=None):
+    """Order-m U-statistic estimate of the per-question utility
+        u = mean_{|S|=m} [ (1 - 2|p_hat(S) - 1/2|) - lambda_rep * r_rep_k ]_+
+    over all size-m subsets S of the n canonical answer labels, plus its
+    delete-one jackknife variance v (paper eq 23, 26). Invalid answers
+    (None / GUESSED_FAIL_FORMAT) never join a modal group, matching
+    evaluate_r_unc_vllm's p_hat = count/m convention. Returns (u, v)."""
+    lam = config.LAMBDA_REP
+    n = len(labels)
+    if m is None:
+        m = config.USTAT_M
+    if n == 0 or n < m:
+        return 0.0, 0.0
+    idmap, ids = {}, []
+    for a in labels:
+        if a is None or a == "" or a == "GUESSED_FAIL_FORMAT":
+            ids.append(-1)
+        else:
+            ids.append(idmap.setdefault(a, len(idmap)))
+    full, jk = _ustat_index_cache(n, m)
+
+    def kernel(subidx):
+        c, best = {}, 0
+        for t in subidx:
+            v = ids[t]
+            if v < 0:
+                continue
+            nc = c.get(v, 0) + 1
+            c[v] = nc
+            if nc > best:
+                best = nc
+        p = best / m
+        return max(0.0, (1.0 - 2.0 * abs(p - 0.5)) - lam * r_rep_k)
+
+    u = sum(kernel(s) for s in full) / len(full)
+    ujk = [(sum(kernel(s) for s in jk[j]) / len(jk[j]) if jk[j] else 0.0) for j in range(n)]
+    ubar = sum(ujk) / n
+    v = (n - 1) / n * sum((x - ubar) ** 2 for x in ujk)
+    return float(u), float(v)
+
+
 def calculate_batch_energy(questions, r_unc_list):
     """One-shot initial energy. Builds matrix and returns (energy, neighbor, cluster_size)."""
     n = len(questions)
@@ -639,6 +708,7 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path):
     log_file.write("=" * 50 + "\nMCMC Phase\n" + "=" * 50 + "\n")
 
     pool_q, pool_gt, pool_runc, pool_phat, pool_pseudo = [], [], [], [], []
+    pool_labels = []   # per-question list of n canonical answers (CD U-statistic)
     pbar = tqdm(total=num_questions, desc="Init")
 
     forbidden = ["prove that", "show that", "justify", "explain", "true or false", "yes or no"]
@@ -671,8 +741,8 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path):
         if not valid_qs:
             continue
 
-        r_uncs, p_hats, pseudos = evaluate_r_unc_vllm(tokenizer, valid_qs)
-        for q, gt, ru, ph, ps in zip(valid_qs, valid_gts, r_uncs, p_hats, pseudos):
+        r_uncs, p_hats, pseudos, labs = evaluate_r_unc_vllm(tokenizer, valid_qs, return_labels=True)
+        for q, gt, ru, ph, ps, lb in zip(valid_qs, valid_gts, r_uncs, p_hats, pseudos, labs):
             if len(pool_q) >= num_questions:
                 break
             pool_q.append(q)
@@ -680,6 +750,7 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path):
             pool_runc.append(ru)
             pool_phat.append(ph)
             pool_pseudo.append(ps)
+            pool_labels.append(lb)
             pbar.update(1)
     pbar.close()
 
@@ -690,6 +761,15 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path):
     r_unc_arr = np.asarray(pool_runc, dtype=float)
     n = num_questions
     log_file.write(f"[Init] V(X_0) = {energy:.4f}\n")
+
+    # --- CD: per-question U-statistic utility u_i (energy becomes sum_i u_i) ---
+    pool_ustat = None
+    if config.CD_ENABLE:
+        print(f"[MCMC][CD] precomputing U-statistic utilities (m={config.USTAT_M}, n={config.USTAT_N})...")
+        pool_ustat = [ustat_jackknife(pool_labels[i], float(cluster_size[i]) / n)[0]
+                      for i in range(num_questions)]
+        energy = float(np.sum(pool_ustat))
+        log_file.write(f"[Init][CD] U(X_0) = {energy:.4f}\n")
 
     # MCMC mutation walk — every accept/reject is O(N) thanks to incremental update
     for step in range(config.MCMC_STEPS):
@@ -721,35 +801,56 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path):
                                       "old": pool_q[k]})
             if proposals:
                 qs_new = [p["q"] for p in proposals]
-                rus, phs, pls = evaluate_r_unc_vllm(tokenizer, qs_new)
+                labs_new, labs_old_map = None, {}
+                if config.CD_ENABLE:
+                    rus, phs, pls, labs_new = evaluate_r_unc_vllm(tokenizer, qs_new, return_labels=True)
+                    if config.CD_FRESH_OLD:   # re-score current state fresh (else reuse cached labels)
+                        _r, _p, _l, labs_old = evaluate_r_unc_vllm(
+                            tokenizer, [p["old"] for p in proposals], return_labels=True)
+                        labs_old_map = {p["k"]: labs_old[jj] for jj, p in enumerate(proposals)}
+                else:
+                    rus, phs, pls = evaluate_r_unc_vllm(tokenizer, qs_new)
                 for j, p in enumerate(proposals):
                     k = p["k"]
                     q_prime_tokens = p["q"].split()
 
-                    # ---- O(N) incremental energy ----
+                    # ---- O(N) incremental cluster update (BLEU neighbor row for k) ----
                     new_row = neighbor_row_for(q_prime_tokens, pool_tokens, self_idx=k)
                     old_row = neighbor[k]
-                    # Off-diagonal cluster delta: M[k][j] flipping changes cluster_size[j] by +/-1
                     delta = new_row.astype(int) - old_row.astype(int)
                     delta[k] = 0
                     new_cluster = cluster_size + delta
-                    # Diagonal: cluster_size[k] = sum of new row (which already counts self)
                     new_cluster[k] = float(new_row.sum())
 
-                    new_runc = r_unc_arr.copy()
-                    new_runc[k] = rus[j]
-                    new_e = energy_from_state(new_runc, new_cluster, n)
-                    # ----------------------------------
-
-                    alpha = min(1.0, np.exp((new_e - energy) / config.BETA))
+                    sigma2D = 0.0
+                    nbr_u_new = {}
+                    if config.CD_ENABLE:
+                        # Ceperley-Dewing U-statistic penalty acceptance (coordinate-wise):
+                        # only question k's rollouts carry noise; changed-neighbor terms are
+                        # deterministic (cached labels, only r_rep moves) so add to D~ not sigma2D.
+                        old_labels_k = labs_old_map.get(k, pool_labels[k])
+                        u_k_old, v_k_old = ustat_jackknife(old_labels_k, float(cluster_size[k]) / n)
+                        u_k_new, v_k_new = ustat_jackknife(labs_new[j], float(new_cluster[k]) / n)
+                        Dtilde = u_k_new - u_k_old
+                        for jj in np.nonzero(delta)[0]:
+                            jj = int(jj)
+                            uu, _ = ustat_jackknife(pool_labels[jj], float(new_cluster[jj]) / n)
+                            nbr_u_new[jj] = uu
+                            Dtilde += uu - pool_ustat[jj]
+                        sigma2D = v_k_old + v_k_new
+                        a = Dtilde / config.BETA - sigma2D / (2.0 * config.BETA * config.BETA)
+                        alpha = float(np.exp(min(0.0, a)))
+                        new_e = energy + Dtilde
+                    else:
+                        new_runc = r_unc_arr.copy()
+                        new_runc[k] = rus[j]
+                        new_e = energy_from_state(new_runc, new_cluster, n)
+                        alpha = min(1.0, np.exp((new_e - energy) / config.BETA))
                     accept = random.random() < alpha
 
-                    # Per-question r_c contribution (the only term that changed is index k)
                     r_rep_k_old = float(cluster_size[k]) / n
                     r_rep_k_new = float(new_cluster[k]) / n
-                    r_c_k_old = max(0.0, float(r_unc_arr[k]) - config.LAMBDA_REP * r_rep_k_old)
-                    r_c_k_new = max(0.0, rus[j] - config.LAMBDA_REP * r_rep_k_new)
-
+                    cd_note = f"sigma2D={sigma2D:.4f}  " if config.CD_ENABLE else ""
                     log_file.write(
                         f"\n[Step {step+1} | Batch {i // config.MUTATE_BATCH_SIZE}] "
                         f"Result: {'ACCEPTED' if accept else 'REJECTED'} | Strategy: {p['strat']}\n"
@@ -758,8 +859,7 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path):
                         f"r_unc:        {float(r_unc_arr[k]):.4f} -> {rus[j]:.4f}\n"
                         f"r_rep[k]:     {r_rep_k_old:.4f} -> {r_rep_k_new:.4f}  "
                         f"(cluster_size {int(cluster_size[k])} -> {int(new_cluster[k])})\n"
-                        f"r_c[k]:       {r_c_k_old:.4f} -> {r_c_k_new:.4f}\n"
-                        f"V(X) total:   {energy:.4f} -> {new_e:.4f}  (dE={new_e - energy:+.4f})\n"
+                        f"{cd_note}energy total: {energy:.4f} -> {new_e:.4f}  (dE={new_e - energy:+.4f})\n"
                         f"Alpha:        {alpha:.4f}\n"
                         f"{'-' * 60}\n"
                     )
@@ -771,11 +871,17 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path):
                         pool_runc[k] = rus[j]
                         pool_phat[k] = phs[j]
                         pool_pseudo[k] = pls[j]
-                        # Commit incremental state: row k <-> col k symmetric
                         neighbor[k, :] = new_row
                         neighbor[:, k] = new_row
                         cluster_size = new_cluster
-                        r_unc_arr = new_runc
+                        if config.CD_ENABLE:
+                            pool_labels[k] = labs_new[j]
+                            pool_ustat[k] = u_k_new
+                            for jj, uu in nbr_u_new.items():
+                                pool_ustat[jj] = uu
+                            r_unc_arr[k] = rus[j]
+                        else:
+                            r_unc_arr = new_runc
                         energy = new_e
             pbar_step.update(len(batch_idx))
             pbar_step.set_postfix({"V": f"{energy:.3f}"})

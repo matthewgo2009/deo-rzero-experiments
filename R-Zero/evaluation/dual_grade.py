@@ -17,9 +17,19 @@ import json
 import os
 import re
 import time
+import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import openai
+
+# grading backend (set in main): "openai" (gpt-4o-mini/gpt-4o) | "anthropic" (Claude Haiku/Sonnet)
+BACKEND = "openai"
+OA_CLIENT = None
+ANTHROPIC_KEY = None
+_MODELS = {
+    "openai":    {"ours": "gpt-4o-mini", "paper": "gpt-4o"},
+    "anthropic": {"ours": "claude-haiku-4-5-20251001", "paper": "claude-sonnet-5"},
+}
 
 STORAGE_PATH = os.getenv("STORAGE_PATH")
 DATASETS = ["math", "gsm8k", "amc", "minerva", "olympiad", "aime2024", "aime2025"]
@@ -76,7 +86,32 @@ def load_key():
     return tok
 
 
-def grade_dataset(client, eval_dir, label, dataset, workers, retries=4):
+def load_anthropic_key():
+    with open("tokens.json") as f:
+        tok = json.load(f).get("anthropic")
+    if not tok:
+        raise SystemExit("ERROR: anthropic key not set in tokens.json")
+    return tok
+
+
+def _anthropic_yes(model, msg, retries=4):
+    body = json.dumps({"model": model, "max_tokens": 4, "temperature": 0.1,
+                       "messages": [{"role": "user", "content": msg}]}).encode()
+    for a in range(retries):
+        try:
+            req = urllib.request.Request(
+                "https://api.anthropic.com/v1/messages", data=body,
+                headers={"x-api-key": ANTHROPIC_KEY, "anthropic-version": "2023-06-01",
+                         "content-type": "application/json"})
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                d = json.load(resp)
+            return "yes" in d["content"][0]["text"].strip().lower()
+        except Exception:
+            time.sleep(1.5 * (a + 1))
+    return False
+
+
+def grade_dataset(eval_dir, label, dataset, workers, retries=4):
     path = f"{eval_dir}/results_{dataset}.json"
     if not os.path.exists(path):
         print(f"[dual {dataset}] MISSING {path}"); return None
@@ -95,10 +130,12 @@ def grade_dataset(client, eval_dir, label, dataset, workers, retries=4):
         e = entries[idx]
         msg = (ours_msg(e["response"], e["answer"]) if grader == "ours"
                else paper_msg(e["answer"], e["response"]))
-        model = "gpt-4o-mini" if grader == "ours" else "gpt-4o"
+        model = _MODELS[BACKEND][grader]
+        if BACKEND == "anthropic":
+            return grader, idx, _anthropic_yes(model, msg, retries)
         for attempt in range(retries):
             try:
-                r = client.chat.completions.create(
+                r = OA_CLIENT.chat.completions.create(
                     model=model, max_tokens=4, temperature=0.1,
                     messages=[{"role": "system", "content": "You are a math answer checker."},
                               {"role": "user", "content": msg}])
@@ -131,22 +168,30 @@ def grade_dataset(client, eval_dir, label, dataset, workers, retries=4):
 
 
 def main():
+    global BACKEND, OA_CLIENT, ANTHROPIC_KEY
     ap = argparse.ArgumentParser()
     ap.add_argument("--model_name", help="reconstruct eval dir as $STORAGE_PATH/evaluation/<name_/>")
     ap.add_argument("--eval_dir", help="grade this dir of results_<ds>.json directly (robust to path renaming)")
     ap.add_argument("--label", help="model label for output when --eval_dir is used")
+    ap.add_argument("--grader", choices=["openai", "anthropic"], default="openai",
+                    help="openai=gpt-4o-mini/gpt-4o ; anthropic=Claude Haiku-4.5/Sonnet-5")
     ap.add_argument("--workers", type=int, default=16)
     args = ap.parse_args()
-    client = openai.OpenAI(api_key=load_key())
+    BACKEND = args.grader
+    if BACKEND == "anthropic":
+        ANTHROPIC_KEY = load_anthropic_key()
+    else:
+        OA_CLIENT = openai.OpenAI(api_key=load_key())
     if args.eval_dir:
         eval_dir = args.eval_dir.rstrip("/")
         label = args.label or os.path.basename(eval_dir)
     else:
         eval_dir = f"{STORAGE_PATH}/evaluation/{args.model_name.replace('/', '_')}"
         label = args.model_name
-    print(f"=== dual_grade {label} (dir={eval_dir}) ===")
+    print(f"=== dual_grade [{BACKEND}] {label} (dir={eval_dir}) "
+          f"ours={_MODELS[BACKEND]['ours']} paper={_MODELS[BACKEND]['paper']} ===")
     for ds in DATASETS:
-        grade_dataset(client, eval_dir, label, ds, args.workers)
+        grade_dataset(eval_dir, label, ds, args.workers)
 
 
 if __name__ == "__main__":

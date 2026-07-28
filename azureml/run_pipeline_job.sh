@@ -284,7 +284,7 @@ run_regrade(){
       *solver_v1*) lab=solver_v1;; *solver_v2*) lab=solver_v2;; *solver_v3*) lab=solver_v3;;
       *solver_v4*) lab=solver_v4;; *solver_v5*) lab=solver_v5;; *Qwen3-*Base*) lab=base;;
     esac
-    python3 evaluation/dual_grade.py --eval_dir "$d" --label "$lab" --workers 16
+    python3 evaluation/dual_grade.py --eval_dir "$d" --label "$lab" --workers 16 --grader "${REGRADE_GRADER:-openai}"
   done
   cp -f "$ROOT/R-Zero/regrade_compare.jsonl" "$RGROOT/regrade_compare.jsonl" 2>/dev/null || true
   echo "===== REGRADE COMPARE (raw | ours=4o-mini boxed | paper=4o full-text) ====="

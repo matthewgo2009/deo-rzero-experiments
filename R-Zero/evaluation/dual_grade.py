@@ -144,9 +144,12 @@ def grade_dataset(eval_dir, label, dataset, workers, retries=4):
                 time.sleep(1.5 * (attempt + 1))
         return grader, idx, False
 
+    # anthropic: only the boxed ("ours") grader (Haiku); skip the lenient full-text grader
+    # (Sonnet on long full-text prompts is slow/unreliable and not needed here).
+    graders = ("ours",) if BACKEND == "anthropic" else ("ours", "paper")
     ours_bump = paper_bump = 0
     with ThreadPoolExecutor(max_workers=workers) as ex:
-        futs = [ex.submit(_call, g, i) for g in ("ours", "paper") for i in fail_idx]
+        futs = [ex.submit(_call, g, i) for g in graders for i in fail_idx]
         for fut in as_completed(futs):
             g, idx, ok = fut.result()
             if ok:
@@ -154,6 +157,8 @@ def grade_dataset(eval_dir, label, dataset, workers, retries=4):
                     ours_bump += 1
                 else:
                     paper_bump += 1
+    if BACKEND == "anthropic":
+        paper_bump = ours_bump   # paper column mirrors ours (boxed only) for the anthropic grader
     base_correct = n * raw
     ours = (base_correct + ours_bump) / n
     paper = (base_correct + paper_bump) / n

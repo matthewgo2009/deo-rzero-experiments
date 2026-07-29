@@ -97,7 +97,7 @@ class Config:
     BETA           = 0.1
     TAU_BLEU       = 0.5
     LAMBDA_REP     = 10.0
-    TOTAL_QUESTIONS = 1500           # ensures filtered count >= 512 even with ~65% pass rate
+    TOTAL_QUESTIONS = 2000           # MCMC pool per iter (env DEO_TOTAL_Q overrides); ~1000-1300 pass the p_hat[0.3,0.8] filter
     MCMC_STEPS     = 5
     MUTATE_BATCH_SIZE = 20
     INIT_BATCH_SIZE = 64

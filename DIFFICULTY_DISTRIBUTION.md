@@ -61,4 +61,34 @@ table restricts everyone to the p̂∈[0.3,0.8] training band for an apples-to-a
    milder adaptive run; R-Zero (easiest in-band p̂ but worst labels) wins. Consistent with
    `PSEUDO_LABEL_QUALITY.md`: neither p̂-hardness nor label-correctness explains final MATH accuracy.
 
+## How many questions actually enter solver training (per iter)
+
+Training-set size = # questions passing the p̂∈[0.3,0.8] filter, pushed to verl (8B runs, pool=1500):
+
+| iter | baseline (DEO) | strong (DEO) | R-Zero |
+|--|--|--|--|
+| v1 | 731 | 681 | 3946 |
+| v2 | 757 | 604 | 3977 |
+| v3 | 762 | 585 | 4129 |
+| v4 | 746 | 1179 | 4401 |
+| v5 | 730 | 1164 | 4564 |
+
+- **Dataset size differs ~5–7×** (DEO ~600–1180 vs R-Zero ~4000–4600): DEO's MCMC pool is fixed at
+  TOTAL_QUESTIONS/iter (1500 here) → ~700 pass the filter; R-Zero's questioner emits a far larger raw
+  pool → ~4000+ pass. (strong's v4–v5 jump to ~1180 is the β→0.02 in-band spike to ~85%.)
+- **But verl consumes the SAME ~1280 prompt-instances/iter for both** — solver GRPO runs
+  `max_steps=20 × rollout_batch_size=64 = 1280` prompts (each ×5 rollouts). So DEO (~700 < 1280) cycles
+  its set ~1.8 epochs, while R-Zero (~4000 > 1280) touches only ~1280 (~0.3 epoch, ~32%) of its set.
+  **→ Despite generating 5–7× more questions, R-Zero trains on the same # of prompt-instances/iter as
+  DEO; the larger pool is not converted into more training steps.**
+- (DEO pool raised to TOTAL_QUESTIONS=2000 for subsequent runs → ~1000–1300 pass the filter, closer to
+  the 1280 verl consumes, i.e. ~1 epoch with less repetition.)
+
+## KL anchor (reference model) — DEO vs R-Zero
+
+Same KL strength (`kl_coef=0.01, use_kl_loss=true, low_var_kl`) but **different reference each iter**:
+- **DEO**: `worker.ref.model = BASE_MODEL` → KL anchored to the **original base model every iter** (fixed).
+- **R-Zero**: ref unset → verl default = `actor.model` = that iter's init = the **previous-iter solver**
+  → the KL anchor **drifts** iteration to iteration.
+
 Data: `paper_data/difficulty_phat_stats.txt`.

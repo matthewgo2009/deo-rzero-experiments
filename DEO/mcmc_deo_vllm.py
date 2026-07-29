@@ -994,9 +994,9 @@ def run_verl_solver(solver_ckpt, dataset_repo, exp_name, extra_verl_overrides=No
         "config=examples/config.yaml",
         "data.max_response_length=4096",
         f"worker.actor.model.model_path={solver_ckpt}",
-        # Pin KL ref to the original base across all iters (no cumulative drift).
-        # Requires verl patch: RefConfig.model + fsdp_workers ref branch.
-        f"worker.ref.model.model_path={config.MODEL_NAME}",
+        # KL reference: DEO_KL_REF=base -> pin to original base every iter (no drift, DEO default);
+        #               DEO_KL_REF=prev -> anchor to this iter's init solver (= prev-iter solver, R-Zero-style, drifts).
+        f"worker.ref.model.model_path={solver_ckpt if os.getenv('DEO_KL_REF','base')=='prev' else config.MODEL_NAME}",
         f"trainer.experiment_name={exp_name}",
         f"trainer.save_checkpoint_path={storage}/models/{exp_name}/",
         f"data.train_files={dataset_repo}@train",

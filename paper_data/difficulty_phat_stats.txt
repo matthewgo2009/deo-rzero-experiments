@@ -1,0 +1,23 @@
+=== FULL MCMC pool (DEO) vs FILTERED training set (R-Zero) — p_hat per iter ===
+run       iter      N  mean_p   p<0.3  [.3,.8]   p>0.8
+baseline  v1     1500   0.395   0.425    0.513   0.062
+baseline  v2     1500   0.398   0.411    0.529   0.060
+baseline  v3     1500   0.397   0.409    0.531   0.059
+baseline  v4     1500   0.400   0.411    0.526   0.063
+baseline  v5     1500   0.402   0.413    0.515   0.072
+strong    v1     1500   0.327   0.476    0.515   0.009
+strong    v2     1500   0.321   0.537    0.445   0.019
+strong    v3     1500   0.305   0.547    0.444   0.009
+strong    v4     1500   0.427   0.145    0.854   0.001
+strong    v5     1500   0.426   0.147    0.853   0.000
+rzero     v1     3946   0.524   0.000    1.000   0.000
+rzero     v2     3977   0.515   0.000    1.000   0.000
+rzero     v3     4129   0.515   0.000    1.000   0.000
+rzero     v4     4401   0.517   0.000    1.000   0.000
+rzero     v5     4564   0.527   0.000    1.000   0.000
+
+=== training-eligible subset p_hat in [0.3,0.8] (same stage for all 3): mean p_hat ===
+run       v1 v2 v3 v4 v5
+baseline  0.514 0.517 0.511 0.517 0.514
+strong    0.459 0.473 0.464 0.463 0.463
+rzero     0.524 0.515 0.515 0.517 0.527

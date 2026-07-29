@@ -255,6 +255,11 @@ def main():
         eval_history["iter_0_baseline"] = native_eval_math500(deo.config.MODEL_NAME, "iter 0 baseline")
         save()
 
+    WARM_START = os.getenv("DEO_WARM_START", "0") == "1"
+    if WARM_START:
+        print("[adaptive] WARM START enabled: next-iter MCMC starts from prev-iter mutated pool", flush=True)
+    prev_pool = None
+
     current_solver = deo.config.MODEL_NAME
     for it in range(1, deo.config.NUM_ITERATIONS + 1):
         done_key = f"iter_{it}"
@@ -262,6 +267,11 @@ def main():
         if done_key in eval_history and os.path.isdir(ckpt):
             print(f"=== iter {it} already complete (acc={eval_history[done_key]}), skipping ===", flush=True)
             current_solver = ckpt
+            if WARM_START:  # resume-safe: reload this iter's pool so the next iter can warm-start
+                mcmc_json = f"{deo.config.STORAGE_ROOT}/datasets/mcmc_iter_{it}_{deo.config.MODEL_ABBR}.json"
+                if os.path.exists(mcmc_json):
+                    with open(mcmc_json) as f:
+                        prev_pool = json.load(f)
             if it < deo.config.NUM_ITERATIONS:
                 native_reload_vllm_solver(ckpt)
             continue
@@ -272,7 +282,11 @@ def main():
         exp_name = f"{deo.config.MODEL_ABBR}_solver_v{it}"
         log_path = f"{deo.config.STORAGE_ROOT}/logs/mcmc_iter_{it}_{deo.config.MODEL_ABBR}.log"
 
-        train_data = deo.generate_batch_mcmc(tokenizer, deo.config.TOTAL_QUESTIONS, log_path)
+        train_data = deo.generate_batch_mcmc(
+            tokenizer, deo.config.TOTAL_QUESTIONS, log_path,
+            init_pool=prev_pool if WARM_START else None,
+        )
+        prev_pool = train_data   # warm-start seed for the next iter
         with open(f"{deo.config.STORAGE_ROOT}/datasets/mcmc_iter_{it}_{deo.config.MODEL_ABBR}.json", "w") as f:
             json.dump(train_data, f, indent=2, ensure_ascii=False)
 

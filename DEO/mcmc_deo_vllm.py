@@ -701,8 +701,12 @@ def calculate_batch_energy(questions, r_unc_list):
 # ==========================================
 # 7. MCMC (single-process; large vllm batches)
 # ==========================================
-def generate_batch_mcmc(tokenizer, num_questions, log_path):
-    """Returns: list of dicts {question, gt, p_hat, pseudo_label, r_unc}."""
+def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
+    """Returns: list of dicts {question, gt, p_hat, pseudo_label, r_unc}.
+
+    init_pool: if given (list of prev-iter question dicts), WARM-START the MCMC chain from
+    those questions (re-scored with the current solver) instead of sampling fresh from base.
+    """
     print(f"\n[MCMC] Initializing pool of {num_questions} questions via base model...")
     log_file = open(log_path, "w", encoding="utf-8")
     log_file.write("=" * 50 + "\nMCMC Phase\n" + "=" * 50 + "\n")
@@ -713,7 +717,21 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path):
 
     forbidden = ["prove that", "show that", "justify", "explain", "true or false", "yes or no"]
 
-    while len(pool_q) < num_questions:
+    if init_pool is not None:
+        # WARM START: reuse prev-iter (mutated) questions as X_0, re-scored with current solver.
+        qs = [d["question"] for d in init_pool]
+        gts = [d.get("gt", "") for d in init_pool]
+        print(f"[MCMC] WARM START from {len(qs)} prev-iter questions (re-scoring with current solver)...")
+        CH = 256
+        for s in range(0, len(qs), CH):
+            ch_q, ch_g = qs[s:s + CH], gts[s:s + CH]
+            r_uncs, p_hats, pseudos, labs = evaluate_r_unc_vllm(tokenizer, ch_q, return_labels=True)
+            for q, gt, ru, ph, ps, lb in zip(ch_q, ch_g, r_uncs, p_hats, pseudos, labs):
+                pool_q.append(q); pool_gt.append(gt); pool_runc.append(ru)
+                pool_phat.append(ph); pool_pseudo.append(ps); pool_labels.append(lb); pbar.update(1)
+        num_questions = len(pool_q)
+
+    while init_pool is None and len(pool_q) < num_questions:
         needed = num_questions - len(pool_q)
         bs = min(config.INIT_BATCH_SIZE, needed)
         c_prompts = []

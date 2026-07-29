@@ -2,6 +2,11 @@
 
 Self-evolving math training on **Qwen/Qwen3-4B-Base**. Eval on the 7 R-Zero math benchmarks (math=MATH-500, gsm8k, amc, minerva, olympiad, aime2024, aime2025), graded with `math_verify` + **gpt-4o-mini boxed-only recheck** (identical grader for all runs). MATH AVG = unweighted mean of the 7. Each run = 5 self-evolving iters on AzureML `azureml-job-cluster` (1× Standard_ND96isr_H100_v5, 8×H100).
 
+> **See also [`PSEUDO_LABEL_QUALITY.md`](PSEUDO_LABEL_QUALITY.md)** — Claude-judged pseudo-label
+> correctness of the self-generated training data: R-Zero's label accuracy *collapses* 72%→29% across
+> iterations (questioner reward-hacks with ambiguous questions) yet it still wins downstream, i.e.
+> pseudo-label quality does **not** explain performance.
+
 ## Headline — MATH AVG (7-set) per iteration
 
 | method | walk | label | β | base | v1 | v2 | v3 | v4 | v5 | mean | peak |

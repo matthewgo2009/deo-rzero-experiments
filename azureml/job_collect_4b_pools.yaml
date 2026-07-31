@@ -1,0 +1,31 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+display_name: collect-4b-pools
+experiment_name: deo-rzero-7set
+description: "Copy per-iter MCMC pool json (heroic_eye/witty_soca/willing_panda) into a small downloadable folder for p_hat/r_unc bucket analysis."
+compute: azureml:azureml-job-cpu-cluster
+environment:
+  image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04:latest
+code: ..
+command: bash azureml/collect_4b_pools.sh ${{outputs.out}} ${{inputs.strong}} ${{inputs.warm}} ${{inputs.base}}
+inputs:
+  strong:
+    type: uri_folder
+    mode: ro_mount
+    path: azureml://datastores/workspaceblobstore/paths/yyd_cd_strong_4b/
+  warm:
+    type: uri_folder
+    mode: ro_mount
+    path: azureml://datastores/workspaceblobstore/paths/yyd_cd_warmstart_4b/
+  base:
+    type: uri_folder
+    mode: ro_mount
+    path: azureml://datastores/workspaceblobstore/paths/yyd_baseline_2000_4b/
+outputs:
+  out:
+    type: uri_folder
+    mode: rw_mount
+    path: azureml://datastores/workspaceblobstore/paths/yyd_collect_4b_pools/
+resources:
+  instance_type: Standard_D32_v3
+  instance_count: 1

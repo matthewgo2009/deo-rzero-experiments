@@ -1,0 +1,31 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+display_name: collect-8b-datasets
+experiment_name: deo-rzero-7set
+description: "Copy per-iter training datasets (DEO baseline/strong mcmc pools + R-Zero parquets) from three 8B job outputs into a small downloadable folder."
+compute: azureml:azureml-job-cpu-cluster
+environment:
+  image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04:latest
+code: ..
+command: bash azureml/collect_datasets.sh ${{outputs.out}} ${{inputs.base}} ${{inputs.strong}} ${{inputs.rzero}}
+inputs:
+  base:
+    type: uri_folder
+    mode: ro_mount
+    path: azureml://datastores/workspaceblobstore/paths/yyd_8b2_baseline/
+  strong:
+    type: uri_folder
+    mode: ro_mount
+    path: azureml://datastores/workspaceblobstore/paths/yyd_8b_adaptive_strong/
+  rzero:
+    type: uri_folder
+    mode: ro_mount
+    path: azureml://datastores/workspaceblobstore/paths/yyd_8b2_rzero/
+outputs:
+  out:
+    type: uri_folder
+    mode: rw_mount
+    path: azureml://datastores/workspaceblobstore/paths/yyd_collect_8b_datasets/
+resources:
+  instance_type: Standard_D32_v3
+  instance_count: 1

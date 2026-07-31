@@ -59,6 +59,36 @@ mass along. Concretely for full-stack: logged in-band = 0.57–0.61, but filter-
 is only **41–48%** — the ~13–16% difference (≈21–28% of the r_unc-band) is counted as success and then
 filtered out. The controller over-reports success by ≈1/4.
 
+## 8B (with CD absent) vs 4B (with CD): CD and strong-β are in tension
+
+An earlier 8B strong-control run (dynamic_gas, m=9, **no CD**) DID pack the band hard — but only in
+late iters, and that turns out to be exactly what CD suppresses. Same bucket analysis on the 8B pools:
+
+| run (grid) | iter | filter p̂∈[.3,.8] %N | r_unc∈[.4,1] %N | gap %N |
+|--|--|--|--|--|
+| 8B strong (m=9, **no CD**) | v1–v3 | 44–51% | 72–78% | 26–30% |
+| 8B strong (m=9, **no CD**) | **v4–v5** | **85%** | **98%** | 12% |
+| 8B baseline (m=9) | v1–v5 | ~52% | ~75% | 22–24% |
+| 4B heroic_eye (n=12, **CD**) | v1–v5 | 41–48% | 57–61% | 13–16% |
+
+So the "strong-β packs the band" memory is real — but it is the **β→floor greedy collapse of a noisy-MH
+walk with NO CD**: once β hits 0.02, plain acceptance α=exp(ΔE/β) becomes near-greedy and concentrates
+the whole pool onto p̂≈0.5 (85% filter-band, 98% r_unc-band; gap even drops to 12%).
+
+**CD cancels exactly this.** CD's acceptance carries a variance penalty:
+
+    α = exp( D̃/β − σ̂²_D / (2β²) )        # penalty ∝ 1/β²
+
+At the β=0.02 floor, 1/(2β²)=1250, so even σ̂²_D≈0.01 gives penalty ≈12.5 → α≈exp(−12.5)≈4e-6 → almost
+everything is rejected and the walk **freezes**. That is why heroic_eye, despite driving β→0.02 from
+iter1, never concentrates: its pool stays near the base-sample distribution (~47% filter-band, like
+baseline). **strong-β wants tiny β to concentrate; CD makes tiny β reject everything — the full stack's
+"strong control" is effectively neutralized by its own CD term.**
+
+The reframing: the 8B strong 85%-in-band did NOT buy accuracy (consistent with the earlier
+"in-band ≠ accuracy" finding), and 4B heroic_eye — where CD suppressed that very concentration — still
+posts the best 4B accuracy (48.94). The useful ingredient is CD's cleaner labels, not band concentration.
+
 ## Implication
 
 The fix is not to tune the gap but to **make the controller's constraint band match the filter**:

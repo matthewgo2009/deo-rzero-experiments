@@ -35,8 +35,38 @@ All three: 2000-q pool/iter, same p̂∈[0.3,0.8]+judge filter, verl GRPO consum
 | **iter4** | 79.4 | 92.3 | 64.6 | 47.4 | 42.2 | 10.0 | 6.7 | **48.94** |
 | iter5 | 75.8 | 91.7 | 57.5 | 47.8 | 41.9 | 6.7 | 6.6 | 46.86 |
 
-### witty_soca (warm-start) — PENDING (`helpful_watch_7qyr66x33w`)
-### willing_panda (baseline 2000q) — PENDING (`gentle_hook_k8g0sxb6s2`)
+### witty_soca (warm-start) — DONE (job `helpful_watch_7qyr66x33w`)
+
+| ckpt | math | gsm8k | amc | minerva | olympiad | aime24 | aime25 | **AVG** |
+|--|--|--|--|--|--|--|--|--|
+| iter1 | 76.8 | 91.7 | 52.9 | 47.1 | 42.7 | 6.7 | 3.3 | 45.89 |
+| iter2 | 76.6 | 91.6 | 52.6 | 48.5 | 40.6 | 6.7 | 6.8 | 46.20 |
+| **iter3** | 78.4 | 92.2 | 55.0 | 51.1 | 40.0 | 16.7 | 6.7 | **48.59** |
+| iter4 | 76.4 | 92.0 | 54.9 | 48.5 | 40.6 | 13.3 | 10.0 | 47.96 |
+| iter5 | 78.2 | 91.7 | 54.9 | 51.5 | 41.6 | 10.0 | 3.3 | 47.31 |
+
+### willing_panda (baseline 2000q, no walk) — DONE (job `gentle_hook_k8g0sxb6s2`)
+
+| ckpt | math | gsm8k | amc | minerva | olympiad | aime24 | aime25 | **AVG** |
+|--|--|--|--|--|--|--|--|--|
+| iter1 | 76.2 | 92.2 | 50.1 | 43.4 | 42.7 | 6.7 | 7.1 | 45.49 |
+| iter2 | 78.0 | 91.9 | 56.6 | 48.5 | 42.2 | 10.2 | 6.7 | 47.73 |
+| iter3 | 75.8 | 91.5 | 52.6 | 47.4 | 39.1 | 10.0 | 3.3 | 45.67 |
+| **iter4** | 75.6 | 91.7 | 52.5 | 45.2 | 41.9 | 10.1 | 17.3 | **47.76** |
+| iter5 | 75.0 | 91.9 | 50.2 | 48.2 | 42.7 | 10.0 | 3.3 | 45.90 |
+
+### Three-way, same grader (Claude Haiku boxed) — the clean comparison
+
+| run | config | 7-set AVG peak | @iter | iter-mean |
+|--|--|--|--|--|
+| **heroic_eye** | full stack, cold | **48.94** | i4 | 47.65 |
+| witty_soca | full stack, **warm-start** | 48.59 | i3 | 47.19 |
+| willing_panda | **baseline, no walk** | 47.76 | i4 | 46.51 |
+
+- **Full stack beats the no-walk baseline by ~1.2pt** (48.94 vs 47.76; mean 47.65 vs 46.51) — under the
+  same Claude grader, so this is the cleanest statement of the MCMC machinery's contribution.
+- **Warm-start gives no benefit** (48.59 < 48.94; mean 47.19 < 47.65); peak just shifts to i3.
+- Baseline (no walk) is the jaggiest (45.5–47.8 sawtooth); the full stack is more stable across iters.
 
 ## 7-set peak vs prior 4B runs
 
@@ -94,7 +124,9 @@ in-band). CD U-statistic acceptance (m=9, n=12) ran every iter.
 ## Takeaway
 
 The full MCMC stack (walk + CD debias + strong-β + KL-prev) is the best 4B run to date (MATH-500 64.6,
-7-set 48.94, HARD5 34.2), but the margin over a plain no-walk 2000q baseline is small (~1pt MATH-500),
-and warm-starting the chain from the previous iteration's pool gives no benefit. Gains trace to cleaner
-labels + the walk finding useful (mostly AMC/Minerva-type) questions, not to difficulty control or pool
-size. Pending: 7-set Claude grades for witty_soca and willing_panda to confirm this on effective accuracy.
+7-set 48.94, HARD5 34.2). Under the same Claude grader it beats a plain no-walk 2000q baseline by
+~1.2pt 7-set (48.94 vs 47.76; mean 47.65 vs 46.51) — real but modest. Warm-starting the chain from the
+previous iteration's pool gives no benefit (48.59). Gains trace to cleaner labels + the walk finding
+useful (mostly AMC/Minerva-type) questions, not to difficulty control or pool size — consistent with
+`BUCKET_ANALYSIS.md`, where CD's 1/β² variance penalty actually freezes the strong-β walk at the β floor,
+so the "strong control" concentration never materializes yet accuracy is still highest.

@@ -55,13 +55,32 @@ All three: 2000-q pool/iter, same p̂∈[0.3,0.8]+judge filter, verl GRPO consum
 | **iter4** | 75.6 | 91.7 | 52.5 | 45.2 | 41.9 | 10.1 | 17.3 | **47.76** |
 | iter5 | 75.0 | 91.9 | 50.2 | 48.2 | 42.7 | 10.0 | 3.3 | 45.90 |
 
-### Three-way, same grader (Claude Haiku boxed) — the clean comparison
+### Four-way, same grader (Claude Haiku boxed) — the clean comparison (incl. R-Zero 4B)
 
-| run | config | 7-set AVG peak | @iter | iter-mean |
+| run | config | 7-set AVG peak | @iter | HARD5 pk | COMP4 pk |
+|--|--|--|--|--|--|
+| **heroic_eye** | full stack, cold | **48.94** | i4 | **34.18** | **30.88** |
+| witty_soca | full stack, **warm-start** | 48.59 | i3 | 33.90 | 29.60 |
+| **R-Zero 4B** | trained questioner | 48.13 | **i2** | 33.96 | 29.68 |
+| willing_panda | **baseline, no walk** | 47.76 | i4 | 33.40 | 30.45 |
+
+(base ≈ 43.6 for all four → grader consistent. HARD5 = amc/minerva/olympiad/aime24/aime25 ; COMP4 drops minerva.)
+
+- **DEO full stack ≳ R-Zero at 4B** (48.94 vs 48.13 AVG, +0.8): hard sets are ~tied (HARD5 34.18 vs 33.96),
+  and on competition-only COMP4 R-Zero is actually the lowest (29.68 < full-stack 30.88 < no-walk 30.45).
+- **R-Zero 4B peaks early (i2) then plateaus** ~47–48; DEO variants peak i3–i4.
+
+### Cross-scale (same Claude grader both ends) — the ranking FLIPS
+
+| | 4B best DEO | 4B R-Zero | 8B best DEO | 8B R-Zero |
 |--|--|--|--|--|
-| **heroic_eye** | full stack, cold | **48.94** | i4 | 47.65 |
-| witty_soca | full stack, **warm-start** | 48.59 | i3 | 47.19 |
-| willing_panda | **baseline, no walk** | 47.76 | i4 | 46.51 |
+| 7-set AVG peak | **48.94** (full stack) | 48.13 | 53.01 (baseline) | **54.57** |
+| HARD5 peak | **34.18** | 33.96 | 39.62 | **41.36** |
+| R-Zero peak iter | — | i2 (early) | — | i5 (still rising) |
+
+At 4B, DEO (esp. full stack) edges R-Zero and R-Zero stalls at i2; at 8B, R-Zero clearly wins (+1.5 AVG,
++1.7 HARD5) and keeps climbing to i5. The trained questioner only starts compounding at 8B scale.
+(Caveat: the 8B runs are 1500-q, no-CD; 8B has no full-stack run yet.)
 
 - **Full stack beats the no-walk baseline by ~1.2pt** (48.94 vs 47.76; mean 47.65 vs 46.51) — under the
   same Claude grader, so this is the cleanest statement of the MCMC machinery's contribution.

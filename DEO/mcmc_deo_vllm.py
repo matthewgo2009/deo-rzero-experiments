@@ -286,7 +286,8 @@ THEN, output the problem and answer exactly in this format:
 </question>
 \\boxed{final_answer}"""
 
-MUTATOR_SYSTEM_PROMPT = """You are an expert competition-math problem setter. I will provide a seed problem.
+# --- V1 (default): aggressive "structurally different" mutator ---
+_MUTATOR_SYSTEM_PROMPT_V1 = """You are an expert competition-math problem setter. I will provide a seed problem.
 Your task is to generate a STRUCTURALLY DIFFERENT problem by applying ONE of the following mutation strategies.
 
 MUTATION STRATEGIES (pick exactly ONE that is NOT already exemplified by the seed):
@@ -314,11 +315,100 @@ Output format (STRICT — all three tags required):
 </question>
 \\boxed{final_answer}"""
 
-MUTATOR_USER_TEMPLATE = (
+_MUTATOR_USER_TEMPLATE_V1 = (
     "Here is the seed problem:\n{seed}\n\n"
     "Pick ONE mutation strategy from {{A,B,C,D,E}} and apply it now. "
     "Remember: number-swapping is FAILURE."
 )
+
+# --- V2 (env DEO_MUT_PROMPT=v2): conservative "one localized step, stay close, validity-checked" mutator ---
+_MUTATOR_SYSTEM_PROMPT_V2 = r"""You are an expert competition-math problem setter. I will provide a seed problem.
+Your task is to generate a valid, self-contained, moderately harder problem by applying exactly ONE
+localized mutation strategy.
+
+The mutated problem should remain close to the seed problem. Preserve its main mathematical topic,
+objects, notation, and core solution structure. Increase the required reasoning by approximately one
+meaningful step, rather than making the problem arbitrarily complicated.
+
+MUTATION STRATEGIES (pick exactly ONE):
+
+[A] GENERALIZE — Replace one fixed constant with a simple parameter, or extend one existing relationship
+to a closely related case. Do NOT raise the dimension, introduce unrelated objects, or convert a
+single-variable problem into a multivariable problem unless this is a direct and natural extension.
+
+[B] COMPOSE — Add exactly ONE mathematically compatible condition that interacts with the original
+structure and adds one meaningful inference step. Do NOT combine unrelated topics or attach an
+arbitrary second problem.
+
+[C] INVERT — Exchange one given quantity with the requested quantity, so that the reader recovers an
+input or precondition. Ensure the new conditions determine a unique answer.
+
+[D] CHANGE_OBJECTIVE — Change only what is being requested while preserving the original setting, such
+as changing "find x" to "count the valid values of x", "find a value" to "find the sum of all valid
+values", or "compute" to "find the smallest value satisfying the same structure".
+
+[E] DUALIZE — Replace one concept by a closely related dual concept only when the resulting problem is
+mathematically natural and fully determined, such as gcd↔lcm, max↔min, or area↔perimeter.
+Do NOT mechanically swap concepts when the new statement would be ambiguous or false.
+
+CRITICAL VALIDITY RULES:
+
+1. Apply exactly ONE localized mutation. Do not make multiple independent changes.
+2. Preserve the seed problem's mathematical domain, main objects, and general solution method.
+3. Every variable, symbol, function, point, and mathematical object must be explicitly defined.
+4. All conditions must be mutually consistent and sufficient to determine the answer.
+5. The problem must have exactly one unambiguous final answer, unless it explicitly asks for a finite
+   set or for all valid values.
+6. The final answer MUST be a SPECIFIC NUMBER, ALGEBRAIC EXPRESSION, or FINITE SET.
+7. The problem must be understandable without a missing figure, diagram, source problem, or external
+   context.
+8. Do NOT include the answer, a boxed expression, solution steps, intermediate conclusions, or hints
+   inside the question.
+9. Do NOT refer to the "seed problem", "original problem", "previous question", mutation strategy,
+   prompt, or generation process inside the question.
+10. Do NOT introduce higher-dimensional geometry unless the seed is already in that same dimension.
+11. Do NOT combine unrelated mathematical topics, add arbitrary advanced terminology, or invent
+    unnecessary objects.
+12. Do NOT output malformed LaTeX, placeholders, template text, code, XML/HTML inside the question,
+    corrupted symbols, or meta-commentary.
+13. NO "Prove that", "Show that", "Justify", "Explain why", True/False, Yes/No, or open-ended questions.
+14. Do NOT merely make the problem longer. Difficulty must come from one valid additional inference.
+15. Do NOT make a mutation whose validity depends on an unstated theorem-specific exceptional case.
+
+Before producing the output, privately verify:
+
+* every symbol is defined;
+* the conditions are consistent;
+* the requested value exists;
+* the answer is unique or the requested finite set is well-defined;
+* the proposed boxed answer actually follows from the question;
+* the answer is not revealed anywhere in the question.
+
+If the selected strategy cannot produce a valid localized mutation, choose another strategy. Prefer a
+small, mathematically safe mutation over a creative but ambiguous one.
+
+LIMIT scratch-pad reasoning to UNDER 50 WORDS.
+
+Output format (STRICT — all three components required, with no extra text): <strategy>{A|B|C|D|E}</strategy> <question>
+[the complete NEW mutated problem statement] </question>
+\boxed{final_answer}"""
+
+_MUTATOR_USER_TEMPLATE_V2 = (
+    "Here is the seed problem:\n{seed}\n\n"
+    "Apply exactly ONE localized mutation strategy from {{A,B,C,D,E}}. "
+    "Keep the same mathematical topic and core structure. "
+    "The new problem must be self-contained, well-posed, uniquely answerable, and only moderately harder. "
+    "Do not leak the answer or include solution steps."
+)
+
+# Select mutator prompt via env (default = V1). DEO_MUT_PROMPT=v2 -> conservative localized mutator.
+if os.getenv("DEO_MUT_PROMPT", "v1").lower() == "v2":
+    MUTATOR_SYSTEM_PROMPT = _MUTATOR_SYSTEM_PROMPT_V2
+    MUTATOR_USER_TEMPLATE = _MUTATOR_USER_TEMPLATE_V2
+    print("[mutator] using V2 (conservative localized) mutation prompt", flush=True)
+else:
+    MUTATOR_SYSTEM_PROMPT = _MUTATOR_SYSTEM_PROMPT_V1
+    MUTATOR_USER_TEMPLATE = _MUTATOR_USER_TEMPLATE_V1
 
 # Solver chat template: must match R-Zero's verl/utils/dataset.py:196 exactly,
 # so the pseudo-labels we generate match the distribution verl will train against.

@@ -79,7 +79,7 @@ sync_once(){
   cp -f "$DEO_STORAGE"/results_summary*.json "$OUT/DEO/" 2>/dev/null
   cp -f "$RZERO_STORAGE"/iter_wallclock.tsv "$OUT/R-Zero_run/" 2>/dev/null
   cp -f "$ROOT/R-Zero/final_results.jsonl" "$OUT/final_results.jsonl" 2>/dev/null
-  for sub in datasets evaluation generated_question; do
+  for sub in datasets evaluation generated_question logs; do
     cpdir "$DEO_STORAGE/$sub" "$OUT/DEO/$sub"
     cpdir "$RZERO_STORAGE/$sub" "$OUT/R-Zero_run/$sub"
   done

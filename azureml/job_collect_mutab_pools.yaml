@@ -1,0 +1,27 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+display_name: collect-mutab-pools
+experiment_name: deo-rzero-7set
+description: "Copy per-iter MCMC pools from mutation-prompt A/B arms (mutv1/mutv2) for p_hat bucket analysis."
+compute: azureml:azureml-job-cpu-cluster
+environment:
+  image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04:latest
+code: ..
+command: bash azureml/collect_mutab_pools.sh ${{outputs.out}} ${{inputs.v1}} ${{inputs.v2}}
+inputs:
+  v1:
+    type: uri_folder
+    mode: ro_mount
+    path: azureml://datastores/workspaceblobstore/paths/yyd_mutv1_fb_4b/
+  v2:
+    type: uri_folder
+    mode: ro_mount
+    path: azureml://datastores/workspaceblobstore/paths/yyd_mutv2_fb_4b/
+outputs:
+  out:
+    type: uri_folder
+    mode: rw_mount
+    path: azureml://datastores/workspaceblobstore/paths/yyd_collect_mutab_pools/
+resources:
+  instance_type: Standard_D32_v3
+  instance_count: 1

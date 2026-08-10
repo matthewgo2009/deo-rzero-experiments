@@ -98,3 +98,23 @@ p̂<0.3 region the filter always discards.
 
 Data: `azureml/collect_4b_pools.sh` (mounts the 3 job outputs) → `tmp/analyze_buckets.py`.
 Source runs: heroic_eye_27t7rwjp20, witty_soca_n1qkh3yjpp, willing_panda_k1zb5m1s59.
+
+## Mutation-prompt A/B (4B, fixedbeta=0.1 walk, 2000q, no CD): conservative V2 does NOT reduce the gap
+
+Two arms differing ONLY in the mutation prompt (icy_sprout=V1 aggressive, boring_soca=V2 conservative
+localized; env `DEO_MUT_PROMPT=v2`). Prediction was V2 reduces the p̂<0.3 overshoot. **Refuted — reverse:**
+
+| per-iter mean | p̂<0.2 | GAP[.2,.3) | band[.3,.8] | p̂>0.8 |
+|--|--|--|--|--|
+| V1 aggressive | ~10% | ~19% | **~69%** | ~2% |
+| V2 conservative | ~16% | ~20% | **~56%** | ~7% |
+
+At fixed β=0.1 the walk is not overshooting — it is what pulls questions INTO the band (no-walk baseline
+sits ~50%). V1's bold proposals = larger MH moves = faster mixing toward p̂≈0.5 (69% in-band); V2's
+"one localized step" = smaller proposal steps = a weakened walk that stays near the base-sample
+distribution (56%). Both tails get fatter under V2 (too-hard 16% vs 10%, too-easy 7% vs 2%).
+
+Accuracy (Claude 7-set): dead heat at peak — V1 48.79 @i5, V2 48.83 @i5; V2 mean higher (47.41 vs 47.05)
+and much more stable early (i1 47.0 vs 45.1) despite ~200 fewer training q/iter → V2's per-question
+quality is likely higher, compensating for the weaker walk. Lesson: keep V1's large proposal steps,
+add V2's validity/self-check rules — don't shrink the step size.

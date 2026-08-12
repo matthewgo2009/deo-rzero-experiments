@@ -95,6 +95,7 @@ class Config:
     #     discounted update afterwards (rho<1 forgets stale experience).
     BANDIT_ENABLE = os.getenv("DEO_BANDIT", "0") == "1"
     BANDIT_RHO    = float(os.getenv("DEO_BANDIT_RHO", "0.9"))
+    BANDIT_EPS    = float(os.getenv("DEO_BANDIT_EPS", "0.1"))  # Trainable-context: require r_unc(x') >= r_unc(x)-eps
     SOLVER_TEMP = 1.0
     SOLVER_TOP_P = 1.0
     SOLVER_TOP_K = 40
@@ -418,14 +419,50 @@ else:
     MUTATOR_USER_TEMPLATE = _MUTATOR_USER_TEMPLATE_V1
 
 # --- Bandit-forced mutation (deo_with_memory.pdf §1.4): the bandit picks strategy a,
-#     the LLM must realize K_a. V1 system prompt (strategy descriptions) + a user
-#     template that pins the strategy. Parser unchanged.
+#     the LLM must realize K_a. Dedicated system prompt: the operator is selected
+#     EXTERNALLY (no "pick one" / "switch strategy" language that could make the model
+#     execute a different operator than the one the bandit gets credit for).
+#     Style: V1 large structural steps + V2 validity constraints, minus V2 locality.
 from mutation_bandit import MutationBandit, ACTION_NAMES  # noqa: E402
+
+MUTATOR_SYSTEM_PROMPT_BANDIT = """You are an expert competition-math problem setter. I will provide a seed problem
+and ONE pre-selected mutation strategy. The strategy has already been chosen externally — you MUST execute
+exactly that strategy. Do NOT choose, substitute, or switch to another strategy under any circumstances.
+
+STRATEGY DEFINITIONS (you will be told which ONE to apply):
+[A] GENERALIZE — Lift the structure: replace a specific constant with a parameter, OR raise the dimension
+    (2D → 3D, single-variable → multivariable, single equation → system of equations).
+[B] COMPOSE   — Add a NEW non-trivial second condition that interacts with the existing structure
+    (NOT just a range bound like "with x > 0"). The two conditions together must create a real interaction.
+[C] INVERT    — Given the original answer or output, ask the reader to recover an input or precondition.
+[D] CHANGE_OBJECTIVE — Change WHAT is being asked: e.g. "find x" → "count integer solutions",
+    "compute" → "find the smallest n such that ...", "find value" → "find sum of all such values".
+[E] DUALIZE   — Swap to a dual concept: sum↔product, max↔min, area↔perimeter,
+    gcd↔lcm, addition↔multiplication, distance↔angle.
+
+CRITICAL VALIDITY RULES:
+1. DO NOT just swap numbers. If the only edit is a digit change, you have FAILED.
+2. Every variable, symbol, function, and mathematical object must be explicitly defined.
+3. All conditions must be mutually consistent and sufficient to determine the answer.
+4. The final answer MUST be a SPECIFIC NUMBER, ALGEBRAIC EXPRESSION, or FINITE SET, and must be unique
+   (unless the question explicitly asks for a finite set or all valid values).
+5. Do NOT include the answer, solution steps, or hints inside the question; do NOT refer to the seed
+   problem, the strategy, or the generation process inside the question.
+6. NO "Prove that", "Show that", "Justify", True/False, or Yes/No questions.
+7. Do NOT output malformed LaTeX, placeholders, code, or XML/HTML inside the question text.
+8. LIMIT scratch-pad reasoning to UNDER 50 WORDS.
+
+Output format (STRICT — all three tags required; <strategy> must echo the assigned letter):
+<strategy>{A|B|C|D|E}</strategy>
+<question>
+[the NEW mutated problem statement]
+</question>
+\\boxed{final_answer}"""
 
 MUTATOR_USER_TEMPLATE_FORCED = (
     "Here is the seed problem:\n{seed}\n\n"
-    "Apply EXACTLY mutation strategy [{action}] ({action_name}) now — do NOT use any other "
-    "strategy, and output <strategy>{action}</strategy>. "
+    "Your assigned strategy is [{action}] ({action_name}). Apply EXACTLY this strategy now — do NOT use "
+    "any other strategy — and output <strategy>{action}</strategy>. "
     "Remember: number-swapping is FAILURE."
 )
 
@@ -822,7 +859,8 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
 
     pool_q, pool_gt, pool_runc, pool_phat, pool_pseudo = [], [], [], [], []
     pool_labels = []   # per-question list of n canonical answers (CD U-statistic)
-    pool_topic = []    # coarse topic label per slot (bandit context; inherited through mutations)
+    pool_topic = []    # SEED topic per slot: assigned at initial generation and inherited
+                       # through mutations (context is topic(x_0), not re-classified topic(x_t))
     pbar = tqdm(total=num_questions, desc="Init")
 
     forbidden = ["prove that", "show that", "justify", "explain", "true or false", "yes or no"]
@@ -907,14 +945,18 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
     # --- Bandit: contextual Thompson-sampling memory over mutation strategies.
     #     Loaded from persisted state (cross-iteration memory), FROZEN during this
     #     walk; discounted update + save happen after the walk completes (Eq 17).
-    bandit, bandit_path = None, None
+    bandit, bandit_path, bandit_run_id = None, None, None
+    bd_mismatch = bd_invalid = 0
     if config.BANDIT_ENABLE:
-        bandit_path = f"{config.STORAGE_ROOT}/datasets/bandit_state.json"
+        # per-run state file: independent runs must NOT share learned memory
+        bandit_run_id = os.getenv("DEO_BANDIT_RUN_ID", config.MODEL_ABBR)
+        bandit_path = f"{config.STORAGE_ROOT}/datasets/bandit_state_{bandit_run_id}.json"
         bandit = MutationBandit.load(bandit_path, pmin=config.MIN_SCORE,
                                      pmax=config.MAX_SCORE, rho=config.BANDIT_RHO)
-        print(f"[MCMC][bandit] TS mutation memory ON (rho={config.BANDIT_RHO}, "
-              f"{len(bandit.state)} learned contexts)", flush=True)
-        log_file.write(f"[Init][bandit] rho={config.BANDIT_RHO} contexts={len(bandit.state)}\n")
+        print(f"[MCMC][bandit] TS mutation memory ON (run={bandit_run_id}, rho={config.BANDIT_RHO}, "
+              f"eps={config.BANDIT_EPS}, {len(bandit.state)} learned contexts)", flush=True)
+        log_file.write(f"[Init][bandit] run={bandit_run_id} rho={config.BANDIT_RHO} "
+                       f"eps={config.BANDIT_EPS} contexts={len(bandit.state)}\n")
 
     # MCMC mutation walk — every accept/reject is O(N) thanks to incremental update
     for step in range(config.MCMC_STEPS):
@@ -930,7 +972,7 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                     a, ctx = bandit.select(pool_topic[k], pool_phat[k])
                     chosen[k] = (a, ctx)
                     m_prompts.append(apply_chat_template(
-                        tokenizer, MUTATOR_SYSTEM_PROMPT,
+                        tokenizer, MUTATOR_SYSTEM_PROMPT_BANDIT,
                         MUTATOR_USER_TEMPLATE_FORCED.format(
                             seed=pool_q[k], action=a, action_name=ACTION_NAMES[a]),
                     ))
@@ -952,17 +994,44 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
             for j, k in enumerate(batch_idx):
                 t = resp.choices[j].text
                 qp, gtp = extract_challenger_output(t)
-                strat = extract_mutation_strategy(t) or "?"
-                if k in chosen:
-                    strat = chosen[k][0]   # bookkeep the bandit's choice, not the model's claim
-                if qp and len(qp) > 30 and qp != pool_q[k]:
-                    proposals.append({"k": k, "q": qp, "gt": gtp, "strat": strat,
-                                      "old": pool_q[k]})
-                elif bandit is not None:
-                    # malformed / unchanged proposal: bandit failure (Eq 16, Valid=0);
-                    # never becomes an MCMC state.
+                actual = extract_mutation_strategy(t) or "?"
+                if bandit is not None:
                     a, ctx = chosen[k]
-                    bandit.record(ctx, a, 0)
+                    # operator compliance: credit ONLY the strategy actually executed.
+                    # A mismatch is a bandit failure and never reaches solver scoring/MH.
+                    if actual != a:
+                        bandit.record(ctx, a, 0)
+                        bd_mismatch += 1
+                        log_file.write(f"[bandit] strategy mismatch k={k}: chose {a}, "
+                                       f"model emitted {actual} -> proposal dropped\n")
+                        continue
+                if not (qp and len(qp) > 30 and qp != pool_q[k]):
+                    if bandit is not None:
+                        a, ctx = chosen[k]
+                        bandit.record(ctx, a, 0)   # malformed/unchanged: failure (Eq 16, Valid=0)
+                    continue
+                proposals.append({"k": k, "q": qp, "gt": gtp, "strat": actual,
+                                  "old": pool_q[k]})
+
+            # pre-MH surface-validity gate (bandit path): a proposal the LLM judge flags
+            # as INVALID is a bandit failure and never gets solver-scored or enters the
+            # chain. (The judge is a cheap local-vLLM format/surface filter that defaults
+            # to VALID — it does not certify mathematical correctness.)
+            if bandit is not None and proposals:
+                with ThreadPoolExecutor(max_workers=8) as ex:
+                    verdicts = list(ex.map(lambda p: judge_one_validity(p["q"], p["gt"]),
+                                           proposals))
+                kept = []
+                for p, ok in zip(proposals, verdicts):
+                    if ok:
+                        kept.append(p)
+                    else:
+                        a, ctx = chosen[p["k"]]
+                        bandit.record(ctx, a, 0)
+                        bd_invalid += 1
+                        log_file.write(f"[bandit] surface-INVALID k={p['k']} (act={a}) "
+                                       f"-> dropped pre-MH\n")
+                proposals = kept
             if proposals:
                 qs_new = [p["q"] for p in proposals]
                 labs_new, labs_old_map = None, {}
@@ -988,12 +1057,20 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
 
                     # --- bandit feedback (Eq 16): success = Valid * in-band * Novel.
                     #     Judged on the PROPOSAL, independent of the MH accept event.
+                    #     (Surface validity was already gated pre-scoring; pseudo-label
+                    #     existence is the residual cheap Valid component here.)
+                    #     For an already-Trainable state, additionally require the
+                    #     uncertainty utility not to degrade by more than eps, so the
+                    #     bandit can't score "success" for drifting a good state to the
+                    #     band edge.
                     bd_note = ""
                     if bandit is not None:
                         a_b, ctx_b = chosen[k]
                         s_ok = (pls[j] not in (None, "", "None")
                                 and config.MIN_SCORE <= float(phs[j]) <= config.MAX_SCORE
                                 and int(new_cluster[k]) <= 1)
+                        if s_ok and bandit.bucket(pool_phat[k]) == "Trainable":
+                            s_ok = float(rus[j]) >= float(r_unc_arr[k]) - config.BANDIT_EPS
                         bandit.record(ctx_b, a_b, s_ok)
                         bd_note = f"Bandit: ctx={ctx_b} act={a_b} succ={int(bool(s_ok))}  "
 
@@ -1063,12 +1140,17 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
             pbar_step.set_postfix({"V": f"{energy:.3f}"})
         pbar_step.close()
 
-    # --- bandit: discounted end-of-iteration update (Eq 17) + persist ---
+    # --- bandit: discounted end-of-iteration update (Eq 17) + persist + iter snapshot ---
     if bandit is not None:
         n_prop, n_succ = bandit.end_iteration()
         bandit.save(bandit_path)
+        m_it = re.search(r"iter_(\d+)", os.path.basename(log_path or ""))
+        if m_it:  # per-iteration snapshot for posterior-evolution analysis
+            bandit.save(f"{config.STORAGE_ROOT}/datasets/"
+                        f"bandit_state_{bandit_run_id}_iter{m_it.group(1)}.json")
         means = bandit.action_means()
-        msg = (f"[bandit] update: {n_succ}/{n_prop} proposal-successes this iter | "
+        msg = (f"[bandit] update: {n_succ}/{n_prop} proposal-successes this iter "
+               f"(mismatch={bd_mismatch}, surface-invalid={bd_invalid}) | "
                "action means: " + ", ".join(f"{a}={m:.2f}" for a, m in sorted(means.items())))
         print(msg, flush=True)
         log_file.write(msg + "\n")

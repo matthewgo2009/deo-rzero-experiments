@@ -4,13 +4,24 @@ The bandit learns WHICH mutation strategy (A–E) tends to produce valid, in-ban
 questions for each question context; Metropolis–Hastings remains responsible for
 accepting or rejecting the resulting proposals.
 
-- Context c(x) = (topic, difficulty bucket of p_hat): buckets Hard (p<pmin),
+- Context c(x) = (SEED topic, difficulty bucket of p_hat): buckets Hard (p<pmin),
   Trainable (pmin<=p<=pmax), Easy (p>pmax)                            [Eq (10)-(11)]
+  The topic is assigned at initial generation and inherited through mutations
+  (i.e. c uses topic(x_0), not a re-classified topic(x_t)).
 - Per (context, action): Beta(alpha, beta) posterior, uniform init    [Eq (12)]
 - Selection: Thompson sampling, z_a ~ Beta, a* = argmax               [Eq (14)]
 - Success s(x') = Valid(x') * 1{pmin<=p_hat(x')<=pmax} * Novel(x')    [Eq (16)]
+  Valid = strategy compliance + parse + SURFACE validity (a cheap LLM format
+  filter that defaults to VALID; it does not certify mathematical correctness).
+  For an already-Trainable state the caller additionally requires
+  r_unc(x') >= r_unc(x) - eps so "success" can't mean drifting to the band edge.
 - Frozen within an outer iteration; discounted update afterwards:
   alpha <- 1 + rho*(alpha-1) + S,  beta <- 1 + rho*(beta-1) + F       [Eq (17)]
+
+Note: the TS mixture proposal is state-dependent (context of x vs x' differ) and
+the LLM kernels K_a are not symmetric, so with the l~=0 approximation the sampler
+is an APPROXIMATE MH / energy-based accept-reject heuristic, not exact MH — same
+approximation the non-bandit walk already makes, made explicit here.
 
 State is a plain-JSON dict, safe to persist/reload across outer iterations and
 job restarts. Pure stdlib (random.betavariate); no numpy needed.

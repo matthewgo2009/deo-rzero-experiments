@@ -88,6 +88,13 @@ class Config:
     USTAT_M      = int(os.getenv("DEO_USTAT_M", "9"))       # subset size for order-m U-statistic
     USTAT_N      = int(os.getenv("DEO_USTAT_N", "12"))      # responses generated per question when CD on
     CD_FRESH_OLD = os.getenv("DEO_CD_FRESH_OLD", "0") == "1"  # re-score current state each step (else cache labels)
+
+    # --- Memory-augmented mutation kernel (deo_with_memory.pdf §1.4): contextual
+    #     Thompson sampling over strategies A-E. Bandit picks the strategy, the LLM
+    #     realizes it; MH acceptance unchanged. Frozen within an outer iteration,
+    #     discounted update afterwards (rho<1 forgets stale experience).
+    BANDIT_ENABLE = os.getenv("DEO_BANDIT", "0") == "1"
+    BANDIT_RHO    = float(os.getenv("DEO_BANDIT_RHO", "0.9"))
     SOLVER_TEMP = 1.0
     SOLVER_TOP_P = 1.0
     SOLVER_TOP_K = 40
@@ -409,6 +416,18 @@ if os.getenv("DEO_MUT_PROMPT", "v1").lower() == "v2":
 else:
     MUTATOR_SYSTEM_PROMPT = _MUTATOR_SYSTEM_PROMPT_V1
     MUTATOR_USER_TEMPLATE = _MUTATOR_USER_TEMPLATE_V1
+
+# --- Bandit-forced mutation (deo_with_memory.pdf §1.4): the bandit picks strategy a,
+#     the LLM must realize K_a. V1 system prompt (strategy descriptions) + a user
+#     template that pins the strategy. Parser unchanged.
+from mutation_bandit import MutationBandit, ACTION_NAMES  # noqa: E402
+
+MUTATOR_USER_TEMPLATE_FORCED = (
+    "Here is the seed problem:\n{seed}\n\n"
+    "Apply EXACTLY mutation strategy [{action}] ({action_name}) now — do NOT use any other "
+    "strategy, and output <strategy>{action}</strategy>. "
+    "Remember: number-swapping is FAILURE."
+)
 
 # Solver chat template: must match R-Zero's verl/utils/dataset.py:196 exactly,
 # so the pseudo-labels we generate match the distribution verl will train against.
@@ -803,6 +822,7 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
 
     pool_q, pool_gt, pool_runc, pool_phat, pool_pseudo = [], [], [], [], []
     pool_labels = []   # per-question list of n canonical answers (CD U-statistic)
+    pool_topic = []    # coarse topic label per slot (bandit context; inherited through mutations)
     pbar = tqdm(total=num_questions, desc="Init")
 
     forbidden = ["prove that", "show that", "justify", "explain", "true or false", "yes or no"]
@@ -813,18 +833,20 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
         gts = [d.get("gt", "") for d in init_pool]
         print(f"[MCMC] WARM START from {len(qs)} prev-iter questions (re-scoring with current solver)...")
         CH = 256
+        tps = [d.get("topic", "unknown") for d in init_pool]
         for s in range(0, len(qs), CH):
-            ch_q, ch_g = qs[s:s + CH], gts[s:s + CH]
+            ch_q, ch_g, ch_t = qs[s:s + CH], gts[s:s + CH], tps[s:s + CH]
             r_uncs, p_hats, pseudos, labs = evaluate_r_unc_vllm(tokenizer, ch_q, return_labels=True)
-            for q, gt, ru, ph, ps, lb in zip(ch_q, ch_g, r_uncs, p_hats, pseudos, labs):
+            for q, gt, tp, ru, ph, ps, lb in zip(ch_q, ch_g, ch_t, r_uncs, p_hats, pseudos, labs):
                 pool_q.append(q); pool_gt.append(gt); pool_runc.append(ru)
-                pool_phat.append(ph); pool_pseudo.append(ps); pool_labels.append(lb); pbar.update(1)
+                pool_phat.append(ph); pool_pseudo.append(ps); pool_labels.append(lb)
+                pool_topic.append(tp); pbar.update(1)
         num_questions = len(pool_q)
 
     while init_pool is None and len(pool_q) < num_questions:
         needed = num_questions - len(pool_q)
         bs = min(config.INIT_BATCH_SIZE, needed)
-        c_prompts = []
+        c_prompts, c_topics = [], []
         for _ in range(bs):
             topic = random.choice(MATH_TOPICS)
             user_p = (
@@ -832,6 +854,7 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                 f"YOU MUST STRICTLY FOCUS ON: **{topic}**."
             )
             c_prompts.append(apply_chat_template(tokenizer, CHALLENGER_SYSTEM_PROMPT, user_p))
+            c_topics.append(topic)
 
         resp = base_client().completions.create(
             model=config.MODEL_NAME,
@@ -840,17 +863,18 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
             temperature=1.0,
             top_p=0.95,
         )
-        valid_qs, valid_gts = [], []
-        for c in resp.choices:
+        valid_qs, valid_gts, valid_tps = [], [], []
+        for j, c in enumerate(resp.choices):
             q, gt = extract_challenger_output(c.text)
             if q and len(q) > 30 and not any(w in q.lower() for w in forbidden):
                 valid_qs.append(q)
                 valid_gts.append(gt)
+                valid_tps.append(c_topics[j])
         if not valid_qs:
             continue
 
         r_uncs, p_hats, pseudos, labs = evaluate_r_unc_vllm(tokenizer, valid_qs, return_labels=True)
-        for q, gt, ru, ph, ps, lb in zip(valid_qs, valid_gts, r_uncs, p_hats, pseudos, labs):
+        for q, gt, tp, ru, ph, ps, lb in zip(valid_qs, valid_gts, valid_tps, r_uncs, p_hats, pseudos, labs):
             if len(pool_q) >= num_questions:
                 break
             pool_q.append(q)
@@ -859,6 +883,7 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
             pool_phat.append(ph)
             pool_pseudo.append(ps)
             pool_labels.append(lb)
+            pool_topic.append(tp)
             pbar.update(1)
     pbar.close()
 
@@ -879,6 +904,18 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
         energy = float(np.sum(pool_ustat))
         log_file.write(f"[Init][CD] U(X_0) = {energy:.4f}\n")
 
+    # --- Bandit: contextual Thompson-sampling memory over mutation strategies.
+    #     Loaded from persisted state (cross-iteration memory), FROZEN during this
+    #     walk; discounted update + save happen after the walk completes (Eq 17).
+    bandit, bandit_path = None, None
+    if config.BANDIT_ENABLE:
+        bandit_path = f"{config.STORAGE_ROOT}/datasets/bandit_state.json"
+        bandit = MutationBandit.load(bandit_path, pmin=config.MIN_SCORE,
+                                     pmax=config.MAX_SCORE, rho=config.BANDIT_RHO)
+        print(f"[MCMC][bandit] TS mutation memory ON (rho={config.BANDIT_RHO}, "
+              f"{len(bandit.state)} learned contexts)", flush=True)
+        log_file.write(f"[Init][bandit] rho={config.BANDIT_RHO} contexts={len(bandit.state)}\n")
+
     # MCMC mutation walk — every accept/reject is O(N) thanks to incremental update
     for step in range(config.MCMC_STEPS):
         idx_perm = list(range(num_questions))
@@ -886,13 +923,25 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
         pbar_step = tqdm(total=num_questions, desc=f"MCMC step {step+1}/{config.MCMC_STEPS}")
         for i in range(0, num_questions, config.MUTATE_BATCH_SIZE):
             batch_idx = idx_perm[i: i + config.MUTATE_BATCH_SIZE]
-            m_prompts = [
-                apply_chat_template(
-                    tokenizer, MUTATOR_SYSTEM_PROMPT,
-                    MUTATOR_USER_TEMPLATE.format(seed=pool_q[k]),
-                )
-                for k in batch_idx
-            ]
+            chosen = {}   # k -> (action, context_key); bandit-selected strategy per slot
+            if bandit is not None:
+                m_prompts = []
+                for k in batch_idx:
+                    a, ctx = bandit.select(pool_topic[k], pool_phat[k])
+                    chosen[k] = (a, ctx)
+                    m_prompts.append(apply_chat_template(
+                        tokenizer, MUTATOR_SYSTEM_PROMPT,
+                        MUTATOR_USER_TEMPLATE_FORCED.format(
+                            seed=pool_q[k], action=a, action_name=ACTION_NAMES[a]),
+                    ))
+            else:
+                m_prompts = [
+                    apply_chat_template(
+                        tokenizer, MUTATOR_SYSTEM_PROMPT,
+                        MUTATOR_USER_TEMPLATE.format(seed=pool_q[k]),
+                    )
+                    for k in batch_idx
+                ]
             resp = base_client().completions.create(
                 model=config.MODEL_NAME,
                 prompt=m_prompts,
@@ -904,9 +953,16 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                 t = resp.choices[j].text
                 qp, gtp = extract_challenger_output(t)
                 strat = extract_mutation_strategy(t) or "?"
+                if k in chosen:
+                    strat = chosen[k][0]   # bookkeep the bandit's choice, not the model's claim
                 if qp and len(qp) > 30 and qp != pool_q[k]:
                     proposals.append({"k": k, "q": qp, "gt": gtp, "strat": strat,
                                       "old": pool_q[k]})
+                elif bandit is not None:
+                    # malformed / unchanged proposal: bandit failure (Eq 16, Valid=0);
+                    # never becomes an MCMC state.
+                    a, ctx = chosen[k]
+                    bandit.record(ctx, a, 0)
             if proposals:
                 qs_new = [p["q"] for p in proposals]
                 labs_new, labs_old_map = None, {}
@@ -929,6 +985,17 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                     delta[k] = 0
                     new_cluster = cluster_size + delta
                     new_cluster[k] = float(new_row.sum())
+
+                    # --- bandit feedback (Eq 16): success = Valid * in-band * Novel.
+                    #     Judged on the PROPOSAL, independent of the MH accept event.
+                    bd_note = ""
+                    if bandit is not None:
+                        a_b, ctx_b = chosen[k]
+                        s_ok = (pls[j] not in (None, "", "None")
+                                and config.MIN_SCORE <= float(phs[j]) <= config.MAX_SCORE
+                                and int(new_cluster[k]) <= 1)
+                        bandit.record(ctx_b, a_b, s_ok)
+                        bd_note = f"Bandit: ctx={ctx_b} act={a_b} succ={int(bool(s_ok))}  "
 
                     sigma2D = 0.0
                     nbr_u_new = {}
@@ -961,7 +1028,8 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                     cd_note = f"sigma2D={sigma2D:.4f}  " if config.CD_ENABLE else ""
                     log_file.write(
                         f"\n[Step {step+1} | Batch {i // config.MUTATE_BATCH_SIZE}] "
-                        f"Result: {'ACCEPTED' if accept else 'REJECTED'} | Strategy: {p['strat']}\n"
+                        f"Result: {'ACCEPTED' if accept else 'REJECTED'} | Strategy: {p['strat']} | "
+                        f"{bd_note}k={k}\n"
                         f"--- [OLD QUESTION] ---\n{p['old']}\n"
                         f"--- [NEW QUESTION] ---\n{p['q']}\n"
                         f"r_unc:        {float(r_unc_arr[k]):.4f} -> {rus[j]:.4f}\n"
@@ -995,10 +1063,23 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
             pbar_step.set_postfix({"V": f"{energy:.3f}"})
         pbar_step.close()
 
+    # --- bandit: discounted end-of-iteration update (Eq 17) + persist ---
+    if bandit is not None:
+        n_prop, n_succ = bandit.end_iteration()
+        bandit.save(bandit_path)
+        means = bandit.action_means()
+        msg = (f"[bandit] update: {n_succ}/{n_prop} proposal-successes this iter | "
+               "action means: " + ", ".join(f"{a}={m:.2f}" for a, m in sorted(means.items())))
+        print(msg, flush=True)
+        log_file.write(msg + "\n")
+        for line in bandit.summary():
+            log_file.write(f"[bandit] {line}\n")
+
     log_file.close()
     return [
         {"question": pool_q[i], "gt": pool_gt[i], "p_hat": pool_phat[i],
-         "pseudo_label": pool_pseudo[i], "r_unc": pool_runc[i]}
+         "pseudo_label": pool_pseudo[i], "r_unc": pool_runc[i],
+         "topic": pool_topic[i] if i < len(pool_topic) else "unknown"}
         for i in range(num_questions)
     ]
 

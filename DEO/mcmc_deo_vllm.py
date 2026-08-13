@@ -425,20 +425,25 @@ else:
 #     Style: V1 large structural steps + V2 validity constraints, minus V2 locality.
 from mutation_bandit import MutationBandit, ACTION_NAMES  # noqa: E402
 
-MUTATOR_SYSTEM_PROMPT_BANDIT = """You are an expert competition-math problem setter. I will provide a seed problem
-and ONE pre-selected mutation strategy. The strategy has already been chosen externally — you MUST execute
-exactly that strategy. Do NOT choose, substitute, or switch to another strategy under any circumstances.
+# Per-operator descriptions (V1 wording). The bandit prompt shows ONLY the selected
+# operator — the model is never offered a menu, so there is nothing to "switch" to.
+STRATEGY_DESCRIPTIONS = {
+    "A": "GENERALIZE — Lift the structure: replace a specific constant with a parameter, OR raise the dimension\n"
+         "(2D → 3D, single-variable → multivariable, single equation → system of equations).",
+    "B": "COMPOSE — Add a NEW non-trivial second condition that interacts with the existing structure\n"
+         "(NOT just a range bound like \"with x > 0\"). The two conditions together must create a real interaction.",
+    "C": "INVERT — Given the original answer or output, ask the reader to recover an input or precondition.",
+    "D": "CHANGE_OBJECTIVE — Change WHAT is being asked: e.g. \"find x\" → \"count integer solutions\",\n"
+         "\"compute\" → \"find the smallest n such that ...\", \"find value\" → \"find sum of all such values\".",
+    "E": "DUALIZE — Swap to a dual concept: sum↔product, max↔min, area↔perimeter,\n"
+         "gcd↔lcm, addition↔multiplication, distance↔angle.",
+}
 
-STRATEGY DEFINITIONS (you will be told which ONE to apply):
-[A] GENERALIZE — Lift the structure: replace a specific constant with a parameter, OR raise the dimension
-    (2D → 3D, single-variable → multivariable, single equation → system of equations).
-[B] COMPOSE   — Add a NEW non-trivial second condition that interacts with the existing structure
-    (NOT just a range bound like "with x > 0"). The two conditions together must create a real interaction.
-[C] INVERT    — Given the original answer or output, ask the reader to recover an input or precondition.
-[D] CHANGE_OBJECTIVE — Change WHAT is being asked: e.g. "find x" → "count integer solutions",
-    "compute" → "find the smallest n such that ...", "find value" → "find sum of all such values".
-[E] DUALIZE   — Swap to a dual concept: sum↔product, max↔min, area↔perimeter,
-    gcd↔lcm, addition↔multiplication, distance↔angle.
+# Single-operator system prompt (placeholders replaced via .replace to avoid brace escaping).
+_MUTATOR_SYSTEM_PROMPT_BANDIT_TMPL = """You are an expert competition-math problem setter. I will provide a seed problem.
+Your task is to generate a NEW problem by applying the following mutation operation to the seed:
+
+[__LETTER__] __STRATEGY_BLOCK__
 
 CRITICAL VALIDITY RULES:
 1. DO NOT just swap numbers. If the only edit is a digit change, you have FAILED.
@@ -447,22 +452,28 @@ CRITICAL VALIDITY RULES:
 4. The final answer MUST be a SPECIFIC NUMBER, ALGEBRAIC EXPRESSION, or FINITE SET, and must be unique
    (unless the question explicitly asks for a finite set or all valid values).
 5. Do NOT include the answer, solution steps, or hints inside the question; do NOT refer to the seed
-   problem, the strategy, or the generation process inside the question.
+   problem, the mutation operation, or the generation process inside the question.
 6. NO "Prove that", "Show that", "Justify", True/False, or Yes/No questions.
 7. Do NOT output malformed LaTeX, placeholders, code, or XML/HTML inside the question text.
 8. LIMIT scratch-pad reasoning to UNDER 50 WORDS.
 
-Output format (STRICT — all three tags required; <strategy> must echo the assigned letter):
-<strategy>{A|B|C|D|E}</strategy>
+Output format (STRICT — all three tags required):
+<strategy>__LETTER__</strategy>
 <question>
 [the NEW mutated problem statement]
 </question>
 \\boxed{final_answer}"""
 
+
+def mutator_system_prompt_bandit(action):
+    return (_MUTATOR_SYSTEM_PROMPT_BANDIT_TMPL
+            .replace("__STRATEGY_BLOCK__", STRATEGY_DESCRIPTIONS[action])
+            .replace("__LETTER__", action))
+
+
 MUTATOR_USER_TEMPLATE_FORCED = (
     "Here is the seed problem:\n{seed}\n\n"
-    "Your assigned strategy is [{action}] ({action_name}). Apply EXACTLY this strategy now — do NOT use "
-    "any other strategy — and output <strategy>{action}</strategy>. "
+    "Apply the [{action}] ({action_name}) mutation to it now. "
     "Remember: number-swapping is FAILURE."
 )
 
@@ -971,8 +982,10 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                 for k in batch_idx:
                     a, ctx = bandit.select(pool_topic[k], pool_phat[k])
                     chosen[k] = (a, ctx)
+                    # single-operator prompt: only the selected operator is described,
+                    # so the model has no menu to deviate to.
                     m_prompts.append(apply_chat_template(
-                        tokenizer, MUTATOR_SYSTEM_PROMPT_BANDIT,
+                        tokenizer, mutator_system_prompt_bandit(a),
                         MUTATOR_USER_TEMPLATE_FORCED.format(
                             seed=pool_q[k], action=a, action_name=ACTION_NAMES[a]),
                     ))
@@ -997,20 +1010,19 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                 actual = extract_mutation_strategy(t) or "?"
                 if bandit is not None:
                     a, ctx = chosen[k]
-                    # operator compliance: credit ONLY the strategy actually executed.
-                    # A mismatch is a bandit failure and never reaches solver scoring/MH.
+                    # AUDIT ONLY: with a single-operator prompt the tag is expected to echo
+                    # the assigned letter; a different tag is counted but NOT a rejection —
+                    # the proposal was generated under the selected operator's instructions,
+                    # so the outcome is credited to the chosen action regardless.
                     if actual != a:
-                        bandit.record(ctx, a, 0)
                         bd_mismatch += 1
-                        log_file.write(f"[bandit] strategy mismatch k={k}: chose {a}, "
-                                       f"model emitted {actual} -> proposal dropped\n")
-                        continue
                 if not (qp and len(qp) > 30 and qp != pool_q[k]):
                     if bandit is not None:
                         a, ctx = chosen[k]
                         bandit.record(ctx, a, 0)   # malformed/unchanged: failure (Eq 16, Valid=0)
                     continue
-                proposals.append({"k": k, "q": qp, "gt": gtp, "strat": actual,
+                proposals.append({"k": k, "q": qp, "gt": gtp,
+                                  "strat": chosen[k][0] if k in chosen else actual,
                                   "old": pool_q[k]})
 
             # pre-MH surface-validity gate (bandit path): a proposal the LLM judge flags
@@ -1150,7 +1162,7 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                         f"bandit_state_{bandit_run_id}_iter{m_it.group(1)}.json")
         means = bandit.action_means()
         msg = (f"[bandit] update: {n_succ}/{n_prop} proposal-successes this iter "
-               f"(mismatch={bd_mismatch}, surface-invalid={bd_invalid}) | "
+               f"(tag-mismatch-audit={bd_mismatch}, surface-invalid={bd_invalid}) | "
                "action means: " + ", ".join(f"{a}={m:.2f}" for a, m in sorted(means.items())))
         print(msg, flush=True)
         log_file.write(msg + "\n")

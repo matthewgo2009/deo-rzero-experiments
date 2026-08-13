@@ -112,3 +112,13 @@ The run continues (iter 3/5 at time of writing) and will complete for the record
 final 7-set number should be read as "strict-compliance variant", not as the ceiling of
 bandit-augmented MCMC. Per-iter bandit snapshots (`bandit_state_bandit_fb_4b_r1_iterN.json`)
 are persisted for posterior-evolution analysis.
+
+## Postscript: r1 (strict variant) completed the full 5 iterations
+
+MATH-500: 71.6 → 74.8 → 76.6 → 76.0 → 76.6 → **77.8** (peak i5, monotone-ish climb).
+Mismatch stayed flat at ~62% across all 5 iters (6115–6291/10k — a model property, not
+drift); successes 4–5%/iter; action means flat to the end (bandit learned nothing, as
+predicted). Notable shape: despite ~1/4 throughput the run climbs steadily and ends ABOVE
+the uniform arm's i5 (77.8 vs icy_sprout 74.2), though below its peak (78.2 @i1) — consistent
+with "fewer but pre-filtered proposals degrade the pool more slowly". 7-set not graded
+(superseded by r2 = single-operator prompt + audit-only tag, run mango_lion).

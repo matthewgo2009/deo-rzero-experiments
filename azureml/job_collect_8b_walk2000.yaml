@@ -1,0 +1,23 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+display_name: collect-8b-walk2000
+experiment_name: deo-rzero-7set
+description: "Copy cool_loquat (8B fixedbeta-walk 2000q, V1 prompt) pools + filtered sets."
+compute: azureml:azureml-job-cpu-cluster
+environment:
+  image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04:latest
+code: ..
+command: bash azureml/collect_8b_walk2000.sh ${{outputs.out}} ${{inputs.v1}}
+inputs:
+  v1:
+    type: uri_folder
+    mode: ro_mount
+    path: azureml://datastores/workspaceblobstore/paths/yyd_8b_fixedbeta_2000/
+outputs:
+  out:
+    type: uri_folder
+    mode: rw_mount
+    path: azureml://datastores/workspaceblobstore/paths/yyd_collect_8b_walk2000/
+resources:
+  instance_type: Standard_D32_v3
+  instance_count: 1

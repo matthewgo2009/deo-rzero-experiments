@@ -35,12 +35,13 @@ So to compare like-for-like, first restrict the DEO files to `p_hat ∈ [0.3, 0.
 | field | meaning |
 |--|--|
 | `problem` | the question text (from the trained questioner) |
-| `answer` | the questioner's boxed answer (used as the label) |
+| `answer` | the SOLVER's majority-vote answer over m rollouts (the training label; the questioner's boxed answer is discarded at scoring — see R-Zero/question_evaluate/evaluate.py) |
 | `score` | = p̂ (majority-vote fraction, `max_count/len`); same quantity as DEO `p_hat` |
 
 Field correspondence: DEO `question` ↔ R-Zero `problem`; DEO `p_hat` ↔ R-Zero `score`.
-Label note: DEO `pseudo_label` is the **solver's** modal answer; R-Zero `answer` is the
-**questioner's** self-proposed answer — the pseudo-label is generated differently in the two methods.
+Label note: BOTH methods label identically — DEO `pseudo_label` and R-Zero `answer` are each the
+solver's majority-vote (modal) answer over m rollouts. (An earlier revision of this file wrongly said
+R-Zero uses the questioner's self-proposed answer; evaluate.py overwrites it with the majority vote.)
 
 ## Known summary stats (see ../difficulty_phat_stats.txt, ../../DIFFICULTY_DISTRIBUTION.md)
 

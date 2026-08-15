@@ -15,8 +15,9 @@ analysis of question style, difficulty, correctness, and drift across iterations
 ## Field meaning
 
 - **q** — the question text.
-- **label** — the pseudo-label used for solver training. DEO: the solver's modal answer over m samples.
-  R-Zero: the questioner's own boxed answer.
+- **label** — the pseudo-label used for solver training. BOTH methods: the solver's majority-vote
+  (modal) answer over m rollouts (R-Zero's evaluate.py overwrites the questioner's boxed answer with
+  the majority vote before the training set is built).
 - **gt (challenger)** — DEO only: the challenger/proposer's proposed answer for the question.
 - **p̂** — self-consistency = modal-answer count / m (m=9 for 8B/no-CD, m=12 for 4B/CD). R-Zero's `score`
   is exactly this quantity. Difficulty proxy: p̂≈0.5 = maximally uncertain; low p̂ = solver all over the place.

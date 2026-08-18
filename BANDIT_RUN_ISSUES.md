@@ -122,3 +122,19 @@ predicted). Notable shape: despite ~1/4 throughput the run climbs steadily and e
 the uniform arm's i5 (77.8 vs icy_sprout 74.2), though below its peak (78.2 @i1) — consistent
 with "fewer but pre-filtered proposals degrade the pool more slowly". 7-set not graded
 (superseded by r2 = single-operator prompt + audit-only tag, run mango_lion).
+
+## Final verdict: r2 (single-operator prompt, audit-only tag) 7-set
+
+| arm | AVG7 peak | HARD5 peak | COMP4 peak |
+|--|--|--|--|
+| V1 uniform (icy_sprout) | **48.79** @i5 | 34.94 | 31.62 |
+| bandit r2 (mango_lion) | 47.73 @i5 | 33.12 | 29.90 |
+
+Bandit r2 loses to uniform by ~1.1 AVG7 despite restored throughput. Combined with flat action
+means across all 10 iterations of r1+r2 (success-rate spread between operators ≈ noise), the
+conclusion is: **contextual TS memory over mutation operators A–E gives no gain at 4B — the five
+operators are statistically indistinguishable in usefulness on this distribution**, so the bandit
+can only match uniform minus its overhead (judge-gate latency + audit machinery). The mechanism
+worked as designed (state persisted, TS explored, feedback flowed); the arms simply aren't
+different. Line closed unless a future setting shows operator heterogeneity (e.g. larger mutator
+model with real instruction-following, or finer-grained operators).

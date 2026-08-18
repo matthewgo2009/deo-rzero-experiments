@@ -96,6 +96,15 @@ class Config:
     BANDIT_ENABLE = os.getenv("DEO_BANDIT", "0") == "1"
     BANDIT_RHO    = float(os.getenv("DEO_BANDIT_RHO", "0.9"))
     BANDIT_EPS    = float(os.getenv("DEO_BANDIT_EPS", "0.1"))  # Trainable-context: require r_unc(x') >= r_unc(x)-eps
+
+    # --- QUESTION_ANALYSIS_8B.md recommendations 1+2 ---
+    # 1) STRIP_LEAKS: reject questions containing solution leakage (\boxed in the text,
+    #    mutation meta-text) or lacking any interrogative/imperative — ~6-10% of DEO pools
+    #    are wasted/poisoned prompts otherwise.
+    # 2) EASY_BALLAST: reshape the uploaded training set so ~this share comes from
+    #    p_hat in [0.6, MAX_SCORE] (labels most likely correct); rest is subsampled.
+    STRIP_LEAKS  = os.getenv("DEO_STRIP_LEAKS", "0") == "1"
+    EASY_BALLAST = float(os.getenv("DEO_EASY_BALLAST", "0"))
     SOLVER_TEMP = 1.0
     SOLVER_TOP_P = 1.0
     SOLVER_TOP_K = 40
@@ -124,6 +133,25 @@ config = Config()
 # ==========================================
 # 1b. Validity filtering (regex + LLM-judge cascade)
 # ==========================================
+# Leak filter (QUESTION_ANALYSIS_8B.md rec #1, gated by DEO_STRIP_LEAKS): rejects
+# questions with solution leakage or mutation meta-text, and questions with no
+# interrogative/imperative (fragments that can't be answered).
+_LEAK_MARKERS = ["\\boxed{", "original problem", "seed problem", "change the operation",
+                 "<inside", "\\inst{", "mutated problem", "mutation strategy"]
+_ASK_RE = re.compile(
+    r"\?|find|determine|compute|calculate|evaluate|how many|how much|what is|what are|solve for|solve",
+    re.IGNORECASE)
+
+
+def question_is_leaky(q):
+    ql = q.lower()
+    if any(m in ql for m in _LEAK_MARKERS):
+        return True
+    if not _ASK_RE.search(q):
+        return True   # no ask: statement fragment, cannot be a training prompt
+    return False
+
+
 # Stage 1: cheap substring/regex check. Drops obvious prompt-template echoes,
 # XML-tag leakage, mutation-strategy keywords, proof-class problems. Applied
 # inside extract_challenger_output, so polluted questions never enter the
@@ -915,7 +943,8 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
         valid_qs, valid_gts, valid_tps = [], [], []
         for j, c in enumerate(resp.choices):
             q, gt = extract_challenger_output(c.text)
-            if q and len(q) > 30 and not any(w in q.lower() for w in forbidden):
+            if (q and len(q) > 30 and not any(w in q.lower() for w in forbidden)
+                    and not (config.STRIP_LEAKS and question_is_leaky(q))):
                 valid_qs.append(q)
                 valid_gts.append(gt)
                 valid_tps.append(c_topics[j])
@@ -1016,10 +1045,11 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                     # so the outcome is credited to the chosen action regardless.
                     if actual != a:
                         bd_mismatch += 1
-                if not (qp and len(qp) > 30 and qp != pool_q[k]):
+                if (not (qp and len(qp) > 30 and qp != pool_q[k])
+                        or (config.STRIP_LEAKS and question_is_leaky(qp))):
                     if bandit is not None:
                         a, ctx = chosen[k]
-                        bandit.record(ctx, a, 0)   # malformed/unchanged: failure (Eq 16, Valid=0)
+                        bandit.record(ctx, a, 0)   # malformed/unchanged/leaky: failure (Eq 16, Valid=0)
                     continue
                 proposals.append({"k": k, "q": qp, "gt": gtp,
                                   "strat": chosen[k][0] if k in chosen else actual,
@@ -1198,6 +1228,10 @@ def filter_and_push(train_data, repo_name, config_name):
         if d["pseudo_label"] not in (None, "", "None")
         and config.MIN_SCORE <= d["p_hat"] <= config.MAX_SCORE
     ]
+    if config.STRIP_LEAKS:  # defense-in-depth: also scrub anything already in the pool
+        n_before = len(stage1)
+        stage1 = [d for d in stage1 if not question_is_leaky(d["question"])]
+        print(f"[filter] leak-strip dropped {n_before - len(stage1)}/{n_before}")
     n_phat = len(stage1)
     print(f"[filter] phat∈[{config.MIN_SCORE},{config.MAX_SCORE}]+pseudo: "
           f"{n_phat}/{n_total} passed")
@@ -1229,6 +1263,32 @@ def filter_and_push(train_data, repo_name, config_name):
         {"problem": d["question"], "answer": d["pseudo_label"], "score": d["p_hat"]}
         for d in stage2
     ]
+
+    # Easy-band ballast (QUESTION_ANALYSIS_8B.md rec #2): reshape the uploaded set so
+    # ~EASY_BALLAST of it sits at p_hat in [0.6, MAX_SCORE], where majority-vote labels
+    # are most often correct. verl samples its 1280 prompts uniformly from this set, so
+    # the dataset share IS the expected consumed share. Rest is subsampled (never below
+    # verl's ~512-row floor).
+    if config.EASY_BALLAST > 0 and filtered:
+        easy = [d for d in filtered if float(d["score"]) >= 0.6]
+        rest = [d for d in filtered if float(d["score"]) < 0.6]
+        share = len(easy) / len(filtered)
+        if not easy:
+            print("[ballast] WARNING: no easy-band questions available; skipping reshape")
+        elif share >= config.EASY_BALLAST:
+            print(f"[ballast] easy share already {share:.2f} >= target {config.EASY_BALLAST}; no reshape")
+        else:
+            max_rest = int(len(easy) * (1 - config.EASY_BALLAST) / config.EASY_BALLAST)
+            keep_rest = max(max_rest, 512 - len(easy))
+            if keep_rest < len(rest):
+                random.seed(0)
+                rest = random.sample(rest, keep_rest)
+            filtered = easy + rest
+            random.shuffle(filtered)
+            print(f"[ballast] reshaped: easy={len(easy)} rest={len(rest)} "
+                  f"-> share={len(easy)/len(filtered):.2f} (target {config.EASY_BALLAST}), "
+                  f"n={len(filtered)}")
+
     print(f"[upload] {len(filtered)}/{n_total} final after regex+phat+pseudo+judge")
     if not filtered:
         raise SystemExit("ERROR: 0 questions passed filter — cannot train empty dataset.")

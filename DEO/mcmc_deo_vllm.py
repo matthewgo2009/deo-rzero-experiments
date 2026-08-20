@@ -511,6 +511,38 @@ MUTATOR_USER_TEMPLATE_FORCED = (
     "Remember: number-swapping is FAILURE."
 )
 
+# [F] OLYMPIAD_REWRITE (QUESTION_ANALYSIS rec #3): style-transfer operator — rewrite the
+# seed in formal olympiad register, identical mathematics. Proposals are re-scored with
+# fresh solver rollouts like any mutation, so an unfaithful rewrite still gets a
+# consistent fresh label.
+MUTATOR_SYSTEM_PROMPT_STYLE = """You are an expert competition-math problem editor. I will provide a seed problem.
+Your task is to REWRITE it in formal olympiad register while preserving the underlying mathematics EXACTLY.
+
+REWRITE RULES:
+1. Keep every quantity, constraint, mathematical object, and the final answer IDENTICAL to the seed.
+   Do NOT change numbers, conditions, or what is being asked for mathematically.
+2. Rephrase into formal competition style: introduce objects with "Let ..." / "Suppose further that ...",
+   state conditions as separate formal clauses, and phrase the goal as "Determine ..." / "Find the value of ...".
+3. Prefer precise quantifiers ("for every positive integer n", "there exists a unique") over casual wording;
+   remove story/narrative framing (names, everyday objects) in favor of abstract mathematical statement.
+4. The rewrite should read like an AMC/AIME/olympiad problem statement. Length may grow moderately,
+   but do NOT add new conditions, hints, or solution steps.
+5. Do NOT include the answer or any \\boxed expression inside the question text.
+6. LIMIT scratch-pad reasoning to UNDER 30 WORDS.
+
+Output format (STRICT — all three tags required):
+<strategy>F</strategy>
+<question>
+[the rewritten problem statement]
+</question>
+\\boxed{final_answer}"""
+
+MUTATOR_USER_TEMPLATE_STYLE = (
+    "Here is the seed problem:\n{seed}\n\n"
+    "Rewrite it in formal olympiad register now. Preserve the mathematics and the final answer exactly; "
+    "change only the phrasing and presentation."
+)
+
 # Solver chat template: must match R-Zero's verl/utils/dataset.py:196 exactly,
 # so the pseudo-labels we generate match the distribution verl will train against.
 RZERO_SOLVER_SYSTEM = r"Please reason step by step, and put your final answer within \boxed{}."
@@ -1044,6 +1076,7 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
         for i in range(0, num_questions, config.MUTATE_BATCH_SIZE):
             batch_idx = idx_perm[i: i + config.MUTATE_BATCH_SIZE]
             chosen = {}   # k -> (action, context_key); bandit-selected strategy per slot
+            style_ks = set()  # slots mutated via the [F] olympiad-rewrite operator
             if bandit is not None:
                 m_prompts = []
                 for k in batch_idx:
@@ -1057,13 +1090,19 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                             seed=pool_q[k], action=a, action_name=ACTION_NAMES[a]),
                     ))
             else:
-                m_prompts = [
-                    apply_chat_template(
-                        tokenizer, MUTATOR_SYSTEM_PROMPT,
-                        MUTATOR_USER_TEMPLATE.format(seed=pool_q[k]),
-                    )
-                    for k in batch_idx
-                ]
+                m_prompts = []
+                for k in batch_idx:
+                    if config.STYLE_P > 0 and random.random() < config.STYLE_P:
+                        style_ks.add(k)
+                        m_prompts.append(apply_chat_template(
+                            tokenizer, MUTATOR_SYSTEM_PROMPT_STYLE,
+                            MUTATOR_USER_TEMPLATE_STYLE.format(seed=pool_q[k]),
+                        ))
+                    else:
+                        m_prompts.append(apply_chat_template(
+                            tokenizer, MUTATOR_SYSTEM_PROMPT,
+                            MUTATOR_USER_TEMPLATE.format(seed=pool_q[k]),
+                        ))
             resp = base_client().completions.create(
                 model=config.MODEL_NAME,
                 prompt=m_prompts,
@@ -1090,7 +1129,8 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                         bandit.record(ctx, a, 0)   # malformed/unchanged/leaky: failure (Eq 16, Valid=0)
                     continue
                 proposals.append({"k": k, "q": qp, "gt": gtp,
-                                  "strat": chosen[k][0] if k in chosen else actual,
+                                  "strat": ("F" if k in style_ks else
+                                            (chosen[k][0] if k in chosen else actual)),
                                   "old": pool_q[k]})
 
             # pre-MH surface-validity gate (bandit path): a proposal the LLM judge flags

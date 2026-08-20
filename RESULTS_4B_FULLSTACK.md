@@ -149,3 +149,33 @@ previous iteration's pool gives no benefit (48.59). Gains trace to cleaner label
 useful (mostly AMC/Minerva-type) questions, not to difficulty control or pool size — consistent with
 `BUCKET_ANALYSIS.md`, where CD's 1/β² variance penalty actually freezes the strong-β walk at the β floor,
 so the "strong control" concentration never materializes yet accuracy is still highest.
+
+## Question-distribution & label interventions — both falsified (Aug 2026)
+
+Two intervention experiments testing the QUESTION_ANALYSIS_8B.md hypotheses (Claude grader):
+
+**R-Zero 4B + Claude labels** (`frank_fork`, RZ_LABEL=claude, 2000/iter relabeled by Sonnet):
+Claude-vs-majority-vote agreement fell 62.6%→22.8% across iters (independent reproduction of the
+label collapse). Downstream: AVG7 peak 48.90 @i3 vs original 48.13 @i2 (+0.77 peak, +0.18 mean),
+HARD5 34.64. Ties best-4B heroic_eye (48.94) but the mean gain is noise-level → **fixing labels
+buys almost nothing; GRPO's label-noise tolerance confirmed.**
+
+**DEO 8B fix12** (`polite_neck`: walk 2000q + CD + β=0.1 + KL base + leak-strip + 25% easy-band
+ballast): mechanisms worked exactly as designed (upstream gates kept the pool leak-free; ballast
+share 0.25 every iter; training sets 812–972 after reshaping). Accuracy:
+
+| run | AVG7 per iter | peak |
+|--|--|--|
+| fix12 | 53.29 53.07 52.09 52.19 51.50 | 53.29 @i1 |
+| cool_loquat (no CD, no fixes) | 52.01 53.39 53.60 51.60 51.17 | **53.60** @i3 |
+| coral_sail (CD+KLprev, no fixes) | 53.13 52.30 50.77 52.16 – | 53.13 @i1 |
+
+Prediction A (leak-strip +0.3–0.7 AVG): **failed** (−0.31 vs cool_loquat; +0.16 vs the CD-matched
+control = noise; the deficit matches the known −0.5 CD effect). Prediction B (ballast moves the
+peak past iter3): **failed in the opposite direction** (peak at i1, monotone decline; possibly
+worsened by the ballast shrinking the training set ~40% → more repetition).
+
+**Hypothesis ledger for R-Zero's 8B lead (54.57 vs best DEO 53.60):** labels ✗ (claudelabel),
+mechanical leaks ✗, easy-band ballast ✗, KL anchor ✗, β control ✗, warm-start ✗ (4B), operator
+bandit ✗ (4B), conservative mutations ✗. Remaining untested: (i) olympiad-register style transfer
+(QUESTION_ANALYSIS rec #3), (ii) selection headroom / pool scale (8000-q + more verl steps).

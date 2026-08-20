@@ -105,6 +105,12 @@ class Config:
     #    p_hat in [0.6, MAX_SCORE] (labels most likely correct); rest is subsampled.
     STRIP_LEAKS  = os.getenv("DEO_STRIP_LEAKS", "0") == "1"
     EASY_BALLAST = float(os.getenv("DEO_EASY_BALLAST", "0"))
+
+    # Big-init subset walk (pool-scale / selection-headroom test): generate INIT_POOL
+    # questions per iter, then walk only TOTAL_QUESTIONS of them — in-band seeds chosen
+    # at random (mirrors verl's uniform sampling of R-Zero's ~4000-question sets).
+    # 0 = off (generate exactly TOTAL_QUESTIONS, current behavior).
+    INIT_POOL = int(os.getenv("DEO_INIT_POOL", "0"))
     SOLVER_TEMP = 1.0
     SOLVER_TOP_P = 1.0
     SOLVER_TOP_K = 40
@@ -900,7 +906,12 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
     pool_labels = []   # per-question list of n canonical answers (CD U-statistic)
     pool_topic = []    # SEED topic per slot: assigned at initial generation and inherited
                        # through mutations (context is topic(x_0), not re-classified topic(x_t))
-    pbar = tqdm(total=num_questions, desc="Init")
+    gen_target = (config.INIT_POOL
+                  if (init_pool is None and config.INIT_POOL > num_questions)
+                  else num_questions)
+    if gen_target > num_questions:
+        print(f"[MCMC] big-init: generating {gen_target}, walking a {num_questions}-seed subset")
+    pbar = tqdm(total=gen_target, desc="Init")
 
     forbidden = ["prove that", "show that", "justify", "explain", "true or false", "yes or no"]
 
@@ -920,8 +931,8 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                 pool_topic.append(tp); pbar.update(1)
         num_questions = len(pool_q)
 
-    while init_pool is None and len(pool_q) < num_questions:
-        needed = num_questions - len(pool_q)
+    while init_pool is None and len(pool_q) < gen_target:
+        needed = gen_target - len(pool_q)
         bs = min(config.INIT_BATCH_SIZE, needed)
         c_prompts, c_topics = [], []
         for _ in range(bs):
@@ -953,7 +964,7 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
 
         r_uncs, p_hats, pseudos, labs = evaluate_r_unc_vllm(tokenizer, valid_qs, return_labels=True)
         for q, gt, tp, ru, ph, ps, lb in zip(valid_qs, valid_gts, valid_tps, r_uncs, p_hats, pseudos, labs):
-            if len(pool_q) >= num_questions:
+            if len(pool_q) >= gen_target:
                 break
             pool_q.append(q)
             pool_gt.append(gt)
@@ -964,6 +975,33 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
             pool_topic.append(tp)
             pbar.update(1)
     pbar.close()
+
+    if len(pool_q) > num_questions:
+        # Select the walk subset: random among in-band seeds (selection headroom),
+        # topped up with the out-of-band questions closest to p_hat=0.5 if short.
+        in_band = [i for i in range(len(pool_q))
+                   if config.MIN_SCORE <= float(pool_phat[i]) <= config.MAX_SCORE]
+        in_band_set = set(in_band)
+        random.shuffle(in_band)
+        sel = in_band[:num_questions]
+        if len(sel) < num_questions:
+            rest = sorted((i for i in range(len(pool_q)) if i not in in_band_set),
+                          key=lambda i: abs(float(pool_phat[i]) - 0.5))
+            sel += rest[:num_questions - len(sel)]
+        sel.sort()
+        n_in = sum(1 for i in sel if i in in_band_set)
+        print(f"[MCMC] big-init selection: {len(in_band_set)}/{len(pool_q)} in-band -> "
+              f"walking {len(sel)} seeds ({n_in} in-band)")
+        log_file.write(f"[Init] big-init: {len(pool_q)} generated, {len(in_band)} in-band, "
+                       f"{len(sel)} selected for walk\n")
+        pool_q      = [pool_q[i] for i in sel]
+        pool_gt     = [pool_gt[i] for i in sel]
+        pool_runc   = [pool_runc[i] for i in sel]
+        pool_phat   = [pool_phat[i] for i in sel]
+        pool_pseudo = [pool_pseudo[i] for i in sel]
+        pool_labels = [pool_labels[i] for i in sel]
+        pool_topic  = [pool_topic[i] for i in sel]
+        num_questions = len(pool_q)
 
     # Build initial state (one-shot O(N^2) BLEU sweep, ~30s at N=1000)
     print("[MCMC] Computing initial neighbor matrix (one-shot O(N^2))...")

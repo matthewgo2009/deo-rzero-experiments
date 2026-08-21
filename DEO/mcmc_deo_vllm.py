@@ -111,6 +111,11 @@ class Config:
     # at random (mirrors verl's uniform sampling of R-Zero's ~4000-question sets).
     # 0 = off (generate exactly TOTAL_QUESTIONS, current behavior).
     INIT_POOL = int(os.getenv("DEO_INIT_POOL", "0"))
+
+    # Olympiad-register style operator (QUESTION_ANALYSIS rec #3): with this probability
+    # a walk proposal uses the [F] OLYMPIAD_REWRITE operator (rephrase into formal
+    # competition register, mathematics preserved) instead of the standard mutator. 0 = off.
+    STYLE_P = float(os.getenv("DEO_STYLE_P", "0"))
     SOLVER_TEMP = 1.0
     SOLVER_TOP_P = 1.0
     SOLVER_TOP_K = 40

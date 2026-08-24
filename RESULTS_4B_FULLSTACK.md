@@ -227,3 +227,23 @@ extends the useful training signal past iter3, which none of the nine transplant
 could reproduce on DEO's frozen-base proposal distribution. Under a matched-compute lens the gap
 widens further in DEO's favor: at iter3 DEO has spent roughly half of R-Zero's compute (no
 questioner training) and is already ahead.
+
+## 4B fixed-iteration comparison @ iter3 (Claude grader)
+
+| 4B run | AVG7 @i3 | HARD5 @i3 | AVG7 peak | @iter |
+|--|--|--|--|--|
+| R-Zero + Claude labels | **48.90** | **34.64** | 48.90 | i3 |
+| witty_soca (full stack + warm) | 48.59 | 33.90 | 48.59 | i3 |
+| mutV2 (conservative walk) | 47.77 | 33.04 | 48.83 | i5 |
+| mutV1 (walk) | 47.57 | 32.96 | 48.79 | i5 |
+| heroic_eye (full stack) | 47.56 | 32.36 | **48.94** | i4 |
+| bandit r2 | 45.94 | 31.00 | 47.73 | i5 |
+| R-Zero (original) | 45.93 | 31.16 | 48.13 | i2 |
+| willing_panda (no walk) | 45.67 | 30.48 | 47.76 | i4 |
+
+Unlike 8B, the 4B iter3 slice has no saturation story: peak iterations scatter i2–i5 and the
+slice ranking disagrees with the peak ranking — per-iter fluctuation (±1–1.5) is noise-dominated
+at this scale, so any single-slice ordering should be read cautiously. Two facts survive any
+slice: original R-Zero never leads at 4B (i3 45.93; peak 48.13 < full-stack 48.94), and at equal
+iteration budget DEO is ≥ R-Zero at BOTH scales (4B +1.6 @i3, 8B +0.72 @i3) — R-Zero's advantage
+exists only in 8B late iterations.

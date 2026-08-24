@@ -179,3 +179,25 @@ worsened by the ballast shrinking the training set ~40% → more repetition).
 mechanical leaks ✗, easy-band ballast ✗, KL anchor ✗, β control ✗, warm-start ✗ (4B), operator
 bandit ✗ (4B), conservative mutations ✗. Remaining untested: (i) olympiad-register style transfer
 (QUESTION_ANALYSIS rec #3), (ii) selection headroom / pool scale (8000-q + more verl steps).
+
+## Hypothesis ledger CLOSED (Aug 2026): headroom and style falsified — all nine down
+
+**Selection headroom** (`icy_arch`: generate 8000/iter, walk 1700 random in-band seeds; raw
+material matches R-Zero's ~4000 in-band): AVG7 peak **52.43** @i1 declining, HARD5 38.54 —
+**worse than the plain 2000-pool walk (53.60/40.02) by −1.2**. Random breadth without an adaptive
+generator hurts: pre-in-band seeds neutralize the walk's job and i.i.d. base samples carry no
+curriculum.
+
+**Olympiad-register style transfer** (`upbeat_turnip`: DEO_STYLE_P=0.5, [F] rewrite operator,
+math preserved, fresh labels): AVG7 peak 53.27 @i1, HARD5 peak 39.50 — prediction (HARD5 ≥40.5)
+**failed**; slightly below control. (In-run MATH-500 i4/i5 "drop" was an OpenAI-quota grader
+artifact; raw flat 64.4–65.8.)
+
+**Final conclusion of the ablation program.** R-Zero's 8B edge (54.57 vs 53.60 AVG7, 41.36 vs
+40.02 HARD5) survives the falsification of ALL nine transplantable ingredients: label quality,
+mechanical leaks, easy-band ballast, KL anchor, β control, warm-start, operator bandit,
+conservative mutations, selection headroom, and style register. The only unfalsified explanation
+is the adaptive questioner itself — a generator whose distribution MOVES with the solver via its
+own gradient updates, which no static intervention on a frozen-base proposal distribution
+reproduced. Conversely DEO reaches 98% of R-Zero's 8B AVG at roughly half the compute (no second
+LLM trained) and beats it outright at 4B (48.94 vs 48.13), where the questioner fails to compound.

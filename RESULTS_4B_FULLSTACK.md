@@ -201,3 +201,29 @@ is the adaptive questioner itself — a generator whose distribution MOVES with 
 own gradient updates, which no static intervention on a frozen-base proposal distribution
 reproduced. Conversely DEO reaches 98% of R-Zero's 8B AVG at roughly half the compute (no second
 LLM trained) and beats it outright at 4B (48.94 vs 48.13), where the questioner fails to compound.
+
+## 8B fixed-iteration comparison @ iter3 (Claude grader) — the lead is about saturation, not strength
+
+| 8B run | AVG7 @i3 | HARD5 @i3 |
+|--|--|--|
+| **DEO walk 2000q** (cool_loquat) | **53.60** | **39.96** |
+| baseline 1500q | 53.01 | 39.62 |
+| style (upbeat_turnip) | 52.90 | 39.46 |
+| **R-Zero** | 52.88 | 38.97 |
+| strong-β 1500q | 52.57 | 38.69 |
+| fix12 (polite_neck) | 52.09 | 38.24 |
+| adaptive 1500q | 52.07 | 38.15 |
+| baseline 2000q (mighty_chicken) | 51.77 | 37.48 |
+| fixedbeta-walk 1500q | 51.41 | 36.96 |
+| baseline+KLprev+CD (olive_pizza) | 51.37 | 37.00 |
+| biginit (icy_arch) | 50.79 | 36.34 |
+| walk+KLprev+CD (coral_sail) | 50.77 | 36.16 |
+
+At equal iteration budget (3 iters) DEO walk LEADS R-Zero by +0.72 AVG7 / +1.0 HARD5. R-Zero's
+headline lead comes entirely from iters 4–5 (52.88 → 53.21 → 54.57) while every DEO variant
+saturates around iter3 and regresses. The precise statement is therefore not "R-Zero is stronger"
+but "R-Zero does not saturate": its trained questioner keeps supplying a moving distribution that
+extends the useful training signal past iter3, which none of the nine transplanted ingredients
+could reproduce on DEO's frozen-base proposal distribution. Under a matched-compute lens the gap
+widens further in DEO's favor: at iter3 DEO has spent roughly half of R-Zero's compute (no
+questioner training) and is already ahead.

@@ -247,3 +247,25 @@ at this scale, so any single-slice ordering should be read cautiously. Two facts
 slice: original R-Zero never leads at 4B (i3 45.93; peak 48.13 < full-stack 48.94), and at equal
 iteration budget DEO is ≥ R-Zero at BOTH scales (4B +1.6 @i3, 8B +0.72 @i3) — R-Zero's advantage
 exists only in 8B late iterations.
+
+## 4B CD × pool grid closed (nice_nail, Aug 2026)
+
+`nice_nail` (4B, 2000q + CD n=12 + fixed β=0.1, KL base) — Claude 7-set: 46.96 / 47.13 / 46.51 /
+46.40 / **47.40** (peak i5), HARD5 pk 32.42, i3 slice 46.51/31.24.
+
+| pool | no CD | CD |
+|--|--|--|
+| 1500 | (old fixedbeta, GPT grader: 47.08) | deo_cd **48.18** |
+| 2000 | mutV1 **48.79** | nice_nail **47.40** |
+
+- **CD on an active fixed-β walk is clearly negative at 4B: −1.39** (48.79 → 47.40 at 2000q) —
+  same sign as 8B (−0.3/−0.5), larger magnitude. CD's variance penalty suppresses walk mixing
+  even at β=0.1, and its better 12-sample labels do not compensate.
+- Pool 1500→2000 on the CD arm: 48.18 → 47.40 (−0.78, within 4B noise but not positive) — the
+  walk×pool synergy seen at 8B (+2.2, no-CD) does not appear under CD.
+- Re-attribution for heroic_eye (48.94 = 2000q+CD+strong-β+KL-prev): with CD now shown to be
+  −1.4 on an active walk, heroic_eye's edge cannot come from CD-on-walk; its strong-β froze the
+  walk (BUCKET_ANALYSIS), making it effectively a no-walk run with 12-sample labels + KL-prev —
+  vs willing_panda (no walk, 9-sample, KL base) 47.76, i.e. +1.2 from that combination. 4B
+  per-run noise is ±1, so treat single-cell readings cautiously; the robust statement is that
+  **no CD configuration beats the plain V1 walk (48.79) at 4B**.

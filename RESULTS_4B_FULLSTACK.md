@@ -269,3 +269,21 @@ exists only in 8B late iterations.
   vs willing_panda (no walk, 9-sample, KL base) 47.76, i.e. +1.2 from that combination. 4B
   per-run noise is ±1, so treat single-cell readings cautiously; the robust statement is that
   **no CD configuration beats the plain V1 walk (48.79) at 4B**.
+
+## Graveyard #11 — longer chains (MCMC_STEPS 5→50): falsified at iter1, stopped early
+
+`icy_kitchen` (4B, 2000q, fixed β=0.1, no CD, KL base — identical to mutV1 except
+DEO_MCMC_STEPS=50, i.e. 100k proposals/iter). Iter1 outcome vs the 5-step control:
+
+| | walk-50 | walk-5 (mutV1) |
+|--|--|--|
+| in-band fraction (pre-judge) | **92%** (1847/2000) | ~69% |
+| LLM-judge drop rate | **15%** (275) | 1–3% |
+| MATH-500 iter1 (raw) | **61.2** | 64.0 |
+
+Deeper mixing "succeeds" on the MCMC objective (in-band beyond even the 8B strong-β collapse's
+85%) yet accuracy DROPS 2.8 raw and judge rejections spike 5× — long mutation chains accumulate
+malformed/degenerate questions. Run cancelled after iter1 (saving ~7 days of H100); the point
+completes the frozen-distribution ceiling argument: walking FARTHER on the frozen base
+distribution over-concentrates and degrades quality, same as every other static intervention.
+(In-band ≠ accuracy, now demonstrated on the chain-length axis too.)

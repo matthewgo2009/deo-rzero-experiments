@@ -232,6 +232,7 @@ def main():
         tokenizer.pad_token = tokenizer.eos_token
 
     # HF frozen base for soft-prefix generation + score backprop (GPU SGLD_GPU)
+    os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
     device = f"cuda:{SGLD_GPU}"
     print(f"[sgld] loading HF base {deo.config.MODEL_NAME} on {device}...", flush=True)
     base = AutoModelForCausalLM.from_pretrained(

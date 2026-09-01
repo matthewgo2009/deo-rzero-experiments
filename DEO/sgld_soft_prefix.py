@@ -114,11 +114,18 @@ class SoftPrefixSGLD:
         return texts, ids_list
 
     # ---------- score: exact sampled ids, teacher forcing (Eq 15-16) ----------
-    def score_grads(self, idxs, ids_list, score_bs=4):
+    def score_grads(self, idxs, ids_list, score_bs=2):
         """dict idx -> fp32 CPU grad (K,d) of Σ_ℓ log π0(x_ℓ | x_<ℓ, p0, z).
-        ids_list must be the EXACT tensors returned by generate()."""
+        ids_list must be the EXACT tensors returned by generate().
+        Memory: fused cross-entropy (no full-vocab fp32 log_softmax map),
+        use_cache=False, optional gradient checkpointing (SGLD_GRAD_CKPT=1)."""
         grads, logps = {}, {}
         pad = self.gen_cfg.pad_token_id
+        ckpt = os.getenv("SGLD_GRAD_CKPT", "1") == "1"
+        if ckpt and not getattr(self, "_ckpt_on", False):
+            self.model.gradient_checkpointing_enable(
+                gradient_checkpointing_kwargs={"use_reentrant": False})
+            self._ckpt_on = True
         for s in range(0, len(idxs), score_bs):
             chunk = idxs[s:s + score_bs]
             seqs = ids_list[s:s + score_bs]
@@ -134,16 +141,23 @@ class SoftPrefixSGLD:
             full = torch.cat([prefix, x_emb], dim=1)
             attn = torch.cat([torch.ones(prefix.shape[:2], dtype=torch.long,
                                          device=self.device), x_mask], dim=1)
-            logits = self.model(inputs_embeds=full, attention_mask=attn).logits
-            lp = F.log_softmax(logits[:, self.K - 1:self.K - 1 + L, :].float(), dim=-1)
-            tok_lp = lp.gather(-1, x_ids.unsqueeze(-1)).squeeze(-1)
-            seq_lp = (tok_lp * x_mask).sum(dim=1)          # padding contributes zero
+            logits = self.model(inputs_embeds=full, attention_mask=attn,
+                                use_cache=False).logits
+            sl = logits[:, self.K - 1:self.K - 1 + L, :]           # (b, L, V) bf16
+            V = sl.shape[-1]
+            # fused CE = -log softmax at the sampled token; avoids (b,L,V) fp32 map
+            # CE directly on bf16 logits (internal fp32 math, no (b·L,V) fp32 copy);
+            # only the tiny (b,L) output is upcast.
+            tok_lp = -F.cross_entropy(sl.reshape(-1, V), x_ids.reshape(-1),
+                                      reduction="none").view(x_ids.shape).float()
+            seq_lp = (tok_lp * x_mask).sum(dim=1)                  # padding → zero
             seq_lp.sum().backward()
-            zg = z.grad * self.alpha                        # chain rule: ∂E_input/∂z = α
+            zg = z.grad * self.alpha                                # ∂E_input/∂z = α
             for j, k in enumerate(chunk):
                 grads[k] = zg[j].detach().to("cpu", torch.float32)
                 logps[k] = float(seq_lp[j])
-            del z, prefix, x_emb, full, logits, lp
+            del z, prefix, x_emb, full, logits, sl, tok_lp, seq_lp
+            torch.cuda.empty_cache()   # needed: fragmentation OOMs GPU7 otherwise
         return grads, logps
 
     # ---------- SGLD update (Eq 19) ----------

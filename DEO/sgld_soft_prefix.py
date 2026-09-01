@@ -1,32 +1,23 @@
-"""Latent SGLD over soft-prefix variables (DEO_SGLD.pdf §2).
+"""Latent SGLD over soft-prefix variables (DEO_SGLD.pdf §2) — post-review revision.
 
-Per question i, a continuous soft prefix z_i ∈ R^{K×d} (K = prompt token count,
-d = hidden dim) is ADDED to the prompt token embeddings of the frozen base model,
-defining x_i ~ π0(·|p0, z_i)  (Eq 10-11; z=0 recovers the base distribution).
+Per question i, a dimensionless latent z_i ∈ R^{K×d}, z ~ N(0, σ²I), steers the frozen
+base model through a SEPARATELY SCALED additive perturbation of the prompt embeddings:
 
-Latent Gibbs target (Eq 13):  q(Z) ∝ N(Z; 0, σ²I) · exp(r̄_c(Z,θ)/τ).
-Score-function gradient (Eq 14-17): ĝ_i = (r̂_i − b) · ∇_{z_i} log π0(x_i|p0,z_i),
-computed by teacher-forcing the SAMPLED tokens through the frozen model and
-backpropagating only to z_i (Eq 15-16).
-SGLD update (Eq 19):  z ← z + η(−z/σ² + ĝ/τ) + √(2η)·ε.
+    E_input(i) = E(p0) + α · z_i          (α ≪ prompt-embedding RMS; z=0 ⇒ base dist.)
 
-IMPLEMENTATION NOTES (deviations to flag for review):
-1. REWARD CREDIT. Eq 17 multiplies every score s_i by the single BATCH-level
-   scalar r̂_c(X,θ) (mean over n questions). With n≈2000 that coefficient is
-   nearly constant across i and the estimator is almost pure noise. We instead
-   use the PER-QUESTION utility u_i = r_unc(x_i) − λ_rep·r_rep(x_i;X) (the
-   i-th summand of Eq 9, un-normalized) with a running-mean baseline. For the
-   separable part this is the standard local-credit REINFORCE with strictly
-   lower variance and the same expected direction; r_rep still couples through
-   the current batch. Env SGLD_GLOBAL_REWARD=1 restores the paper-literal
-   batch-scalar coefficient.
-2. TEMPERATURE SCALE. The paper's τ = β/n applies to the batch-MEAN reward
-   (scale 1/n). With per-question u_i (scale 1) the matching temperature is β
-   itself. Env SGLD_TAU is therefore interpreted on the per-question scale
-   (default 0.1, matching the fixed-β walk runs).
-3. Generation AND teacher-forced scoring run on a single HF copy of the frozen
-   base model (vLLM cannot take per-sample inputs_embeds); solver rollouts for
-   rewards use the existing vLLM DP endpoints via the caller.
+Sampling:   x_i ~ π0(·|p0, z_i) with the RAW model policy (temperature=1, top_p=1,
+            top_k=0, no logits warpers) so that the sampling distribution EQUALS the
+            distribution whose score is used below (REINFORCE validity).
+Score:      ∇_z log π0(x|p0,z) by teacher-forcing the EXACT sampled token ids
+            (incl. the terminating EOS when present) — no decode/re-encode round trip.
+SGLD:       z ← z + η(−z/σ² + ĝ/τ) + √(2η)·ε.
+
+OBJECTIVE NOTE (deliberate deviation from the TeX, documented): the reward used by the
+caller is the TENT uncertainty r_unc = 1−2|p̂−0.5| — the surrogate every prior DEO run
+optimizes — NOT the TeX Eq-3 disagreement 1−p̂, which is maximized at p̂→0, i.e. outside
+the p̂∈[0.3,0.8] training band the pipeline keeps. The TeX should be updated to match.
+Per-question credit with τ=β is EXACT for this separable term (review §P0/P1); the
+repetition penalty is disabled by default (λ_rep=0) pending an unbiased batch estimator.
 """
 import math
 import os
@@ -37,10 +28,8 @@ import torch.nn.functional as F
 
 class SoftPrefixSGLD:
     def __init__(self, model, tokenizer, prompt_text, n,
-                 sigma=1.0, tau=0.1, eta=1e-3, device="cuda:7",
+                 alpha=None, sigma=1.0, tau=0.1, eta=1e-3, device="cuda:7",
                  gen_bs=16, max_new_tokens=1024, seed=0):
-        """model: frozen HF causal LM (bf16 ok). prompt_text: the rendered
-        question-generation prompt p0 (chat template already applied)."""
         self.model = model.eval()
         for p in self.model.parameters():
             p.requires_grad_(False)
@@ -50,97 +39,144 @@ class SoftPrefixSGLD:
         self.gen_bs, self.max_new_tokens = int(gen_bs), int(max_new_tokens)
 
         ids = tokenizer(prompt_text, return_tensors="pt").input_ids[0]
-        self.prompt_ids = ids.to(device)                      # (K,)
-        emb = self.model.get_input_embeddings()(self.prompt_ids)  # (K, d)
-        self.prompt_emb = emb.detach().to(torch.float32)      # fp32 master copy
+        self.prompt_ids = ids.to(device)
+        emb = self.model.get_input_embeddings()(self.prompt_ids)
+        self.prompt_emb = emb.detach().to(torch.float32)           # (K, d) fp32 master
         self.K, self.d = self.prompt_emb.shape
+        self.prompt_rms = float(self.prompt_emb.pow(2).mean().sqrt())
+
+        # perturbation scale α: default 5% of prompt-embedding RMS (review §P1) —
+        # a unit-RMS z would otherwise swamp the prompt entirely.
+        self.alpha = float(alpha) if alpha is not None else 0.05 * self.prompt_rms
+
+        # RAW sampling policy == scored policy (review §P0-1). Fresh GenerationConfig so
+        # the model's own generation_config defaults (Qwen ships top_k=20/top_p=0.8!)
+        # cannot silently truncate.
+        from transformers import GenerationConfig  # lazy: step-math tests run w/o transformers
+        self.gen_cfg = GenerationConfig(
+            do_sample=True, temperature=1.0, top_p=1.0, top_k=0,
+            num_beams=1, max_new_tokens=self.max_new_tokens,
+            pad_token_id=self.tok.pad_token_id or self.tok.eos_token_id,
+            eos_token_id=self.tok.eos_token_id,
+        )
+        print(f"[sgld] prompt K={self.K} d={self.d} prompt_rms={self.prompt_rms:.4f} "
+              f"alpha={self.alpha:.5f} (delta/prompt RMS target "
+              f"{self.alpha/self.prompt_rms:.3f}) | gen_cfg: temp=1 top_p=1 top_k=0 "
+              f"max_new={self.max_new_tokens}", flush=True)
 
         g = torch.Generator().manual_seed(seed)
-        # z lives on CPU fp32 (n×K×d can be GBs); minibatches move to GPU.
-        self.Z = torch.randn(n, self.K, self.d, generator=g) * self.sigma
+        self.Z = torch.randn(n, self.K, self.d, generator=g) * self.sigma   # CPU fp32
         self.n = n
-        self.baseline = 0.5   # running-mean baseline b (u_i ∈ [~-λ, 1])
+        self.baseline = 0.5
         self.baseline_m = 0.9
 
-    # ---------- generation: x_i ~ π0(·|p0, z_i) ----------
-    @torch.no_grad()
-    def generate(self, idxs, temperature=1.0, top_p=0.95):
-        """Sample one question per index. Returns list[str] (raw completions)."""
-        outs = [None] * len(idxs)
+    # ---------- diagnostics (review §P1) ----------
+    def diagnostics(self, idxs=None):
+        Z = self.Z if idxs is None else self.Z[idxs]
+        z_rms = float(Z.pow(2).mean().sqrt())
+        return {"prompt_rms": self.prompt_rms, "latent_rms": z_rms,
+                "delta_rms": self.alpha * z_rms,
+                "delta_to_prompt": self.alpha * z_rms / max(self.prompt_rms, 1e-9)}
+
+    def _prefix(self, chunk_idxs, requires_grad=False):
+        z = self.Z[chunk_idxs].to(self.device)
+        if requires_grad:
+            z.requires_grad_(True)
         mdtype = next(self.model.parameters()).dtype
+        prefix = (self.prompt_emb.unsqueeze(0) + self.alpha * z).to(mdtype)
+        return z, prefix
+
+    # ---------- generation: raw policy, exact ids returned (review §P0-2) ----------
+    @torch.no_grad()
+    def generate(self, idxs):
+        """Returns (texts, ids_list): texts for reward/parsing, EXACT generated token
+        id tensors (cpu, incl. terminating EOS if emitted) for scoring."""
+        texts, ids_list = [None] * len(idxs), [None] * len(idxs)
+        eos = self.tok.eos_token_id
+        pad = self.gen_cfg.pad_token_id
         for s in range(0, len(idxs), self.gen_bs):
             chunk = idxs[s:s + self.gen_bs]
-            z = self.Z[chunk].to(self.device)                       # (b,K,d) fp32
-            inp = (self.prompt_emb.unsqueeze(0) + z).to(mdtype)     # (b,K,d)
-            attn = torch.ones(inp.shape[:2], dtype=torch.long, device=self.device)
-            gen = self.model.generate(
-                inputs_embeds=inp, attention_mask=attn,
-                do_sample=True, temperature=temperature, top_p=top_p,
-                max_new_tokens=self.max_new_tokens,
-                pad_token_id=self.tok.pad_token_id or self.tok.eos_token_id,
-            )
-            # with inputs_embeds, HF returns ONLY the generated ids
-            for j, row in enumerate(gen):
-                outs[s + j] = self.tok.decode(row, skip_special_tokens=True)
-        return outs
+            _z, prefix = self._prefix(chunk)
+            attn = torch.ones(prefix.shape[:2], dtype=torch.long, device=self.device)
+            gen = self.model.generate(inputs_embeds=prefix, attention_mask=attn,
+                                      generation_config=self.gen_cfg)
+            for j, row in enumerate(gen):        # with inputs_embeds HF returns gen ids only
+                row = row.detach().cpu()
+                # strip trailing PAD (batch padding), keep the first EOS (it was sampled)
+                keep = len(row)
+                if eos is not None and (row == eos).any():
+                    keep = int((row == eos).nonzero()[0]) + 1     # include sampled EOS
+                elif pad is not None and pad != eos and (row == pad).any():
+                    keep = int((row == pad).nonzero()[0])
+                ids = row[:keep]
+                ids_list[s + j] = ids
+                texts[s + j] = self.tok.decode(ids, skip_special_tokens=True)
+        return texts, ids_list
 
-    # ---------- score: ∇_z log π0(x|p0,z) by teacher forcing (Eq 15-16) ----------
-    def score_grads(self, idxs, texts, score_bs=4, max_len=1024):
-        """Returns dict idx -> fp32 CPU grad tensor (K,d). texts are the RAW
-        completions sampled from the same z (teacher forcing holds them fixed)."""
-        grads = {}
-        mdtype = next(self.model.parameters()).dtype
+    # ---------- score: exact sampled ids, teacher forcing (Eq 15-16) ----------
+    def score_grads(self, idxs, ids_list, score_bs=4):
+        """dict idx -> fp32 CPU grad (K,d) of Σ_ℓ log π0(x_ℓ | x_<ℓ, p0, z).
+        ids_list must be the EXACT tensors returned by generate()."""
+        grads, logps = {}, {}
+        pad = self.gen_cfg.pad_token_id
         for s in range(0, len(idxs), score_bs):
             chunk = idxs[s:s + score_bs]
-            ctexts = texts[s:s + score_bs]
-            tok = self.tok(ctexts, return_tensors="pt", padding=True,
-                           truncation=True, max_length=max_len, add_special_tokens=False)
-            x_ids = tok.input_ids.to(self.device)               # (b, L)
-            x_mask = tok.attention_mask.to(self.device)
-            z = self.Z[chunk].to(self.device).requires_grad_(True)   # leaf, fp32
-            prefix = (self.prompt_emb.unsqueeze(0) + z).to(mdtype)   # grad flows to z
-            x_emb = self.model.get_input_embeddings()(x_ids)         # (b, L, d)
+            seqs = ids_list[s:s + score_bs]
+            L = max(len(t) for t in seqs)
+            x_ids = torch.full((len(seqs), L), pad, dtype=torch.long)
+            x_mask = torch.zeros((len(seqs), L), dtype=torch.long)
+            for j, t in enumerate(seqs):
+                x_ids[j, :len(t)] = t
+                x_mask[j, :len(t)] = 1
+            x_ids, x_mask = x_ids.to(self.device), x_mask.to(self.device)
+            z, prefix = self._prefix(chunk, requires_grad=True)
+            x_emb = self.model.get_input_embeddings()(x_ids)
             full = torch.cat([prefix, x_emb], dim=1)
             attn = torch.cat([torch.ones(prefix.shape[:2], dtype=torch.long,
                                          device=self.device), x_mask], dim=1)
             logits = self.model(inputs_embeds=full, attention_mask=attn).logits
-            # positions predicting x tokens: prefix ends at K-1; logits[K-1+t] -> x[t]
-            lp = F.log_softmax(logits[:, self.K - 1:self.K - 1 + x_ids.shape[1], :].float(), dim=-1)
-            tok_lp = lp.gather(-1, x_ids.unsqueeze(-1)).squeeze(-1)   # (b, L)
-            seq_lp = (tok_lp * x_mask).sum(dim=1)                     # Σ_ℓ log π0 (Eq 15)
+            lp = F.log_softmax(logits[:, self.K - 1:self.K - 1 + L, :].float(), dim=-1)
+            tok_lp = lp.gather(-1, x_ids.unsqueeze(-1)).squeeze(-1)
+            seq_lp = (tok_lp * x_mask).sum(dim=1)          # padding contributes zero
             seq_lp.sum().backward()
+            zg = z.grad * self.alpha                        # chain rule: ∂E_input/∂z = α
             for j, k in enumerate(chunk):
-                grads[k] = z.grad[j].detach().to("cpu", torch.float32)
+                grads[k] = zg[j].detach().to("cpu", torch.float32)
+                logps[k] = float(seq_lp[j])
             del z, prefix, x_emb, full, logits, lp
-            torch.cuda.empty_cache()
-        return grads
+        return grads, logps
 
     # ---------- SGLD update (Eq 19) ----------
     def step(self, idxs, rewards, grads, eta=None):
-        """rewards: dict idx -> scalar u_i (per-question credit; see note 1).
-        Advantage = u_i − running baseline. Updates Z in place; returns stats."""
         eta = self.eta if eta is None else eta
-        adv_sum, gnorm_sum, m = 0.0, 0.0, 0
+        adv_sum = gnorm_sum = drift_sum = 0.0
+        m = 0
         for k in idxs:
             if k not in grads:
                 continue
             adv = float(rewards[k]) - self.baseline
-            g = grads[k] * (adv / self.tau)                    # (1/τ)·ĝ  (Eq 17)
+            g = grads[k] * (adv / self.tau)
             drift = -self.Z[k] / (self.sigma ** 2) + g
             noise = torch.randn_like(self.Z[k]) * math.sqrt(2.0 * eta)
             self.Z[k] += eta * drift + noise
-            adv_sum += adv; gnorm_sum += float(g.norm()); m += 1
-        # running baseline update from this minibatch's rewards
+            adv_sum += adv; gnorm_sum += float(g.norm()); drift_sum += float(drift.norm()); m += 1
         if idxs:
-            rbar = sum(float(rewards[k]) for k in idxs if k in rewards) / max(
-                1, sum(1 for k in idxs if k in rewards))
-            self.baseline = self.baseline_m * self.baseline + (1 - self.baseline_m) * rbar
-        return {"mean_adv": adv_sum / max(1, m), "mean_gnorm": gnorm_sum / max(1, m),
-                "z_rms": float(self.Z[idxs].pow(2).mean().sqrt()) if idxs else 0.0,
-                "baseline": self.baseline}
+            got = [k for k in idxs if k in rewards]
+            if got:
+                rbar = sum(float(rewards[k]) for k in got) / len(got)
+                self.baseline = self.baseline_m * self.baseline + (1 - self.baseline_m) * rbar
+        d = self.diagnostics(idxs)
+        d.update({"mean_adv": adv_sum / max(1, m), "mean_gnorm": gnorm_sum / max(1, m),
+                  "mean_driftnorm": drift_sum / max(1, m), "baseline": self.baseline})
+        return d
+
+    # ---------- sweep partition (review §P1: every latent exactly once per sweep) ----------
+    def sweep_minibatches(self, minibatch, generator=None):
+        perm = torch.randperm(self.n, generator=generator).tolist()
+        return [perm[i:i + minibatch] for i in range(0, self.n, minibatch)]
 
     def save(self, path):
-        torch.save({"Z": self.Z, "baseline": self.baseline}, path)
+        torch.save({"Z": self.Z, "baseline": self.baseline, "alpha": self.alpha}, path)
 
     def load(self, path):
         if os.path.exists(path):
@@ -148,6 +184,8 @@ class SoftPrefixSGLD:
             if d["Z"].shape == self.Z.shape:
                 self.Z = d["Z"]
                 self.baseline = float(d.get("baseline", 0.5))
+                if "alpha" in d:
+                    self.alpha = float(d["alpha"])
                 print(f"[sgld] warm-started Z from {path}", flush=True)
             else:
                 print(f"[sgld] shape mismatch in {path}, cold start", flush=True)

@@ -12,11 +12,10 @@ is still launched by start_vllm_native.sh but unused here (kept to avoid
 touching the launcher; its 0.85 mem util on GPU0 is idle).
 
 Env knobs:
-  SGLD_STEPS (K_SGLD, default 10)   SGLD_ETA (1e-3)     SGLD_SIGMA (1.0)
-  SGLD_TAU (0.1, per-question scale — see sgld_soft_prefix.py note 2)
-  SGLD_MINIBATCH (500: questions re-sampled/scored/updated per SGLD step)
-  SGLD_GEN_BS (16)  SGLD_SCORE_BS (4)  SGLD_MAXTOK (1024)
-  SGLD_GLOBAL_REWARD (0; 1 = paper-literal batch-scalar coefficient)
+  SGLD_STEPS (SWEEPS, default 10; one sweep = every latent updated once)
+  SGLD_ETA (1e-3)  SGLD_SIGMA (1.0)  SGLD_TAU (0.1 = beta; exact for the separable term)
+  SGLD_ALPHA ("" = auto: 5% of prompt-embedding RMS)  SGLD_LAMBDA_REP (0 = off, default)
+  SGLD_MINIBATCH (500)  SGLD_GEN_BS (16)  SGLD_SCORE_BS (4)  SGLD_MAXTOK (1024)
   DEO_TOTAL_Q (n, default 2000)  DEO_NUM_ITERS (5)
 """
 import json
@@ -35,7 +34,9 @@ deo.config.HF_USER = os.environ.get("HUGGINGFACENAME", "yuyang322")
 deo.config.MODEL_ABBR = os.environ.get("DEO_ABBR", "deo_sgld")
 deo.config.NUM_ITERATIONS = int(os.environ.get("DEO_NUM_ITERS", deo.config.NUM_ITERATIONS))
 deo.config.TOTAL_QUESTIONS = int(os.environ.get("DEO_TOTAL_Q", deo.config.TOTAL_QUESTIONS))
-deo.config.LAMBDA_REP = float(os.environ.get("DEO_LAMBDA_REP", deo.config.LAMBDA_REP))
+# Repetition penalty DISABLED by default for the first correctness experiment
+# (review §P0/P1: per-question credit is exact only for the separable term).
+SGLD_LAMBDA_REP = float(os.environ.get("SGLD_LAMBDA_REP", "0"))
 
 SGLD_STEPS = int(os.environ.get("SGLD_STEPS", "10"))
 SGLD_ETA = float(os.environ.get("SGLD_ETA", "1e-3"))
@@ -45,7 +46,7 @@ SGLD_MINIBATCH = int(os.environ.get("SGLD_MINIBATCH", "500"))
 SGLD_GEN_BS = int(os.environ.get("SGLD_GEN_BS", "16"))
 SGLD_SCORE_BS = int(os.environ.get("SGLD_SCORE_BS", "4"))
 SGLD_MAXTOK = int(os.environ.get("SGLD_MAXTOK", "1024"))
-SGLD_GLOBAL_REWARD = os.environ.get("SGLD_GLOBAL_REWARD", "0") == "1"
+SGLD_ALPHA = os.environ.get("SGLD_ALPHA", "")   # "" = auto (5% of prompt-embedding RMS)
 SGLD_GPU = os.environ.get("SGLD_GPU", "7")
 
 VERL_GPUS = os.environ.get("DEO_VERL_GPUS", "2,3")
@@ -142,60 +143,59 @@ def sgld_generate_pool(sampler, tokenizer, num_questions, log_path, it):
             out.append((q, gt) if ok else None)
         return out
 
-    for k in range(SGLD_STEPS):
-        idxs = random.sample(range(num_questions), min(SGLD_MINIBATCH, num_questions))
-        t0 = time.time()
-        raw = sampler.generate(idxs)                       # x_i ~ π0(·|p0, z_i)
-        parsed = parse_valid(raw)
-        # score valid questions with the CURRENT solver (vLLM DP), invalid get u=0
-        valid_ix = [i for i, p in enumerate(parsed) if p is not None]
-        qs = [parsed[i][0] for i in valid_ix]
-        r_uncs, p_hats = [], []
-        if qs:
-            r_uncs, p_hats, _pl = deo.evaluate_r_unc_vllm(tokenizer, qs)[:3]
-        # per-question utility u_i = r_unc − λ_rep·r_rep (minibatch-level BLEU clusters)
-        rrep = [0.0] * len(qs)
-        if len(qs) > 1:
-            toks = [q.split() for q in qs]
-            for a in range(len(qs)):
-                c = 1
-                for b in range(len(qs)):
-                    if a != b and deo._is_close(toks[a], toks[b]):
-                        c += 1
-                rrep[a] = c / len(qs)
-        rewards = {}
-        for j, i in enumerate(valid_ix):
-            rewards[idxs[i]] = max(0.0, r_uncs[j] - deo.config.LAMBDA_REP * rrep[j])
-        for i, p in enumerate(parsed):
-            if p is None:
-                rewards[idxs[i]] = 0.0                      # malformed → zero utility
-        if SGLD_GLOBAL_REWARD:                              # paper-literal Eq 17
-            gbar = sum(rewards.values()) / max(1, len(rewards))
-            rewards = {kk: gbar for kk in rewards}
-        # score-function grads on the sampled texts (teacher forcing, grads → z only)
-        grads = sampler.score_grads(idxs, raw, score_bs=SGLD_SCORE_BS, max_len=SGLD_MAXTOK)
-        stats = sampler.step(idxs, rewards, grads, eta=SGLD_ETA)
-        n_valid = len(valid_ix)
-        inband = sum(1 for j in range(len(qs))
-                     if deo.config.MIN_SCORE <= p_hats[j] <= deo.config.MAX_SCORE)
-        msg = (f"[sgld] iter{it} step {k+1}/{SGLD_STEPS}: valid {n_valid}/{len(idxs)} "
-               f"in-band {inband}/{max(1,len(qs))} mean_adv={stats['mean_adv']:+.3f} "
-               f"|g/τ|={stats['mean_gnorm']:.2e} z_rms={stats['z_rms']:.3f} "
-               f"baseline={stats['baseline']:.3f} ({time.time()-t0:.0f}s)")
-        print(msg, flush=True)
-        log_file.write(msg + "\n"); log_file.flush()
+    import torch as _t
+    g = _t.Generator().manual_seed(1234 + it)
+    for sweep in range(SGLD_STEPS):
+        # one sweep = every latent updated exactly once (review §P1)
+        for mb_i, idxs in enumerate(sampler.sweep_minibatches(SGLD_MINIBATCH, generator=g)):
+            t0 = time.time()
+            raw, ids_list = sampler.generate(idxs)          # exact sampled ids kept
+            parsed = parse_valid(raw)
+            valid_ix = [i for i, p in enumerate(parsed) if p is not None]
+            qs = [parsed[i][0] for i in valid_ix]
+            r_uncs, p_hats = [], []
+            if qs:
+                r_uncs, p_hats, _pl = deo.evaluate_r_unc_vllm(tokenizer, qs)[:3]
+            rrep = [0.0] * len(qs)
+            if SGLD_LAMBDA_REP > 0 and len(qs) > 1:         # off by default (surrogate)
+                toks = [q.split() for q in qs]
+                for a in range(len(qs)):
+                    c = 1
+                    for b in range(len(qs)):
+                        if a != b and deo._is_close(toks[a], toks[b]):
+                            c += 1
+                    rrep[a] = c / len(qs)
+            rewards = {}
+            for j, i in enumerate(valid_ix):
+                rewards[idxs[i]] = r_uncs[j] - SGLD_LAMBDA_REP * rrep[j]
+            for i, p in enumerate(parsed):
+                if p is None:
+                    rewards[idxs[i]] = 0.0                  # malformed → zero utility
+            grads, logps = sampler.score_grads(idxs, ids_list, score_bs=SGLD_SCORE_BS)
+            stats = sampler.step(idxs, rewards, grads, eta=SGLD_ETA)
+            inband = sum(1 for j in range(len(qs))
+                         if deo.config.MIN_SCORE <= p_hats[j] <= deo.config.MAX_SCORE)
+            mean_lp = sum(logps.values()) / max(1, len(logps))
+            msg = (f"[sgld] iter{it} sweep {sweep+1}/{SGLD_STEPS} mb {mb_i+1}: "
+                   f"valid {len(valid_ix)}/{len(idxs)} in-band {inband}/{max(1,len(qs))} "
+                   f"adv={stats['mean_adv']:+.3f} |g/τ|={stats['mean_gnorm']:.2e} "
+                   f"z_rms={stats['latent_rms']:.3f} Δ/prompt={stats['delta_to_prompt']:.3f} "
+                   f"drift={stats['mean_driftnorm']:.2e} logp={mean_lp:.0f} "
+                   f"baseline={stats['baseline']:.3f} ({time.time()-t0:.0f}s)")
+            print(msg, flush=True)
+            log_file.write(msg + "\n"); log_file.flush()
 
     # final pool: one question per z_i, scored for filtering/labels
     print(f"[sgld] sampling final pool of {num_questions} from z^{SGLD_STEPS}...", flush=True)
     pool_q, pool_gt = [None] * num_questions, [None] * num_questions
     all_ix = list(range(num_questions))
-    raw = sampler.generate(all_ix)
+    raw, _ids = sampler.generate(all_ix)
     parsed = parse_valid(raw)
     need_resample = [i for i, p in enumerate(parsed) if p is None]
     for r in range(3):                                       # up to 3 resample rounds
         if not need_resample:
             break
-        raw2 = sampler.generate(need_resample)
+        raw2, _ids2 = sampler.generate(need_resample)
         parsed2 = parse_valid(raw2)
         still = []
         for i, p in zip(need_resample, parsed2):
@@ -243,14 +243,16 @@ def main():
     user_p = "Generate one new, challenging reasoning question now."
     p0 = deo.apply_chat_template(tokenizer, deo.CHALLENGER_SYSTEM_PROMPT, user_p)
     sampler = SoftPrefixSGLD(base, tokenizer, p0, n=deo.config.TOTAL_QUESTIONS,
+                             alpha=(float(SGLD_ALPHA) if SGLD_ALPHA else None),
                              sigma=SGLD_SIGMA, tau=SGLD_TAU, eta=SGLD_ETA,
-                             device=device, gen_bs=SGLD_GEN_BS, max_new_tokens=1536)
+                             device=device, gen_bs=SGLD_GEN_BS,
+                             max_new_tokens=SGLD_MAXTOK)
     zpath = f"{deo.config.STORAGE_ROOT}/datasets/sgld_Z_{deo.config.MODEL_ABBR}.pt"
     sampler.load(zpath)   # warm-start across restarts/outer iters (Algorithm 1 step 3b)
 
     print(f"[sgld] n={deo.config.TOTAL_QUESTIONS} K={sampler.K} d={sampler.d} "
-          f"steps={SGLD_STEPS} mb={SGLD_MINIBATCH} eta={SGLD_ETA} sigma={SGLD_SIGMA} "
-          f"tau={SGLD_TAU} global_reward={SGLD_GLOBAL_REWARD}", flush=True)
+          f"sweeps={SGLD_STEPS} mb={SGLD_MINIBATCH} eta={SGLD_ETA} sigma={SGLD_SIGMA} "
+          f"tau={SGLD_TAU} lambda_rep={SGLD_LAMBDA_REP} alpha={sampler.alpha:.5f}", flush=True)
 
     summary_path = f"{deo.config.STORAGE_ROOT}/results_summary_{deo.config.MODEL_ABBR}.json"
     eval_history = {}

@@ -348,7 +348,7 @@ case $MODE in
   canon_claude_smoke) DEO_NUM_ITERS=1 run_canon ;;
   curriculum) run_curriculum; run_eval_canon ;;
   adaptive) run_adaptive; run_eval_canon ;;
-  sgld) run_sgld; run_eval_canon ;;
+  sgld) run_sgld; DEO_ABBR=${DEO_ABBR:-deo_sgld} run_eval_canon ;;
   full)        run_deo; run_rzero; run_eval ;;
 esac
 sync_once

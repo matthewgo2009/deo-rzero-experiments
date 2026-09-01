@@ -141,6 +141,14 @@ run_curriculum(){
 }
 # adaptive-temperature DEO: canonical walk + solver labeler + beta updated each
 # iter to keep in-band r_unc fraction near delta (DEO paper §1.4)
+# SGLD-DEO: soft-prefix latent SGLD replaces the MCMC walk (DEO_SGLD.pdf)
+run_sgld(){
+  echo "=== [$(date '+%T')] SGLD-DEO (latent soft-prefix, ${DEO_NUM_ITERS:-5} iters) ==="
+  export STORAGE_PATH=$DEO_STORAGE PYTHONPATH=$ROOT/R-Zero DEO_NUM_ITERS=${DEO_NUM_ITERS:-5}
+  bash "$ROOT/DEO/start_vllm_native.sh"
+  python3 "$ROOT/DEO/sgld_deo_native_main.py"
+  free_gpus; sync_once
+}
 run_adaptive(){
   echo "=== [$(date '+%T')] adaptive-temp DEO (auto-beta, ${DEO_NUM_ITERS:-5} iters) ==="
   export STORAGE_PATH=$DEO_STORAGE PYTHONPATH=$ROOT/R-Zero DEO_NUM_ITERS=${DEO_NUM_ITERS:-5}
@@ -292,6 +300,31 @@ run_regrade(){
   cd "$ROOT"; sync_once
 }
 
+# CGSE (compute-gap self-evolution for efficient reasoning): challenger pool from
+# base + dual-budget scoring + short-budget solver training. $1 = direct | condense.
+run_cgse(){
+  local kind=$1
+  echo "=== [$(date '+%T')] CGSE-$kind (${CGSE_ITERS:-5} iters, pool ${CGSE_POOL:-2000}) ==="
+  export STORAGE_PATH=$DEO_STORAGE PYTHONPATH=$ROOT/R-Zero
+  bash "$ROOT/DEO/start_vllm_native.sh"
+  # propagate the python exit code so a failed pipeline FAILS the AzureML job
+  # (the EXIT trap still runs the final persist first)
+  if ! python3 "$ROOT/CGSE/cgse_${kind}_main.py"; then
+    echo "FATAL: cgse_${kind}_main.py failed"; free_gpus; sync_once; exit 1
+  fi
+  free_gpus; sync_once
+}
+# fast CGSE smoke: 1 iter, small pool, 5 verl steps — verifies the full plumbing
+# (challenger -> dual-budget scoring -> train -> budgeted eval -> persist).
+# Consensus (p_l>=0.7) passes only ~10% of the pool, hence pool 384 -> ~35-40
+# training questions; rollout batch shrunk to fit.
+run_cgse_smoke(){
+  export CGSE_ITERS=1 CGSE_POOL=640 CGSE_TRAIN_CAP=96
+  export CGSE_TRAIN_FLOOR=16 CGSE_ROLLOUT_BATCH=16
+  export CGSE_VERL_MAXSTEPS=5 CGSE_VERL_STEP=5
+  run_cgse "${CGSE_KIND:-direct}"
+}
+
 # fast smoke: ONE R-Zero iter to confirm the questioner no longer NCCL-hangs and
 # solver_v1 checkpoint is produced (~1.5-2h), before committing to the full run.
 run_rzero_smoke(){
@@ -308,10 +341,14 @@ case $MODE in
   rzero_eval)  run_rzero; run_eval_rzero ;;
   regrade)     run_regrade ;;
   rzero_smoke) run_rzero_smoke ;;
+  cgse_direct)   run_cgse direct ;;
+  cgse_condense) run_cgse condense ;;
+  cgse_smoke)    run_cgse_smoke ;;
   canon_claudelabel) run_canon; run_eval_canon ;;
   canon_claude_smoke) DEO_NUM_ITERS=1 run_canon ;;
   curriculum) run_curriculum; run_eval_canon ;;
   adaptive) run_adaptive; run_eval_canon ;;
+  sgld) run_sgld; run_eval_canon ;;
   full)        run_deo; run_rzero; run_eval ;;
 esac
 sync_once

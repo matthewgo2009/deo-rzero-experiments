@@ -229,30 +229,34 @@ def test_production_horizon(seeds=8, S=30, B=25, M=8):
 
 
 def test_length_and_quota():
-    from plan_sgld import length_ok, gated_utility, allocate_quota
-    # strict bins: 200 tokens must NOT satisfy every bin (review P0-2)
-    r = [0, 0, 0, 0, 0]
-    accepts = []
-    for b in range(4):
-        r[LENGTH_AXIS_TEST] = b
-        accepts.append(length_ok(200, r))
-    assert accepts == [False, True, False, False], f"bin overlap: {accepts}"
+    from plan_sgld import length_ok, gated_utility, allocate_quota, LENGTH_BINS
+    # disjoint half-open bins (audit P1-3): EVERY boundary token maps to exactly one bin
+    for tok in [79, 80, 149, 150, 249, 250, 399, 400, 599, 600, 601]:
+        owners = []
+        for b in range(4):
+            r = [0, b, 0, 0, 0]
+            if length_ok(tok, r):
+                owners.append(b)
+        lo_any = 80 <= tok < 600
+        assert len(owners) == (1 if lo_any else 0), f"token {tok} maps to bins {owners}"
     # gates (review P0-3)
     assert gated_utility(0.9, 0, "42", 0.5, True, True, 0, 0.3, 0.8) == 0.9
     assert gated_utility(0.9, 0, None, 0.5, True, True, 0, 0.3, 0.8) == 0.0
-    assert gated_utility(0.9, 0, "42", 0.9, True, True, 0, 0.3, 0.8) == 0.0   # out of band
-    assert gated_utility(0.9, 0, "42", 0.5, False, True, 0, 0.3, 0.8) == 0.0  # judge
-    assert gated_utility(0.9, 0, "42", 0.5, True, False, 0, 0.3, 0.8) == 0.0  # length
-    # quota: dedup + zero-utility plans excluded + weights favor better plans
+    assert gated_utility(0.9, 0, "42", 0.9, True, True, 0, 0.3, 0.8) == 0.0
+    assert gated_utility(0.9, 0, "42", 0.5, False, True, 0, 0.3, 0.8) == 0.0
+    assert gated_utility(0.9, 0, "42", 0.5, True, False, 0, 0.3, 0.8) == 0.0
+    # quota: dedup + zero plans excluded + floor/cap guards (audit P1-2)
     plans = [[0]*K, [0]*K, [1]*K, [2]*K]
-    utils = [0.5, 0.5, 0.25, 0.0]
-    alloc = allocate_quota(plans, utils, 100, tau_mix=0.1)
+    utils = [0.9, 0.9, 0.3, 0.05]
+    alloc = allocate_quota(plans, utils, 1000, tau_mix=0.05)
     d = {tuple(r): q for r, q in alloc}
-    assert tuple([2]*K) not in d, "zero-utility plan got quota"
-    assert len(d) == 2 and sum(d.values()) == 100
-    assert d[tuple([0]*K)] > d[tuple([1]*K)], "weighting inverted"
-    print(f"[test7] PASSED: strict length bins, utility gates, dedup+weighted quota "
-          f"(alloc={d})\n")
+    assert sum(d.values()) == 1000 and len(d) == 3
+    assert max(d.values()) <= 0.45 * 1000, f"share cap violated: {d}"   # 0.4 cap (+rounding)
+    assert min(d.values()) >= 0.04 * 1000, f"min floor violated: {d}"
+    # all-zero -> None (audit P0-3)
+    assert allocate_quota(plans, [0.0, 0.0, 0.0, 0.0], 100) is None
+    print(f"[test7] PASSED: disjoint bins incl. boundaries, gates, capped quota "
+          f"(alloc={d}), all-zero -> None\n")
 
 
 if __name__ == "__main__":

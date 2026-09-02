@@ -12,8 +12,8 @@ solver DP=1/4/5, verl=2/3, eval=6.
 Env knobs:
   PLAN_M (8 particles)  PLAN_B (25 probes/particle/step)  PLAN_S (30 SGLD steps/iter)
   PLAN_ETA (0.3)  PLAN_T0/T1 (0.2/0.02, reward-scale aware)  PLAN_GAMMA0/GAMMA1 (1.0/0.3)
-  PLAN_TAUPLAN (0.05)  PLAN_LAMBDA_A (1e-3)  PLAN_LAMBDA_REP (1.0, pooled MB batch)
-  PLAN_LEN_PENALTY (1: out-of-bin length => reward 0 for that probe)
+  PLAN_TAUPLAN (0.05)  PLAN_LAMBDA_A (1e-3)
+  PLAN_LAMBDA_REP (0 = UNCERTAINTY-ONLY default; >0 = pooled-diversity variant)
   DEO_TOTAL_Q (2000)  DEO_NUM_ITERS (5)
 """
 import json
@@ -51,7 +51,6 @@ PLAN_LAMBDA_A = float(os.environ.get("PLAN_LAMBDA_A", "1e-3"))
 # >0 => repetition couples particles, so the runner switches to the shared
 # pooled-batch reward for every particle (review P0-1).
 PLAN_LAMBDA_REP = float(os.environ.get("PLAN_LAMBDA_REP", "0"))
-PLAN_LEN_PENALTY = os.environ.get("PLAN_LEN_PENALTY", "1") == "1"
 
 VERL_GPUS = os.environ.get("DEO_VERL_GPUS", "2,3")
 EVAL_GPU = os.environ.get("DEO_EVAL_GPU", "6")
@@ -147,9 +146,12 @@ def gen_questions(tokenizer, instructions):
 
 
 def probe_and_score(tokenizer, plans_rows, B=None):
-    """One planning step (or validation pass): B probes per plan; utility per probe is
-    the GATED tent reward (valid parse + pseudo-label + p_hat band + LLM judge +
-    strict length bin => review P0-2/P0-3). Returns (U_local list, U_global, diag)."""
+    """One planning step / validation pass. Gate order (audit P0-6):
+        parse -> LENGTH gate -> solver rollouts -> pseudo/p_hat gate -> judge
+    so cheap gates run first and the judge only sees in-band survivors.
+    Judge calls are per-item fault-isolated with a circuit breaker: a widespread
+    judge outage ABORTS the iteration rather than silently passing everything.
+    Returns (U_local list, U_global, diag)."""
     from concurrent.futures import ThreadPoolExecutor
     B = B or PLAN_B
     M = len(plans_rows)
@@ -158,18 +160,44 @@ def probe_and_score(tokenizer, plans_rows, B=None):
         instructions += [render_plan(rows)] * B
         owner += [p] * B
     parsed = gen_questions(tokenizer, instructions)
-    valid_ix = [i for i, x in enumerate(parsed) if x is not None]
-    qs = [parsed[i][0] for i in valid_ix]
+
+    # length gate BEFORE solver rollouts
+    lens, len_pass = {}, []
+    for i, x in enumerate(parsed):
+        if x is None:
+            continue
+        ntok = len(tokenizer(x[0], add_special_tokens=False).input_ids)
+        lens[i] = ntok
+        if length_ok(ntok, plans_rows[owner[i]]):
+            len_pass.append(i)
+    qs = [parsed[i][0] for i in len_pass]
     r_uncs, p_hats, pseudos = [], [], []
     if qs:
         r_uncs, p_hats, pseudos = deo.evaluate_r_unc_vllm(tokenizer, qs)[:3]
-    # LLM surface-validity judge on every scored probe (local vLLM, cheap)
-    judge = [True] * len(qs)
-    if qs:
+
+    # pseudo/p_hat band gate BEFORE the judge
+    band_ix = [j for j in range(len(qs))
+               if pseudos[j] not in (None, "", "None")
+               and deo.config.MIN_SCORE <= p_hats[j] <= deo.config.MAX_SCORE]
+
+    def _judge(j):
+        try:
+            return deo.judge_one_validity(qs[j], pseudos[j])
+        except Exception:
+            return "ERR"
+    judge_ok, judge_err = {}, 0
+    if band_ix:
         with ThreadPoolExecutor(max_workers=16) as ex:
-            judge = list(ex.map(lambda t: deo.judge_one_validity(t[0], t[1]),
-                                [(q, pseudos[j]) for j, q in enumerate(qs)]))
-    # repetition on the pooled probes, FIXED denominator M*B (review P0-1)
+            for j, v in zip(band_ix, ex.map(_judge, band_ix)):
+                if v == "ERR":
+                    judge_err += 1
+                    judge_ok[j] = False
+                else:
+                    judge_ok[j] = bool(v)
+        if judge_err > 0.5 * len(band_ix):
+            raise RuntimeError(f"[plan] judge endpoint outage: {judge_err}/{len(band_ix)} "
+                               "errors — aborting instead of silently changing the objective")
+
     rep = [0.0] * len(qs)
     if PLAN_LAMBDA_REP > 0 and len(qs) > 1:
         toks = [q.split() for q in qs]
@@ -179,61 +207,82 @@ def probe_and_score(tokenizer, plans_rows, B=None):
                 if a != b2 and deo._is_close(toks[a], toks[b2]):
                     c += 1
             rep[a] = c / (M * B)
-    # gated utilities; invalid probes contribute 0 over the FIXED B denominator
+
     util = {}
-    lens = {}
-    for j, i in enumerate(valid_ix):
-        ntok = len(tokenizer(qs[j], add_special_tokens=False).input_ids)
-        lens[i] = ntok
-        lok = length_ok(ntok, plans_rows[owner[i]])
+    for j in band_ix:
+        i = len_pass[j]
         util[i] = gated_utility(r_uncs[j], rep[j], pseudos[j], p_hats[j],
-                                judge[j], lok, PLAN_LAMBDA_REP,
+                                judge_ok.get(j, False), True, PLAN_LAMBDA_REP,
                                 deo.config.MIN_SCORE, deo.config.MAX_SCORE)
     U_local = []
     for p in range(M):
         mine = [util.get(i, 0.0) for i in range(p * B, (p + 1) * B)]
         U_local.append(sum(mine) / B)
     U_global = sum(util.values()) / (M * B)
-    n_inband = sum(1 for j, i in enumerate(valid_ix)
-                   if deo.config.MIN_SCORE <= p_hats[j] <= deo.config.MAX_SCORE)
-    n_lenok = sum(1 for i in valid_ix if length_ok(lens[i], plans_rows[owner[i]]))
     plen = {p: [lens[i] for i in range(p * B, (p + 1) * B) if i in lens] for p in range(M)}
-    diag = {"valid": len(valid_ix), "total": len(instructions),
-            "judge_drop": sum(1 for x in judge if not x), "inband": n_inband,
-            "len_ok": n_lenok,
+    diag = {"valid": sum(1 for x in parsed if x is not None), "total": len(instructions),
+            "len_ok": len(len_pass), "inband": len(band_ix),
+            "judge_drop": sum(1 for j in band_ix if not judge_ok.get(j, False)) - judge_err,
+            "judge_err": judge_err,
             "mean_len": {p: (sum(v) / len(v) if v else 0) for p, v in plen.items()}}
     return U_local, U_global, diag
 
 
 def gen_final_pool(tokenizer, alloc, n):
-    """Final training pool from deduped, utility-weighted plans (review P1-4) with
-    STRICT length enforcement + bounded resampling (review P0-2)."""
-    train_data = []
+    """Final training pool with POST-FILTER quota accounting (audit P0-4): a
+    candidate counts against its plan's quota only after passing ALL the gates
+    the downstream filter applies (parse + strict length + pseudo + p_hat band +
+    LLM judge) and global exact-dedup. Shortfalls are refilled within a bounded
+    budget; the runner asserts a verl-viable dataset size before upload."""
+    from concurrent.futures import ThreadPoolExecutor
+    train_data, seen = [], set()
     for p, (rows, quota) in enumerate(alloc):
         need, tries = quota, 0
-        while need > 0 and tries < 6:
-            batch = gen_questions(tokenizer, [render_plan(rows)] * min(need * 2 + 20, 300))
-            got = []
+        while need > 0 and tries < 8:
+            tries += 1
+            batch = gen_questions(tokenizer, [render_plan(rows)] * min(need * 3 + 30, 300))
+            cands = []
             for x in batch:
                 if x is None:
                     continue
-                ntok = len(tokenizer(x[0], add_special_tokens=False).input_ids)
+                q, gt = x
+                if q in seen:
+                    continue
+                ntok = len(tokenizer(q, add_special_tokens=False).input_ids)
                 if length_ok(ntok, rows):
-                    got.append(x)
-                if len(got) >= need:
+                    cands.append((q, gt, ntok))
+            if not cands:
+                continue
+            qs = [q for q, _g, _n in cands]
+            r_uncs, p_hats, pseudos = deo.evaluate_r_unc_vllm(tokenizer, qs)[:3]
+            keep = [j for j in range(len(qs))
+                    if pseudos[j] not in (None, "", "None")
+                    and deo.config.MIN_SCORE <= p_hats[j] <= deo.config.MAX_SCORE]
+            if keep:
+                with ThreadPoolExecutor(max_workers=16) as ex:
+                    verd = dict(zip(keep, ex.map(
+                        lambda j: bool(deo.judge_one_validity(qs[j], pseudos[j])), keep)))
+                keep = [j for j in keep if verd.get(j, False)]
+            for j in keep:
+                if need <= 0:
                     break
-            if got:
-                qs = [q for q, _ in got]
-                r_uncs, p_hats, pseudos = deo.evaluate_r_unc_vllm(tokenizer, qs)[:3]
-                for j, (q, gt) in enumerate(got):
-                    train_data.append({"question": q, "gt": gt, "p_hat": p_hats[j],
-                                       "pseudo_label": pseudos[j], "r_unc": r_uncs[j],
-                                       "topic": f"plan{p}"})
-                need -= len(got)
-            tries += 1
+                q, gt, _nt = cands[j]
+                seen.add(q)
+                train_data.append({"question": q, "gt": gt, "p_hat": p_hats[j],
+                                   "pseudo_label": pseudos[j], "r_unc": r_uncs[j],
+                                   "topic": f"plan{p}"})
+                need -= 1
         if need > 0:
-            print(f"[plan] WARNING: plan {rows} short by {need} after resampling budget",
+            print(f"[plan] WARNING: plan {rows} short by {need} after refill budget",
                   flush=True)
+    # realized marginals (audit P0-2 option (a): observe, don't fix)
+    from collections import Counter
+    plan_counts = Counter(d["topic"] for d in train_data)
+    print(f"[plan] realized post-filter plan counts: {dict(plan_counts)} "
+          f"(target n={n}, achieved {len(train_data)})", flush=True)
+    if len(train_data) < 64:
+        raise RuntimeError(f"[plan] post-filter dataset has {len(train_data)} rows "
+                           "< verl rollout_batch_size=64 — aborting before training")
     return train_data
 
 
@@ -303,7 +352,9 @@ def main():
                 rows, P = planner.sample_plan(p, gamma, generator=g)
                 plans.append(rows); Ps.append(P)
             U_local, U_global, diag = probe_and_score(tokenizer, plans)
-            n_gen += diag["total"]; n_roll += diag["valid"] * deo.config.M_SAMPLES
+            n_gen += diag["total"]
+            m_per = deo.config.USTAT_N if deo.config.CD_ENABLE else deo.config.M_SAMPLES
+            n_roll += diag["valid"] * m_per
             stats = None
             for p in range(PLAN_M):
                 # lambda_rep couples particles through pooled repetition -> shared
@@ -325,7 +376,8 @@ def main():
                                        "U_global": round(U_global, 4),
                                        "mean_len": diag["mean_len"]}) + "\n")
             log_file.flush()
-        log_file.write(f"[plan] iter{it} budget: {n_gen} generations, ~{n_roll} solver rollouts\n")
+        log_file.write(f"[plan] iter{it} planning budget: {n_gen} generations, "
+                       f"~{n_roll} solver rollouts (excludes final-pool scoring)\n")
 
         # ---- quantize, VALIDATE with a fresh probe pass, dedup + weight quotas ----
         hard = [planner.quantize(p) for p in range(PLAN_M)]
@@ -347,6 +399,15 @@ def main():
             if Uref >= Uval[top]:
                 hard[top], Uval[top] = refined, Uref
         alloc = allocate_quota(hard, Uval, deo.config.TOTAL_QUESTIONS, tau_mix=PLAN_TAUMIX)
+        if alloc is None:
+            # all plans validated to zero (audit P0-3): one bigger revalidation, then abort
+            print("[plan] all validated utilities are ZERO — retrying with 3x batch", flush=True)
+            Uval, _g3, _d3 = probe_and_score(tokenizer, hard, B=3 * PLAN_B)
+            alloc = allocate_quota(hard, Uval, deo.config.TOTAL_QUESTIONS, tau_mix=PLAN_TAUMIX)
+            if alloc is None:
+                raise RuntimeError("[plan] every quantized plan validated to zero utility "
+                                   "twice — planner failed this iteration; not training on "
+                                   "unusable plans")
         for rows, q in alloc:
             line = f"[plan] iter{it} QUOTA {q}: {planner.describe(rows)}"
             print(line, flush=True); log_file.write(line + "\n")
@@ -358,9 +419,12 @@ def main():
         lens = [len(tokenizer(d["question"], add_special_tokens=False).input_ids)
                 for d in train_data]
         if lens:
+            from plan_sgld import LENGTH_BINS
+            marg = {f"{lo}-{hi}": sum(1 for x in lens if lo <= x < hi)
+                    for lo, hi in LENGTH_BINS.values()}
             log_file.write(f"[plan] final pool: {len(train_data)} qs, "
-                           f"len mean={sum(lens)/len(lens):.0f} "
-                           f"min={min(lens)} max={max(lens)}\n")
+                           f"len mean={sum(lens)/len(lens):.0f} min={min(lens)} "
+                           f"max={max(lens)} realized_length_marginal={marg}\n")
         log_file.close()
         with open(f"{deo.config.STORAGE_ROOT}/datasets/mcmc_iter_{it}_{deo.config.MODEL_ABBR}.json",
                   "w") as f:

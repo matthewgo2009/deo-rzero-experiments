@@ -27,6 +27,23 @@ T1=0.02 → ~e^10 preference per 0.2 utility gap). T0=1 would be pure diffusion.
 
 Reward note: Û uses the project-standard TENT uncertainty surrogate (documented
 deviation from TeX Eq 3; see sgld_soft_prefix.py for the rationale).
+
+Method naming (audit P1-1): the full procedure is a HYBRID —
+annealed score-function SGLD + row-wise quantization + one coordinate-ascent
+refinement sweep + utility-softmax quota. It is a structured optimizer, not a
+sampler of the exact plan-space best response; pre-/post-refinement plans are
+logged separately.
+
+Default objective (audit P0-1): PLAN_LAMBDA_REP=0 => UNCERTAINTY-ONLY planning
+(per-particle credit exact). Set PLAN_LAMBDA_REP>0 for the pooled-diversity
+variant (shared batch reward; quota self-consistency is a known limitation —
+prefer oversample + set-level subset selection when studying diversity).
+
+Length policy (user decision, audit P0-2 option (a)): the length axis is a FREE
+plan coordinate — the adaptive length/difficulty curriculum (paper 2.4) is the
+point of the method. Degenerate long-question hacks are cut by the utility gates
+(p_hat band + judge + strict bins); requested vs realized length marginals are
+logged every iteration so drift is measurable, not silent.
 """
 import json
 import math
@@ -63,11 +80,11 @@ def render_plan(Z_rows):
             f"with a single unambiguous final answer.")
 
 
-def length_ok(n_tokens, rows, tol=0.10):
-    """Strict per-bin adherence (review P0-2): the accepted interval is the bin
-    itself with ±tol slack — bins must NOT overlap into each other's cores."""
+def length_ok(n_tokens, rows):
+    """STRICT disjoint half-open bins [lo, hi) (audit P1-3): every token count maps
+    to exactly one bin; adjacent bins share no accepted lengths."""
     lo, hi = LENGTH_BINS[rows[LENGTH_AXIS]]
-    return (1.0 - tol) * lo <= n_tokens <= (1.0 + tol) * hi
+    return lo <= n_tokens < hi
 
 
 def gated_utility(r_unc, rep, pseudo, p_hat, judge_ok, len_ok,
@@ -105,23 +122,40 @@ def coordinate_refine(rows, eval_fn):
     return best
 
 
-def allocate_quota(plans, utils, n, tau_mix=0.05):
-    """Review P1-4: dedup quantized plans, weight by validated utility.
-    Returns list of (rows, quota) with sum quota == n; zero-utility plans get 0."""
+def allocate_quota(plans, utils, n, tau_mix=0.05, max_share=0.4, min_share=0.05):
+    """Dedup quantized plans, weight by validated utility (review P1-4).
+    Returns list of (rows, quota) summing to n, or None if EVERY plan validated
+    to zero utility (audit P0-3: the caller must retry or abort — never train on
+    plans the validator found unusable). Noise guards (audit P1-2): retained
+    plans get a min_share floor and no plan exceeds max_share of the total."""
     uniq = {}
     for rows, u in zip(plans, utils):
         key = tuple(rows)
         uniq[key] = max(uniq.get(key, 0.0), float(u))
     keys = [k for k in uniq if uniq[k] > 0.0]
-    if not keys:                      # everything failed validation: fall back uniform
-        keys = list(uniq.keys())
-        w = [1.0 / len(keys)] * len(keys)
-    else:
-        import math as _m
-        mx = max(uniq[k] for k in keys)
-        e = [_m.exp((uniq[k] - mx) / max(tau_mix, 1e-6)) for k in keys]
-        Zs = sum(e)
-        w = [x / Zs for x in e]
+    if not keys:
+        return None
+    import math as _m
+    mx = max(uniq[k] for k in keys)
+    e = [_m.exp((uniq[k] - mx) / max(tau_mix, 1e-6)) for k in keys]
+    Zs = sum(e)
+    w = [x / Zs for x in e]
+    if len(keys) > 1:
+        # floor then cap, renormalize (cap only binds when it is feasible)
+        w = [max(x, min_share) for x in w]
+        cap = max(max_share, 1.0 / len(keys) + 1e-9)
+        for _ in range(len(keys)):
+            over = [i for i, x in enumerate(w) if x > cap * sum(w)]
+            if not over:
+                break
+            excess = sum(w[i] - cap * sum(w) for i in over)
+            for i in over:
+                w[i] = cap * sum(w)
+            under = [i for i in range(len(w)) if i not in over]
+            for i in under:
+                w[i] += excess / max(1, len(under))
+        Zs = sum(w)
+        w = [x / Zs for x in w]
     quota = [int(n * x) for x in w]
     i = 0
     while sum(quota) < n:
@@ -213,9 +247,6 @@ class PlanSGLD:
 
     def row_entropy(self, p, gamma=1.0):
         """Mean per-axis entropy (nats) of P(A;γ) — saturation monitor (review P2-4)."""
-        P = self.probs(p, gamma)
-        ent = -(P * torch.log(P + 1e-12)).masked_select(self.mask)
-        # sum within rows then average across axes
         Pm = self.probs(p, gamma)
         rows = [float(-(Pm[k][self.mask[k]] * torch.log(Pm[k][self.mask[k]] + 1e-12)).sum())
                 for k in range(K)]

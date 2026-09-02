@@ -141,6 +141,14 @@ run_curriculum(){
 }
 # adaptive-temperature DEO: canonical walk + solver labeler + beta updated each
 # iter to keep in-band r_unc fraction near delta (DEO paper §1.4)
+# Planning-SGLD DEO: categorical plan variable, annealed SGLD (DEO_SGLD.pdf v2)
+run_plansgld(){
+  echo "=== [$(date '+%T')] Planning-SGLD DEO (${DEO_NUM_ITERS:-5} iters) ==="
+  export STORAGE_PATH=$DEO_STORAGE PYTHONPATH=$ROOT/R-Zero DEO_NUM_ITERS=${DEO_NUM_ITERS:-5}
+  bash "$ROOT/DEO/start_vllm_native.sh"
+  python3 "$ROOT/DEO/plan_sgld_native_main.py"
+  free_gpus; sync_once
+}
 # SGLD-DEO: soft-prefix latent SGLD replaces the MCMC walk (DEO_SGLD.pdf)
 run_sgld(){
   echo "=== [$(date '+%T')] SGLD-DEO (latent soft-prefix, ${DEO_NUM_ITERS:-5} iters) ==="
@@ -349,6 +357,7 @@ case $MODE in
   curriculum) run_curriculum; run_eval_canon ;;
   adaptive) run_adaptive; run_eval_canon ;;
   sgld) run_sgld; DEO_ABBR=${DEO_ABBR:-deo_sgld} run_eval_canon ;;
+  plansgld) run_plansgld; DEO_ABBR=${DEO_ABBR:-deo_plansgld} run_eval_canon ;;
   full)        run_deo; run_rzero; run_eval ;;
 esac
 sync_once

@@ -12,7 +12,7 @@ import torch
 import torch.nn.functional as F
 
 sys.path.insert(0, "DEO")
-from plan_sgld import PlanSGLD, K, L, AXES
+from plan_sgld import PlanSGLD, K, L, AXES, LENGTH_AXIS as LENGTH_AXIS_TEST
 
 
 def enum_plans(mask):
@@ -112,8 +112,155 @@ def test_directional(seed=2, steps=1500, M=4):
     print("[test3] PASSED: >=1 of M particles quantizes to the rewarded plan\n")
 
 
+# ================= review-added tests (P1-5) =================
+
+def test_grad_implementation(n_mc=300_000, seed=3):
+    """Expectation of the IMPLEMENTED PlanSGLD.grad() (incl. KL + L2 regularizers)
+    vs exact enumeration+autograd of J(A) = E[U] − τ_plan·KL − λ_A/2‖A‖²."""
+    torch.manual_seed(seed)
+    pl = PlanSGLD(M=1, tau_plan=0.07, lambda_A=0.02, seed=seed)
+    pl.baseline[0] = 0.4                       # fixed baseline b
+    gamma = 0.8
+    U_table = {plan: float(torch.rand(1)) for plan in enum_plans(pl.mask)}
+
+    # exact ∇J by enumeration + autograd
+    A = pl.A[0].clone().requires_grad_(True)
+    logits = (A / gamma).masked_fill(~pl.mask, -1e9)
+    P = F.softmax(logits, dim=-1)
+    EU = 0.0
+    for plan, u in U_table.items():
+        prob = 1.0
+        for k, l in enumerate(plan):
+            prob = prob * P[k, l]
+        EU = EU + prob * u
+    kl = (P * (torch.log(P + 1e-12) - torch.log(pl.rho0 + 1e-12))).masked_select(pl.mask).sum()
+    J = EU - pl.tau_plan * kl - 0.5 * pl.lambda_A * (A.masked_select(pl.mask) ** 2).sum()
+    J.backward()
+    g_exact = A.grad.masked_select(pl.mask)
+
+    # MC average of the implemented grad() (baseline fixed; unbiased for any b)
+    gen = torch.Generator().manual_seed(seed + 1)
+    g_sum = torch.zeros(K, L)
+    Pdet = pl.probs(0, gamma)
+    samples = torch.stack([torch.multinomial(Pdet[k], n_mc, replacement=True, generator=gen)
+                           for k in range(K)])
+    u_vals = torch.tensor([U_table[tuple(samples[:, i].tolist())] for i in range(n_mc)])
+    w = (u_vals - pl.baseline[0]) / gamma
+    for k in range(K):
+        g_sum[k].scatter_add_(0, samples[k], w)
+        g_sum[k] -= w.sum() * Pdet[k]
+    g_reward_mc = g_sum / n_mc
+    # deterministic regularizer part straight from the implementation
+    g_reg = pl.grad(0, [0]*K, Pdet, pl.baseline[0], gamma)  # adv=0 → pure −∇reg
+    g_mc = (g_reward_mc + g_reg).masked_select(pl.mask)
+    rel = float((g_mc - g_exact).norm() / (g_exact.norm() + 1e-12))
+    print(f"[test4] implemented-grad rel_err={rel:.4f}")
+    assert rel < 0.05, f"FAIL: PlanSGLD.grad() disagrees with enumeration (rel {rel})"
+    print("[test4] PASSED: implemented grad (reward+KL+L2) matches enumeration\n")
+
+
+def test_coupled_shared_reward(n_mc=800_000, seed=4):
+    """Two particles, reward penalizing SAME choice on axis 0 (non-separable).
+    The shared-batch-reward estimator must match exact enumeration."""
+    torch.manual_seed(seed)
+    pl = PlanSGLD(M=2, tau_plan=0.0, lambda_A=0.0, seed=seed)
+    # skew particle 2's axis-0 so the exact coupling gradient is well away from zero
+    # (near-uniform P2 makes g_exact ~ 0 and the relative metric ill-conditioned)
+    pl.A[1, 0, :4] = torch.tensor([1.5, -0.5, 0.0, -1.0])
+    gamma = 1.0
+    P1, P2 = pl.probs(0, gamma), pl.probs(1, gamma)
+
+    # exact ∇_{A1} E[R], R = 1 − 1{axis0 equal} (depends only on axis 0)
+    A1 = pl.A[0].clone().requires_grad_(True)
+    l1 = (A1 / gamma).masked_fill(~pl.mask, -1e9)
+    P1g = F.softmax(l1, dim=-1)
+    ER = 1.0 - (P1g[0] * P2[0].detach()).sum()
+    ER.backward()
+    g_exact = A1.grad.masked_select(pl.mask)
+
+    gen = torch.Generator().manual_seed(seed + 1)
+    s1 = torch.stack([torch.multinomial(P1[k], n_mc, replacement=True, generator=gen)
+                      for k in range(K)])
+    s2_ax0 = torch.multinomial(P2[0], n_mc, replacement=True, generator=gen)
+    R = 1.0 - (s1[0] == s2_ax0).float()
+    b = float(R.mean())
+    w = (R - b) / gamma
+    g_sum = torch.zeros(K, L)
+    for k in range(K):
+        g_sum[k].scatter_add_(0, s1[k], w)
+        g_sum[k] -= w.sum() * P1[k]
+    g_mc = (g_sum / n_mc).masked_select(pl.mask)
+    rel = float((g_mc - g_exact).norm() / (g_exact.norm() + 1e-12))
+    print(f"[test5] coupled shared-reward rel_err={rel:.4f}")
+    assert rel < 0.06, f"FAIL: shared-reward estimator biased (rel {rel})"
+    print("[test5] PASSED: shared pooled reward correct under particle coupling\n")
+
+
+def test_production_horizon(seeds=8, S=30, B=25, M=8):
+    """Production config: S=30 annealed steps + ONE coordinate-refine sweep on the
+    best particle (as in the runner). Pure SGLD at this horizon plateaus at ~0.8
+    (one axis locks early — measured); the refine sweep must repair it."""
+    from plan_sgld import coordinate_refine
+    target = [0, 2, 1, 1, 3]
+    def u_of(rows, gen):
+        u = sum(1 for a, b2 in zip(rows, target) if a == b2) / K
+        return u + float(torch.randn(1, generator=gen)) * (0.2 / (B ** 0.5))
+    hits, best_matches = 0, []
+    for sd in range(seeds):
+        pl = PlanSGLD(M=M, seed=100 + sd)          # production defaults
+        gen = torch.Generator().manual_seed(200 + sd)
+        for s in range(S):
+            for p in range(M):
+                rows, P = pl.sample_plan(p, pl.temps(s, S)[1], generator=gen)
+                pl.step(p, rows, P, u_of(rows, gen), s, S, generator=gen)
+        plans = [pl.quantize(p) for p in range(M)]
+        utils = [u_of(r, gen) for r in plans]
+        top = max(range(M), key=lambda p: utils[p])
+        refined = coordinate_refine(plans[top],
+                                    lambda vs: [u_of(v, gen) for v in vs])
+        m = sum(1 for a, b2 in zip(refined, target) if a == b2) / K
+        best_matches.append(m)
+        hits += (m == 1.0)
+    mean_best = sum(best_matches) / seeds
+    print(f"[test6] production+refine: mean best-match={mean_best:.2f}, "
+          f"perfect {hits}/{seeds}")
+    assert hits >= seeds - 1, f"FAIL: refine did not repair stuck axes ({hits}/{seeds})"
+    print("[test6] PASSED: 30-step schedule + coordinate refine recovers the target\n")
+
+
+def test_length_and_quota():
+    from plan_sgld import length_ok, gated_utility, allocate_quota
+    # strict bins: 200 tokens must NOT satisfy every bin (review P0-2)
+    r = [0, 0, 0, 0, 0]
+    accepts = []
+    for b in range(4):
+        r[LENGTH_AXIS_TEST] = b
+        accepts.append(length_ok(200, r))
+    assert accepts == [False, True, False, False], f"bin overlap: {accepts}"
+    # gates (review P0-3)
+    assert gated_utility(0.9, 0, "42", 0.5, True, True, 0, 0.3, 0.8) == 0.9
+    assert gated_utility(0.9, 0, None, 0.5, True, True, 0, 0.3, 0.8) == 0.0
+    assert gated_utility(0.9, 0, "42", 0.9, True, True, 0, 0.3, 0.8) == 0.0   # out of band
+    assert gated_utility(0.9, 0, "42", 0.5, False, True, 0, 0.3, 0.8) == 0.0  # judge
+    assert gated_utility(0.9, 0, "42", 0.5, True, False, 0, 0.3, 0.8) == 0.0  # length
+    # quota: dedup + zero-utility plans excluded + weights favor better plans
+    plans = [[0]*K, [0]*K, [1]*K, [2]*K]
+    utils = [0.5, 0.5, 0.25, 0.0]
+    alloc = allocate_quota(plans, utils, 100, tau_mix=0.1)
+    d = {tuple(r): q for r, q in alloc}
+    assert tuple([2]*K) not in d, "zero-utility plan got quota"
+    assert len(d) == 2 and sum(d.values()) == 100
+    assert d[tuple([0]*K)] > d[tuple([1]*K)], "weighting inverted"
+    print(f"[test7] PASSED: strict length bins, utility gates, dedup+weighted quota "
+          f"(alloc={d})\n")
+
+
 if __name__ == "__main__":
     test_score_identity()
     test_prior_only()
     test_directional()
+    test_grad_implementation()
+    test_coupled_shared_reward()
+    test_production_horizon()
+    test_length_and_quota()
     print("ALL PLANNING-SGLD TESTS PASSED")

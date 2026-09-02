@@ -63,6 +63,73 @@ def render_plan(Z_rows):
             f"with a single unambiguous final answer.")
 
 
+def length_ok(n_tokens, rows, tol=0.10):
+    """Strict per-bin adherence (review P0-2): the accepted interval is the bin
+    itself with ±tol slack — bins must NOT overlap into each other's cores."""
+    lo, hi = LENGTH_BINS[rows[LENGTH_AXIS]]
+    return (1.0 - tol) * lo <= n_tokens <= (1.0 + tol) * hi
+
+
+def gated_utility(r_unc, rep, pseudo, p_hat, judge_ok, len_ok,
+                  lambda_rep, pmin, pmax):
+    """Review P0-3: TENT utility gated by usability so the planner cannot reward
+    ambiguous/unsolvable/mislength questions (the R-Zero reward-hack path):
+      u = 1{pseudo}·1{p_hat in band}·1{judge}·1{length} · [r_unc − λ_rep·rep]_+
+    The band gate ALIGNS the planner objective with the training filter
+    (BUCKET_ANALYSIS lesson: controller band must match filter band)."""
+    if pseudo in (None, "", "None"):
+        return 0.0
+    if not (pmin <= float(p_hat) <= pmax):
+        return 0.0
+    if not judge_ok or not len_ok:
+        return 0.0
+    return max(0.0, float(r_unc) - lambda_rep * float(rep))
+
+
+def coordinate_refine(rows, eval_fn):
+    """One coordinate-ascent sweep over the plan (post-quantization): for each axis,
+    evaluate every valid value with a fresh probe batch and keep the argmax.
+    Deterministically repairs the single-stuck-axis failure mode that annealed
+    SGLD exhibits at short production horizons (K·L probe batches, run once/iter).
+    eval_fn(list_of_plans) -> list of utilities."""
+    from plan_sgld import AXES as _AXES
+    best = list(rows)
+    for k in range(len(_AXES)):
+        variants = []
+        for l in range(len(_AXES[k][1])):
+            v = list(best)
+            v[k] = l
+            variants.append(v)
+        utils = eval_fn(variants)
+        best[k] = int(max(range(len(utils)), key=lambda i: utils[i]))
+    return best
+
+
+def allocate_quota(plans, utils, n, tau_mix=0.05):
+    """Review P1-4: dedup quantized plans, weight by validated utility.
+    Returns list of (rows, quota) with sum quota == n; zero-utility plans get 0."""
+    uniq = {}
+    for rows, u in zip(plans, utils):
+        key = tuple(rows)
+        uniq[key] = max(uniq.get(key, 0.0), float(u))
+    keys = [k for k in uniq if uniq[k] > 0.0]
+    if not keys:                      # everything failed validation: fall back uniform
+        keys = list(uniq.keys())
+        w = [1.0 / len(keys)] * len(keys)
+    else:
+        import math as _m
+        mx = max(uniq[k] for k in keys)
+        e = [_m.exp((uniq[k] - mx) / max(tau_mix, 1e-6)) for k in keys]
+        Zs = sum(e)
+        w = [x / Zs for x in e]
+    quota = [int(n * x) for x in w]
+    i = 0
+    while sum(quota) < n:
+        quota[i % len(quota)] += 1
+        i += 1
+    return [(list(k), q) for k, q in zip(keys, quota)]
+
+
 class PlanSGLD:
     def __init__(self, M=8, eta=0.3, T0=0.2, T1=0.02, gamma0=1.0, gamma1=0.3,
                  tau_plan=0.05, lambda_A=1e-3, score_clip=10.0, seed=0):
@@ -144,10 +211,28 @@ class PlanSGLD:
     def describe(self, rows):
         return {AXES[k][0]: AXES[k][1][rows[k]] for k in range(K)}
 
-    def add_refresh_noise(self, scale=0.05):
-        """Small centered noise at outer-iteration warm start (Alg 1 step 3c)."""
-        self.A += torch.where(self.mask, torch.randn_like(self.A) * scale,
-                              torch.zeros_like(self.A))
+    def row_entropy(self, p, gamma=1.0):
+        """Mean per-axis entropy (nats) of P(A;γ) — saturation monitor (review P2-4)."""
+        P = self.probs(p, gamma)
+        ent = -(P * torch.log(P + 1e-12)).masked_select(self.mask)
+        # sum within rows then average across axes
+        Pm = self.probs(p, gamma)
+        rows = [float(-(Pm[k][self.mask[k]] * torch.log(Pm[k][self.mask[k]] + 1e-12)).sum())
+                for k in range(K)]
+        return sum(rows) / K
+
+    def add_refresh_noise(self, scale=0.05, min_entropy=0.3):
+        """Warm-start refresh (Alg 1 step 3c). Saturated particles (mean row entropy
+        < min_entropy nats) get CONTRACTED logits + larger noise — plain small noise
+        cannot meaningfully refresh near-one-hot logits (review P2-4)."""
+        for p in range(self.M):
+            if self.row_entropy(p) < min_entropy:
+                self.A[p] = torch.where(self.mask, self.A[p] * 0.5, self.A[p])
+                sc = scale * 4
+            else:
+                sc = scale
+            self.A[p] += torch.where(self.mask[None].squeeze(0),
+                                     torch.randn(K, L) * sc, torch.zeros(K, L))
         self._center()
 
     def save(self, path):

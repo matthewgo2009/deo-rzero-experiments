@@ -116,6 +116,22 @@ class Config:
     # a walk proposal uses the [F] OLYMPIAD_REWRITE operator (rephrase into formal
     # competition register, mathematics preserved) instead of the standard mutator. 0 = off.
     STYLE_P = float(os.getenv("DEO_STYLE_P", "0"))
+
+    # --- Weakness memory (WEAKNESS_MEMORY_IMPLEMENTATION.md): minimal cross-iteration
+    #     memory loop. Each evaluated proposal gets one short weakness note (written by
+    #     the frozen base model from the solver's answer-cluster disagreement); each
+    #     chain keeps the note of its final accepted state; post-filter notes are
+    #     map-reduced into <=MEMORY_TOP_K global weaknesses; next iteration each chain
+    #     samples one weakness w.p. MEMORY_GUIDED_PROB to guide its mutations.
+    #     MH energy/acceptance, p_hat/r_unc/pseudo-labels, filtering and the training
+    #     budget are untouched. Disabled (default) reproduces current behavior exactly.
+    #     Implemented for the canonical fixed-beta non-CD walk only.
+    WEAKNESS_MEMORY_ENABLED = os.getenv("DEO_WEAKNESS_MEMORY", "0") == "1"
+    MEMORY_GUIDED_PROB = float(os.getenv("DEO_MEMORY_GUIDED_PROB", "0.8"))
+    MEMORY_TOP_K = int(os.getenv("DEO_MEMORY_TOP_K", "10"))
+    MEMORY_MIN_SUPPORT = int(os.getenv("DEO_MEMORY_MIN_SUPPORT", "3"))
+    MEMORY_SUMMARY_CHUNK_SIZE = int(os.getenv("DEO_MEMORY_SUMMARY_CHUNK_SIZE", "100"))
+    MEMORY_TRACE_MAX_CHARS = int(os.getenv("DEO_MEMORY_TRACE_MAX_CHARS", "1500"))
     SOLVER_TEMP = 1.0
     SOLVER_TOP_P = 1.0
     SOLVER_TOP_K = 40
@@ -726,7 +742,7 @@ def robust_grade(student_answer, gt_answer):
 # ==========================================
 # 5. r_unc evaluation (uses solver vllm, R-Zero-aligned sampling)
 # ==========================================
-def evaluate_r_unc_vllm(tokenizer, questions, return_labels=False):
+def evaluate_r_unc_vllm(tokenizer, questions, return_labels=False, return_details=False):
     """Score each question by majority-vote consistency on the current solver.
 
     Sampling settings + chat template match R-Zero's question_evaluate.py and
@@ -736,11 +752,14 @@ def evaluate_r_unc_vllm(tokenizer, questions, return_labels=False):
     Samples n=USTAT_N responses when CD acceptance is enabled (so the MCMC step
     can form the order-USTAT_M U-statistic), else M_SAMPLES.
 
-    Returns: (r_unc_list, p_hat_list, pseudo_label_list[, labels_list])
-    where labels_list[i] is the list of n canonical answers for question i.
+    Returns: (r_unc_list, p_hat_list, pseudo_label_list[, labels_list][, details_list])
+    where labels_list[i] is the list of n canonical answers for question i and
+    details_list[i] (weakness memory) holds answer-cluster counts plus one truncated
+    representative trace per top cluster. Full rollout texts are not retained.
     """
     if not questions:
-        return ([], [], [], []) if return_labels else ([], [], [])
+        empty = [[], [], []] + ([[]] if return_labels else []) + ([[]] if return_details else [])
+        return tuple(empty)
     m = config.USTAT_N if config.CD_ENABLE else config.M_SAMPLES
 
     prompts = [
@@ -783,10 +802,12 @@ def evaluate_r_unc_vllm(tokenizer, questions, return_labels=False):
     texts = [t for shard in texts_by_shard for t in shard]
     answers = [extract_solver_answer(t) for t in texts]
 
-    r_unc_list, p_hat_list, pseudo_list, labels_list = [], [], [], []
+    r_unc_list, p_hat_list, pseudo_list, labels_list, details_list = [], [], [], [], []
     for i in range(len(questions)):
         chunk = answers[i * m: (i + 1) * m]
         labels_list.append(chunk)
+        if return_details:
+            details_list.append(_build_cluster_details(chunk, texts[i * m: (i + 1) * m]))
         valid = [a for a in chunk if a is not None and a != "GUESSED_FAIL_FORMAT"]
         if not valid:
             r_unc_list.append(0.0)
@@ -807,9 +828,12 @@ def evaluate_r_unc_vllm(tokenizer, questions, return_labels=False):
         p_hat_list.append(p_hat)
         pseudo_list.append(None if is_garbage else major_ans)
 
+    out = [r_unc_list, p_hat_list, pseudo_list]
     if return_labels:
-        return r_unc_list, p_hat_list, pseudo_list, labels_list
-    return r_unc_list, p_hat_list, pseudo_list
+        out.append(labels_list)
+    if return_details:
+        out.append(details_list)
+    return tuple(out)
 
 
 # ==========================================
@@ -929,6 +953,297 @@ def calculate_batch_energy(questions, r_unc_list):
 # ==========================================
 # 7. MCMC (single-process; large vllm batches)
 # ==========================================
+# ==========================================
+# 7b. Weakness memory (WEAKNESS_MEMORY_IMPLEMENTATION.md)
+# ==========================================
+WEAKNESS_DOMAINS = {"algebra", "geometry", "number_theory", "combinatorics",
+                    "probability", "calculus", "other"}
+
+WEAKNESS_WRITER_SYSTEM = """You summarize mathematical capabilities about which a solver is uncertain.
+
+Given one problem and clusters of solver responses, return exactly one JSON
+object with keys: domain, weakness, evidence.
+
+domain must be one of algebra, geometry, number_theory, combinatorics,
+probability, calculus, other.
+
+weakness must describe the specific reasoning operation on which the response
+clusters disagree, not merely the problem topic. Do not say which answer is
+correct or incorrect because no verified answer is provided. Do not copy
+problem-specific constants or wording. Keep each value under 30 words."""
+
+WEAKNESS_GUIDANCE_TMPL = """
+
+KNOWN SOLVER WEAKNESS:
+{weakness}
+
+Mutate the seed so solving the new problem specifically requires this reasoning
+capability. Preserve a unique, verifiable answer. Do not merely change numbers,
+copy an old question, or include the solution/answer in the question. Keep the
+mutation focused on this weakness while applying exactly one strategy A-E."""
+
+
+def _truncate_trace(text, max_chars=None):
+    """Keep the beginning and the ending of a long trace (reasoning setup + final answer)."""
+    max_chars = max_chars or config.MEMORY_TRACE_MAX_CHARS
+    if text is None or len(text) <= max_chars:
+        return text or ""
+    head = int(max_chars * 0.6)
+    tail = max_chars - head
+    return text[:head] + "\n...[truncated]...\n" + text[-tail:]
+
+
+def _build_cluster_details(answers_chunk, texts_chunk, top_n=3):
+    """Cluster the m rollout answers (same Counter grouping as p_hat) and attach one
+    truncated representative trace per top cluster. One question = one observation."""
+    valid_ix = [j for j, a in enumerate(answers_chunk)
+                if a is not None and a != "GUESSED_FAIL_FORMAT"]
+    counts = Counter(answers_chunk[j] for j in valid_ix)
+    clusters = []
+    for ans, cnt in counts.most_common(top_n):
+        rep = next(texts_chunk[j] for j in valid_ix if answers_chunk[j] == ans)
+        clusters.append({"answer": ans, "count": cnt,
+                         "representative_trace": _truncate_trace(rep)})
+    return {"rollout_count": len(answers_chunk),
+            "valid_answer_count": len(valid_ix),
+            "invalid_answer_count": len(answers_chunk) - len(valid_ix),
+            "clusters": clusters}
+
+
+def _extract_json_value(text, open_ch="{", close_ch="}"):
+    """First balanced {...} (or [...]) block in a completion, or None."""
+    start = text.find(open_ch)
+    if start < 0:
+        return None
+    depth = 0
+    for i in range(start, len(text)):
+        if text[i] == open_ch:
+            depth += 1
+        elif text[i] == close_ch:
+            depth -= 1
+            if depth == 0:
+                try:
+                    return json.loads(text[start:i + 1])
+                except Exception:
+                    return None
+    return None
+
+
+def _parse_weakness_note(text):
+    obj = _extract_json_value(text)
+    if not isinstance(obj, dict):
+        return None
+    weakness = str(obj.get("weakness") or "").strip()
+    if not weakness:
+        return None
+    domain = str(obj.get("domain") or "").strip().lower().replace(" ", "_")
+    if domain not in WEAKNESS_DOMAINS:
+        domain = "other"
+    return {"domain": domain, "weakness": weakness[:300],
+            "evidence": str(obj.get("evidence") or "").strip()[:300]}
+
+
+def _writer_user_prompt(question, p_hat, details):
+    m = details["rollout_count"]
+    lines = [f"PROBLEM:\n{question}\n",
+             f"SELF-CONSISTENCY:\np_hat={p_hat:.3f}; "
+             f"valid_answers={details['valid_answer_count']}/{m}\n",
+             "ANSWER CLUSTERS:"]
+    for r, cl in enumerate(details["clusters"], 1):
+        lines.append(f"{r}. answer={cl['answer']}, count={cl['count']}\n"
+                     f"   representative reasoning={cl['representative_trace']}")
+    lines.append("\nReturn the JSON object now.")
+    return "\n".join(lines)
+
+
+def generate_weakness_notes_batch(tokenizer, questions, p_hats, pseudos, details_list):
+    """One weakness note per ELIGIBLE question (usable pseudo-label, p_hat in the
+    trainable band, clusters available); None elsewhere. Batched through the base
+    vLLM endpoint; one retry per failed parse; never raises into the MCMC run."""
+    n = len(questions)
+    notes = [None] * n
+    elig = [i for i in range(n)
+            if pseudos[i] not in (None, "", "None")
+            and config.MIN_SCORE <= float(p_hats[i]) <= config.MAX_SCORE
+            and details_list[i] and details_list[i].get("clusters")]
+    pending = elig
+    for attempt in range(2):
+        if not pending:
+            break
+        prompts = [apply_chat_template(
+            tokenizer, WEAKNESS_WRITER_SYSTEM,
+            _writer_user_prompt(questions[i], float(p_hats[i]), details_list[i]))
+            for i in pending]
+        try:
+            resp = base_client().completions.create(
+                model=config.MODEL_NAME, prompt=prompts,
+                max_tokens=256, temperature=0.2, top_p=0.9)
+        except Exception as e:
+            print(f"[wm] writer batch failed (attempt {attempt + 1}): {e}", flush=True)
+            continue
+        still = []
+        for i, c in zip(pending, resp.choices):
+            nt = _parse_weakness_note(c.text)
+            if nt is not None:
+                notes[i] = nt
+            else:
+                still.append(i)
+        pending = still
+    if elig:
+        ok = sum(1 for i in elig if notes[i] is not None)
+        print(f"[wm] writer: {ok}/{len(elig)} eligible questions got a parsed note", flush=True)
+    return notes
+
+
+def _wm_dir():
+    d = f"{config.STORAGE_ROOT}/weakness_memory"
+    os.makedirs(d, exist_ok=True)
+    return d
+
+
+def load_global_weakness_memory(iteration):
+    """Global memory written after iteration `iteration` (frozen for the whole walk)."""
+    path = f"{_wm_dir()}/global_weakness_memory_iter_{iteration}.json"
+    if not os.path.exists(path):
+        print(f"[wm] no global memory at {path}; running unguided", flush=True)
+        return []
+    try:
+        with open(path) as f:
+            mem = json.load(f)
+        return mem if isinstance(mem, list) else []
+    except Exception as e:
+        print(f"[wm] failed to load {path}: {e}; running unguided", flush=True)
+        return []
+
+
+def sample_target_memory(memory):
+    """One memory item w.p. MEMORY_GUIDED_PROB (weight = support * (1-|avg_p_hat-0.5|)),
+    else None -> the chain keeps the original unguided prompt."""
+    if not memory or random.random() >= config.MEMORY_GUIDED_PROB:
+        return None
+    ws = [max(1e-6, float(it.get("support", 1)) *
+              (1.0 - abs(float(it.get("avg_p_hat", 0.5)) - 0.5))) for it in memory]
+    r = random.random() * sum(ws)
+    for it, w in zip(memory, ws):
+        r -= w
+        if r <= 0:
+            return it
+    return memory[-1]
+
+
+def weakness_guidance_block(item):
+    return WEAKNESS_GUIDANCE_TMPL.format(weakness=item["weakness"])
+
+
+_WM_SUMMARY_SYSTEM = """You merge duplicate descriptions of solver weaknesses.
+
+Given a numbered list of weakness notes, group notes that describe the same
+reasoning capability. Return exactly one JSON array of at most {k} objects, each
+with keys: domain, weakness, indices. `indices` lists the numbers of the source
+notes in the group. Use each note number at most once. domain must be one of
+algebra, geometry, number_theory, combinatorics, probability, calculus, other.
+Keep each weakness under 30 words and do not invent notes."""
+
+
+def _summarize_chunk_llm(tokenizer, note_dicts):
+    """Cluster a chunk of notes via the base model -> [{domain, weakness, indices}].
+    Falls back to exact-string grouping if the LLM output is unusable."""
+    listing = "\n".join(f"{i}. [{nt['domain']}] {nt['weakness']}"
+                        for i, nt in enumerate(note_dicts))
+    user = f"WEAKNESS NOTES:\n{listing}\n\nReturn the JSON array now."
+    for _ in range(2):
+        try:
+            resp = base_client().completions.create(
+                model=config.MODEL_NAME,
+                prompt=[apply_chat_template(
+                    tokenizer, _WM_SUMMARY_SYSTEM.format(k=config.MEMORY_TOP_K), user)],
+                max_tokens=1024, temperature=0.2, top_p=0.9)
+        except Exception as e:
+            print(f"[wm] summarizer call failed: {e}", flush=True)
+            continue
+        arr = _extract_json_value(resp.choices[0].text, "[", "]")
+        if not isinstance(arr, list):
+            continue
+        out, used = [], set()
+        for cl in arr[:config.MEMORY_TOP_K]:
+            if not isinstance(cl, dict):
+                continue
+            ixs = [int(i) for i in (cl.get("indices") or [])
+                   if isinstance(i, (int, float)) and 0 <= int(i) < len(note_dicts)
+                   and int(i) not in used]
+            weakness = str(cl.get("weakness") or "").strip()
+            if not ixs or not weakness:
+                continue
+            used.update(ixs)
+            domain = str(cl.get("domain") or "").strip().lower().replace(" ", "_")
+            out.append({"domain": domain if domain in WEAKNESS_DOMAINS else "other",
+                        "weakness": weakness[:300], "indices": ixs})
+        if out:
+            return out
+    # fallback: deterministic exact-string grouping (mechanism stays alive)
+    print("[wm] summarizer LLM unusable; falling back to exact-string grouping", flush=True)
+    groups = {}
+    for i, nt in enumerate(note_dicts):
+        groups.setdefault((nt["domain"], nt["weakness"].lower()), []).append(i)
+    return [{"domain": d, "weakness": note_dicts[ixs[0]]["weakness"], "indices": ixs}
+            for (d, _w), ixs in groups.items()]
+
+
+def summarize_global_weakness_memory(tokenizer, records, iteration):
+    """Map-reduce the final-chain notes (post-COMPLETE-filter records only) into the
+    top-K global weaknesses. support/avg_p_hat are computed in Python from returned
+    indices — never trusted from the LLM. Rebuilt from scratch each iteration so
+    fixed weaknesses expire naturally. Never raises into the DEO run."""
+    if tokenizer is None:
+        tokenizer = AutoTokenizer.from_pretrained(config.MODEL_NAME, trust_remote_code=True)
+    out_path = f"{_wm_dir()}/global_weakness_memory_iter_{iteration}.json"
+    notes = [(d["_weakness_note"], float(d["p_hat"])) for d in records
+             if isinstance(d.get("_weakness_note"), dict)]
+    if not notes:
+        with open(out_path, "w") as f:
+            json.dump([], f)
+        print(f"[wm] iter {iteration}: no usable notes -> empty global memory", flush=True)
+        return []
+    # map: chunk -> provisional clusters carrying GLOBAL source-note indices
+    provisional = []
+    cs = config.MEMORY_SUMMARY_CHUNK_SIZE
+    for s in range(0, len(notes), cs):
+        chunk = notes[s:s + cs]
+        for cl in _summarize_chunk_llm(tokenizer, [nt for nt, _p in chunk]):
+            provisional.append({"domain": cl["domain"], "weakness": cl["weakness"],
+                                "src": [s + i for i in cl["indices"]]})
+    # reduce: merge provisional clusters once more
+    if len(provisional) > config.MEMORY_TOP_K:
+        merged = []
+        for cl in _summarize_chunk_llm(
+                tokenizer, [{"domain": p["domain"], "weakness": p["weakness"]}
+                            for p in provisional]):
+            src = sorted({gi for i in cl["indices"] for gi in provisional[i]["src"]})
+            merged.append({"domain": cl["domain"], "weakness": cl["weakness"], "src": src})
+    else:
+        merged = provisional
+    items = []
+    for cl in merged:
+        src = sorted(set(cl["src"]))
+        if len(src) < config.MEMORY_MIN_SUPPORT:   # one note = one distinct chain
+            continue
+        avg_p = sum(notes[i][1] for i in src) / len(src)
+        items.append({"domain": cl["domain"], "weakness": cl["weakness"],
+                      "support": len(src), "avg_p_hat": round(avg_p, 4),
+                      "representative_evidence": notes[src[0]][0].get("evidence", ""),
+                      "_score": len(src) * (1.0 - abs(avg_p - 0.5))})
+    items.sort(key=lambda it: -it["_score"])
+    items = items[:config.MEMORY_TOP_K]
+    for r, it in enumerate(items, 1):
+        it["id"] = f"memory_{r}"
+        del it["_score"]
+    with open(out_path, "w") as f:
+        json.dump(items, f, indent=2, ensure_ascii=False)
+    print(f"[wm] iter {iteration}: {len(notes)} notes -> {len(items)} global weaknesses "
+          f"(supports: {[it['support'] for it in items]}) -> {out_path}", flush=True)
+    return items
+
+
 def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
     """Returns: list of dicts {question, gt, p_hat, pseudo_label, r_unc}.
 
@@ -943,6 +1258,23 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
     pool_labels = []   # per-question list of n canonical answers (CD U-statistic)
     pool_topic = []    # SEED topic per slot: assigned at initial generation and inherited
                        # through mutations (context is topic(x_0), not re-classified topic(x_t))
+    pool_details = []  # weakness memory: per-question answer-cluster details (None when off)
+
+    # --- Weakness memory: active only on the canonical non-CD walk; the previous
+    #     iteration's global memory is loaded once and FROZEN for this whole walk.
+    wm_active = config.WEAKNESS_MEMORY_ENABLED and not config.CD_ENABLE
+    if config.WEAKNESS_MEMORY_ENABLED and config.CD_ENABLE:
+        print("[wm] WARNING: weakness memory not implemented for the CD walk; disabled", flush=True)
+    wm_iter = None
+    wm_memory = []
+    if wm_active:
+        m_it = re.search(r"mcmc_iter_(\d+)", os.path.basename(log_path or ""))
+        wm_iter = int(m_it.group(1)) if m_it else None
+        if wm_iter is None:
+            print("[wm] WARNING: cannot parse iteration from log_path; disabled", flush=True)
+            wm_active = False
+        elif wm_iter > 1:
+            wm_memory = load_global_weakness_memory(wm_iter - 1)
     gen_target = (config.INIT_POOL
                   if (init_pool is None and config.INIT_POOL > num_questions)
                   else num_questions)
@@ -961,11 +1293,16 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
         tps = [d.get("topic", "unknown") for d in init_pool]
         for s in range(0, len(qs), CH):
             ch_q, ch_g, ch_t = qs[s:s + CH], gts[s:s + CH], tps[s:s + CH]
-            r_uncs, p_hats, pseudos, labs = evaluate_r_unc_vllm(tokenizer, ch_q, return_labels=True)
-            for q, gt, tp, ru, ph, ps, lb in zip(ch_q, ch_g, ch_t, r_uncs, p_hats, pseudos, labs):
+            if wm_active:
+                r_uncs, p_hats, pseudos, labs, dets = evaluate_r_unc_vllm(
+                    tokenizer, ch_q, return_labels=True, return_details=True)
+            else:
+                r_uncs, p_hats, pseudos, labs = evaluate_r_unc_vllm(tokenizer, ch_q, return_labels=True)
+                dets = [None] * len(ch_q)
+            for q, gt, tp, ru, ph, ps, lb, de in zip(ch_q, ch_g, ch_t, r_uncs, p_hats, pseudos, labs, dets):
                 pool_q.append(q); pool_gt.append(gt); pool_runc.append(ru)
                 pool_phat.append(ph); pool_pseudo.append(ps); pool_labels.append(lb)
-                pool_topic.append(tp); pbar.update(1)
+                pool_topic.append(tp); pool_details.append(de); pbar.update(1)
         num_questions = len(pool_q)
 
     while init_pool is None and len(pool_q) < gen_target:
@@ -999,8 +1336,13 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
         if not valid_qs:
             continue
 
-        r_uncs, p_hats, pseudos, labs = evaluate_r_unc_vllm(tokenizer, valid_qs, return_labels=True)
-        for q, gt, tp, ru, ph, ps, lb in zip(valid_qs, valid_gts, valid_tps, r_uncs, p_hats, pseudos, labs):
+        if wm_active:
+            r_uncs, p_hats, pseudos, labs, dets = evaluate_r_unc_vllm(
+                tokenizer, valid_qs, return_labels=True, return_details=True)
+        else:
+            r_uncs, p_hats, pseudos, labs = evaluate_r_unc_vllm(tokenizer, valid_qs, return_labels=True)
+            dets = [None] * len(valid_qs)
+        for q, gt, tp, ru, ph, ps, lb, de in zip(valid_qs, valid_gts, valid_tps, r_uncs, p_hats, pseudos, labs, dets):
             if len(pool_q) >= gen_target:
                 break
             pool_q.append(q)
@@ -1010,6 +1352,7 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
             pool_pseudo.append(ps)
             pool_labels.append(lb)
             pool_topic.append(tp)
+            pool_details.append(de)
             pbar.update(1)
     pbar.close()
 
@@ -1038,6 +1381,7 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
         pool_pseudo = [pool_pseudo[i] for i in sel]
         pool_labels = [pool_labels[i] for i in sel]
         pool_topic  = [pool_topic[i] for i in sel]
+        pool_details = [pool_details[i] for i in sel]
         num_questions = len(pool_q)
 
     # Build initial state (one-shot O(N^2) BLEU sweep, ~30s at N=1000)
@@ -1056,6 +1400,32 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                       for i in range(num_questions)]
         energy = float(np.sum(pool_ustat))
         log_file.write(f"[Init][CD] U(X_0) = {energy:.4f}\n")
+
+    # --- Weakness memory: one FIXED target and one current note per chain. Initial
+    #     pool states get notes too (a chain that rejects all 5 proposals contributes
+    #     its seed's note). Targets stay fixed across all MCMC_STEPS.
+    pool_target = [None] * num_questions
+    pool_note = [None] * num_questions
+    wm_notes_file = None
+    wm_guided = wm_unguided = wm_guided_acc = wm_unguided_acc = 0
+    if wm_active:
+        wm_notes_file = open(f"{_wm_dir()}/weakness_notes_iter_{wm_iter}.jsonl",
+                             "w", encoding="utf-8")
+        pool_note = generate_weakness_notes_batch(
+            tokenizer, pool_q, pool_phat, pool_pseudo, pool_details)
+        for i, nt in enumerate(pool_note):
+            if nt is not None:
+                wm_notes_file.write(json.dumps(
+                    {"stage": "init", "chain": i, "accepted": True, "target_id": None, **nt},
+                    ensure_ascii=False) + "\n")
+        wm_notes_file.flush()
+        if wm_memory:
+            pool_target = [sample_target_memory(wm_memory) for _ in range(num_questions)]
+        msg = (f"[wm] ON: iter={wm_iter}, loaded {len(wm_memory)} global items, "
+               f"{sum(1 for t in pool_target if t is not None)}/{num_questions} guided chains, "
+               f"{sum(1 for nt in pool_note if nt is not None)} init notes")
+        print(msg, flush=True)
+        log_file.write(msg + "\n")
 
     # --- Bandit: contextual Thompson-sampling memory over mutation strategies.
     #     Loaded from persisted state (cross-iteration memory), FROZEN during this
@@ -1104,9 +1474,12 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                             MUTATOR_USER_TEMPLATE_STYLE.format(seed=pool_q[k]),
                         ))
                     else:
+                        user_msg = MUTATOR_USER_TEMPLATE.format(seed=pool_q[k])
+                        if pool_target[k] is not None:
+                            # guided mutation: append ONLY the chain's selected weakness
+                            user_msg += weakness_guidance_block(pool_target[k])
                         m_prompts.append(apply_chat_template(
-                            tokenizer, MUTATOR_SYSTEM_PROMPT,
-                            MUTATOR_USER_TEMPLATE.format(seed=pool_q[k]),
+                            tokenizer, MUTATOR_SYSTEM_PROMPT, user_msg,
                         ))
             resp = base_client().completions.create(
                 model=config.MODEL_NAME,
@@ -1159,13 +1532,20 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                 proposals = kept
             if proposals:
                 qs_new = [p["q"] for p in proposals]
-                labs_new, labs_old_map = None, {}
+                labs_new, labs_old_map, notes_new = None, {}, None
                 if config.CD_ENABLE:
                     rus, phs, pls, labs_new = evaluate_r_unc_vllm(tokenizer, qs_new, return_labels=True)
                     if config.CD_FRESH_OLD:   # re-score current state fresh (else reuse cached labels)
                         _r, _p, _l, labs_old = evaluate_r_unc_vllm(
                             tokenizer, [p["old"] for p in proposals], return_labels=True)
                         labs_old_map = {p["k"]: labs_old[jj] for jj, p in enumerate(proposals)}
+                elif wm_active:
+                    rus, phs, pls, dets_new = evaluate_r_unc_vllm(
+                        tokenizer, qs_new, return_details=True)
+                    # every proposal is diagnosed (accepted or not); the chain's note is
+                    # replaced only on acceptance
+                    notes_new = generate_weakness_notes_batch(
+                        tokenizer, qs_new, phs, pls, dets_new)
                 else:
                     rus, phs, pls = evaluate_r_unc_vllm(tokenizer, qs_new)
                 for j, p in enumerate(proposals):
@@ -1225,6 +1605,22 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                         alpha = min(1.0, np.exp((new_e - energy) / config.BETA))
                     accept = random.random() < alpha
 
+                    if wm_active:
+                        tgt = pool_target[k]
+                        if tgt is not None:
+                            wm_guided += 1
+                            wm_guided_acc += int(accept)
+                        else:
+                            wm_unguided += 1
+                            wm_unguided_acc += int(accept)
+                        nt = notes_new[j] if notes_new else None
+                        wm_notes_file.write(json.dumps(
+                            {"stage": f"step{step + 1}", "chain": k, "accepted": bool(accept),
+                             "target_id": tgt.get("id") if tgt else None,
+                             **(nt or {"domain": None, "weakness": None, "evidence": None})},
+                            ensure_ascii=False) + "\n")
+                        wm_notes_file.flush()
+
                     r_rep_k_old = float(cluster_size[k]) / n
                     r_rep_k_new = float(new_cluster[k]) / n
                     cd_note = f"sigma2D={sigma2D:.4f}  " if config.CD_ENABLE else ""
@@ -1249,6 +1645,9 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                         pool_runc[k] = rus[j]
                         pool_phat[k] = phs[j]
                         pool_pseudo[k] = pls[j]
+                        if wm_active:
+                            # rejected proposals keep the old state AND its old note
+                            pool_note[k] = notes_new[j] if notes_new else None
                         neighbor[k, :] = new_row
                         neighbor[:, k] = new_row
                         cluster_size = new_cluster
@@ -1282,13 +1681,29 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
         for line in bandit.summary():
             log_file.write(f"[bandit] {line}\n")
 
+    if wm_active:
+        msg = (f"[wm] proposal acceptance: guided {wm_guided_acc}/{wm_guided}, "
+               f"unguided {wm_unguided_acc}/{wm_unguided}; "
+               f"final notes: {sum(1 for nt in pool_note if nt is not None)}/{num_questions}")
+        print(msg, flush=True)
+        log_file.write(msg + "\n")
+        wm_notes_file.close()
+
     log_file.close()
-    return [
+    records = [
         {"question": pool_q[i], "gt": pool_gt[i], "p_hat": pool_phat[i],
          "pseudo_label": pool_pseudo[i], "r_unc": pool_runc[i],
          "topic": pool_topic[i] if i < len(pool_topic) else "unknown"}
         for i in range(num_questions)
     ]
+    if wm_active:
+        # private metadata for memory building/audit; underscore-prefixed fields are
+        # never uploaded (filter_and_push maps only problem/answer/score to HF)
+        for i, d in enumerate(records):
+            d["_chain_id"] = i
+            d["_target_memory_id"] = pool_target[i].get("id") if pool_target[i] else None
+            d["_weakness_note"] = pool_note[i]
+    return records
 
 
 # ==========================================
@@ -1341,6 +1756,20 @@ def filter_and_push(train_data, repo_name, config_name):
         stage2 = [d for d, ok in zip(stage1, judge_ok) if ok]
     else:
         stage2 = []
+
+    # Weakness memory: build this iteration's global memory from the records that
+    # passed the COMPLETE filter (regex + pseudo + p_hat band + judge), so invalid
+    # questions never become "solver weaknesses". Non-fatal on any failure.
+    if config.WEAKNESS_MEMORY_ENABLED:
+        m_it = re.search(r"_v(\d+)$", repo_name)
+        if m_it:
+            try:
+                summarize_global_weakness_memory(None, stage2, int(m_it.group(1)))
+            except Exception as e:
+                print(f"[wm] global-memory summarization failed (non-fatal): {e}", flush=True)
+        else:
+            print(f"[wm] WARNING: cannot parse iteration from repo_name={repo_name}; "
+                  "skipping global-memory build", flush=True)
 
     filtered = [
         {"problem": d["question"], "answer": d["pseudo_label"], "score": d["p_hat"]}

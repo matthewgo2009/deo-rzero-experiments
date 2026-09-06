@@ -968,7 +968,7 @@ def calculate_batch_energy(questions, r_unc_list):
 # ==========================================
 WEAKNESS_DOMAINS = {"algebra", "geometry", "number_theory", "combinatorics",
                     "probability", "calculus", "other"}
-WM_WRITER_PROMPT_VERSION = "wm_writer_v2"
+WM_WRITER_PROMPT_VERSION = "wm_writer_v3"
 WM_SUMMARY_PROMPT_VERSION = "wm_summary_v2"
 WM_CONTEXT_LIMIT = 6144          # base vLLM --max-model-len
 WM_WRITER_MAX_TOKENS = 300
@@ -991,9 +991,10 @@ status must be one of:
 domain must be one of algebra, geometry, number_theory, combinatorics, probability,
 calculus, other.
 
-weakness: one sentence naming the TRANSFERABLE reasoning operation the clusters
-disagree on (e.g. "distinguishing ordered from unordered counting"), not merely the
-problem topic. Do not copy problem-specific constants into the weakness label.
+weakness: one sentence, IN YOUR OWN WORDS, naming the transferable reasoning
+operation these clusters disagree on. Name the specific operation this problem's
+solutions diverge at, not merely the problem topic, and do not copy problem-specific
+constants into the weakness label.
 
 evidence: one sentence saying WHICH clusters diverge at WHICH step. Quoting the
 problem's numbers and the clusters' answers here IS allowed.
@@ -1183,14 +1184,26 @@ def _extract_json_value(text, open_ch="{", close_ch="}"):
     literals and escape sequences are handled correctly (R5) — a plain
     bracket-counter misparses e.g. an excerpt containing "the set {"."""
     dec = json.JSONDecoder()
-    pos = text.find(open_ch)
-    while pos != -1:
-        try:
-            val, _end = dec.raw_decode(text, pos)
-            return val
-        except Exception:
-            pos = text.find(open_ch, pos + 1)
-    return None
+
+    def _scan(t):
+        pos = t.find(open_ch)
+        while pos != -1:
+            try:
+                val, _end = dec.raw_decode(t, pos)
+                return val
+            except Exception:
+                pos = t.find(open_ch, pos + 1)
+        return None
+
+    val = _scan(text)
+    if val is not None:
+        return val
+    # LaTeX repair: base models emit raw \frac / \boxed / \( inside JSON strings —
+    # invalid escapes that kill the whole parse. Re-escape every backslash that is
+    # not opening a string-closing escape, so \boxed survives VERBATIM as \boxed
+    # (a naive invalid-escape-only repair would eat \b -> backspace and break
+    # citation matching). Repair applies only after the strict parse failed.
+    return _scan(re.sub(r'\\(?!["\\])', r"\\\\", text))
 
 
 def _parse_weakness_note(text, details=None):
@@ -1405,11 +1418,14 @@ def _weighted_pick(rng, items):
     return items[-1]
 
 
-def classify_domains_batch(tokenizer, questions):
-    """One light batched call: coarse domain per question, None on any failure."""
+def classify_domains_batch(tokenizer, questions, logger=None):
+    """One light batched call: coarse domain per question, None on any failure.
+    Matches the EARLIEST domain keyword anywhere in the completion (space or
+    underscore form) — base-model answers rarely start with the bare word."""
     if not questions:
         return []
     out = [None] * len(questions)
+    raw = [None] * len(questions)
     try:
         prompts = [apply_chat_template(tokenizer, WM_DOMAIN_CLASSIFY_SYSTEM,
                                        f"PROBLEM:\n{q[:2000]}\n\nDomain:")
@@ -1418,15 +1434,24 @@ def classify_domains_batch(tokenizer, questions):
             model=config.MODEL_NAME, prompt=prompts, max_tokens=8, temperature=0.0)
         texts = _ordered_completion_texts(resp, len(questions))
         for i, t in enumerate(texts):
+            raw[i] = t
             if not t:
                 continue
-            tl = t.strip().lower().replace(" ", "_")
+            tl = t.lower()
+            best, best_pos = None, len(tl) + 1
             for d in WEAKNESS_DOMAINS:
-                if tl.startswith(d) or d in tl.split("\n")[0]:
-                    out[i] = d
-                    break
+                for form in (d, d.replace("_", " ")):
+                    p = tl.find(form)
+                    if p != -1 and p < best_pos:
+                        best, best_pos = d, p
+            out[i] = best
     except Exception as e:
         print(f"[wm] domain classify failed (non-fatal): {e}", flush=True)
+    matched = sum(1 for o in out if o)
+    print(f"[wm] domain classifier: {matched}/{len(questions)} matched", flush=True)
+    if logger:
+        logger.event(kind="classify", n=len(questions), matched=matched,
+                     sample_outputs=[(raw[i] or "")[:80] for i in range(min(5, len(raw)))])
     return out
 
 
@@ -1984,7 +2009,8 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
         pool_seed_domain = [nt["domain"] if nt else None for nt in pool_note]
         need = [i for i in range(num_questions) if pool_seed_domain[i] is None]
         if need and wm_memory:
-            doms = classify_domains_batch(tokenizer, [pool_q[i] for i in need])
+            doms = classify_domains_batch(tokenizer, [pool_q[i] for i in need],
+                                          logger=wm_logger)
             for i, dm in zip(need, doms):
                 pool_seed_domain[i] = dm
         wm_rng = random.Random(f"{config.MODEL_ABBR}_wm_iter{wm_iter}")

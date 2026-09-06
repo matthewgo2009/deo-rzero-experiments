@@ -158,6 +158,34 @@ def test_R5_json_and_indices():
     print("[R5] PASSED: string-safe JSON, typed indices, honest repair stats")
 
 
+def test_latex_json_repair():
+    # smoke finding (sweet_melon): 178/203 writer outputs failed as "no JSON object"
+    # because raw LaTeX (\\frac, \\boxed, \\pmod) is an invalid JSON escape.
+    bad = ('{ "status": "weakness", "domain": "geometry", "weakness": "w", '
+           '"evidence": "disagree on \\( \\frac{BI}{IC} \\)", "cluster_id": 1, '
+           '"excerpt": "\\boxed{2\\pi} and \\pmod{100}" }')
+    obj = deo._extract_json_value(bad)
+    assert obj and obj["excerpt"] == "\\boxed{2\\pi} and \\pmod{100}"   # verbatim, no \\b eaten
+    det = deo._build_cluster_details(
+        ["1", "1", "2"], ["steps \\boxed{2\\pi} and \\pmod{100} end", "b", "c"])
+    st, nt, _ = deo._parse_weakness_note(bad, deo._shown_details(det, 1500))
+    assert st == "weakness" and nt is not None
+    # strict-valid JSON still parses strictly (repair only after strict failure)
+    ok = json.dumps({"a": "b\\nc"})
+    assert deo._extract_json_value(ok) == {"a": "b\\nc"}
+    print("[latex] PASSED: raw-LaTeX JSON repaired; excerpts stay verbatim")
+
+
+def test_classifier_parse():
+    deo.base_client = lambda: fake_client(
+        lambda p: "This problem is about Number Theory." if "PLANNT" in p
+        else ("  algebra\\n" if "PLANALG" in p else "no idea"))
+    out = deo.classify_domains_batch(TOK, ["q PLANNT", "q PLANALG", "q mystery"])
+    assert out == ["number_theory", "algebra", None], out
+    restore()
+    print("[classify] PASSED: whole-text earliest-domain matching, None on no match")
+
+
 # ---------------- [regress] R6 ----------------
 
 def test_R6_helper():
@@ -567,6 +595,8 @@ if __name__ == "__main__":
     test_cluster_details()
     test_state_semantics_unitlevel()
     test_R5_json_and_indices()
+    test_latex_json_repair()
+    test_classifier_parse()
     test_R6_helper()
     test_R6_evaluate_wiring()
     test_R2_citation_against_shown()

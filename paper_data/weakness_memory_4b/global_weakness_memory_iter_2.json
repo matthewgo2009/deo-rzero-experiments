@@ -1,0 +1,82 @@
+[
+  {
+    "domain": "geometry",
+    "weakness": "calculating distances in 3D space",
+    "support": 67,
+    "avg_p_hat": 0.4942,
+    "representative_evidence": "the problem involves calculating the sum of the squares of the lengths of segments in a 3D space, which requires understanding the relationships between planes and distances.",
+    "id": "memory_1"
+  },
+  {
+    "domain": "number_theory",
+    "weakness": "solving congruences",
+    "support": 24,
+    "avg_p_hat": 0.463,
+    "representative_evidence": "The responses cluster around different methods for solving the congruence, with some focusing on simplifying the congruence and others on finding specific solutions.",
+    "id": "memory_2"
+  },
+  {
+    "domain": "probability",
+    "weakness": "calculating expected value",
+    "support": 15,
+    "avg_p_hat": 0.4296,
+    "representative_evidence": "the clusters disagree on the expected value of the sum of the numbers on the two drawn balls.",
+    "id": "memory_3"
+  },
+  {
+    "domain": "probability",
+    "weakness": "calculating probabilities of different outcomes",
+    "support": 12,
+    "avg_p_hat": 0.4722,
+    "representative_evidence": "the solver clusters disagree on the probabilities of having different numbers of men on the committee",
+    "id": "memory_4"
+  },
+  {
+    "domain": "number_theory",
+    "weakness": "modular arithmetic",
+    "support": 11,
+    "avg_p_hat": 0.5253,
+    "representative_evidence": "The problem involves checking the congruence of expressions modulo 7, which requires understanding modular arithmetic operations.",
+    "id": "memory_5"
+  },
+  {
+    "domain": "algebra",
+    "weakness": "solving systems of linear equations",
+    "support": 10,
+    "avg_p_hat": 0.5111,
+    "representative_evidence": "The assistant incorrectly solved the system of linear equations by not properly applying the elimination method.",
+    "id": "memory_6"
+  },
+  {
+    "domain": "algebra",
+    "weakness": "inconsistent application of Vieta's formulas",
+    "support": 8,
+    "avg_p_hat": 0.4722,
+    "representative_evidence": "various answers suggest different interpretations of the polynomial's roots and their relationships.",
+    "id": "memory_7"
+  },
+  {
+    "domain": "algebra",
+    "weakness": "solving equations",
+    "support": 6,
+    "avg_p_hat": 0.4259,
+    "representative_evidence": "The responses disagree on whether the sum of n is bounded or unbounded.",
+    "id": "memory_8"
+  },
+  {
+    "domain": "algebra",
+    "weakness": "solving quadratic equations",
+    "support": 5,
+    "avg_p_hat": 0.4222,
+    "representative_evidence": "The responses disagree on how to solve the quadratic equations and whether there is a common solution.",
+    "id": "memory_9"
+  },
+  {
+    "domain": "probability",
+    "weakness": "misunderstanding of expected value calculation",
+    "support": 4,
+    "avg_p_hat": 0.5,
+    "representative_evidence": "The first cluster incorrectly calculates the expected value by multiplying the number of trials by the probability of success, while the second cluster correctly uses the binomial distribution to find the expected value of the number of successes and then subtracts it from the total number of trials",
+    "id": "memory_10"
+  }
+]

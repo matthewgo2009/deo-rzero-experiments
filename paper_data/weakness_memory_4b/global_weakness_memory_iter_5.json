@@ -1,0 +1,26 @@
+[
+  {
+    "domain": "algebra",
+    "weakness": "Difficulty in applying Vieta's formulas",
+    "support": 6,
+    "avg_p_hat": 0.5926,
+    "representative_evidence": "The responses cluster around different methods of solving the problem, with some correctly applying Vieta's formulas and others making errors in the application or simplification process.",
+    "id": "memory_1"
+  },
+  {
+    "domain": "algebra",
+    "weakness": "Difficulty in correctly applying polynomial decomposition and ensuring uniqueness of coefficients",
+    "support": 5,
+    "avg_p_hat": 0.4444,
+    "representative_evidence": "The clusters show varying interpretations of how to decompose the rational function and ensure the uniqueness of coefficients, leading to different answers.",
+    "id": "memory_2"
+  },
+  {
+    "domain": "algebra",
+    "weakness": "Inconsistent handling of polynomial roots and coefficients",
+    "support": 3,
+    "avg_p_hat": 0.4444,
+    "representative_evidence": "different clusters provide varying counts of roots (1, 3, 2) without a clear consensus on the correct number of roots satisfying both polynomial and quadratic conditions.",
+    "id": "memory_3"
+  }
+]

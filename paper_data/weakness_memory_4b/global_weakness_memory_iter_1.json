@@ -1,0 +1,82 @@
+[
+  {
+    "domain": "probability",
+    "weakness": "Calculating expected value",
+    "support": 62,
+    "avg_p_hat": 0.4588,
+    "representative_evidence": "The responses cluster around different possible values for the largest number, with some suggesting 2 and others suggesting 3.",
+    "id": "memory_1"
+  },
+  {
+    "domain": "calculus",
+    "weakness": "Understanding differentiation and integration concepts",
+    "support": 44,
+    "avg_p_hat": 0.4394,
+    "representative_evidence": "The user is asking for a command to define a derivative, which is a fundamental concept in calculus.",
+    "id": "memory_2"
+  },
+  {
+    "domain": "number_theory",
+    "weakness": "Inconsistent handling of square roots and prime number properties",
+    "support": 38,
+    "avg_p_hat": 0.4678,
+    "representative_evidence": "The assistant correctly identifies the problem as a probability question involving combinations. However, the assistant does not provide the correct calculation for the number of combinations (C(3, 2) = 3) and the probability of getting exactly two heads (P(X = 2) = 0.432).",
+    "id": "memory_3"
+  },
+  {
+    "domain": "probability",
+    "weakness": "Inconsistent probability calculations and expected value calculations",
+    "support": 34,
+    "avg_p_hat": 0.4771,
+    "representative_evidence": "The responses disagree on the correct value of F(1) and the product of the roots of F(x).",
+    "id": "memory_4"
+  },
+  {
+    "domain": "geometry",
+    "weakness": "Confusion about the relationship between the diagonal of a rectangle and its dimensions",
+    "support": 19,
+    "avg_p_hat": 0.462,
+    "representative_evidence": "the diagonal of the inner rectangle is four times the radius of the bottom view, but the relationship between the diagonal and the dimensions of the rectangle is not clearly understood",
+    "id": "memory_5"
+  },
+  {
+    "domain": "number_theory",
+    "weakness": "Finding the smallest positive integer satisfying multiple congruences",
+    "support": 18,
+    "avg_p_hat": 0.4691,
+    "representative_evidence": "The calculation of exterior angles for different values of n is inconsistent across the clusters.",
+    "id": "memory_6"
+  },
+  {
+    "domain": "algebra",
+    "weakness": "Solving polynomial equations and applying Vieta's formulas",
+    "support": 16,
+    "avg_p_hat": 0.5278,
+    "representative_evidence": "The responses cluster around different methods of factoring and solving the polynomial equation, leading to varying sets of solutions.",
+    "id": "memory_7"
+  },
+  {
+    "domain": "geometry",
+    "weakness": "inconsistent application of geometric properties and formulas",
+    "support": 15,
+    "avg_p_hat": 0.4963,
+    "representative_evidence": "Different solvers used varying approaches to apply the properties of the circumcenter and orthocenter, leading to different answers.",
+    "id": "memory_8"
+  },
+  {
+    "domain": "number_theory",
+    "weakness": "Modular arithmetic",
+    "support": 15,
+    "avg_p_hat": 0.5185,
+    "representative_evidence": "The responses disagree on how to compute the numbers modulo 11.",
+    "id": "memory_9"
+  },
+  {
+    "domain": "algebra",
+    "weakness": "solving quadratic equations",
+    "support": 14,
+    "avg_p_hat": 0.4286,
+    "representative_evidence": "The discriminant of the quadratic equation is set to zero to find the value of k for which the system has exactly one solution.",
+    "id": "memory_10"
+  }
+]

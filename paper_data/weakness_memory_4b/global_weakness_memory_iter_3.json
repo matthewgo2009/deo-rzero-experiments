@@ -1,0 +1,82 @@
+[
+  {
+    "domain": "algebra",
+    "weakness": "solving quadratic equations",
+    "support": 14,
+    "avg_p_hat": 0.4524,
+    "representative_evidence": "The problem involves solving a quadratic equation and finding the positive difference between its roots.",
+    "id": "memory_1"
+  },
+  {
+    "domain": "probability",
+    "weakness": "calculating expected value",
+    "support": 12,
+    "avg_p_hat": 0.4907,
+    "representative_evidence": "The responses cluster around different methods of calculating the expected value, with some focusing on weighted averages and others using conditional probabilities.",
+    "id": "memory_2"
+  },
+  {
+    "domain": "number_theory",
+    "weakness": "modular arithmetic",
+    "support": 12,
+    "avg_p_hat": 0.5833,
+    "representative_evidence": "The responses cluster around evaluating the polynomial modulo 7 for different values of n.",
+    "id": "memory_3"
+  },
+  {
+    "domain": "algebra",
+    "weakness": "Solving systems of equations",
+    "support": 8,
+    "avg_p_hat": 0.5,
+    "representative_evidence": "The responses show disagreement on how to solve the system of equations representing the circle and the line, with different methods and solutions.",
+    "id": "memory_4"
+  },
+  {
+    "domain": "algebra",
+    "weakness": "solving systems of linear equations",
+    "support": 6,
+    "avg_p_hat": 0.5,
+    "representative_evidence": "The solver responses disagree on the values of p, q, and r, leading to different sums of coefficients.",
+    "id": "memory_5"
+  },
+  {
+    "domain": "algebra",
+    "weakness": "inconsistent application of Vieta's formulas",
+    "support": 6,
+    "avg_p_hat": 0.4815,
+    "representative_evidence": "The first cluster correctly applies Vieta's formulas to find the sum of the reciprocals of the roots, while the second cluster incorrectly uses the coefficients of the polynomial to find the sum of the reciprocals of the roots.",
+    "id": "memory_6"
+  },
+  {
+    "domain": "number_theory",
+    "weakness": "Determining if a number can be expressed as the sum of two squares, calculating probabilities, finding modular inverse, and identifying prime numbers and their combinations",
+    "support": 4,
+    "avg_p_hat": 0.5,
+    "representative_evidence": "The problem involves checking if 2023 can be expressed as the sum of two squares, which requires understanding the properties of numbers and their factorization.",
+    "id": "memory_7"
+  },
+  {
+    "domain": "number_theory",
+    "weakness": "divisibility",
+    "support": 4,
+    "avg_p_hat": 0.5278,
+    "representative_evidence": "The problem involves finding a number that is a multiple of 7 and has a specific property related to its digits.",
+    "id": "memory_8"
+  },
+  {
+    "domain": "geometry",
+    "weakness": "Applying the Pythagorean theorem and area formula, inconsistent application of geometric theorems, finding the intersection of a line with a conic and a sphere, and calculating the submerged volume of a complex 3D shape",
+    "support": 4,
+    "avg_p_hat": 0.4167,
+    "representative_evidence": "The responses cluster around using the Pythagorean theorem and the area formula for an isosceles right triangle, with some variations in the final numerical result.",
+    "id": "memory_9"
+  },
+  {
+    "domain": "probability",
+    "weakness": "Calculating probabilities of multiple events, conditional probability, disagreement on the expected value calculation, and calculating expected value in complex scenarios",
+    "support": 4,
+    "avg_p_hat": 0.3611,
+    "representative_evidence": "the responses cluster around different methods for calculating the probability of getting a total score of at least 2, with some focusing on complementary probabilities and others using direct counting methods.",
+    "id": "memory_10"
+  }
+]

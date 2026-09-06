@@ -1,0 +1,82 @@
+[
+  {
+    "domain": "number_theory",
+    "weakness": "Modular arithmetic",
+    "support": 18,
+    "avg_p_hat": 0.4568,
+    "representative_evidence": "The problem involves finding the remainder when a number is divided by another number, which requires understanding modular arithmetic.",
+    "id": "memory_1"
+  },
+  {
+    "domain": "algebra",
+    "weakness": "solving quadratic equations",
+    "support": 13,
+    "avg_p_hat": 0.4359,
+    "representative_evidence": "The solver responses cluster around solving the quadratic equation derived from the given conditions.",
+    "id": "memory_2"
+  },
+  {
+    "domain": "calculus",
+    "weakness": "Applying the limit definition of the derivative and quotient rule for differentiation",
+    "support": 10,
+    "avg_p_hat": 0.5,
+    "representative_evidence": "The first cluster correctly applies the Taylor series expansion to evaluate the limit, while the second and third clusters incorrectly assume the limit is the derivative of e^x at x=0 or directly equate the limit to e^x.",
+    "id": "memory_3"
+  },
+  {
+    "domain": "geometry",
+    "weakness": "Inconsistent calculation of inradius and circumradius, and incorrect application of the distance formula",
+    "support": 10,
+    "avg_p_hat": 0.5,
+    "representative_evidence": "The first cluster calculates the ratio as 4/13, while the second cluster calculates it as 6/17. This inconsistency suggests a misunderstanding of the formulas or the properties of the triangle.",
+    "id": "memory_4"
+  },
+  {
+    "domain": "algebra",
+    "weakness": "Inconsistent application of Vieta's formulas",
+    "support": 10,
+    "avg_p_hat": 0.5222,
+    "representative_evidence": "Different answers (0, 2, -2) arise from varying interpretations of the polynomial's roots and their relationships.",
+    "id": "memory_5"
+  },
+  {
+    "domain": "probability",
+    "weakness": "Calculating expected values and conditional probabilities",
+    "support": 10,
+    "avg_p_hat": 0.4667,
+    "representative_evidence": "the solver clusters disagree on how to calculate the probability of Team A winning given that the game has ended due to 5 goals being scored and both teams have the same number of goals.",
+    "id": "memory_6"
+  },
+  {
+    "domain": "number_theory",
+    "weakness": "Disagreement on the number of integer solutions, finding cube roots modulo a prime, and summing gcds",
+    "support": 10,
+    "avg_p_hat": 0.5444,
+    "representative_evidence": "The first cluster suggests there are no integer solutions, while the second and third clusters suggest there are 4 and 15 integer solutions, respectively.",
+    "id": "memory_7"
+  },
+  {
+    "domain": "algebra",
+    "weakness": "Solving systems of linear equations, inconsistent handling of variable substitution and simplification, and difficulty in handling multiple variables and their symmetrical relationships",
+    "support": 8,
+    "avg_p_hat": 0.4722,
+    "representative_evidence": "The responses cluster around solving a system of linear equations to find the coefficients of the polynomial, with varying degrees of accuracy in the final answer.",
+    "id": "memory_8"
+  },
+  {
+    "domain": "calculus",
+    "weakness": "Applying L'Hôpital's rule",
+    "support": 7,
+    "avg_p_hat": 0.5238,
+    "representative_evidence": "The first cluster correctly applies L'Hôpital's rule to find the limit, while the second cluster incorrectly applies it, leading to a different result.",
+    "id": "memory_9"
+  },
+  {
+    "domain": "number_theory",
+    "weakness": "solving congruences",
+    "support": 7,
+    "avg_p_hat": 0.3968,
+    "representative_evidence": "The system is not consistent, so there is no solution. The vectors w and v2 are not in the space spanned by v1 and v3.",
+    "id": "memory_10"
+  }
+]

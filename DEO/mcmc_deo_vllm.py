@@ -794,7 +794,15 @@ def evaluate_r_unc_vllm(tokenizer, questions, return_labels=False, return_detail
             top_p=config.SOLVER_TOP_P,
             extra_body={"top_k": config.SOLVER_TOP_K},
         )
-        return idx, [c.text for c in resp.choices]
+        # R6: per-shard index attribution — a missing/duplicate choice keeps its
+        # slot as None (counted as an invalid answer) instead of shifting every
+        # later rollout into the wrong question's m-slice
+        st = {}
+        texts_shard = _ordered_completion_texts(resp, len(chunk), st)
+        if st.get("missing") or st.get("dup_index") or st.get("invalid_index"):
+            print(f"[eval] WARNING shard {idx} response anomalies: {st} "
+                  f"(missing slots stay None; p_hat denominators unchanged)", flush=True)
+        return idx, texts_shard
 
     texts_by_shard = [None] * n_dp
     with ThreadPoolExecutor(max_workers=n_dp) as ex:
@@ -802,7 +810,7 @@ def evaluate_r_unc_vllm(tokenizer, questions, return_labels=False, return_detail
             idx, txt = fut.result()
             texts_by_shard[idx] = txt
     texts = [t for shard in texts_by_shard for t in shard]
-    answers = [extract_solver_answer(t) for t in texts]
+    answers = [extract_solver_answer(t) if t is not None else None for t in texts]
 
     r_unc_list, p_hat_list, pseudo_list, labels_list, details_list = [], [], [], [], []
     for i in range(len(questions)):
@@ -1030,6 +1038,12 @@ def _norm_ws(text):
     return " ".join((text or "").split()).lower()
 
 
+def _norm_cite(text):
+    """Citation normalization (R2): collapse whitespace ONLY. Case, symbols,
+    digits and math notation are preserved — `A` and `a` are different symbols."""
+    return " ".join((text or "").split())
+
+
 def _truncate_trace(text, max_chars=None):
     """Keep the beginning and the ending of a long trace (reasoning setup + final
     answer). Deterministic, so the writer's view can be reconstructed from the raw
@@ -1071,56 +1085,84 @@ def _build_cluster_details(answers_chunk, texts_chunk, top_n=3):
             "_raw": {"answers": list(answers_chunk), "texts": list(texts_chunk)}}
 
 
-def _ordered_completion_texts(resp, n):
+def _ordered_completion_texts(resp, n, stats=None):
     """Map an OpenAI-style batched completion onto request order by choice.index
-    (doc 3.1.5): a missing response yields None at its slot instead of shifting
-    every later item. Falls back to list order only when indices are absent AND
-    the count matches exactly."""
+    (doc 3.1.5 + R6): a missing response yields None at its slot instead of
+    shifting every later item; duplicate indices keep the first and are counted.
+    Falls back to list order ONLY when no choice exposes an integer index at all
+    AND the count matches exactly — indices that exist but are all invalid never
+    silently degrade to positional matching."""
     out = [None] * n
-    saw_index = False
+    saw_attr = False
+    dup = bad = 0
     for c in resp.choices:
         i = getattr(c, "index", None)
-        if isinstance(i, int) and 0 <= i < n:
-            saw_index = True
-            if out[i] is None:
-                out[i] = c.text
-    if not saw_index:
-        if len(resp.choices) == n:
-            out = [c.text for c in resp.choices]
+        if isinstance(i, int) and not isinstance(i, bool):
+            saw_attr = True
+            if 0 <= i < n:
+                if out[i] is None:
+                    out[i] = c.text
+                else:
+                    dup += 1
+            else:
+                bad += 1
+    if not saw_attr and len(resp.choices) == n:
+        out = [c.text for c in resp.choices]
+    if stats is not None:
+        stats["dup_index"] = stats.get("dup_index", 0) + dup
+        stats["invalid_index"] = stats.get("invalid_index", 0) + bad
+        stats["missing"] = stats.get("missing", 0) + sum(1 for o in out if o is None)
     return out
 
 
 class WmLogger:
-    """Provenance sink (doc 3.3): per-iteration notes jsonl, structured event
-    jsonl, and gzipped raw solver rollouts for every writer-eligible question."""
+    """Provenance sink (doc 3.3 + R7): per-iteration notes jsonl, structured event
+    jsonl, and gzipped raw solver rollouts for every writer-eligible question.
+
+    Rerun-safe: each logger instance claims a fresh attempt number, so a restart
+    of the same iteration writes to NEW `.a{k}` files (no overwrite/append mixing)
+    and event ids embed the attempt — every event stays uniquely attributable.
+    Raw rollouts and writer outputs are stored in full (compressed), never
+    truncated."""
 
     def __init__(self, iteration, run_id=None):
         self.iter = iteration
         self.run_id = run_id or config.MODEL_ABBR
         d = _wm_dir()
-        self.notes_f = open(f"{d}/weakness_notes_iter_{iteration}.jsonl", "w",
-                            encoding="utf-8")
-        self.events_f = open(f"{d}/wm_events_iter_{iteration}.jsonl", "w",
-                             encoding="utf-8")
-        self.traces_f = gzip.open(f"{d}/raw_rollouts_iter_{iteration}.jsonl.gz", "at",
-                                  encoding="utf-8")
+        attempt = 1
+        while os.path.exists(f"{d}/wm_events_iter_{iteration}.a{attempt}.jsonl"):
+            attempt += 1
+        self.attempt = attempt
+        self.notes_f = open(f"{d}/weakness_notes_iter_{iteration}.a{attempt}.jsonl",
+                            "w", encoding="utf-8")
+        self.events_f = open(f"{d}/wm_events_iter_{iteration}.a{attempt}.jsonl",
+                             "w", encoding="utf-8")
+        self.traces_f = gzip.open(f"{d}/raw_rollouts_iter_{iteration}.a{attempt}.jsonl.gz",
+                                  "wt", encoding="utf-8")
         self._seq = 0
+        self.event(kind="meta", model=config.MODEL_NAME, model_abbr=config.MODEL_ABBR,
+                   writer_prompt_version=WM_WRITER_PROMPT_VERSION,
+                   summary_prompt_version=WM_SUMMARY_PROMPT_VERSION,
+                   trace_max_chars=config.MEMORY_TRACE_MAX_CHARS,
+                   azureml_run=os.environ.get("AZUREML_RUN_ID") or os.environ.get("MLFLOW_RUN_ID"),
+                   code_version=os.environ.get("DEO_CODE_VERSION"))
 
     def new_event_id(self, kind):
         self._seq += 1
-        return f"{self.run_id}_it{self.iter}_{kind}_{self._seq}"
+        return f"{self.run_id}_it{self.iter}a{self.attempt}_{kind}_{self._seq}"
 
     def event(self, **kw):
         kw.setdefault("run_id", self.run_id)
         kw.setdefault("iter", self.iter)
+        kw.setdefault("attempt", getattr(self, "attempt", None))
         self.events_f.write(json.dumps(kw, ensure_ascii=False) + "\n")
         self.events_f.flush()
 
     def traces(self, event_id, question, answers, texts):
+        # FULL texts (R7): compression is fine, silent truncation is not
         self.traces_f.write(json.dumps(
             {"event_id": event_id, "question": question, "answers": answers,
-             "texts": [t[:20000] if t else t for t in texts]},
-            ensure_ascii=False) + "\n")
+             "texts": texts}, ensure_ascii=False) + "\n")
 
     def note_row(self, **kw):
         self.notes_f.write(json.dumps(kw, ensure_ascii=False) + "\n")
@@ -1135,21 +1177,19 @@ class WmLogger:
 
 
 def _extract_json_value(text, open_ch="{", close_ch="}"):
-    """First balanced {...} (or [...]) block in a completion, or None."""
-    start = text.find(open_ch)
-    if start < 0:
-        return None
-    depth = 0
-    for i in range(start, len(text)):
-        if text[i] == open_ch:
-            depth += 1
-        elif text[i] == close_ch:
-            depth -= 1
-            if depth == 0:
-                try:
-                    return json.loads(text[start:i + 1])
-                except Exception:
-                    return None
+    """First parseable JSON value starting at an `open_ch` in the completion.
+
+    Uses a real JSON decoder (raw_decode), so braces/brackets INSIDE string
+    literals and escape sequences are handled correctly (R5) — a plain
+    bracket-counter misparses e.g. an excerpt containing "the set {"."""
+    dec = json.JSONDecoder()
+    pos = text.find(open_ch)
+    while pos != -1:
+        try:
+            val, _end = dec.raw_decode(text, pos)
+            return val
+        except Exception:
+            pos = text.find(open_ch, pos + 1)
     return None
 
 
@@ -1185,10 +1225,22 @@ def _parse_weakness_note(text, details=None):
         cl = next((c for c in details["clusters"] if c["cluster_id"] == cid), None)
         if cl is None:
             return "parse_failed", None, f"cluster_id {cid} not in request"
-        if not excerpt or _norm_ws(excerpt) not in _norm_ws(cl["representative_trace"]):
-            return "parse_failed", None, "excerpt not found in cited trace"
+        # R2: match against the trace ACTUALLY SHOWN to the writer this attempt,
+        # whitespace-collapsed but case/symbol-preserving (A != a)
+        if not excerpt or _norm_cite(excerpt) not in _norm_cite(cl["representative_trace"]):
+            return "parse_failed", None, "excerpt not found in the trace shown to the writer"
     return "weakness", {"domain": domain, "weakness": weakness, "evidence": evidence,
                         "cluster_id": cid, "excerpt": excerpt}, "ok"
+
+
+def _shown_details(details, trace_chars):
+    """The details as ACTUALLY rendered for one writer attempt (R2): traces
+    re-truncated to this attempt's budget. Citation validation must use this,
+    never the full details."""
+    shown = dict(details)
+    shown["clusters"] = [dict(cl, representative_trace=_truncate_trace(
+        cl["representative_trace"], trace_chars)) for cl in details["clusters"]]
+    return shown
 
 
 def _writer_user_prompt(question, p_hat, details, trace_chars):
@@ -1240,25 +1292,41 @@ def generate_weakness_notes_batch(tokenizer, questions, p_hats, pseudos, details
                 logger.traces(eid, questions[i], raw["answers"], raw["texts"])
 
     def _render(i):
-        # token-budget check (doc 3.1.6): shrink traces until the request fits
+        """Token-budget fit for the FINAL full prompt incl. chat template + output
+        reserve (doc 3.1.6 + R4). Returns (prompt, chars, shown_details), or
+        (None, chars, None) when even the floor-truncated request cannot fit —
+        such an item is excluded from the batch as input_too_long instead of
+        poisoning it."""
         chars = config.MEMORY_TRACE_MAX_CHARS
         while True:
             prompt = apply_chat_template(
                 tokenizer, WEAKNESS_WRITER_SYSTEM,
                 _writer_user_prompt(questions[i], float(p_hats[i]), details_list[i], chars))
-            if (_tok_len(tokenizer, prompt) + WM_WRITER_MAX_TOKENS <= WM_CONTEXT_LIMIT
-                    or chars <= 300):
-                return prompt, chars
+            if _tok_len(tokenizer, prompt) + WM_WRITER_MAX_TOKENS <= WM_CONTEXT_LIMIT:
+                return prompt, chars, _shown_details(details_list[i], chars)
+            if chars <= 300:
+                return None, chars, None
             chars = max(300, chars // 2)
 
-    pending = list(elig)
+    pending = []
+    for i in elig:
+        p_, c_, sh_ = _render(i)
+        if p_ is None:
+            statuses[i] = "input_too_long"    # R4: never enters a batch
+            if logger:
+                logger.event(kind="writer", event_id=event_ids[i], attempt=0,
+                             prompt_version=WM_WRITER_PROMPT_VERSION, ok=False,
+                             status="input_too_long", trace_chars=c_,
+                             reason="prompt exceeds context at floor truncation")
+        else:
+            pending.append(i)
     for attempt in range(2):
         if not pending:
             break
-        rendered = [_render(i) for i in pending]
+        rendered = {i: _render(i) for i in pending}   # (prompt, chars, shown)
         try:
             resp = base_client().completions.create(
-                model=config.MODEL_NAME, prompt=[r[0] for r in rendered],
+                model=config.MODEL_NAME, prompt=[rendered[i][0] for i in pending],
                 max_tokens=WM_WRITER_MAX_TOKENS, temperature=0.2, top_p=0.9)
         except Exception as e:
             print(f"[wm] writer batch failed (attempt {attempt + 1}): {e}", flush=True)
@@ -1270,7 +1338,7 @@ def generate_weakness_notes_batch(tokenizer, questions, p_hats, pseudos, details
             continue
         texts = _ordered_completion_texts(resp, len(pending))
         still = []
-        for (i, _r), t in zip(zip(pending, rendered), texts):
+        for i, t in zip(pending, texts):
             if t is None:
                 statuses[i] = "request_failed"
                 still.append(i)
@@ -1279,13 +1347,14 @@ def generate_weakness_notes_batch(tokenizer, questions, p_hats, pseudos, details
                                  prompt_version=WM_WRITER_PROMPT_VERSION, ok=False,
                                  status="request_failed", reason="missing choice index")
                 continue
-            status, note, reason = _parse_weakness_note(t, details_list[i])
+            # R2: validate the citation against what THIS attempt actually showed
+            status, note, reason = _parse_weakness_note(t, rendered[i][2])
             if logger:
                 logger.event(kind="writer", event_id=event_ids[i], attempt=attempt + 1,
                              prompt_version=WM_WRITER_PROMPT_VERSION,
                              ok=status != "parse_failed", status=status,
-                             reason=reason[:200], trace_chars=_r[1],
-                             raw_output=t[:500])
+                             reason=reason[:200], trace_chars=rendered[i][1],
+                             raw_output=t)
             if status == "parse_failed":
                 statuses[i] = "parse_failed"
                 still.append(i)
@@ -1391,88 +1460,145 @@ def weakness_guidance_block(item):
                                          weakness=item["weakness"], evidence=ev)
 
 
-# ---- global summary (doc §4): budget-aware map-reduce with conservation ----
+# ---- global summary (doc §4 + R1/R3/R4/R5): budget-aware conserving map-reduce ----
 _WM_SUMMARY_SYSTEM = """You merge duplicate descriptions of solver weaknesses.
 
 Given a numbered list of weakness notes (all from the SAME math domain), group the
 notes that describe the same specific reasoning capability. Return exactly one JSON
 object with keys "groups" and "unassigned":
 - groups: a list of objects {"weakness": <one sentence, under 30 words>,
-  "indices": [note numbers in the group]}
+  "indices": [note numbers in the group],
+  "representative": <the ONE note number whose evidence best supports the merged
+  label>, "reason": <under 15 words, why that note supports the label>}
 - unassigned: the note numbers you could not confidently group.
 
 Every input note number must appear exactly once, either in some group's indices or
-in unassigned. Only merge notes describing the same specific capability; do not
-merge notes merely because they share a broad word. Do not invent notes."""
+in unassigned. The representative must be one of that group's indices. Only merge
+notes describing the same specific capability; do not merge notes merely because
+they share a broad word. Do not invent notes."""
 
 
-def _merge_notes_llm(tokenizer, note_items, stats=None):
-    """One conservation-checked LLM merge over note_items (same-domain), where
-    note_items[j] = {"weakness", "evidence"}. Returns (groups, unassigned):
-    groups = [{"weakness", "indices"}], indices LOCAL, disjoint, and
-    groups+unassigned always partition range(len(note_items)). Falls back to
-    exact-string grouping (same domain by construction, no invented labels)."""
+def _valid_index(x):
+    """R5: an id must be a genuine integer (or a pure digit string). bools,
+    floats and anything else are rejected — never truncation-converted."""
+    if isinstance(x, bool):
+        return None
+    if isinstance(x, int):
+        return x
+    if isinstance(x, str) and x.strip().isdigit():
+        return int(x.strip())
+    return None
+
+
+def _merge_notes_llm(tokenizer, note_items, stats=None, log_call=None, _depth=0):
+    """One conservation-checked LLM merge over same-domain note_items
+    ({"weakness","evidence"}). Returns (groups, unassigned):
+    groups = [{"weakness", "indices", "rep"}] with LOCAL indices, disjoint;
+    groups+unassigned always partition range(n). `rep` is the model-selected
+    representative member (validated to belong to the group); a group whose
+    representative cannot be validated is NOT force-merged — its members go to
+    unassigned (R3). Oversized inputs are bisected AFTER final-prompt budget
+    measurement (R4). Falls back to exact-string grouping (same domain, no
+    invented labels; rep = first member, method recorded by the caller)."""
     stats = stats if stats is not None else {}
     n = len(note_items)
+    if n == 0:
+        return [], []
+    if n == 1:
+        return [{"weakness": note_items[0]["weakness"], "indices": [0], "rep": 0}], []
     listing = "\n".join(
         f"{j}. {nt['weakness']} || evidence: {str(nt.get('evidence') or '')[:100]}"
         for j, nt in enumerate(note_items))
     user = f"WEAKNESS NOTES:\n{listing}\n\nReturn the JSON object now."
+    prompt = apply_chat_template(tokenizer, _WM_SUMMARY_SYSTEM, user)
+    # R4: measure the FINAL rendered prompt; bisect instead of sending over budget
+    if _tok_len(tokenizer, prompt) + WM_SUMMARY_MAX_TOKENS > WM_CONTEXT_LIMIT:
+        stats["split"] = stats.get("split", 0) + 1
+        mid = n // 2
+        g1, u1 = _merge_notes_llm(tokenizer, note_items[:mid], stats, log_call, _depth + 1)
+        g2, u2 = _merge_notes_llm(tokenizer, note_items[mid:], stats, log_call, _depth + 1)
+        for g in g2:
+            g["indices"] = [j + mid for j in g["indices"]]
+            g["rep"] += mid
+        return g1 + g2, u1 + [j + mid for j in u2]
+    raw_out = None
     for attempt in range(2):
         try:
             resp = base_client().completions.create(
-                model=config.MODEL_NAME,
-                prompt=[apply_chat_template(tokenizer, _WM_SUMMARY_SYSTEM, user)],
+                model=config.MODEL_NAME, prompt=[prompt],
                 max_tokens=WM_SUMMARY_MAX_TOKENS, temperature=0.2, top_p=0.9)
+            raw_out = resp.choices[0].text
         except Exception as e:
             stats["request_failure"] = stats.get("request_failure", 0) + 1
+            if log_call:
+                log_call(attempt=attempt + 1, n_input=n, ok=False,
+                         outcome="request_failed", reason=str(e)[:200])
             print(f"[wm] summarizer call failed: {e}", flush=True)
             continue
-        obj = _extract_json_value(resp.choices[0].text)
+        obj = _extract_json_value(raw_out)
         if not isinstance(obj, dict) or not isinstance(obj.get("groups"), list):
             stats["parse_failure"] = stats.get("parse_failure", 0) + 1
+            if log_call:
+                log_call(attempt=attempt + 1, n_input=n, ok=False,
+                         outcome="parse_failed", raw_output=raw_out)
             continue
         groups, seen, repaired = [], set(), False
         for cl in obj["groups"]:
             if not isinstance(cl, dict):
                 repaired = True
                 continue
-            ixs = []
-            for x in (cl.get("indices") or []):
-                try:
-                    x = int(x)
-                except Exception:
-                    repaired = True
-                    continue
-                if 0 <= x < n and x not in seen:
-                    ixs.append(x); seen.add(x)
-                else:
-                    repaired = True    # duplicate / out-of-range: dropped occurrence
-            w = str(cl.get("weakness") or "").strip()[:300]
-            if ixs and w:
-                groups.append({"weakness": w, "indices": ixs})
-            elif ixs:
+            raw_ix = cl.get("indices")
+            if not isinstance(raw_ix, list):        # R5: scalar/None never TypeErrors
                 repaired = True
+                continue
+            ixs = []
+            for x in raw_ix:
+                v = _valid_index(x)
+                if v is None or not (0 <= v < n) or v in seen:
+                    repaired = True                 # rejected/dup/out-of-range: dropped
+                    continue
+                ixs.append(v); seen.add(v)
+            w = str(cl.get("weakness") or "").strip()[:300]
+            if not ixs or not w:
+                if ixs:
+                    seen.difference_update(ixs)
+                repaired = True
+                continue
+            rep = _valid_index(cl.get("representative"))
+            if rep is None or rep not in ixs:
+                # R3: no validated representative -> do NOT force the merge
                 seen.difference_update(ixs)
-        # conservation invariant: everything not grouped is unassigned, never lost
-        unassigned = [j for j in range(n) if j not in seen]
+                repaired = True
+                continue
+            groups.append({"weakness": w, "indices": ixs, "rep": rep})
+        unassigned = [j for j in range(n) if j not in seen]   # conservation
         if groups:
-            key = "llm_repaired" if (repaired or obj.get("unassigned")) else "llm_success"
+            # 'repaired' only counts CODE repairs; model-declared unassigned is legal
+            key = "llm_repaired" if repaired else "llm_success"
             stats[key] = stats.get(key, 0) + 1
+            if log_call:
+                log_call(attempt=attempt + 1, n_input=n, ok=True, outcome=key,
+                         raw_output=raw_out,
+                         groups=[{"weakness": g["weakness"], "indices": g["indices"],
+                                  "rep": g["rep"]} for g in groups],
+                         unassigned=unassigned)
             return groups, unassigned
         stats["parse_failure"] = stats.get("parse_failure", 0) + 1
-    # fallback: exact-string grouping within this (same-domain) input — no invented labels
+    # fallback: exact-string grouping within this same-domain input
     stats["fallback"] = stats.get("fallback", 0) + 1
+    if log_call:
+        log_call(n_input=n, ok=False, outcome="fallback", raw_output=raw_out)
     exact = {}
     for j, nt in enumerate(note_items):
         exact.setdefault(_norm_ws(nt["weakness"]), []).append(j)
-    groups = [{"weakness": note_items[ixs[0]]["weakness"], "indices": ixs}
+    groups = [{"weakness": note_items[ixs[0]]["weakness"], "indices": ixs, "rep": ixs[0]}
               for ixs in exact.values()]
     return groups, []
 
 
 def _budget_chunks(tokenizer, items, render, max_items):
-    """Split items into chunks whose rendered listing fits the summary budget."""
+    """Split items into chunks whose rendered listing fits the summary budget
+    (estimate; _merge_notes_llm re-measures the FINAL prompt and bisects — R4)."""
     budget = WM_CONTEXT_LIMIT - WM_SUMMARY_MAX_TOKENS - _tok_len(
         tokenizer, _WM_SUMMARY_SYSTEM) - 128
     chunks, cur, cur_tok = [], [], 0
@@ -1486,20 +1612,56 @@ def _budget_chunks(tokenizer, items, render, max_items):
     return chunks
 
 
+def _exact_merge_groups(groups):
+    """R1: deterministic GLOBAL same-name merge within a domain — sources union,
+    representative taken from the largest constituent. Chunk boundaries and input
+    order cannot split identical labels."""
+    merged = {}
+    for g in groups:
+        key = _norm_ws(g["weakness"])
+        if key in merged:
+            m = merged[key]
+            m["src"] = sorted(set(m["src"]) | set(g["src"]))
+            if len(g["src"]) > m["_repsize"]:
+                m["rep"], m["_repsize"] = g["rep"], len(g["src"])
+                m["rep_method"] = g.get("rep_method", "exact_name")
+                m["weakness"] = g["weakness"]
+        else:
+            merged[key] = dict(g, _repsize=len(g["src"]))
+    out = []
+    for m in merged.values():
+        m.pop("_repsize", None)
+        out.append(m)
+    return out
+
+
 def summarize_global_weakness_memory(tokenizer, records, iteration, logger=None):
-    """Domain-bucketed budget-aware map-reduce over POST-complete-filter final-chain
-    notes. Conservation at every level (groups+unassigned == input; unassigned
-    propagate as singleton groups). support = distinct (iter, chain) members,
-    avg_p_hat recomputed in Python; every final item carries source_event_ids and a
-    representative evidence verified to come from a member of the group. The FULL
-    group list (including the trimmed ones, with reasons) goes to an audit file.
-    Rebuilt from scratch each iteration; never raises into the DEO run."""
+    """Domain-bucketed, budget-aware, conservation-checked map-reduce over the
+    POST-complete-filter final-chain notes.
+
+    Order of operations (R1): global exact-name pre-merge per domain -> LLM map
+    over budget chunks -> LLM reduce passes -> global exact-name post-merge.
+    support = distinct (iter, chain); avg_p_hat recomputed in Python from members;
+    every item carries source_event_ids and a representative whose membership is
+    program-verified (semantic supportiveness still needs human sampling — the
+    membership check is NOT a semantic guarantee). Full group list incl. trims in
+    the audit file; per-merge-call logs go to the provided logger. Never raises."""
     if tokenizer is None:
         tokenizer = AutoTokenizer.from_pretrained(config.MODEL_NAME, trust_remote_code=True)
     out_path = f"{_wm_dir()}/global_weakness_memory_iter_{iteration}.json"
     audit_path = f"{_wm_dir()}/global_weakness_memory_iter_{iteration}_audit.json"
-    stats = {}
-    # one observation per chain: (global idx aligned lists)
+    stats, call_seq = {}, [0]
+
+    def _log_call(stage, dom, member_gis):
+        if logger is None:
+            return None
+        def log_call(**kw):
+            call_seq[0] += 1
+            logger.event(kind="merge", call_id=f"merge_{call_seq[0]}", stage=stage,
+                         domain=dom, member_gis=member_gis,
+                         prompt_version=WM_SUMMARY_PROMPT_VERSION, **kw)
+        return log_call
+
     members = []
     for d in records:
         nt = d.get("_weakness_note")
@@ -1514,28 +1676,41 @@ def summarize_global_weakness_memory(tokenizer, records, iteration, logger=None)
             json.dump([], f)
         print(f"[wm] iter {iteration}: no usable notes -> empty global memory", flush=True)
         return []
-    # ---- map: per-domain, budget-sized chunks ----
+
     by_dom = {}
     for gi, m in enumerate(members):
         by_dom.setdefault(m["domain"], []).append(gi)
-    provisional = []    # {"domain","weakness","src":[global idx]}
+
+    provisional = []
     for dom, gixs in by_dom.items():
+        # R1 step 1: domain-global exact-name pre-merge (chunk-independent)
+        base = {}
+        for gi in gixs:
+            base.setdefault(_norm_ws(members[gi]["weakness"]), []).append(gi)
+        base_groups = [{"domain": dom, "weakness": members[g[0]]["weakness"],
+                        "src": sorted(g), "rep": g[0], "rep_method": "exact_name"}
+                       for g in base.values()]
+        # step 2: LLM map over budget chunks of BASE GROUPS
         chunks = _budget_chunks(
-            tokenizer, gixs,
-            lambda gi: f"0. {members[gi]['weakness']} || evidence: {members[gi]['evidence'][:100]}",
+            tokenizer, base_groups,
+            lambda bg: f"0. {bg['weakness']} || evidence: "
+                       f"{members[bg['rep']]['evidence'][:100]}",
             config.MEMORY_SUMMARY_CHUNK_SIZE)
         for chunk in chunks:
-            items = [{"weakness": members[gi]["weakness"],
-                      "evidence": members[gi]["evidence"]} for gi in chunk]
-            groups, unassigned = _merge_notes_llm(tokenizer, items, stats)
+            items = [{"weakness": bg["weakness"],
+                      "evidence": members[bg["rep"]]["evidence"]} for bg in chunk]
+            groups, unassigned = _merge_notes_llm(
+                tokenizer, items, stats,
+                _log_call("map", dom, [bg["src"] for bg in chunk]))
             for g in groups:
+                src = sorted({gi for j in g["indices"] for gi in chunk[j]["src"]})
+                rep_bg = chunk[g["rep"]]
                 provisional.append({"domain": dom, "weakness": g["weakness"],
-                                    "src": [chunk[j] for j in g["indices"]]})
-            for j in unassigned:   # conservation: unassigned survive as singletons
-                provisional.append({"domain": dom,
-                                    "weakness": members[chunk[j]]["weakness"],
-                                    "src": [chunk[j]]})
-    # ---- reduce: iterative same-domain merging under the same budget ----
+                                    "src": src, "rep": rep_bg["rep"],
+                                    "rep_method": "llm_selected"})
+            for j in unassigned:
+                provisional.append(chunk[j])
+    # step 3: reduce passes (same-domain), representative evidence carried forward
     for _pass in range(2):
         by_dom_p = {}
         for p in provisional:
@@ -1547,36 +1722,46 @@ def summarize_global_weakness_memory(tokenizer, records, iteration, logger=None)
             chunks = _budget_chunks(
                 tokenizer, plist,
                 lambda p: f"0. {p['weakness']} || evidence: "
-                          f"{members[p['src'][0]]['evidence'][:100]}",
+                          f"{members[p['rep']]['evidence'][:100]}",
                 config.MEMORY_SUMMARY_CHUNK_SIZE)
             for chunk in chunks:
                 if len(chunk) == 1:
                     nxt.append(chunk[0]); continue
                 items = [{"weakness": p["weakness"],
-                          "evidence": members[p["src"][0]]["evidence"]} for p in chunk]
-                groups, unassigned = _merge_notes_llm(tokenizer, items, stats)
+                          "evidence": members[p["rep"]]["evidence"]} for p in chunk]
+                groups, unassigned = _merge_notes_llm(
+                    tokenizer, items, stats,
+                    _log_call(f"reduce{_pass + 1}", dom, [p["src"] for p in chunk]))
                 if len(groups) + len(unassigned) < len(chunk):
                     changed = True
                 for g in groups:
                     src = sorted({gi for j in g["indices"] for gi in chunk[j]["src"]})
-                    nxt.append({"domain": dom, "weakness": g["weakness"], "src": src})
+                    nxt.append({"domain": dom, "weakness": g["weakness"], "src": src,
+                                "rep": chunk[g["rep"]]["rep"],
+                                "rep_method": "llm_selected"})
                 for j in unassigned:
                     nxt.append(chunk[j])
         provisional = nxt
         if not changed:
             break
-    # ---- Python-side stats, ranking, audit ----
+    # R1 step 4: domain-global exact-name POST-merge (cross-chunk duplicates meet)
+    by_dom_p = {}
+    for p in provisional:
+        by_dom_p.setdefault(p["domain"], []).append(p)
+    provisional = [g for plist in by_dom_p.values() for g in _exact_merge_groups(plist)]
+
     audit, items_out = [], []
     for cl in provisional:
-        src = sorted({gi for gi in cl["src"]})
-        chains_set = {(iteration, members[gi]["chain"]) for gi in src}
-        support = len(chains_set)
+        src = sorted(set(cl["src"]))
+        support = len({(iteration, members[gi]["chain"]) for gi in src})
         avg_p = sum(members[gi]["p_hat"] for gi in src) / len(src)
-        rep_gi = src[0]
+        rep_gi = cl["rep"]
+        assert rep_gi in src, "representative must belong to its group"
         entry = {"domain": cl["domain"], "weakness": cl["weakness"],
                  "support": support, "avg_p_hat": round(avg_p, 4),
                  "representative_evidence": members[rep_gi]["evidence"],
                  "representative_event_id": members[rep_gi]["event_id"],
+                 "rep_method": cl.get("rep_method", "exact_name"),
                  "source_event_ids": [members[gi]["event_id"] for gi in src],
                  "source_chains": [members[gi]["chain"] for gi in src],
                  "source_iter": iteration,
@@ -1585,10 +1770,11 @@ def summarize_global_weakness_memory(tokenizer, records, iteration, logger=None)
         if support >= config.MEMORY_MIN_SUPPORT:
             items_out.append(entry)
     items_out.sort(key=lambda it: -it["_score"])
-    kept, cut = items_out[:config.MEMORY_TOP_K], items_out[config.MEMORY_TOP_K:]
+    kept, _cut = items_out[:config.MEMORY_TOP_K], items_out[config.MEMORY_TOP_K:]
+    kept_keys = {tuple(k["source_event_ids"]) + (k["weakness"],) for k in kept}
     for a in audit:
-        a["trim_reason"] = ("kept" if any(a["source_event_ids"] == k["source_event_ids"]
-                                          for k in kept)
+        a["trim_reason"] = ("kept" if tuple(a["source_event_ids"]) + (a["weakness"],)
+                            in kept_keys
                             else ("support<min" if a["support"] < config.MEMORY_MIN_SUPPORT
                                   else "below top-K"))
     for r, it_ in enumerate(kept, 1):
@@ -1687,8 +1873,11 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
             top_p=0.95,
         )
         valid_qs, valid_gts, valid_tps = [], [], []
-        for j, c in enumerate(resp.choices):
-            q, gt = extract_challenger_output(c.text)
+        init_texts = _ordered_completion_texts(resp, len(c_prompts))
+        for j, t in enumerate(init_texts):
+            if t is None:
+                continue          # missing choice: skip THIS slot; topics stay aligned
+            q, gt = extract_challenger_output(t)
             if (q and len(q) > 30 and not any(w in q.lower() for w in forbidden)
                     and not (config.STRIP_LEAKS and question_is_leaky(q))):
                 valid_qs.append(q)
@@ -1772,6 +1961,7 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
     pool_event = [None] * num_questions
     pool_seed_domain = [None] * num_questions
     pool_guide_reason = ["memory_off"] * num_questions
+    pool_n_accepted = [0] * num_questions
     wm_logger = None
     wm_guided = wm_unguided = wm_guided_acc = wm_unguided_acc = 0
     wm_status_counts = Counter()
@@ -1868,8 +2058,16 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                 temperature=1.1,
             )
             proposals = []
+            mut_texts = _ordered_completion_texts(resp, len(m_prompts))
             for j, k in enumerate(batch_idx):
-                t = resp.choices[j].text
+                t = mut_texts[j]
+                if t is None:
+                    # R6: missing mutation response = malformed proposal for THIS
+                    # slot only; later slots keep their own responses
+                    if bandit is not None:
+                        a, ctx = chosen[k]
+                        bandit.record(ctx, a, 0)
+                    continue
                 qp, gtp = extract_challenger_output(t)
                 actual = extract_mutation_strategy(t) or "?"
                 if bandit is not None:
@@ -2034,9 +2232,11 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                         pool_pseudo[k] = pls[j]
                         if wm_active:
                             # rejected proposals keep the old state AND its old note;
-                            # an accepted proposal without a trusted note clears it
+                            # an accepted proposal without a trusted note clears the
+                            # note but keeps its own evaluation event id
                             pool_note[k] = notes_new[j] if notes_new else None
-                            pool_event[k] = eids_new[j] if notes_new else None
+                            pool_event[k] = eids_new[j]
+                            pool_n_accepted[k] += 1
                         neighbor[k, :] = new_row
                         neighbor[:, k] = new_row
                         cluster_size = new_cluster
@@ -2098,6 +2298,7 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
             d["_guidance_reason"] = pool_guide_reason[i]
             d["_weakness_note"] = pool_note[i]
             d["_wm_event_id"] = pool_event[i]
+            d["_n_accepted"] = pool_n_accepted[i]
     return records
 
 
@@ -2159,7 +2360,12 @@ def filter_and_push(train_data, repo_name, config_name):
         m_it = re.search(r"_v(\d+)$", repo_name)
         if m_it:
             try:
-                summarize_global_weakness_memory(None, stage2, int(m_it.group(1)))
+                _lg = WmLogger(int(m_it.group(1)))   # fresh attempt for the summary phase
+                try:
+                    summarize_global_weakness_memory(None, stage2, int(m_it.group(1)),
+                                                     logger=_lg)
+                finally:
+                    _lg.close()
             except Exception as e:
                 print(f"[wm] global-memory summarization failed (non-fatal): {e}", flush=True)
         else:

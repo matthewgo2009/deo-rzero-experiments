@@ -154,9 +154,15 @@ run_plansgld(){
 run_wm_smoke(){
   echo "=== [$(date '+%T')] weakness-memory v2 smoke ==="
   export STORAGE_PATH=$DEO_STORAGE PYTHONPATH=$ROOT/R-Zero
+  # offline acceptance tests are the gate: run them HERE and propagate failure (R8)
+  python3 "$ROOT/DEO/weakness_memory_tests.py"; WM_RC=$?
+  if [ "$WM_RC" -ne 0 ]; then echo "[wm-smoke] OFFLINE TESTS FAILED (rc=$WM_RC)"; return $WM_RC; fi
   bash "$ROOT/DEO/start_vllm_native.sh"
-  python3 "$ROOT/DEO/weakness_memory_smoke.py"
+  python3 "$ROOT/DEO/weakness_memory_smoke.py"; WM_RC=$?
+  # cleanup + persistence always run, but they must NOT mask the smoke status (R8)
   free_gpus; sync_once
+  if [ "$WM_RC" -ne 0 ]; then echo "[wm-smoke] SMOKE FAILED (rc=$WM_RC); artifacts synced for post-mortem"; fi
+  return $WM_RC
 }
 # SGLD-DEO: soft-prefix latent SGLD replaces the MCMC walk (DEO_SGLD.pdf)
 run_sgld(){
@@ -351,9 +357,10 @@ run_rzero_smoke(){
   else echo "SMOKE_FAIL: solver_v1 checkpoint MISSING ($ck)"; fi
 }
 
+MODE_RC=0
 case $MODE in
   deo)         run_deo ;;
-  wm_smoke)    run_wm_smoke ;;
+  wm_smoke)    run_wm_smoke; MODE_RC=$? ;;
   rzero)       run_rzero ;;
   eval)        run_eval ;;
   rzero_eval)  run_rzero; run_eval_rzero ;;
@@ -371,4 +378,8 @@ case $MODE in
   full)        run_deo; run_rzero; run_eval ;;
 esac
 sync_once
+if [ "${MODE_RC:-0}" -ne 0 ]; then
+  echo "=== [$(date '+%F %T')] PIPELINE MODE=$MODE FAILED (rc=$MODE_RC) ==="
+  exit "$MODE_RC"
+fi
 echo "=== [$(date '+%F %T')] PIPELINE MODE=$MODE COMPLETE ==="

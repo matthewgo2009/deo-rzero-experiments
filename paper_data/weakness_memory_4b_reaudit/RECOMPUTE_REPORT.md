@@ -53,8 +53,9 @@ merge per iter partially succeeded, and the partial-return + mid-level top-10
 truncation bugs shaped the output. The v2 conservation invariants
 (groups + unassigned == input at every level, no mid-level top-K, domain-bucketed
 merging, audit file with trim reasons) make this class of loss structurally
-impossible; `wm_events_iter_*.jsonl` now records llm_success / llm_repaired /
-request_failure / parse_failure / fallback per call.
+impossible. (Per-merge-call event logging was NOT yet implemented at the commit
+this report first shipped with (3bbe09d) — it landed in v2.1 with the R7 fixes and
+is covered by test_R7_logger_attempts; aggregate stats existed from v2.)
 
 ## 3. Corrections to the original README's claims
 

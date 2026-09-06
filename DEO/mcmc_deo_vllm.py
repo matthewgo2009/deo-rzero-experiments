@@ -10,6 +10,8 @@ Pipeline per outer iteration:
 """
 import os
 import re
+import gzip
+import hashlib
 import sys
 import json
 import time
@@ -954,37 +956,84 @@ def calculate_batch_energy(questions, r_unc_list):
 # 7. MCMC (single-process; large vllm batches)
 # ==========================================
 # ==========================================
-# 7b. Weakness memory (WEAKNESS_MEMORY_IMPLEMENTATION.md)
+# 7b. Weakness memory (WEAKNESS_MEMORY_IMPLEMENTATION.md + WEAKNESS_MEMORY_FIXES.md)
 # ==========================================
 WEAKNESS_DOMAINS = {"algebra", "geometry", "number_theory", "combinatorics",
                     "probability", "calculus", "other"}
+WM_WRITER_PROMPT_VERSION = "wm_writer_v2"
+WM_SUMMARY_PROMPT_VERSION = "wm_summary_v2"
+WM_CONTEXT_LIMIT = 6144          # base vLLM --max-model-len
+WM_WRITER_MAX_TOKENS = 300
+WM_SUMMARY_MAX_TOKENS = 768
 
-WEAKNESS_WRITER_SYSTEM = """You summarize mathematical capabilities about which a solver is uncertain.
+WEAKNESS_WRITER_SYSTEM = """You analyze how a math solver's sampled responses disagree.
 
-Given one problem and clusters of solver responses, return exactly one JSON
-object with keys: domain, weakness, evidence.
+Given one problem and up to three clusters of solver responses (with counts), return
+exactly one JSON object with keys: status, domain, weakness, evidence, cluster_id,
+excerpt.
 
-domain must be one of algebra, geometry, number_theory, combinatorics,
-probability, calculus, other.
+status must be one of:
+- "weakness": you can point to a specific reasoning step on which the clusters
+  disagree.
+- "problem_issue": the problem itself looks contradictory, underspecified, broken,
+  or asks about an undefined object.
+- "insufficient_evidence": you can only tell the topic, or the traces do not reveal
+  where the reasoning diverges.
 
-weakness must describe the specific reasoning operation on which the response
-clusters disagree, not merely the problem topic. Do not say which answer is
-correct or incorrect because no verified answer is provided. Do not copy
-problem-specific constants or wording. Keep each value under 30 words."""
+domain must be one of algebra, geometry, number_theory, combinatorics, probability,
+calculus, other.
+
+weakness: one sentence naming the TRANSFERABLE reasoning operation the clusters
+disagree on (e.g. "distinguishing ordered from unordered counting"), not merely the
+problem topic. Do not copy problem-specific constants into the weakness label.
+
+evidence: one sentence saying WHICH clusters diverge at WHICH step. Quoting the
+problem's numbers and the clusters' answers here IS allowed.
+
+cluster_id: the integer id (1-3) of the cluster your excerpt comes from.
+excerpt: a short quote (at most 120 characters) copied VERBATIM from that cluster's
+representative reasoning shown to you.
+
+Never treat the majority answer as verified; only describe visible disagreement.
+First consider whether the disagreement comes from a defect of the problem itself.
+If you cannot locate the diverging step in the traces, return insufficient_evidence.
+Do not invent problems, numbers, reasoning or answers that are not in the input."""
 
 WEAKNESS_GUIDANCE_TMPL = """
 
-KNOWN SOLVER WEAKNESS:
+KNOWN SOLVER WEAKNESS ({domain}):
 {weakness}
+Observed disagreement: {evidence}
 
-Mutate the seed so solving the new problem specifically requires this reasoning
-capability. Preserve a unique, verifiable answer. Do not merely change numbers,
-copy an old question, or include the solution/answer in the question. Keep the
-mutation focused on this weakness while applying exactly one strategy A-E."""
+Within the seed problem's own mathematical structure, mutate it so that solving the
+new problem genuinely requires the reasoning operation above. If the seed cannot
+reasonably be steered toward it, apply a normal high-quality mutation instead. Do
+not force keywords, introduce contradictory conditions, copy an old question, or
+leak the answer. Preserve a unique, verifiable answer and apply exactly one
+strategy A-E."""
+
+WM_DOMAIN_CLASSIFY_SYSTEM = (
+    "Classify the math problem into exactly one domain from this list: algebra, "
+    "geometry, number_theory, combinatorics, probability, calculus, other. "
+    "Answer with the single domain word only.")
+
+
+def _tok_len(tokenizer, text):
+    return len(tokenizer(text, add_special_tokens=False).input_ids)
+
+
+def _sha1(text):
+    return hashlib.sha1(text.encode("utf-8")).hexdigest()[:16]
+
+
+def _norm_ws(text):
+    return " ".join((text or "").split()).lower()
 
 
 def _truncate_trace(text, max_chars=None):
-    """Keep the beginning and the ending of a long trace (reasoning setup + final answer)."""
+    """Keep the beginning and the ending of a long trace (reasoning setup + final
+    answer). Deterministic, so the writer's view can be reconstructed from the raw
+    trace + max_chars."""
     max_chars = max_chars or config.MEMORY_TRACE_MAX_CHARS
     if text is None or len(text) <= max_chars:
         return text or ""
@@ -994,20 +1043,95 @@ def _truncate_trace(text, max_chars=None):
 
 
 def _build_cluster_details(answers_chunk, texts_chunk, top_n=3):
-    """Cluster the m rollout answers (same Counter grouping as p_hat) and attach one
-    truncated representative trace per top cluster. One question = one observation."""
+    """Cluster the m rollout answers (same Counter grouping p_hat uses).
+
+    clusters_all keeps EVERY valid cluster's answer/count (fixes doc 3.1.2);
+    clusters carries representative traces for the top-N only, each tagged with
+    cluster_id / rollout_id / truncation flag so the writer's citations are
+    verifiable. One question = one observation."""
     valid_ix = [j for j, a in enumerate(answers_chunk)
                 if a is not None and a != "GUESSED_FAIL_FORMAT"]
     counts = Counter(answers_chunk[j] for j in valid_ix)
+    clusters_all = [{"answer": a, "count": c} for a, c in counts.most_common()]
     clusters = []
-    for ans, cnt in counts.most_common(top_n):
-        rep = next(texts_chunk[j] for j in valid_ix if answers_chunk[j] == ans)
-        clusters.append({"answer": ans, "count": cnt,
-                         "representative_trace": _truncate_trace(rep)})
+    for cid, (ans, cnt) in enumerate(counts.most_common(top_n), 1):
+        rid = next(j for j in valid_ix if answers_chunk[j] == ans)
+        raw = texts_chunk[rid] or ""
+        clusters.append({"cluster_id": cid, "answer": ans, "count": cnt,
+                         "rollout_id": rid,
+                         "representative_trace": _truncate_trace(raw),
+                         "truncated": len(raw) > config.MEMORY_TRACE_MAX_CHARS})
     return {"rollout_count": len(answers_chunk),
             "valid_answer_count": len(valid_ix),
             "invalid_answer_count": len(answers_chunk) - len(valid_ix),
-            "clusters": clusters}
+            "clusters_all": clusters_all,
+            "clusters": clusters,
+            # transient: raw rollouts for provenance logging (doc 3.1.4); the
+            # logger gzips them, then callers strip this key — never kept long-term
+            "_raw": {"answers": list(answers_chunk), "texts": list(texts_chunk)}}
+
+
+def _ordered_completion_texts(resp, n):
+    """Map an OpenAI-style batched completion onto request order by choice.index
+    (doc 3.1.5): a missing response yields None at its slot instead of shifting
+    every later item. Falls back to list order only when indices are absent AND
+    the count matches exactly."""
+    out = [None] * n
+    saw_index = False
+    for c in resp.choices:
+        i = getattr(c, "index", None)
+        if isinstance(i, int) and 0 <= i < n:
+            saw_index = True
+            if out[i] is None:
+                out[i] = c.text
+    if not saw_index:
+        if len(resp.choices) == n:
+            out = [c.text for c in resp.choices]
+    return out
+
+
+class WmLogger:
+    """Provenance sink (doc 3.3): per-iteration notes jsonl, structured event
+    jsonl, and gzipped raw solver rollouts for every writer-eligible question."""
+
+    def __init__(self, iteration, run_id=None):
+        self.iter = iteration
+        self.run_id = run_id or config.MODEL_ABBR
+        d = _wm_dir()
+        self.notes_f = open(f"{d}/weakness_notes_iter_{iteration}.jsonl", "w",
+                            encoding="utf-8")
+        self.events_f = open(f"{d}/wm_events_iter_{iteration}.jsonl", "w",
+                             encoding="utf-8")
+        self.traces_f = gzip.open(f"{d}/raw_rollouts_iter_{iteration}.jsonl.gz", "at",
+                                  encoding="utf-8")
+        self._seq = 0
+
+    def new_event_id(self, kind):
+        self._seq += 1
+        return f"{self.run_id}_it{self.iter}_{kind}_{self._seq}"
+
+    def event(self, **kw):
+        kw.setdefault("run_id", self.run_id)
+        kw.setdefault("iter", self.iter)
+        self.events_f.write(json.dumps(kw, ensure_ascii=False) + "\n")
+        self.events_f.flush()
+
+    def traces(self, event_id, question, answers, texts):
+        self.traces_f.write(json.dumps(
+            {"event_id": event_id, "question": question, "answers": answers,
+             "texts": [t[:20000] if t else t for t in texts]},
+            ensure_ascii=False) + "\n")
+
+    def note_row(self, **kw):
+        self.notes_f.write(json.dumps(kw, ensure_ascii=False) + "\n")
+        self.notes_f.flush()
+
+    def close(self):
+        for f in (self.notes_f, self.events_f, self.traces_f):
+            try:
+                f.close()
+            except Exception:
+                pass
 
 
 def _extract_json_value(text, open_ch="{", close_ch="}"):
@@ -1029,70 +1153,150 @@ def _extract_json_value(text, open_ch="{", close_ch="}"):
     return None
 
 
-def _parse_weakness_note(text):
+def _parse_weakness_note(text, details=None):
+    """Parse + structurally validate a v2 writer output against the details the
+    writer actually saw. Returns (status, note_or_None, reason).
+
+    status="weakness" requires a verifiable citation: cluster_id must belong to the
+    request and the excerpt must appear verbatim (whitespace-normalized) in that
+    cluster's representative trace. Validation proves the citation exists — it does
+    NOT prove the diagnosis is semantically right or the question valid."""
     obj = _extract_json_value(text)
     if not isinstance(obj, dict):
-        return None
-    weakness = str(obj.get("weakness") or "").strip()
-    if not weakness:
-        return None
+        return "parse_failed", None, "no JSON object"
+    status = str(obj.get("status") or "").strip().lower()
+    if status not in ("weakness", "problem_issue", "insufficient_evidence"):
+        return "parse_failed", None, f"bad status {status!r}"
     domain = str(obj.get("domain") or "").strip().lower().replace(" ", "_")
     if domain not in WEAKNESS_DOMAINS:
         domain = "other"
-    return {"domain": domain, "weakness": weakness[:300],
-            "evidence": str(obj.get("evidence") or "").strip()[:300]}
+    weakness = str(obj.get("weakness") or "").strip()[:300]
+    evidence = str(obj.get("evidence") or "").strip()[:400]
+    if status != "weakness":
+        return status, None, weakness or evidence or status
+    if not weakness:
+        return "parse_failed", None, "weakness status without weakness text"
+    try:
+        cid = int(obj.get("cluster_id"))
+    except Exception:
+        return "parse_failed", None, "missing/invalid cluster_id"
+    excerpt = str(obj.get("excerpt") or "").strip()[:200]
+    if details is not None:
+        cl = next((c for c in details["clusters"] if c["cluster_id"] == cid), None)
+        if cl is None:
+            return "parse_failed", None, f"cluster_id {cid} not in request"
+        if not excerpt or _norm_ws(excerpt) not in _norm_ws(cl["representative_trace"]):
+            return "parse_failed", None, "excerpt not found in cited trace"
+    return "weakness", {"domain": domain, "weakness": weakness, "evidence": evidence,
+                        "cluster_id": cid, "excerpt": excerpt}, "ok"
 
 
-def _writer_user_prompt(question, p_hat, details):
+def _writer_user_prompt(question, p_hat, details, trace_chars):
     m = details["rollout_count"]
+    counts_all = ", ".join(f"{c['answer']}:{c['count']}" for c in details["clusters_all"])
     lines = [f"PROBLEM:\n{question}\n",
              f"SELF-CONSISTENCY:\np_hat={p_hat:.3f}; "
-             f"valid_answers={details['valid_answer_count']}/{m}\n",
-             "ANSWER CLUSTERS:"]
-    for r, cl in enumerate(details["clusters"], 1):
-        lines.append(f"{r}. answer={cl['answer']}, count={cl['count']}\n"
-                     f"   representative reasoning={cl['representative_trace']}")
+             f"valid_answers={details['valid_answer_count']}/{m}; "
+             f"invalid={details['invalid_answer_count']}\n",
+             f"ALL ANSWER COUNTS: {counts_all}\n",
+             "TOP CLUSTERS WITH REPRESENTATIVE REASONING:"]
+    for cl in details["clusters"]:
+        tr = _truncate_trace(cl["representative_trace"], trace_chars)
+        lines.append(f"cluster_id={cl['cluster_id']}: answer={cl['answer']}, "
+                     f"count={cl['count']}\n   representative reasoning={tr}")
     lines.append("\nReturn the JSON object now.")
     return "\n".join(lines)
 
 
-def generate_weakness_notes_batch(tokenizer, questions, p_hats, pseudos, details_list):
-    """One weakness note per ELIGIBLE question (usable pseudo-label, p_hat in the
-    trainable band, clusters available); None elsewhere. Batched through the base
-    vLLM endpoint; one retry per failed parse; never raises into the MCMC run."""
+def generate_weakness_notes_batch(tokenizer, questions, p_hats, pseudos, details_list,
+                                  logger=None, stage="", chains=None):
+    """One outcome per question. Returns (notes, statuses, event_ids):
+    notes[i] is a dict ONLY when status=weakness (problem_issue /
+    insufficient_evidence are audit-only and never enter memory); statuses[i] in
+    {not_eligible, request_failed, parse_failed, weakness, problem_issue,
+    insufficient_evidence}. Reuses the existing m rollouts — no extra solver calls.
+    Never raises into the MCMC run."""
     n = len(questions)
     notes = [None] * n
+    statuses = ["not_eligible"] * n
+    event_ids = [None] * n
+    chains = chains if chains is not None else list(range(n))
     elig = [i for i in range(n)
             if pseudos[i] not in (None, "", "None")
             and config.MIN_SCORE <= float(p_hats[i]) <= config.MAX_SCORE
             and details_list[i] and details_list[i].get("clusters")]
-    pending = elig
+    for i in elig:
+        statuses[i] = "request_failed"       # until proven otherwise
+        if logger:
+            eid = logger.new_event_id("eval")
+            event_ids[i] = eid
+            det = details_list[i]
+            logger.event(kind="eval", event_id=eid, chain=chains[i], stage=stage,
+                         question_sha1=_sha1(questions[i]), m=det["rollout_count"],
+                         p_hat=float(p_hats[i]), counts=det["clusters_all"],
+                         invalid=det["invalid_answer_count"])
+            raw = det.get("_raw")
+            if raw:
+                logger.traces(eid, questions[i], raw["answers"], raw["texts"])
+
+    def _render(i):
+        # token-budget check (doc 3.1.6): shrink traces until the request fits
+        chars = config.MEMORY_TRACE_MAX_CHARS
+        while True:
+            prompt = apply_chat_template(
+                tokenizer, WEAKNESS_WRITER_SYSTEM,
+                _writer_user_prompt(questions[i], float(p_hats[i]), details_list[i], chars))
+            if (_tok_len(tokenizer, prompt) + WM_WRITER_MAX_TOKENS <= WM_CONTEXT_LIMIT
+                    or chars <= 300):
+                return prompt, chars
+            chars = max(300, chars // 2)
+
+    pending = list(elig)
     for attempt in range(2):
         if not pending:
             break
-        prompts = [apply_chat_template(
-            tokenizer, WEAKNESS_WRITER_SYSTEM,
-            _writer_user_prompt(questions[i], float(p_hats[i]), details_list[i]))
-            for i in pending]
+        rendered = [_render(i) for i in pending]
         try:
             resp = base_client().completions.create(
-                model=config.MODEL_NAME, prompt=prompts,
-                max_tokens=256, temperature=0.2, top_p=0.9)
+                model=config.MODEL_NAME, prompt=[r[0] for r in rendered],
+                max_tokens=WM_WRITER_MAX_TOKENS, temperature=0.2, top_p=0.9)
         except Exception as e:
             print(f"[wm] writer batch failed (attempt {attempt + 1}): {e}", flush=True)
+            if logger:
+                for i in pending:
+                    logger.event(kind="writer", event_id=event_ids[i], attempt=attempt + 1,
+                                 prompt_version=WM_WRITER_PROMPT_VERSION,
+                                 ok=False, status="request_failed", reason=str(e)[:200])
             continue
+        texts = _ordered_completion_texts(resp, len(pending))
         still = []
-        for i, c in zip(pending, resp.choices):
-            nt = _parse_weakness_note(c.text)
-            if nt is not None:
-                notes[i] = nt
-            else:
+        for (i, _r), t in zip(zip(pending, rendered), texts):
+            if t is None:
+                statuses[i] = "request_failed"
                 still.append(i)
+                if logger:
+                    logger.event(kind="writer", event_id=event_ids[i], attempt=attempt + 1,
+                                 prompt_version=WM_WRITER_PROMPT_VERSION, ok=False,
+                                 status="request_failed", reason="missing choice index")
+                continue
+            status, note, reason = _parse_weakness_note(t, details_list[i])
+            if logger:
+                logger.event(kind="writer", event_id=event_ids[i], attempt=attempt + 1,
+                             prompt_version=WM_WRITER_PROMPT_VERSION,
+                             ok=status != "parse_failed", status=status,
+                             reason=reason[:200], trace_chars=_r[1],
+                             raw_output=t[:500])
+            if status == "parse_failed":
+                statuses[i] = "parse_failed"
+                still.append(i)
+            else:
+                statuses[i] = status
+                notes[i] = note   # None unless status == "weakness"
         pending = still
     if elig:
-        ok = sum(1 for i in elig if notes[i] is not None)
-        print(f"[wm] writer: {ok}/{len(elig)} eligible questions got a parsed note", flush=True)
-    return notes
+        cnt = Counter(statuses[i] for i in elig)
+        print(f"[wm] writer[{stage}]: {len(elig)} eligible -> {dict(cnt)}", flush=True)
+    return notes, statuses, event_ids
 
 
 def _wm_dir():
@@ -1102,7 +1306,8 @@ def _wm_dir():
 
 
 def load_global_weakness_memory(iteration):
-    """Global memory written after iteration `iteration` (frozen for the whole walk)."""
+    """Global memory written after iteration `iteration` (frozen for the whole walk).
+    Items carry source_iter so a target is never attributed to the wrong memory."""
     path = f"{_wm_dir()}/global_weakness_memory_iter_{iteration}.json"
     if not os.path.exists(path):
         print(f"[wm] no global memory at {path}; running unguided", flush=True)
@@ -1110,138 +1315,294 @@ def load_global_weakness_memory(iteration):
     try:
         with open(path) as f:
             mem = json.load(f)
-        return mem if isinstance(mem, list) else []
+        if not isinstance(mem, list):
+            return []
+        for it_ in mem:
+            it_.setdefault("source_iter", iteration)
+        return mem
     except Exception as e:
         print(f"[wm] failed to load {path}: {e}; running unguided", flush=True)
         return []
 
 
-def sample_target_memory(memory):
-    """One memory item w.p. MEMORY_GUIDED_PROB (weight = support * (1-|avg_p_hat-0.5|)),
-    else None -> the chain keeps the original unguided prompt."""
-    if not memory or random.random() >= config.MEMORY_GUIDED_PROB:
-        return None
+def _weighted_pick(rng, items):
     ws = [max(1e-6, float(it.get("support", 1)) *
-              (1.0 - abs(float(it.get("avg_p_hat", 0.5)) - 0.5))) for it in memory]
-    r = random.random() * sum(ws)
-    for it, w in zip(memory, ws):
+              (1.0 - abs(float(it.get("avg_p_hat", 0.5)) - 0.5))) for it in items]
+    r = rng.random() * sum(ws)
+    for it, w in zip(items, ws):
         r -= w
         if r <= 0:
             return it
-    return memory[-1]
+    return items[-1]
+
+
+def classify_domains_batch(tokenizer, questions):
+    """One light batched call: coarse domain per question, None on any failure."""
+    if not questions:
+        return []
+    out = [None] * len(questions)
+    try:
+        prompts = [apply_chat_template(tokenizer, WM_DOMAIN_CLASSIFY_SYSTEM,
+                                       f"PROBLEM:\n{q[:2000]}\n\nDomain:")
+                   for q in questions]
+        resp = base_client().completions.create(
+            model=config.MODEL_NAME, prompt=prompts, max_tokens=8, temperature=0.0)
+        texts = _ordered_completion_texts(resp, len(questions))
+        for i, t in enumerate(texts):
+            if not t:
+                continue
+            tl = t.strip().lower().replace(" ", "_")
+            for d in WEAKNESS_DOMAINS:
+                if tl.startswith(d) or d in tl.split("\n")[0]:
+                    out[i] = d
+                    break
+    except Exception as e:
+        print(f"[wm] domain classify failed (non-fatal): {e}", flush=True)
+    return out
+
+
+def assign_targets(memory, seed_domains, rng, guided_prob=None):
+    """Domain-compatible target routing (doc §5): a chain may only be guided by a
+    memory item whose domain matches its seed's domain; anything else degrades to
+    unguided WITH a recorded reason. Selection uses a dedicated RNG so enabling
+    memory never perturbs the MH random stream."""
+    guided_prob = config.MEMORY_GUIDED_PROB if guided_prob is None else guided_prob
+    by_dom = {}
+    for m in memory:
+        by_dom.setdefault(m.get("domain"), []).append(m)
+    targets, reasons = [], []
+    for d in seed_domains:
+        if not memory:
+            targets.append(None); reasons.append("no_memory"); continue
+        if d is None:
+            targets.append(None); reasons.append("no_seed_domain"); continue
+        if rng.random() >= guided_prob:
+            targets.append(None); reasons.append("unguided_draw"); continue
+        cands = by_dom.get(d, [])
+        if not cands:
+            targets.append(None); reasons.append("no_compatible_target"); continue
+        targets.append(_weighted_pick(rng, cands)); reasons.append("guided")
+    return targets, reasons
 
 
 def weakness_guidance_block(item):
-    return WEAKNESS_GUIDANCE_TMPL.format(weakness=item["weakness"])
+    ev = str(item.get("representative_evidence") or "")[:200]
+    return WEAKNESS_GUIDANCE_TMPL.format(domain=item.get("domain", "?"),
+                                         weakness=item["weakness"], evidence=ev)
 
 
+# ---- global summary (doc §4): budget-aware map-reduce with conservation ----
 _WM_SUMMARY_SYSTEM = """You merge duplicate descriptions of solver weaknesses.
 
-Given a numbered list of weakness notes, group notes that describe the same
-reasoning capability. Return exactly one JSON array of at most {k} objects, each
-with keys: domain, weakness, indices. `indices` lists the numbers of the source
-notes in the group. Use each note number at most once. domain must be one of
-algebra, geometry, number_theory, combinatorics, probability, calculus, other.
-Keep each weakness under 30 words and do not invent notes."""
+Given a numbered list of weakness notes (all from the SAME math domain), group the
+notes that describe the same specific reasoning capability. Return exactly one JSON
+object with keys "groups" and "unassigned":
+- groups: a list of objects {"weakness": <one sentence, under 30 words>,
+  "indices": [note numbers in the group]}
+- unassigned: the note numbers you could not confidently group.
+
+Every input note number must appear exactly once, either in some group's indices or
+in unassigned. Only merge notes describing the same specific capability; do not
+merge notes merely because they share a broad word. Do not invent notes."""
 
 
-def _summarize_chunk_llm(tokenizer, note_dicts):
-    """Cluster a chunk of notes via the base model -> [{domain, weakness, indices}].
-    Falls back to exact-string grouping if the LLM output is unusable."""
-    listing = "\n".join(f"{i}. [{nt['domain']}] {nt['weakness']}"
-                        for i, nt in enumerate(note_dicts))
-    user = f"WEAKNESS NOTES:\n{listing}\n\nReturn the JSON array now."
-    for _ in range(2):
+def _merge_notes_llm(tokenizer, note_items, stats=None):
+    """One conservation-checked LLM merge over note_items (same-domain), where
+    note_items[j] = {"weakness", "evidence"}. Returns (groups, unassigned):
+    groups = [{"weakness", "indices"}], indices LOCAL, disjoint, and
+    groups+unassigned always partition range(len(note_items)). Falls back to
+    exact-string grouping (same domain by construction, no invented labels)."""
+    stats = stats if stats is not None else {}
+    n = len(note_items)
+    listing = "\n".join(
+        f"{j}. {nt['weakness']} || evidence: {str(nt.get('evidence') or '')[:100]}"
+        for j, nt in enumerate(note_items))
+    user = f"WEAKNESS NOTES:\n{listing}\n\nReturn the JSON object now."
+    for attempt in range(2):
         try:
             resp = base_client().completions.create(
                 model=config.MODEL_NAME,
-                prompt=[apply_chat_template(
-                    tokenizer, _WM_SUMMARY_SYSTEM.format(k=config.MEMORY_TOP_K), user)],
-                max_tokens=1024, temperature=0.2, top_p=0.9)
+                prompt=[apply_chat_template(tokenizer, _WM_SUMMARY_SYSTEM, user)],
+                max_tokens=WM_SUMMARY_MAX_TOKENS, temperature=0.2, top_p=0.9)
         except Exception as e:
+            stats["request_failure"] = stats.get("request_failure", 0) + 1
             print(f"[wm] summarizer call failed: {e}", flush=True)
             continue
-        arr = _extract_json_value(resp.choices[0].text, "[", "]")
-        if not isinstance(arr, list):
+        obj = _extract_json_value(resp.choices[0].text)
+        if not isinstance(obj, dict) or not isinstance(obj.get("groups"), list):
+            stats["parse_failure"] = stats.get("parse_failure", 0) + 1
             continue
-        out, used = [], set()
-        for cl in arr[:config.MEMORY_TOP_K]:
+        groups, seen, repaired = [], set(), False
+        for cl in obj["groups"]:
             if not isinstance(cl, dict):
+                repaired = True
                 continue
-            ixs = [int(i) for i in (cl.get("indices") or [])
-                   if isinstance(i, (int, float)) and 0 <= int(i) < len(note_dicts)
-                   and int(i) not in used]
-            weakness = str(cl.get("weakness") or "").strip()
-            if not ixs or not weakness:
-                continue
-            used.update(ixs)
-            domain = str(cl.get("domain") or "").strip().lower().replace(" ", "_")
-            out.append({"domain": domain if domain in WEAKNESS_DOMAINS else "other",
-                        "weakness": weakness[:300], "indices": ixs})
-        if out:
-            return out
-    # fallback: deterministic exact-string grouping (mechanism stays alive)
-    print("[wm] summarizer LLM unusable; falling back to exact-string grouping", flush=True)
-    groups = {}
-    for i, nt in enumerate(note_dicts):
-        groups.setdefault((nt["domain"], nt["weakness"].lower()), []).append(i)
-    return [{"domain": d, "weakness": note_dicts[ixs[0]]["weakness"], "indices": ixs}
-            for (d, _w), ixs in groups.items()]
+            ixs = []
+            for x in (cl.get("indices") or []):
+                try:
+                    x = int(x)
+                except Exception:
+                    repaired = True
+                    continue
+                if 0 <= x < n and x not in seen:
+                    ixs.append(x); seen.add(x)
+                else:
+                    repaired = True    # duplicate / out-of-range: dropped occurrence
+            w = str(cl.get("weakness") or "").strip()[:300]
+            if ixs and w:
+                groups.append({"weakness": w, "indices": ixs})
+            elif ixs:
+                repaired = True
+                seen.difference_update(ixs)
+        # conservation invariant: everything not grouped is unassigned, never lost
+        unassigned = [j for j in range(n) if j not in seen]
+        if groups:
+            key = "llm_repaired" if (repaired or obj.get("unassigned")) else "llm_success"
+            stats[key] = stats.get(key, 0) + 1
+            return groups, unassigned
+        stats["parse_failure"] = stats.get("parse_failure", 0) + 1
+    # fallback: exact-string grouping within this (same-domain) input — no invented labels
+    stats["fallback"] = stats.get("fallback", 0) + 1
+    exact = {}
+    for j, nt in enumerate(note_items):
+        exact.setdefault(_norm_ws(nt["weakness"]), []).append(j)
+    groups = [{"weakness": note_items[ixs[0]]["weakness"], "indices": ixs}
+              for ixs in exact.values()]
+    return groups, []
 
 
-def summarize_global_weakness_memory(tokenizer, records, iteration):
-    """Map-reduce the final-chain notes (post-COMPLETE-filter records only) into the
-    top-K global weaknesses. support/avg_p_hat are computed in Python from returned
-    indices — never trusted from the LLM. Rebuilt from scratch each iteration so
-    fixed weaknesses expire naturally. Never raises into the DEO run."""
+def _budget_chunks(tokenizer, items, render, max_items):
+    """Split items into chunks whose rendered listing fits the summary budget."""
+    budget = WM_CONTEXT_LIMIT - WM_SUMMARY_MAX_TOKENS - _tok_len(
+        tokenizer, _WM_SUMMARY_SYSTEM) - 128
+    chunks, cur, cur_tok = [], [], 0
+    for it in items:
+        t = _tok_len(tokenizer, render(it)) + 4
+        if cur and (cur_tok + t > budget or len(cur) >= max_items):
+            chunks.append(cur); cur, cur_tok = [], 0
+        cur.append(it); cur_tok += t
+    if cur:
+        chunks.append(cur)
+    return chunks
+
+
+def summarize_global_weakness_memory(tokenizer, records, iteration, logger=None):
+    """Domain-bucketed budget-aware map-reduce over POST-complete-filter final-chain
+    notes. Conservation at every level (groups+unassigned == input; unassigned
+    propagate as singleton groups). support = distinct (iter, chain) members,
+    avg_p_hat recomputed in Python; every final item carries source_event_ids and a
+    representative evidence verified to come from a member of the group. The FULL
+    group list (including the trimmed ones, with reasons) goes to an audit file.
+    Rebuilt from scratch each iteration; never raises into the DEO run."""
     if tokenizer is None:
         tokenizer = AutoTokenizer.from_pretrained(config.MODEL_NAME, trust_remote_code=True)
     out_path = f"{_wm_dir()}/global_weakness_memory_iter_{iteration}.json"
-    notes = [(d["_weakness_note"], float(d["p_hat"])) for d in records
-             if isinstance(d.get("_weakness_note"), dict)]
-    if not notes:
+    audit_path = f"{_wm_dir()}/global_weakness_memory_iter_{iteration}_audit.json"
+    stats = {}
+    # one observation per chain: (global idx aligned lists)
+    members = []
+    for d in records:
+        nt = d.get("_weakness_note")
+        if isinstance(nt, dict) and nt.get("weakness"):
+            members.append({"chain": d.get("_chain_id"), "p_hat": float(d["p_hat"]),
+                            "event_id": d.get("_wm_event_id"),
+                            "domain": nt.get("domain", "other"),
+                            "weakness": nt["weakness"],
+                            "evidence": nt.get("evidence", "")})
+    if not members:
         with open(out_path, "w") as f:
             json.dump([], f)
         print(f"[wm] iter {iteration}: no usable notes -> empty global memory", flush=True)
         return []
-    # map: chunk -> provisional clusters carrying GLOBAL source-note indices
-    provisional = []
-    cs = config.MEMORY_SUMMARY_CHUNK_SIZE
-    for s in range(0, len(notes), cs):
-        chunk = notes[s:s + cs]
-        for cl in _summarize_chunk_llm(tokenizer, [nt for nt, _p in chunk]):
-            provisional.append({"domain": cl["domain"], "weakness": cl["weakness"],
-                                "src": [s + i for i in cl["indices"]]})
-    # reduce: merge provisional clusters once more
-    if len(provisional) > config.MEMORY_TOP_K:
-        merged = []
-        for cl in _summarize_chunk_llm(
-                tokenizer, [{"domain": p["domain"], "weakness": p["weakness"]}
-                            for p in provisional]):
-            src = sorted({gi for i in cl["indices"] for gi in provisional[i]["src"]})
-            merged.append({"domain": cl["domain"], "weakness": cl["weakness"], "src": src})
-    else:
-        merged = provisional
-    items = []
-    for cl in merged:
-        src = sorted(set(cl["src"]))
-        if len(src) < config.MEMORY_MIN_SUPPORT:   # one note = one distinct chain
-            continue
-        avg_p = sum(notes[i][1] for i in src) / len(src)
-        items.append({"domain": cl["domain"], "weakness": cl["weakness"],
-                      "support": len(src), "avg_p_hat": round(avg_p, 4),
-                      "representative_evidence": notes[src[0]][0].get("evidence", ""),
-                      "_score": len(src) * (1.0 - abs(avg_p - 0.5))})
-    items.sort(key=lambda it: -it["_score"])
-    items = items[:config.MEMORY_TOP_K]
-    for r, it in enumerate(items, 1):
-        it["id"] = f"memory_{r}"
-        del it["_score"]
+    # ---- map: per-domain, budget-sized chunks ----
+    by_dom = {}
+    for gi, m in enumerate(members):
+        by_dom.setdefault(m["domain"], []).append(gi)
+    provisional = []    # {"domain","weakness","src":[global idx]}
+    for dom, gixs in by_dom.items():
+        chunks = _budget_chunks(
+            tokenizer, gixs,
+            lambda gi: f"0. {members[gi]['weakness']} || evidence: {members[gi]['evidence'][:100]}",
+            config.MEMORY_SUMMARY_CHUNK_SIZE)
+        for chunk in chunks:
+            items = [{"weakness": members[gi]["weakness"],
+                      "evidence": members[gi]["evidence"]} for gi in chunk]
+            groups, unassigned = _merge_notes_llm(tokenizer, items, stats)
+            for g in groups:
+                provisional.append({"domain": dom, "weakness": g["weakness"],
+                                    "src": [chunk[j] for j in g["indices"]]})
+            for j in unassigned:   # conservation: unassigned survive as singletons
+                provisional.append({"domain": dom,
+                                    "weakness": members[chunk[j]]["weakness"],
+                                    "src": [chunk[j]]})
+    # ---- reduce: iterative same-domain merging under the same budget ----
+    for _pass in range(2):
+        by_dom_p = {}
+        for p in provisional:
+            by_dom_p.setdefault(p["domain"], []).append(p)
+        nxt, changed = [], False
+        for dom, plist in by_dom_p.items():
+            if len(plist) <= 1:
+                nxt.extend(plist); continue
+            chunks = _budget_chunks(
+                tokenizer, plist,
+                lambda p: f"0. {p['weakness']} || evidence: "
+                          f"{members[p['src'][0]]['evidence'][:100]}",
+                config.MEMORY_SUMMARY_CHUNK_SIZE)
+            for chunk in chunks:
+                if len(chunk) == 1:
+                    nxt.append(chunk[0]); continue
+                items = [{"weakness": p["weakness"],
+                          "evidence": members[p["src"][0]]["evidence"]} for p in chunk]
+                groups, unassigned = _merge_notes_llm(tokenizer, items, stats)
+                if len(groups) + len(unassigned) < len(chunk):
+                    changed = True
+                for g in groups:
+                    src = sorted({gi for j in g["indices"] for gi in chunk[j]["src"]})
+                    nxt.append({"domain": dom, "weakness": g["weakness"], "src": src})
+                for j in unassigned:
+                    nxt.append(chunk[j])
+        provisional = nxt
+        if not changed:
+            break
+    # ---- Python-side stats, ranking, audit ----
+    audit, items_out = [], []
+    for cl in provisional:
+        src = sorted({gi for gi in cl["src"]})
+        chains_set = {(iteration, members[gi]["chain"]) for gi in src}
+        support = len(chains_set)
+        avg_p = sum(members[gi]["p_hat"] for gi in src) / len(src)
+        rep_gi = src[0]
+        entry = {"domain": cl["domain"], "weakness": cl["weakness"],
+                 "support": support, "avg_p_hat": round(avg_p, 4),
+                 "representative_evidence": members[rep_gi]["evidence"],
+                 "representative_event_id": members[rep_gi]["event_id"],
+                 "source_event_ids": [members[gi]["event_id"] for gi in src],
+                 "source_chains": [members[gi]["chain"] for gi in src],
+                 "source_iter": iteration,
+                 "_score": support * (1.0 - abs(avg_p - 0.5))}
+        audit.append(dict(entry))
+        if support >= config.MEMORY_MIN_SUPPORT:
+            items_out.append(entry)
+    items_out.sort(key=lambda it: -it["_score"])
+    kept, cut = items_out[:config.MEMORY_TOP_K], items_out[config.MEMORY_TOP_K:]
+    for a in audit:
+        a["trim_reason"] = ("kept" if any(a["source_event_ids"] == k["source_event_ids"]
+                                          for k in kept)
+                            else ("support<min" if a["support"] < config.MEMORY_MIN_SUPPORT
+                                  else "below top-K"))
+    for r, it_ in enumerate(kept, 1):
+        it_["id"] = f"memory_{r}"
+        del it_["_score"]
     with open(out_path, "w") as f:
-        json.dump(items, f, indent=2, ensure_ascii=False)
-    print(f"[wm] iter {iteration}: {len(notes)} notes -> {len(items)} global weaknesses "
-          f"(supports: {[it['support'] for it in items]}) -> {out_path}", flush=True)
-    return items
+        json.dump(kept, f, indent=2, ensure_ascii=False)
+    with open(audit_path, "w") as f:
+        json.dump({"stats": stats, "n_input_notes": len(members),
+                   "groups": audit}, f, indent=2, ensure_ascii=False)
+    print(f"[wm] iter {iteration}: {len(members)} notes -> {len(provisional)} groups "
+          f"-> {len(kept)} kept (supports {[k['support'] for k in kept]}); "
+          f"merge stats {stats} -> {out_path}", flush=True)
+    return kept
 
 
 def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
@@ -1403,27 +1764,46 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
 
     # --- Weakness memory: one FIXED target and one current note per chain. Initial
     #     pool states get notes too (a chain that rejects all 5 proposals contributes
-    #     its seed's note). Targets stay fixed across all MCMC_STEPS.
+    #     its seed's note). Targets stay fixed across all MCMC_STEPS; routing is
+    #     seed-domain-compatible (doc §5) with a dedicated RNG so the MH random
+    #     stream is untouched.
     pool_target = [None] * num_questions
     pool_note = [None] * num_questions
-    wm_notes_file = None
+    pool_event = [None] * num_questions
+    pool_seed_domain = [None] * num_questions
+    pool_guide_reason = ["memory_off"] * num_questions
+    wm_logger = None
     wm_guided = wm_unguided = wm_guided_acc = wm_unguided_acc = 0
+    wm_status_counts = Counter()
     if wm_active:
-        wm_notes_file = open(f"{_wm_dir()}/weakness_notes_iter_{wm_iter}.jsonl",
-                             "w", encoding="utf-8")
-        pool_note = generate_weakness_notes_batch(
-            tokenizer, pool_q, pool_phat, pool_pseudo, pool_details)
+        wm_logger = WmLogger(wm_iter)
+        pool_note, init_statuses, pool_event = generate_weakness_notes_batch(
+            tokenizer, pool_q, pool_phat, pool_pseudo, pool_details,
+            logger=wm_logger, stage="init")
+        wm_status_counts.update(init_statuses)
+        for d in pool_details:
+            if d:
+                d.pop("_raw", None)
         for i, nt in enumerate(pool_note):
-            if nt is not None:
-                wm_notes_file.write(json.dumps(
-                    {"stage": "init", "chain": i, "accepted": True, "target_id": None, **nt},
-                    ensure_ascii=False) + "\n")
-        wm_notes_file.flush()
-        if wm_memory:
-            pool_target = [sample_target_memory(wm_memory) for _ in range(num_questions)]
-        msg = (f"[wm] ON: iter={wm_iter}, loaded {len(wm_memory)} global items, "
-               f"{sum(1 for t in pool_target if t is not None)}/{num_questions} guided chains, "
-               f"{sum(1 for nt in pool_note if nt is not None)} init notes")
+            wm_logger.note_row(event_id=pool_event[i], stage="init", chain=i,
+                               accepted=True, target_id=None, target_source_iter=None,
+                               note_status=init_statuses[i],
+                               **(nt or {"domain": None, "weakness": None,
+                                         "evidence": None}))
+        # coarse seed domain: trusted init note first, light batch classify otherwise
+        pool_seed_domain = [nt["domain"] if nt else None for nt in pool_note]
+        need = [i for i in range(num_questions) if pool_seed_domain[i] is None]
+        if need and wm_memory:
+            doms = classify_domains_batch(tokenizer, [pool_q[i] for i in need])
+            for i, dm in zip(need, doms):
+                pool_seed_domain[i] = dm
+        wm_rng = random.Random(f"{config.MODEL_ABBR}_wm_iter{wm_iter}")
+        pool_target, pool_guide_reason = assign_targets(
+            wm_memory, pool_seed_domain, wm_rng)
+        reason_counts = Counter(pool_guide_reason)
+        msg = (f"[wm] ON: iter={wm_iter}, loaded {len(wm_memory)} global items "
+               f"(source_iter={wm_memory[0].get('source_iter') if wm_memory else None}); "
+               f"init statuses {dict(wm_status_counts)}; routing {dict(reason_counts)}")
         print(msg, flush=True)
         log_file.write(msg + "\n")
 
@@ -1544,8 +1924,13 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                         tokenizer, qs_new, return_details=True)
                     # every proposal is diagnosed (accepted or not); the chain's note is
                     # replaced only on acceptance
-                    notes_new = generate_weakness_notes_batch(
-                        tokenizer, qs_new, phs, pls, dets_new)
+                    notes_new, statuses_new, eids_new = generate_weakness_notes_batch(
+                        tokenizer, qs_new, phs, pls, dets_new, logger=wm_logger,
+                        stage=f"step{step + 1}", chains=[p["k"] for p in proposals])
+                    wm_status_counts.update(statuses_new)
+                    for d in dets_new:
+                        if d:
+                            d.pop("_raw", None)
                 else:
                     rus, phs, pls = evaluate_r_unc_vllm(tokenizer, qs_new)
                 for j, p in enumerate(proposals):
@@ -1614,12 +1999,14 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                             wm_unguided += 1
                             wm_unguided_acc += int(accept)
                         nt = notes_new[j] if notes_new else None
-                        wm_notes_file.write(json.dumps(
-                            {"stage": f"step{step + 1}", "chain": k, "accepted": bool(accept),
-                             "target_id": tgt.get("id") if tgt else None,
-                             **(nt or {"domain": None, "weakness": None, "evidence": None})},
-                            ensure_ascii=False) + "\n")
-                        wm_notes_file.flush()
+                        wm_logger.note_row(
+                            event_id=eids_new[j], stage=f"step{step + 1}", chain=k,
+                            accepted=bool(accept),
+                            target_id=tgt.get("id") if tgt else None,
+                            target_source_iter=tgt.get("source_iter") if tgt else None,
+                            guide_reason=pool_guide_reason[k],
+                            note_status=statuses_new[j],
+                            **(nt or {"domain": None, "weakness": None, "evidence": None}))
 
                     r_rep_k_old = float(cluster_size[k]) / n
                     r_rep_k_new = float(new_cluster[k]) / n
@@ -1646,8 +2033,10 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                         pool_phat[k] = phs[j]
                         pool_pseudo[k] = pls[j]
                         if wm_active:
-                            # rejected proposals keep the old state AND its old note
+                            # rejected proposals keep the old state AND its old note;
+                            # an accepted proposal without a trusted note clears it
                             pool_note[k] = notes_new[j] if notes_new else None
+                            pool_event[k] = eids_new[j] if notes_new else None
                         neighbor[k, :] = new_row
                         neighbor[:, k] = new_row
                         cluster_size = new_cluster
@@ -1684,10 +2073,11 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
     if wm_active:
         msg = (f"[wm] proposal acceptance: guided {wm_guided_acc}/{wm_guided}, "
                f"unguided {wm_unguided_acc}/{wm_unguided}; "
-               f"final notes: {sum(1 for nt in pool_note if nt is not None)}/{num_questions}")
+               f"final notes: {sum(1 for nt in pool_note if nt is not None)}/{num_questions}; "
+               f"writer statuses (all stages): {dict(wm_status_counts)}")
         print(msg, flush=True)
         log_file.write(msg + "\n")
-        wm_notes_file.close()
+        wm_logger.close()
 
     log_file.close()
     records = [
@@ -1702,7 +2092,12 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
         for i, d in enumerate(records):
             d["_chain_id"] = i
             d["_target_memory_id"] = pool_target[i].get("id") if pool_target[i] else None
+            d["_target_source_iter"] = (pool_target[i].get("source_iter")
+                                        if pool_target[i] else None)
+            d["_seed_domain"] = pool_seed_domain[i]
+            d["_guidance_reason"] = pool_guide_reason[i]
             d["_weakness_note"] = pool_note[i]
+            d["_wm_event_id"] = pool_event[i]
     return records
 
 

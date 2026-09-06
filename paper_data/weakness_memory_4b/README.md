@@ -71,3 +71,26 @@ Peak-to-peak a dead tie; mean −0.48. All within the ±0.85 noise gauge.
   final questions (topic mix, p̂, length)?
 - Do the global memories drift/persist sensibly across iters given the solver is
   retrained each iter (e.g. "expected value" support 62 @i1 → does it shrink)?
+
+---
+
+## ERRATA (2026-09-05, after the GPT re-audit — see paper_data/weakness_memory_4b_reaudit/)
+
+Three claims above are corrected; the data files are unchanged:
+
+1. **"Every LLM merge call failed → all exact-string fallback" is WRONG.** The mode
+   was mixed: iter1's top support (62) exceeds the largest verbatim-duplicate count
+   (29), which only an LLM merge can produce, and iter5's 3 items vs 22 recomputable
+   support≥3 groups show a partially-successful LLM reduce whose unassigned members
+   were silently dropped by the pre-fix partial-return code path.
+2. **The "±0.85 run-to-run noise gauge" is WITHDRAWN.** One replicate cannot
+   establish a noise band (and iter2's −1.85 was outside it anyway). Read the
+   outcome table as observed scores without significance claims.
+3. **"Guidance never reached the questions" is OVERSTATED.** Guided chains followed
+   the target inconsistently (some compliant cases exist, e.g. iter2 chain1795);
+   equal acceptance rates do not imply equal question distributions.
+
+The fixed v2 implementation (provenance events, raw-rollout persistence, citation-
+validated writer statuses, conservation-checked domain-bucketed summary, seed-domain
+guided routing) is in `DEO/mcmc_deo_vllm.py`; the re-audit and full change list are
+in `paper_data/weakness_memory_4b_reaudit/RECOMPUTE_REPORT.md`.

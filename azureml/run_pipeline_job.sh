@@ -149,6 +149,15 @@ run_plansgld(){
   python3 "$ROOT/DEO/plan_sgld_native_main.py"
   free_gpus; sync_once
 }
+# Weakness-memory smoke (WEAKNESS_MEMORY_FIXES.md 6.2): 100q x 2 iters, fixed
+# solver, no training; artifacts land in DEO/weakness_memory for human review.
+run_wm_smoke(){
+  echo "=== [$(date '+%T')] weakness-memory v2 smoke ==="
+  export STORAGE_PATH=$DEO_STORAGE PYTHONPATH=$ROOT/R-Zero
+  bash "$ROOT/DEO/start_vllm_native.sh"
+  python3 "$ROOT/DEO/weakness_memory_smoke.py"
+  free_gpus; sync_once
+}
 # SGLD-DEO: soft-prefix latent SGLD replaces the MCMC walk (DEO_SGLD.pdf)
 run_sgld(){
   echo "=== [$(date '+%T')] SGLD-DEO (latent soft-prefix, ${DEO_NUM_ITERS:-5} iters) ==="
@@ -344,6 +353,7 @@ run_rzero_smoke(){
 
 case $MODE in
   deo)         run_deo ;;
+  wm_smoke)    run_wm_smoke ;;
   rzero)       run_rzero ;;
   eval)        run_eval ;;
   rzero_eval)  run_rzero; run_eval_rzero ;;

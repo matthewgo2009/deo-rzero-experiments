@@ -1,0 +1,493 @@
+{
+  "iter1": {
+    "filtered_notes": 879,
+    "pure_fallback_groups_support_ge3": 25,
+    "pure_fallback_top10": [
+      {
+        "domain": "algebra",
+        "weakness": "solving quadratic equations",
+        "support": 25,
+        "avg_p_hat": 0.4356,
+        "score": 23.389
+      },
+      {
+        "domain": "number_theory",
+        "weakness": "modular arithmetic",
+        "support": 14,
+        "avg_p_hat": 0.4921,
+        "score": 13.889
+      },
+      {
+        "domain": "algebra",
+        "weakness": "inconsistent application of vieta's formulas",
+        "support": 13,
+        "avg_p_hat": 0.453,
+        "score": 12.389
+      },
+      {
+        "domain": "probability",
+        "weakness": "calculating expected value",
+        "support": 12,
+        "avg_p_hat": 0.4537,
+        "score": 11.444
+      },
+      {
+        "domain": "algebra",
+        "weakness": "solving systems of linear equations",
+        "support": 11,
+        "avg_p_hat": 0.4444,
+        "score": 10.389
+      },
+      {
+        "domain": "algebra",
+        "weakness": "solving systems of equations",
+        "support": 9,
+        "avg_p_hat": 0.5309,
+        "score": 8.722
+      },
+      {
+        "domain": "calculus",
+        "weakness": "applying l'hôpital's rule",
+        "support": 9,
+        "avg_p_hat": 0.5679,
+        "score": 8.389
+      },
+      {
+        "domain": "calculus",
+        "weakness": "limit evaluation",
+        "support": 7,
+        "avg_p_hat": 0.4921,
+        "score": 6.944
+      },
+      {
+        "domain": "algebra",
+        "weakness": "solving linear equations",
+        "support": 4,
+        "avg_p_hat": 0.5556,
+        "score": 3.778
+      },
+      {
+        "domain": "algebra",
+        "weakness": "solving equations",
+        "support": 4,
+        "avg_p_hat": 0.5556,
+        "score": 3.778
+      }
+    ],
+    "actual_global_items": 10,
+    "actual_global_supports": [
+      62,
+      44,
+      38,
+      34,
+      19,
+      18,
+      16,
+      15,
+      15,
+      14
+    ],
+    "actual_global_labels": [
+      "Calculating expected value",
+      "Understanding differentiation and integration concepts",
+      "Inconsistent handling of square roots and prime number properties",
+      "Inconsistent probability calculations and expected value calculations",
+      "Confusion about the relationship between the diagonal of a rectangle and its dimensions",
+      "Finding the smallest positive integer satisfying multiple congruences",
+      "Solving polynomial equations and applying Vieta's formulas",
+      "inconsistent application of geometric properties and formulas",
+      "Modular arithmetic",
+      "solving quadratic equations"
+    ]
+  },
+  "iter2": {
+    "filtered_notes": 885,
+    "pure_fallback_groups_support_ge3": 29,
+    "pure_fallback_top10": [
+      {
+        "domain": "probability",
+        "weakness": "calculating expected value",
+        "support": 20,
+        "avg_p_hat": 0.4444,
+        "score": 18.889
+      },
+      {
+        "domain": "number_theory",
+        "weakness": "modular arithmetic",
+        "support": 19,
+        "avg_p_hat": 0.5205,
+        "score": 18.611
+      },
+      {
+        "domain": "algebra",
+        "weakness": "solving systems of linear equations",
+        "support": 13,
+        "avg_p_hat": 0.5043,
+        "score": 12.944
+      },
+      {
+        "domain": "algebra",
+        "weakness": "solving systems of equations",
+        "support": 11,
+        "avg_p_hat": 0.4949,
+        "score": 10.944
+      },
+      {
+        "domain": "algebra",
+        "weakness": "inconsistent application of vieta's formulas",
+        "support": 10,
+        "avg_p_hat": 0.4778,
+        "score": 9.778
+      },
+      {
+        "domain": "algebra",
+        "weakness": "solving quadratic equations",
+        "support": 10,
+        "avg_p_hat": 0.4667,
+        "score": 9.667
+      },
+      {
+        "domain": "algebra",
+        "weakness": "solving equations",
+        "support": 8,
+        "avg_p_hat": 0.4861,
+        "score": 7.889
+      },
+      {
+        "domain": "number_theory",
+        "weakness": "solving congruences",
+        "support": 6,
+        "avg_p_hat": 0.5185,
+        "score": 5.889
+      },
+      {
+        "domain": "probability",
+        "weakness": "misunderstanding of expected value calculation",
+        "support": 6,
+        "avg_p_hat": 0.537,
+        "score": 5.778
+      },
+      {
+        "domain": "number_theory",
+        "weakness": "solving systems of congruences",
+        "support": 6,
+        "avg_p_hat": 0.3519,
+        "score": 5.111
+      }
+    ],
+    "actual_global_items": 10,
+    "actual_global_supports": [
+      67,
+      24,
+      15,
+      12,
+      11,
+      10,
+      8,
+      6,
+      5,
+      4
+    ],
+    "actual_global_labels": [
+      "calculating distances in 3D space",
+      "solving congruences",
+      "calculating expected value",
+      "calculating probabilities of different outcomes",
+      "modular arithmetic",
+      "solving systems of linear equations",
+      "inconsistent application of Vieta's formulas",
+      "solving equations",
+      "solving quadratic equations",
+      "misunderstanding of expected value calculation"
+    ]
+  },
+  "iter3": {
+    "filtered_notes": 890,
+    "pure_fallback_groups_support_ge3": 16,
+    "pure_fallback_top10": [
+      {
+        "domain": "probability",
+        "weakness": "calculating expected value",
+        "support": 16,
+        "avg_p_hat": 0.4792,
+        "score": 15.667
+      },
+      {
+        "domain": "algebra",
+        "weakness": "solving quadratic equations",
+        "support": 16,
+        "avg_p_hat": 0.4375,
+        "score": 15.0
+      },
+      {
+        "domain": "number_theory",
+        "weakness": "modular arithmetic",
+        "support": 15,
+        "avg_p_hat": 0.5926,
+        "score": 13.611
+      },
+      {
+        "domain": "algebra",
+        "weakness": "solving systems of linear equations",
+        "support": 9,
+        "avg_p_hat": 0.5556,
+        "score": 8.5
+      },
+      {
+        "domain": "algebra",
+        "weakness": "solving systems of equations",
+        "support": 8,
+        "avg_p_hat": 0.5278,
+        "score": 7.778
+      },
+      {
+        "domain": "algebra",
+        "weakness": "inconsistent application of vieta's formulas",
+        "support": 8,
+        "avg_p_hat": 0.4444,
+        "score": 7.556
+      },
+      {
+        "domain": "number_theory",
+        "weakness": "divisibility",
+        "support": 5,
+        "avg_p_hat": 0.5111,
+        "score": 4.944
+      },
+      {
+        "domain": "combinatorics",
+        "weakness": "counting combinations",
+        "support": 4,
+        "avg_p_hat": 0.5,
+        "score": 4.0
+      },
+      {
+        "domain": "geometry",
+        "weakness": "calculating distances in 3d space",
+        "support": 4,
+        "avg_p_hat": 0.5278,
+        "score": 3.889
+      },
+      {
+        "domain": "number_theory",
+        "weakness": "solving congruences",
+        "support": 4,
+        "avg_p_hat": 0.4722,
+        "score": 3.889
+      }
+    ],
+    "actual_global_items": 10,
+    "actual_global_supports": [
+      14,
+      12,
+      12,
+      8,
+      6,
+      6,
+      4,
+      4,
+      4,
+      4
+    ],
+    "actual_global_labels": [
+      "solving quadratic equations",
+      "calculating expected value",
+      "modular arithmetic",
+      "Solving systems of equations",
+      "solving systems of linear equations",
+      "inconsistent application of Vieta's formulas",
+      "Determining if a number can be expressed as the sum of two squares, calculating probabilities, finding modular inverse, and identifying prime numbers and their combinations",
+      "divisibility",
+      "Applying the Pythagorean theorem and area formula, inconsistent application of geometric theorems, finding the intersection of a line with a conic and a sphere, and calculating the submerged volume of a complex 3D shape",
+      "Calculating probabilities of multiple events, conditional probability, disagreement on the expected value calculation, and calculating expected value in complex scenarios"
+    ]
+  },
+  "iter4": {
+    "filtered_notes": 889,
+    "pure_fallback_groups_support_ge3": 27,
+    "pure_fallback_top10": [
+      {
+        "domain": "number_theory",
+        "weakness": "modular arithmetic",
+        "support": 19,
+        "avg_p_hat": 0.4561,
+        "score": 18.167
+      },
+      {
+        "domain": "algebra",
+        "weakness": "solving quadratic equations",
+        "support": 13,
+        "avg_p_hat": 0.4359,
+        "score": 12.167
+      },
+      {
+        "domain": "algebra",
+        "weakness": "inconsistent application of vieta's formulas",
+        "support": 11,
+        "avg_p_hat": 0.5051,
+        "score": 10.944
+      },
+      {
+        "domain": "probability",
+        "weakness": "calculating expected value",
+        "support": 9,
+        "avg_p_hat": 0.5309,
+        "score": 8.722
+      },
+      {
+        "domain": "calculus",
+        "weakness": "applying l'hôpital's rule",
+        "support": 8,
+        "avg_p_hat": 0.5278,
+        "score": 7.778
+      },
+      {
+        "domain": "number_theory",
+        "weakness": "solving congruences",
+        "support": 8,
+        "avg_p_hat": 0.4028,
+        "score": 7.222
+      },
+      {
+        "domain": "probability",
+        "weakness": "calculating expected values",
+        "support": 7,
+        "avg_p_hat": 0.5238,
+        "score": 6.833
+      },
+      {
+        "domain": "algebra",
+        "weakness": "solving systems of equations",
+        "support": 6,
+        "avg_p_hat": 0.5185,
+        "score": 5.889
+      },
+      {
+        "domain": "probability",
+        "weakness": "misunderstanding of expected value calculation",
+        "support": 5,
+        "avg_p_hat": 0.4889,
+        "score": 4.944
+      },
+      {
+        "domain": "algebra",
+        "weakness": "solving systems of linear equations",
+        "support": 5,
+        "avg_p_hat": 0.5111,
+        "score": 4.944
+      }
+    ],
+    "actual_global_items": 10,
+    "actual_global_supports": [
+      18,
+      13,
+      10,
+      10,
+      10,
+      10,
+      10,
+      8,
+      7,
+      7
+    ],
+    "actual_global_labels": [
+      "Modular arithmetic",
+      "solving quadratic equations",
+      "Applying the limit definition of the derivative and quotient rule for differentiation",
+      "Inconsistent calculation of inradius and circumradius, and incorrect application of the distance formula",
+      "Inconsistent application of Vieta's formulas",
+      "Calculating expected values and conditional probabilities",
+      "Disagreement on the number of integer solutions, finding cube roots modulo a prime, and summing gcds",
+      "Solving systems of linear equations, inconsistent handling of variable substitution and simplification, and difficulty in handling multiple variables and their symmetrical relationships",
+      "Applying L'Hôpital's rule",
+      "solving congruences"
+    ]
+  },
+  "iter5": {
+    "filtered_notes": 901,
+    "pure_fallback_groups_support_ge3": 22,
+    "pure_fallback_top10": [
+      {
+        "domain": "number_theory",
+        "weakness": "modular arithmetic",
+        "support": 18,
+        "avg_p_hat": 0.4815,
+        "score": 17.667
+      },
+      {
+        "domain": "algebra",
+        "weakness": "solving quadratic equations",
+        "support": 14,
+        "avg_p_hat": 0.5,
+        "score": 14.0
+      },
+      {
+        "domain": "algebra",
+        "weakness": "solving systems of linear equations",
+        "support": 11,
+        "avg_p_hat": 0.4444,
+        "score": 10.389
+      },
+      {
+        "domain": "calculus",
+        "weakness": "applying l'hôpital's rule",
+        "support": 9,
+        "avg_p_hat": 0.5556,
+        "score": 8.5
+      },
+      {
+        "domain": "algebra",
+        "weakness": "solving systems of equations",
+        "support": 9,
+        "avg_p_hat": 0.4198,
+        "score": 8.278
+      },
+      {
+        "domain": "probability",
+        "weakness": "misunderstanding of expected value calculation",
+        "support": 8,
+        "avg_p_hat": 0.4861,
+        "score": 7.889
+      },
+      {
+        "domain": "probability",
+        "weakness": "calculating expected value",
+        "support": 6,
+        "avg_p_hat": 0.4815,
+        "score": 5.889
+      },
+      {
+        "domain": "algebra",
+        "weakness": "solving inequalities",
+        "support": 4,
+        "avg_p_hat": 0.5,
+        "score": 4.0
+      },
+      {
+        "domain": "number_theory",
+        "weakness": "solving congruences",
+        "support": 4,
+        "avg_p_hat": 0.5278,
+        "score": 3.889
+      },
+      {
+        "domain": "calculus",
+        "weakness": "limit evaluation",
+        "support": 4,
+        "avg_p_hat": 0.5556,
+        "score": 3.778
+      }
+    ],
+    "actual_global_items": 3,
+    "actual_global_supports": [
+      6,
+      5,
+      3
+    ],
+    "actual_global_labels": [
+      "Difficulty in applying Vieta's formulas",
+      "Difficulty in correctly applying polynomial decomposition and ensuring uniqueness of coefficients",
+      "Inconsistent handling of polynomial roots and coefficients"
+    ]
+  }
+}

@@ -57,7 +57,11 @@ def main():
                   "w") as f:
             json.dump(records, f, indent=2, ensure_ascii=False)
         filtered = stage_filter(records)
-        mem = deo.summarize_global_weakness_memory(tokenizer, filtered, it)
+        _lg = deo.WmLogger(it)   # capture per-merge-call raw outputs in the smoke too
+        try:
+            mem = deo.summarize_global_weakness_memory(tokenizer, filtered, it, logger=_lg)
+        finally:
+            _lg.close()
 
         guided = [d for d in records if d.get("_target_memory_id")]
         mem_by_id = {m["id"]: m for m in (prev_mem or [])}

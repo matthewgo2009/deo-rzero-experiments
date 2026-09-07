@@ -972,7 +972,8 @@ WM_WRITER_PROMPT_VERSION = "wm_writer_v3"
 WM_SUMMARY_PROMPT_VERSION = "wm_summary_v2"
 WM_CONTEXT_LIMIT = 6144          # base vLLM --max-model-len
 WM_WRITER_MAX_TOKENS = 300
-WM_SUMMARY_MAX_TOKENS = 768
+WM_SUMMARY_MAX_TOKENS = 1536
+WM_MERGE_MAX_ITEMS = 16   # verbose 4B outputs: ~60-90 tokens/group; cap items so JSON never truncates
 
 WEAKNESS_WRITER_SYSTEM = """You analyze how a math solver's sampled responses disagree.
 
@@ -1021,10 +1022,17 @@ not force keywords, introduce contradictory conditions, copy an old question, or
 leak the answer. Preserve a unique, verifiable answer and apply exactly one
 strategy A-E."""
 
+# Few-shot completion-style classification: a BASE model given a bare "classify
+# this" instruction just starts SOLVING the problem (observed in smoke: completions
+# began "SOLUTION: Step 1..."). A two-shot PROBLEM/DOMAIN pattern + stop at newline
+# pins the continuation to a single domain word.
 WM_DOMAIN_CLASSIFY_SYSTEM = (
-    "Classify the math problem into exactly one domain from this list: algebra, "
-    "geometry, number_theory, combinatorics, probability, calculus, other. "
-    "Answer with the single domain word only.")
+    "Classify each math problem into exactly one domain from this list: algebra, "
+    "geometry, number_theory, combinatorics, probability, calculus, other.")
+WM_DOMAIN_CLASSIFY_FEWSHOT = (
+    "PROBLEM: If 3x + 2 = 8, find x.\nDOMAIN: algebra\n\n"
+    "PROBLEM: In how many ways can 5 people sit in a row?\nDOMAIN: combinatorics\n\n"
+    "PROBLEM: {q}\nDOMAIN:")
 
 
 def _tok_len(tokenizer, text):
@@ -1428,10 +1436,11 @@ def classify_domains_batch(tokenizer, questions, logger=None):
     raw = [None] * len(questions)
     try:
         prompts = [apply_chat_template(tokenizer, WM_DOMAIN_CLASSIFY_SYSTEM,
-                                       f"PROBLEM:\n{q[:2000]}\n\nDomain:")
+                                       WM_DOMAIN_CLASSIFY_FEWSHOT.format(q=q[:2000]))
                    for q in questions]
         resp = base_client().completions.create(
-            model=config.MODEL_NAME, prompt=prompts, max_tokens=8, temperature=0.0)
+            model=config.MODEL_NAME, prompt=prompts, max_tokens=8, temperature=0.0,
+            stop=["\n"])
         texts = _ordered_completion_texts(resp, len(questions))
         for i, t in enumerate(texts):
             raw[i] = t
@@ -1491,11 +1500,14 @@ _WM_SUMMARY_SYSTEM = """You merge duplicate descriptions of solver weaknesses.
 Given a numbered list of weakness notes (all from the SAME math domain), group the
 notes that describe the same specific reasoning capability. Return exactly one JSON
 object with keys "groups" and "unassigned":
-- groups: a list of objects {"weakness": <one sentence, under 30 words>,
+- groups: a list of objects {"weakness": <UNDER 15 words naming the shared
+  capability — do NOT restate any note's evidence or copy problem constants>,
   "indices": [note numbers in the group],
   "representative": <the ONE note number whose evidence best supports the merged
-  label>, "reason": <under 15 words, why that note supports the label>}
+  label>, "reason": <under 8 words>}
 - unassigned: the note numbers you could not confidently group.
+
+Keep the output SHORT: terse labels, no prose outside the JSON object.
 
 Every input note number must appear exactly once, either in some group's indices or
 in unassigned. The representative must be one of that group's indices. Only merge
@@ -1720,7 +1732,7 @@ def summarize_global_weakness_memory(tokenizer, records, iteration, logger=None)
             tokenizer, base_groups,
             lambda bg: f"0. {bg['weakness']} || evidence: "
                        f"{members[bg['rep']]['evidence'][:100]}",
-            config.MEMORY_SUMMARY_CHUNK_SIZE)
+            min(config.MEMORY_SUMMARY_CHUNK_SIZE, WM_MERGE_MAX_ITEMS))
         for chunk in chunks:
             items = [{"weakness": bg["weakness"],
                       "evidence": members[bg["rep"]]["evidence"]} for bg in chunk]
@@ -1748,7 +1760,7 @@ def summarize_global_weakness_memory(tokenizer, records, iteration, logger=None)
                 tokenizer, plist,
                 lambda p: f"0. {p['weakness']} || evidence: "
                           f"{members[p['rep']]['evidence'][:100]}",
-                config.MEMORY_SUMMARY_CHUNK_SIZE)
+                min(config.MEMORY_SUMMARY_CHUNK_SIZE, WM_MERGE_MAX_ITEMS))
             for chunk in chunks:
                 if len(chunk) == 1:
                     nxt.append(chunk[0]); continue

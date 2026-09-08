@@ -287,3 +287,40 @@ malformed/degenerate questions. Run cancelled after iter1 (saving ~7 days of H10
 completes the frozen-distribution ceiling argument: walking FARTHER on the frozen base
 distribution over-concentrates and degrades quality, same as every other static intervention.
 (In-band ≠ accuracy, now demonstrated on the chain-length axis too.)
+
+## Graveyard #12 — weakness memory (two attempts, mechanism-verified null) (Sep 2026)
+
+Hypothesis: give the MCMC walk a cross-iteration memory of SOLVER WEAKNESSES (one
+LLM-written note per evaluated proposal from answer-cluster disagreement → ≤10 global
+weaknesses per iter → next iter 80% of chains guided toward one sampled weakness),
+so the frozen-base proposal distribution "moves with the solver" without training a
+questioner. Spec: WEAKNESS_MEMORY_IMPLEMENTATION.md (+ two GPT review rounds:
+WEAKNESS_MEMORY_FIXES.md, WEAKNESS_MEMORY_REVIEW_3BBE09D.md).
+
+**Attempt 1 (cool_fig, deo_wm_fb):** AVG7 peak 48.80 @i5 ≈ control 48.79 — but the
+audit showed the mechanism never really ran: writer notes topic-level & parroted,
+summarizer degraded by a context bug + silent member loss, and guided mutations
+mostly ignored their target (seed dominates the mutation prompt). An invalid null.
+Data: paper_data/weakness_memory_4b/ + _reaudit/.
+
+**Attempt 2 (willing_gyro, deo_wm2_fb, v2.1.2 after R1-R8 fixes + passed smoke):**
+mechanism VERIFIED working at scale — real semantic memory every iter (10 items,
+top supports 17-25), ~40% of chains guided (domain-compatible routing), guided
+acceptance ≈ unguided, smoke sample 5/6 in-domain / 2/6 exact-operation. Result:
+
+| arm | AVG7 per iter (Claude) | peak | mean |
+|--|--|--|--|
+| mutV1 control | 45.09 47.71 47.57 46.08 48.79 | 48.79 | 47.05 |
+| WM v2 | 45.44 47.24 48.14 47.67 45.41 | **48.14** | 46.78 |
+
+Peak −0.65, mean −0.27, below control at every matched iter. **Targeting the
+solver's measured weaknesses with a frozen generator buys nothing** — the tenth
+falsified guidance-on-frozen-base intervention. Together with SGLD (soft-prefix =
+pure diffusion ≈ baseline 49.06; Planning-SGLD pending length-gate redesign) the
+picture is unchanged: base distribution + band filter sets the score; only a
+generator whose DISTRIBUTION moves (R-Zero's trained questioner) has ever beaten it
+at 8B, and nothing static reproduces that.
+
+Full GPT-analyzable data (pools with per-chain target/guidance fields, memories,
+audits, provenance events): paper_data/weakness_memory_v2_4b/; per-set grades:
+paper_data/claude_grade/4b_wm2_claude.jsonl.

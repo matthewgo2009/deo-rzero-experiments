@@ -1,0 +1,23 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+display_name: collect-wm2-4b
+experiment_name: deo-rzero-7set
+description: "Copy willing_gyro (4B weakness-memory v2 full run) pools + filtered sets + memory/audit/events (raw rollout gz stays in blob)."
+compute: azureml:azureml-job-cpu-cluster
+environment:
+  image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04:latest
+code: ..
+command: bash azureml/collect_wm2_4b.sh ${{outputs.out}} ${{inputs.src}}
+inputs:
+  src:
+    type: uri_folder
+    mode: ro_mount
+    path: azureml://datastores/workspaceblobstore/paths/yyd_wm2_fb_4b/
+outputs:
+  out:
+    type: uri_folder
+    mode: rw_mount
+    path: azureml://datastores/workspaceblobstore/paths/yyd_collect_wm2_4b/
+resources:
+  instance_type: Standard_D32_v3
+  instance_count: 1

@@ -129,6 +129,11 @@ class Config:
     #     budget are untouched. Disabled (default) reproduces current behavior exactly.
     #     Implemented for the canonical fixed-beta non-CD walk only.
     WEAKNESS_MEMORY_ENABLED = os.getenv("DEO_WEAKNESS_MEMORY", "0") == "1"
+    # LOCAL_WEAKNESS_FEEDBACK_IMPLEMENTATION.md: guidance source per proposal.
+    #   global_fixed   = current behavior (one fixed global target per chain per iter)
+    #   local_feedback = the accepted state's OWN note guides the next mutation;
+    #                    missing note falls back to the assigned global target
+    WM_GUIDANCE_MODE = os.getenv("DEO_WM_GUIDANCE_MODE", "global_fixed")
     MEMORY_GUIDED_PROB = float(os.getenv("DEO_MEMORY_GUIDED_PROB", "0.8"))
     MEMORY_TOP_K = int(os.getenv("DEO_MEMORY_TOP_K", "10"))
     MEMORY_MIN_SUPPORT = int(os.getenv("DEO_MEMORY_MIN_SUPPORT", "3"))
@@ -1488,10 +1493,32 @@ def assign_targets(memory, seed_domains, rng, guided_prob=None):
     return targets, reasons
 
 
+def select_guidance(mode, local_note, global_target):
+    """One guidance per proposal (local-feedback doc §2). local_feedback: the
+    current accepted state's own trusted note wins; missing note falls back to the
+    chain's fixed global target; never both. global_fixed reproduces the previous
+    behavior exactly."""
+    if mode == "local_feedback":
+        if local_note:
+            return local_note, "local"
+        if global_target:
+            return global_target, "global_fallback"
+        return None, "none"
+    if global_target:
+        return global_target, "global_fixed"
+    return None, "none"
+
+
+def _guidance_evidence(item):
+    # global items carry representative_evidence, local notes carry evidence —
+    # never silently drop the local one (doc §4)
+    return str(item.get("representative_evidence") or item.get("evidence") or "")[:200]
+
+
 def weakness_guidance_block(item):
-    ev = str(item.get("representative_evidence") or "")[:200]
     return WEAKNESS_GUIDANCE_TMPL.format(domain=item.get("domain", "?"),
-                                         weakness=item["weakness"], evidence=ev)
+                                         weakness=item["weakness"],
+                                         evidence=_guidance_evidence(item))
 
 
 # ---- global summary (doc §4 + R1/R3/R4/R5): budget-aware conserving map-reduce ----
@@ -1849,6 +1876,11 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
     wm_active = config.WEAKNESS_MEMORY_ENABLED and not config.CD_ENABLE
     if config.WEAKNESS_MEMORY_ENABLED and config.CD_ENABLE:
         print("[wm] WARNING: weakness memory not implemented for the CD walk; disabled", flush=True)
+    if wm_active:
+        if config.WM_GUIDANCE_MODE not in ("global_fixed", "local_feedback"):
+            raise ValueError(f"[wm] unknown DEO_WM_GUIDANCE_MODE={config.WM_GUIDANCE_MODE!r}")
+        if config.BANDIT_ENABLE:
+            raise RuntimeError("[wm] weakness memory + bandit is an unsupported combination")
     wm_iter = None
     wm_memory = []
     if wm_active:
@@ -2000,7 +2032,7 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
     pool_guide_reason = ["memory_off"] * num_questions
     pool_n_accepted = [0] * num_questions
     wm_logger = None
-    wm_guided = wm_unguided = wm_guided_acc = wm_unguided_acc = 0
+    wm_src_prop, wm_src_acc = Counter(), Counter()
     wm_status_counts = Counter()
     if wm_active:
         wm_logger = WmLogger(wm_iter)
@@ -2060,6 +2092,7 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
             batch_idx = idx_perm[i: i + config.MUTATE_BATCH_SIZE]
             chosen = {}   # k -> (action, context_key); bandit-selected strategy per slot
             style_ks = set()  # slots mutated via the [F] olympiad-rewrite operator
+            gsnap = {}    # k -> guidance snapshot FROZEN at prompt-build time (doc §6)
             if bandit is not None:
                 m_prompts = []
                 for k in batch_idx:
@@ -2077,15 +2110,32 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                 for k in batch_idx:
                     if config.STYLE_P > 0 and random.random() < config.STYLE_P:
                         style_ks.add(k)
+                        if wm_active:
+                            gsnap[k] = {"guidance_source": "style", "old_q": pool_q[k]}
                         m_prompts.append(apply_chat_template(
                             tokenizer, MUTATOR_SYSTEM_PROMPT_STYLE,
                             MUTATOR_USER_TEMPLATE_STYLE.format(seed=pool_q[k]),
                         ))
                     else:
                         user_msg = MUTATOR_USER_TEMPLATE.format(seed=pool_q[k])
-                        if pool_target[k] is not None:
-                            # guided mutation: append ONLY the chain's selected weakness
-                            user_msg += weakness_guidance_block(pool_target[k])
+                        guide, gsrc = select_guidance(
+                            config.WM_GUIDANCE_MODE,
+                            pool_note[k] if wm_active else None,
+                            pool_target[k])
+                        if guide is not None:
+                            # guided mutation: append ONLY the selected guidance
+                            user_msg += weakness_guidance_block(guide)
+                        if wm_active:
+                            gsnap[k] = {
+                                "guidance_source": gsrc,
+                                "guidance_domain": guide.get("domain") if guide else None,
+                                "guidance_weakness": guide.get("weakness") if guide else None,
+                                "guidance_evidence": _guidance_evidence(guide) if guide else None,
+                                "guidance_ref": (pool_event[k] if gsrc == "local" else
+                                                 (f"{guide.get('id')}@iter{guide.get('source_iter')}"
+                                                  if guide else None)),
+                                "old_q": pool_q[k],
+                            }
                         m_prompts.append(apply_chat_template(
                             tokenizer, MUTATOR_SYSTEM_PROMPT, user_msg,
                         ))
@@ -2156,6 +2206,7 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                             tokenizer, [p["old"] for p in proposals], return_labels=True)
                         labs_old_map = {p["k"]: labs_old[jj] for jj, p in enumerate(proposals)}
                 elif wm_active:
+                    prop_ids = [wm_logger.new_event_id("prop") for _ in proposals]
                     rus, phs, pls, dets_new = evaluate_r_unc_vllm(
                         tokenizer, qs_new, return_details=True)
                     # every proposal is diagnosed (accepted or not); the chain's note is
@@ -2228,16 +2279,19 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
 
                     if wm_active:
                         tgt = pool_target[k]
-                        if tgt is not None:
-                            wm_guided += 1
-                            wm_guided_acc += int(accept)
-                        else:
-                            wm_unguided += 1
-                            wm_unguided_acc += int(accept)
+                        snap = gsnap.get(k, {"guidance_source": "none", "old_q": p["old"]})
+                        src = snap.get("guidance_source", "none")
+                        wm_src_prop[src] += 1
+                        wm_src_acc[src] += int(accept)
                         nt = notes_new[j] if notes_new else None
                         wm_logger.note_row(
-                            event_id=eids_new[j], stage=f"step{step + 1}", chain=k,
+                            event_id=eids_new[j], proposal_id=prop_ids[j],
+                            stage=f"step{step + 1}", chain=k,
                             accepted=bool(accept),
+                            guidance_mode=config.WM_GUIDANCE_MODE,
+                            **snap,
+                            new_q=p["q"],
+                            p_hat_new=float(phs[j]),
                             target_id=tgt.get("id") if tgt else None,
                             target_source_iter=tgt.get("source_iter") if tgt else None,
                             guide_reason=pool_guide_reason[k],
@@ -2309,8 +2363,10 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
             log_file.write(f"[bandit] {line}\n")
 
     if wm_active:
-        msg = (f"[wm] proposal acceptance: guided {wm_guided_acc}/{wm_guided}, "
-               f"unguided {wm_unguided_acc}/{wm_unguided}; "
+        by_src = ", ".join(f"{sr}={wm_src_acc[sr]}/{wm_src_prop[sr]}"
+                           for sr in sorted(wm_src_prop))
+        msg = (f"[wm] mode={config.WM_GUIDANCE_MODE}; proposal acceptance by "
+               f"guidance_source: {by_src}; "
                f"final notes: {sum(1 for nt in pool_note if nt is not None)}/{num_questions}; "
                f"writer statuses (all stages): {dict(wm_status_counts)}")
         print(msg, flush=True)
@@ -2337,6 +2393,7 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
             d["_weakness_note"] = pool_note[i]
             d["_wm_event_id"] = pool_event[i]
             d["_n_accepted"] = pool_n_accepted[i]
+            d["_guidance_mode"] = config.WM_GUIDANCE_MODE
     return records
 
 

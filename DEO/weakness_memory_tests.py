@@ -550,6 +550,174 @@ def test_wiring_walk_disabled():
     print("[wiring2] PASSED: disabled path — zero wm calls, no fields, same MH decisions")
 
 
+# ---------------- [wiring] local weakness feedback (LOCAL_WEAKNESS_FEEDBACK doc §7) ----------------
+
+def test_select_guidance_and_adapter():
+    ln = {"domain": "algebra", "weakness": "LW", "evidence": "local ev"}
+    gt = {"id": "memory_1", "domain": "algebra", "weakness": "GW",
+          "representative_evidence": "global ev", "source_iter": 1}
+    assert deo.select_guidance("local_feedback", ln, gt) == (ln, "local")
+    assert deo.select_guidance("local_feedback", None, gt) == (gt, "global_fallback")
+    assert deo.select_guidance("local_feedback", None, None) == (None, "none")
+    assert deo.select_guidance("global_fixed", ln, gt) == (gt, "global_fixed")
+    assert deo.select_guidance("global_fixed", ln, None) == (None, "none")
+    # evidence adapter: local `evidence` must NOT be silently dropped (doc §4)
+    assert "local ev" in deo.weakness_guidance_block(ln)
+    assert "global ev" in deo.weakness_guidance_block(gt)
+    print("[lf1] PASSED: guidance selection precedence + local/global evidence adapter")
+
+
+def test_local_feedback_walk():
+    """REAL 2-step walk in local_feedback mode covering doc §7 items 1-6:
+    local beats global in the prompt; rejected keeps old note; accepted swaps to
+    the new note; accepted-no-note falls back to global; no seed note + no
+    compatible target = plain mutation; scoring rollouts are reused for notes."""
+    tmp = tempfile.mkdtemp()
+    deo.config.STORAGE_ROOT = tmp
+    deo.config.MODEL_ABBR = "lftest"
+    deo.config.WEAKNESS_MEMORY_ENABLED = True
+    deo.config.WM_GUIDANCE_MODE = "local_feedback"
+    deo.config.MEMORY_GUIDED_PROB = 1.0
+    deo.config.LAMBDA_REP = 0.0
+    deo.config.MCMC_STEPS = 2
+    deo.config.MUTATE_BATCH_SIZE = 8
+    os.makedirs(f"{tmp}/logs", exist_ok=True)
+    os.makedirs(f"{tmp}/weakness_memory", exist_ok=True)
+    with open(f"{tmp}/weakness_memory/global_weakness_memory_iter_1.json", "w") as f:
+        json.dump([{"id": "memory_1", "domain": "algebra", "weakness": "GLOBALW",
+                    "support": 5, "avg_p_hat": 0.5,
+                    "representative_evidence": "GEV", "source_iter": 1}], f)
+
+    plans = ["PLANACC", "PLANACC", "PLANREJ", "PLANREJ",
+             "PLANNON", "PLANNON", "PLANNOG", "PLANNOG"]
+    init_pool = [{"question": f"Compute the value of seedq expression number {i} "
+                              f"{plans[i]} in this warm pool.", "gt": "5",
+                  "topic": "algebra"} for i in range(8)]
+    eval_calls = [0]
+
+    def fake_eval(tokenizer, questions, return_labels=False, return_details=False):
+        eval_calls[0] += 1
+        r, p, ps, lb, de = [], [], [], [], []
+        for q in questions:
+            if "EASYWIN" in q or "NONOTE" in q:
+                ru, ph, s_ = 1.0, 0.5, "7"
+            elif "LOSER" in q:
+                ru, ph, s_ = 0.0, 0.9, "9"
+            elif "PLANNOG" in q:
+                ru, ph, s_ = 0.6, 0.9, "5"     # in pool but writer-ineligible
+            else:
+                ru, ph, s_ = 0.6, 0.7, "5"
+            r.append(ru); p.append(ph); ps.append(s_); lb.append([s_] * 3)
+            de.append(deo._build_cluster_details(
+                [s_, s_, "1"], [f"shared reasoning prefix about {q[:24]}", "t2", "t3"]))
+        out = [r, p, ps]
+        if return_labels:
+            out.append(lb)
+        if return_details:
+            out.append(de)
+        return tuple(out)
+
+    mut_prompts = []
+
+    def reply(prompt):
+        if "expert competition-math problem setter" in prompt:
+            mut_prompts.append(prompt)
+            if "PLANACC" in prompt and "EASYWIN" not in prompt:
+                marker = "EASYWIN"
+            elif "EASYWIN2" in prompt:
+                marker = "EASYWIN3"
+            elif "EASYWIN" in prompt:
+                marker = "EASYWIN2"
+            elif "PLANREJ" in prompt or "LOSER" in prompt:
+                marker = "LOSER"
+            elif "NONOTE" in prompt:
+                marker = "NONOTE2"       # step2: text must differ to pass the gate
+            elif "PLANNON" in prompt:
+                marker = "NONOTE"
+            else:
+                marker = "LOSER"               # NOG chains: always rejected
+            import re as _re
+            m = _re.search(r"expression number (\d+)", prompt)
+            n = m.group(1) if m else "x"
+            return (f"<strategy>A</strategy><question>Compute the value of the mutated "
+                    f"{marker} expression number {n} after another transformation step."
+                    f"</question> The answer is \\boxed{{7}}.")
+        if "You analyze how a math solver" in prompt:
+            if "NONOTE" in prompt:
+                return note_json(status="insufficient_evidence")
+            if "EASYWIN" in prompt:
+                w = "LN_MUT2" if ("EASYWIN2" in prompt or "EASYWIN3" in prompt) else "LN_MUT1"
+            else:
+                w = "LN_SEED"
+            return note_json(weakness=w, evidence="clusters differ locally",
+                             excerpt="shared reasoning prefix")
+        if "Classify each math problem" in prompt:
+            return " probability"
+        if "merge duplicate" in prompt:
+            return merge_json([])
+        return "<question>unexpected</question>"
+
+    deo.base_client = lambda: fake_client(reply)
+    deo.evaluate_r_unc_vllm = fake_eval
+    old_rand = deo.random.random
+    deo.random.random = lambda: 0.99
+    try:
+        records = deo.generate_batch_mcmc(
+            TOK, 8, f"{tmp}/logs/mcmc_iter_2_lftest.log", init_pool=init_pool)
+    finally:
+        deo.random.random = old_rand
+        deo.evaluate_r_unc_vllm = _ORIG["evaluate_r_unc_vllm"]
+        deo.config.WM_GUIDANCE_MODE = "global_fixed"
+        deo.config.WEAKNESS_MEMORY_ENABLED = False
+        restore()
+
+    def prompts_for(plan, step_markers):
+        return [p for p in mut_prompts
+                if plan in p or any(m in p for m in step_markers)]
+
+    # item 1: local present -> prompt carries LOCAL note, never the global target
+    acc1 = [p for p in mut_prompts if "PLANACC" in p and "EASYWIN" not in p]
+    assert acc1 and all("LN_SEED" in p and "GLOBALW" not in p for p in acc1)
+    # item 5: accepted with new note -> step2 prompt uses the NEW local note
+    acc2 = [p for p in mut_prompts if "EASYWIN" in p]
+    assert acc2 and all("LN_MUT1" in p and "LN_SEED" not in p for p in acc2)
+    # item 3: rejected -> step2 still old question + old note
+    rej2 = [p for p in mut_prompts if "PLANREJ" in p]
+    assert len(rej2) == 4 and all("LN_SEED" in p and "seedq" in p for p in rej2)
+    # item 4/2: accepted-no-note -> cleared -> GLOBAL fallback appears from step2
+    non1 = [p for p in mut_prompts if "PLANNON" in p and "NONOTE" not in p]
+    non2 = [p for p in mut_prompts if "NONOTE" in p]
+    assert non1 and all("LN_SEED" in p and "GLOBALW" not in p for p in non1)
+    assert non2 and all("GLOBALW" in p and "LN_" not in p for p in non2)
+    # item 2b: no note + no compatible target -> plain mutation, no guidance block
+    nog = [p for p in mut_prompts if "PLANNOG" in p]
+    assert len(nog) == 4 and all("KNOWN SOLVER WEAKNESS" not in p for p in nog)
+    # final states
+    acc = [d for d in records if "EASYWIN" in d["question"]]
+    assert len(acc) == 2 and all(d["_n_accepted"] == 2 and
+                                 d["_weakness_note"]["weakness"] == "LN_MUT2" for d in acc)
+    rej = [d for d in records if "PLANREJ" in d["question"]]
+    assert all(d["_n_accepted"] == 0 and d["_weakness_note"]["weakness"] == "LN_SEED"
+               for d in rej)
+    non = [d for d in records if "NONOTE" in d["question"]]
+    assert all(d["_weakness_note"] is None and d["_n_accepted"] == 2 for d in non)
+    assert all(d["_guidance_mode"] == "local_feedback" for d in records)
+    # item 6: scoring rollouts reused for notes — 1 init eval + 2 step evals only
+    assert eval_calls[0] == 3, eval_calls
+    # frozen snapshots in the note rows: rejected step2 rows still cite LN_SEED
+    rows = [json.loads(l) for f in sorted(
+        __import__("glob").glob(f"{tmp}/weakness_memory/weakness_notes_iter_2.a*.jsonl"))
+        for l in open(f)]
+    prows = [r for r in rows if r.get("stage", "").startswith("step")]
+    assert all("guidance_source" in r and "old_q" in r and "new_q" in r and
+               "proposal_id" in r for r in prows)
+    srcs = {r["guidance_source"] for r in prows}
+    assert srcs == {"local", "global_fallback", "none"}, srcs
+    rej_rows = [r for r in prows if "LOSER" in r["new_q"] and "PLANREJ" in r["old_q"]]
+    assert all(r["guidance_weakness"] == "LN_SEED" and not r["accepted"] for r in rej_rows)
+    print("[lf2] PASSED: real 2-step local-feedback walk — all §7 state transitions")
+
+
 # ---------------- [unit] routing / truncation / defaults ----------------
 
 def test_target_routing():
@@ -607,6 +775,8 @@ if __name__ == "__main__":
     test_R7_logger_attempts()
     test_wiring_walk_enabled()
     test_wiring_walk_disabled()
+    test_select_guidance_and_adapter()
+    test_local_feedback_walk()
     test_target_routing()
     test_truncation_and_defaults()
     print("\nALL WEAKNESS-MEMORY v2.1 TESTS PASSED")

@@ -164,6 +164,19 @@ run_wm_smoke(){
   if [ "$WM_RC" -ne 0 ]; then echo "[wm-smoke] SMOKE FAILED (rc=$WM_RC); artifacts synced for post-mortem"; fi
   return $WM_RC
 }
+# Local-weakness-feedback smoke (LOCAL_WEAKNESS_FEEDBACK doc 7): two-mode 100q
+# comparison, fixed solver, no training; exit code propagates like wm_smoke.
+run_wm_fb_smoke(){
+  echo "=== [$(date '+%T')] local-weakness-feedback smoke ==="
+  export STORAGE_PATH=$DEO_STORAGE PYTHONPATH=$ROOT/R-Zero
+  python3 "$ROOT/DEO/weakness_memory_tests.py"; WM_RC=$?
+  if [ "$WM_RC" -ne 0 ]; then echo "[wmfb-smoke] OFFLINE TESTS FAILED (rc=$WM_RC)"; return $WM_RC; fi
+  bash "$ROOT/DEO/start_vllm_native.sh"
+  python3 "$ROOT/DEO/weakness_feedback_smoke.py"; WM_RC=$?
+  free_gpus; sync_once
+  if [ "$WM_RC" -ne 0 ]; then echo "[wmfb-smoke] SMOKE FAILED (rc=$WM_RC); artifacts synced"; fi
+  return $WM_RC
+}
 # SGLD-DEO: soft-prefix latent SGLD replaces the MCMC walk (DEO_SGLD.pdf)
 run_sgld(){
   echo "=== [$(date '+%T')] SGLD-DEO (latent soft-prefix, ${DEO_NUM_ITERS:-5} iters) ==="
@@ -361,6 +374,7 @@ MODE_RC=0
 case $MODE in
   deo)         run_deo ;;
   wm_smoke)    run_wm_smoke; MODE_RC=$? ;;
+  wm_fb_smoke) run_wm_fb_smoke; MODE_RC=$? ;;
   rzero)       run_rzero ;;
   eval)        run_eval ;;
   rzero_eval)  run_rzero; run_eval_rzero ;;

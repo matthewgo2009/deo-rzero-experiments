@@ -83,6 +83,16 @@ class Config:
     # is plenty.
     JUDGE_URL = f"http://localhost:{SOLVER_INSTANCES[0][1]}/v1/completions"
 
+    # --- Generation backend for challenger init + mutations (closed-source demo) ---
+    # vllm      = frozen local base model (default, current behavior)
+    # anthropic = Claude generates and mutates the questions; the solver, labels,
+    #             judge and eval stay LOCAL and unchanged. Demonstrates that DEO's
+    #             frozen proposal distribution can be ANY model, including API-only
+    #             ones — impossible for R-Zero, whose challenger must be trainable.
+    GEN_BACKEND = os.getenv("DEO_GEN_BACKEND", "vllm")
+    GEN_MODEL_ANTHROPIC = os.getenv("DEO_GEN_MODEL", "claude-haiku-4-5-20251001")
+    GEN_API_CONCURRENCY = int(os.getenv("DEO_GEN_CONCURRENCY", "8"))
+
     # --- Sampling for r_unc (matches R-Zero question_evaluate.py defaults) ---
     M_SAMPLES   = 9
     # --- Ceperley-Dewing U-statistic penalty acceptance (paper §1.4) ---
@@ -308,6 +318,59 @@ def base_client():
     if _client_base is None:
         _client_base = openai.OpenAI(api_key="EMPTY", base_url=config.VLLM_BASE_URL)
     return _client_base
+
+
+_anthropic_client = None
+
+
+def anthropic_client():
+    global _anthropic_client
+    if _anthropic_client is None:
+        import anthropic
+        _anthropic_client = anthropic.Anthropic()   # ANTHROPIC_API_KEY from env
+    return _anthropic_client
+
+
+def gen_texts_pairs(tokenizer, pairs, max_tokens, temperature, top_p=1.0):
+    """Generate one text per (system, user) pair via the configured backend.
+
+    vllm: chat-template rendered batch completions, choice.index attribution.
+    anthropic: threaded messages API (3 retries, backoff); the constant system
+    prompt gets cache_control to amortize input cost; temperature clamped to the
+    API max of 1.0 (mutations use 1.1 locally — recorded protocol difference).
+    Returns texts aligned with pairs; None marks a failed slot (never shifts)."""
+    if config.GEN_BACKEND == "vllm":
+        prompts = [apply_chat_template(tokenizer, sy, us) for sy, us in pairs]
+        resp = base_client().completions.create(
+            model=config.MODEL_NAME, prompt=prompts,
+            max_tokens=max_tokens, temperature=temperature, top_p=top_p)
+        return _ordered_completion_texts(resp, len(prompts))
+    if config.GEN_BACKEND == "anthropic":
+        cl = anthropic_client()
+
+        def one(pair):
+            sy, us = pair
+            for attempt in range(3):
+                try:
+                    kw = dict(model=config.GEN_MODEL_ANTHROPIC,
+                              max_tokens=max_tokens,
+                              temperature=min(1.0, temperature),
+                              system=[{"type": "text", "text": sy,
+                                       "cache_control": {"type": "ephemeral"}}],
+                              messages=[{"role": "user", "content": us}])
+                    if top_p < 1.0:
+                        kw["top_p"] = top_p
+                    r = cl.messages.create(**kw)
+                    return "".join(b.text for b in r.content if b.type == "text")
+                except Exception as e:
+                    if attempt == 2:
+                        print(f"[gen] anthropic failed after retries: {str(e)[:120]}",
+                              flush=True)
+                    time.sleep(2 * (attempt + 1))
+            return None
+        with ThreadPoolExecutor(max_workers=config.GEN_API_CONCURRENCY) as ex:
+            return list(ex.map(one, pairs))
+    raise ValueError(f"unknown DEO_GEN_BACKEND={config.GEN_BACKEND!r}")
 
 
 def solver_clients():
@@ -1924,25 +1987,19 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
     while init_pool is None and len(pool_q) < gen_target:
         needed = gen_target - len(pool_q)
         bs = min(config.INIT_BATCH_SIZE, needed)
-        c_prompts, c_topics = [], []
+        c_pairs, c_topics = [], []
         for _ in range(bs):
             topic = random.choice(MATH_TOPICS)
             user_p = (
                 "Generate one new, challenging reasoning question now. "
                 f"YOU MUST STRICTLY FOCUS ON: **{topic}**."
             )
-            c_prompts.append(apply_chat_template(tokenizer, CHALLENGER_SYSTEM_PROMPT, user_p))
+            c_pairs.append((CHALLENGER_SYSTEM_PROMPT, user_p))
             c_topics.append(topic)
 
-        resp = base_client().completions.create(
-            model=config.MODEL_NAME,
-            prompt=c_prompts,
-            max_tokens=1536,
-            temperature=1.0,
-            top_p=0.95,
-        )
+        init_texts = gen_texts_pairs(tokenizer, c_pairs, max_tokens=1536,
+                                     temperature=1.0, top_p=0.95)
         valid_qs, valid_gts, valid_tps = [], [], []
-        init_texts = _ordered_completion_texts(resp, len(c_prompts))
         for j, t in enumerate(init_texts):
             if t is None:
                 continue          # missing choice: skip THIS slot; topics stay aligned
@@ -2094,28 +2151,25 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
             style_ks = set()  # slots mutated via the [F] olympiad-rewrite operator
             gsnap = {}    # k -> guidance snapshot FROZEN at prompt-build time (doc §6)
             if bandit is not None:
-                m_prompts = []
+                m_pairs = []
                 for k in batch_idx:
                     a, ctx = bandit.select(pool_topic[k], pool_phat[k])
                     chosen[k] = (a, ctx)
                     # single-operator prompt: only the selected operator is described,
                     # so the model has no menu to deviate to.
-                    m_prompts.append(apply_chat_template(
-                        tokenizer, mutator_system_prompt_bandit(a),
-                        MUTATOR_USER_TEMPLATE_FORCED.format(
-                            seed=pool_q[k], action=a, action_name=ACTION_NAMES[a]),
-                    ))
+                    m_pairs.append((mutator_system_prompt_bandit(a),
+                                    MUTATOR_USER_TEMPLATE_FORCED.format(
+                                        seed=pool_q[k], action=a,
+                                        action_name=ACTION_NAMES[a])))
             else:
-                m_prompts = []
+                m_pairs = []
                 for k in batch_idx:
                     if config.STYLE_P > 0 and random.random() < config.STYLE_P:
                         style_ks.add(k)
                         if wm_active:
                             gsnap[k] = {"guidance_source": "style", "old_q": pool_q[k]}
-                        m_prompts.append(apply_chat_template(
-                            tokenizer, MUTATOR_SYSTEM_PROMPT_STYLE,
-                            MUTATOR_USER_TEMPLATE_STYLE.format(seed=pool_q[k]),
-                        ))
+                        m_pairs.append((MUTATOR_SYSTEM_PROMPT_STYLE,
+                                        MUTATOR_USER_TEMPLATE_STYLE.format(seed=pool_q[k])))
                     else:
                         user_msg = MUTATOR_USER_TEMPLATE.format(seed=pool_q[k])
                         guide, gsrc = select_guidance(
@@ -2136,17 +2190,10 @@ def generate_batch_mcmc(tokenizer, num_questions, log_path, init_pool=None):
                                                   if guide else None)),
                                 "old_q": pool_q[k],
                             }
-                        m_prompts.append(apply_chat_template(
-                            tokenizer, MUTATOR_SYSTEM_PROMPT, user_msg,
-                        ))
-            resp = base_client().completions.create(
-                model=config.MODEL_NAME,
-                prompt=m_prompts,
-                max_tokens=1536,
-                temperature=1.1,
-            )
+                        m_pairs.append((MUTATOR_SYSTEM_PROMPT, user_msg))
             proposals = []
-            mut_texts = _ordered_completion_texts(resp, len(m_prompts))
+            mut_texts = gen_texts_pairs(tokenizer, m_pairs, max_tokens=1536,
+                                        temperature=1.1)
             for j, k in enumerate(batch_idx):
                 t = mut_texts[j]
                 if t is None:

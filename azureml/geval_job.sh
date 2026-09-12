@@ -8,11 +8,19 @@ mkdir -p "$STORAGE_PATH" "$OUT/geval"
 export HF_HOME=/tmp/hf_cache HUGGINGFACE_HUB_CACHE=/tmp/hf_cache/hub
 python3 -c "import json,os;open('tokens.json','w').write(json.dumps({'huggingface':os.environ.get('HF_TOKEN','')}))" || true
 
-pick_ckpt(){  # $1=models dir, $2=exp prefix, $3=iter -> best global_step dir
+pick_ckpt(){  # $1=models dir, $2=exp prefix, $3=iter -> MERGED ckpt (has safetensors)
   local base="$1/${2}_solver_v$3"
   [ -d "$base" ] || { echo ""; return; }
-  local best=$(ls -d "$base"/global_step_* 2>/dev/null | sed 's/.*global_step_//' | sort -n | tail -1)
-  [ -n "$best" ] && echo "$base/global_step_${best}/actor/huggingface"
+  # canonical eval ckpt is step 15; otherwise highest step that actually has weights
+  if ls "$base/global_step_15/actor/huggingface/"*.safetensors >/dev/null 2>&1; then
+    echo "$base/global_step_15/actor/huggingface"; return
+  fi
+  for st in $(ls -d "$base"/global_step_* 2>/dev/null | sed 's/.*global_step_//' | sort -rn); do
+    if ls "$base/global_step_${st}/actor/huggingface/"*.safetensors >/dev/null 2>&1; then
+      echo "$base/global_step_${st}/actor/huggingface"; return
+    fi
+  done
+  echo ""
 }
 
 MODELS="base=Qwen/Qwen3-4B-Base"

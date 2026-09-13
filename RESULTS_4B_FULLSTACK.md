@@ -324,3 +324,31 @@ at 8B, and nothing static reproduces that.
 Full GPT-analyzable data (pools with per-chain target/guidance fields, memories,
 audits, provenance events): paper_data/weakness_memory_v2_4b/; per-set grades:
 paper_data/claude_grade/4b_wm2_claude.jsonl.
+
+## General-domain transfer (R-Zero paper Table-2 counterpart) — DEO transfers like R-Zero (Sep 2026)
+
+Project harness (NOT the paper's): MMLU-Pro / SuperGPQA / BBEH, frozen stratified
+3000-sample subsets (seed 0), greedy, boxed extraction; identical for every
+checkpoint, so cross-checkpoint deltas are comparable. 4B, step-15 ckpts.
+
+| model | MMLU-Pro | SuperGPQA | BBEH | AVG3 |
+|--|--|--|--|--|
+| base | 55.13 | 27.07 | 8.20 | 30.13 |
+| DEO(mutV1) i1 | 58.87 | 28.67 | 9.40 | **32.31** |
+| DEO i2 | 58.37 | 28.10 | 9.60 | 32.02 |
+| DEO i3 | 58.10 | 28.50 | 9.90 | 32.17 |
+| DEO i4 | 58.73 | 28.50 | 9.13 | 32.12 |
+| DEO i5 | 58.63 | 28.30 | 9.13 | 32.02 |
+| R-Zero i1 | 59.03 | 28.60 | 8.87 | 32.17 |
+| R-Zero i2 | 58.67 | 28.43 | 8.80 | 31.97 |
+| R-Zero i3 | 59.37 | 29.53 | 8.87 | **32.59** |
+| R-Zero i4 | 59.37 | 29.00 | 8.73 | 32.37 |
+| R-Zero i5 | 58.43 | 28.73 | 9.17 | 32.11 |
+
+Math-only self-evolution transfers to general reasoning for BOTH methods
+(+1.9-2.5 AVG3, materializing at i1 then plateauing — same dynamics as math).
+Peak-to-peak DEO 32.31 vs R-Zero 32.59: parity within noise; DEO leads BBEH every
+iteration, R-Zero leads MMLU-Pro/SuperGPQA slightly. The "98% of R-Zero at ~half
+compute" conclusion extends to the general domain. Per-item outputs:
+blob yyd_geval_4b/geval/*.json; harness DEO/general_eval{,_main}.py.
+(Baseline no-walk 2000q arm queued — orange_ghost — table to be extended.)

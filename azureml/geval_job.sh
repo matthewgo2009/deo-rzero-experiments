@@ -2,7 +2,7 @@
 # General-domain eval (MMLU-Pro / SuperGPQA / BBEH) over base + DEO(mutV1) + R-Zero
 # 4B checkpoints. $1 = output mount, $2 = mutv1 blob mount, $3 = rzero blob mount.
 set -u
-OUT=$1; DEO_IN=$2; RZ_IN=$3
+OUT=$1; DEO_IN=$2; RZ_IN=$3; BL_IN=${4:-}
 export STORAGE_PATH=/tmp/geval_work
 mkdir -p "$STORAGE_PATH" "$OUT/geval"
 export HF_HOME=/tmp/hf_cache HUGGINGFACE_HUB_CACHE=/tmp/hf_cache/hub
@@ -29,6 +29,10 @@ for i in 1 2 3 4 5; do
   [ -n "$c" ] && [ -d "$c" ] && MODELS="$MODELS;deo_mutv1_i$i=$c"
   r=$(pick_ckpt "$RZ_IN/R-Zero_run/models" "qwen3-4b-base-rzero" "$i")
   [ -n "$r" ] && [ -d "$r" ] && MODELS="$MODELS;rzero_i$i=$r"
+  if [ -n "$BL_IN" ]; then
+    b=$(pick_ckpt "$BL_IN/DEO/models" "deo_baseline_drift" "$i")
+    [ -n "$b" ] && [ -d "$b" ] && MODELS="$MODELS;baseline_i$i=$b"
+  fi
 done
 echo "[geval] GEVAL_MODELS=$MODELS"
 export GEVAL_MODELS="$MODELS"

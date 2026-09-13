@@ -320,15 +320,28 @@ def base_client():
     return _client_base
 
 
-_anthropic_client = None
-
-
-def anthropic_client():
-    global _anthropic_client
-    if _anthropic_client is None:
-        import anthropic
-        _anthropic_client = anthropic.Anthropic()   # ANTHROPIC_API_KEY from env
-    return _anthropic_client
+def _anthropic_msg(system, user, max_tokens, temperature, top_p=1.0):
+    """One Anthropic messages call via raw HTTP (the job image has requests; the
+    pip-resolved SDK proved version-unstable on the node). The constant system
+    prompt carries cache_control. The API discourages temperature AND top_p
+    together, so when top_p<1 we send top_p only (recorded protocol choice)."""
+    import requests
+    body = {"model": config.GEN_MODEL_ANTHROPIC, "max_tokens": max_tokens,
+            "system": [{"type": "text", "text": system,
+                        "cache_control": {"type": "ephemeral"}}],
+            "messages": [{"role": "user", "content": user}]}
+    if top_p < 1.0:
+        body["top_p"] = top_p
+    else:
+        body["temperature"] = min(1.0, temperature)
+    r = requests.post(
+        "https://api.anthropic.com/v1/messages", json=body, timeout=180,
+        headers={"x-api-key": os.environ["ANTHROPIC_API_KEY"],
+                 "anthropic-version": "2023-06-01",
+                 "content-type": "application/json"})
+    r.raise_for_status()
+    return "".join(b.get("text", "") for b in r.json()["content"]
+                   if b.get("type") == "text")
 
 
 def gen_texts_pairs(tokenizer, pairs, max_tokens, temperature, top_p=1.0):
@@ -346,22 +359,11 @@ def gen_texts_pairs(tokenizer, pairs, max_tokens, temperature, top_p=1.0):
             max_tokens=max_tokens, temperature=temperature, top_p=top_p)
         return _ordered_completion_texts(resp, len(prompts))
     if config.GEN_BACKEND == "anthropic":
-        cl = anthropic_client()
-
         def one(pair):
             sy, us = pair
             for attempt in range(3):
                 try:
-                    kw = dict(model=config.GEN_MODEL_ANTHROPIC,
-                              max_tokens=max_tokens,
-                              temperature=min(1.0, temperature),
-                              system=[{"type": "text", "text": sy,
-                                       "cache_control": {"type": "ephemeral"}}],
-                              messages=[{"role": "user", "content": us}])
-                    if top_p < 1.0:
-                        kw["top_p"] = top_p
-                    r = cl.messages.create(**kw)
-                    return "".join(b.text for b in r.content if b.type == "text")
+                    return _anthropic_msg(sy, us, max_tokens, temperature, top_p)
                 except Exception as e:
                     if attempt == 2:
                         print(f"[gen] anthropic failed after retries: {str(e)[:120]}",

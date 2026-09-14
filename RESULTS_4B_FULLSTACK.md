@@ -352,3 +352,33 @@ iteration, R-Zero leads MMLU-Pro/SuperGPQA slightly. The "98% of R-Zero at ~half
 compute" conclusion extends to the general domain. Per-item outputs:
 blob yyd_geval_4b/geval/*.json; harness DEO/general_eval{,_main}.py.
 (Baseline no-walk 2000q arm queued — orange_ghost — table to be extended.)
+
+## Runtime & memory: DEO vs R-Zero (measured wallclock, Sep 2026)
+
+End-to-end job wallclock (5 iterations + final 7-set eval), identical node type
+(1x Standard_ND96isr_H100_v5, 8x H100), from job log timestamps:
+
+| scale | R-Zero | DEO (walk 2000q) | ratio |
+|--|--|--|--|
+| 4B | shy_brake: **51.6 h** (413 GPU-h) | icy_sprout/mutV1: **24.9 h** (199 GPU-h) | **0.48x** |
+| 8B | plum_plane (qwen8b-rzero-v2): **89.2 h** (714 GPU-h) | cool_loquat: **34.9 h** (279 GPU-h) | **0.39x** |
+
+- The "~half compute" claim is exact at 4B and conservative at 8B: R-Zero's
+  questioner GRPO training grows with model size, while DEO's walk scoring is
+  pure inference and scales flatter.
+- Cost composition: solver GRPO is IDENTICAL on both sides; the entire gap is
+  "train a second model every iteration" (R-Zero: questioner GRPO + generating
+  ~4-5k questions/iter) vs "sample a frozen generator" (DEO: 2000 questions +
+  5-sweep proposal scoring, inference only).
+- Caveat: these are end-to-end recipe costs, not per-question-matched costs —
+  R-Zero generates ~2x more questions per iteration by design.
+
+Memory (structural; peak telemetry was not logged): the solver-training footprint
+is identical. On the generator side R-Zero holds a full TRAINING instance of the
+second model — bf16 weights + grads + fp32 Adam moments + master ~ 16 bytes/param
+(8B: ~128 GB training state, FSDP-sharded) plus its rollout KV — while DEO serves
+a FROZEN generator at ~2 bytes/param (8B: ~16 GB weights + KV cache, one GPU at
+0.85 util, no gradients/optimizer). DEO's peak is always the solver trainer; the
+generation side stays constant and small. The same 16-vs-2-bytes/param structure
+is what lets DEO use closed-source API models as the generator (see the claudegen
+arm), which is impossible for a trainable challenger.

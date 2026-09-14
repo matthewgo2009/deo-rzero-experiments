@@ -351,7 +351,23 @@ Peak-to-peak DEO 32.31 vs R-Zero 32.59: parity within noise; DEO leads BBEH ever
 iteration, R-Zero leads MMLU-Pro/SuperGPQA slightly. The "98% of R-Zero at ~half
 compute" conclusion extends to the general domain. Per-item outputs:
 blob yyd_geval_4b/geval/*.json; harness DEO/general_eval{,_main}.py.
-(Baseline no-walk 2000q arm queued — orange_ghost — table to be extended.)
+Baseline no-walk 2000q arm (orange_ghost):
+
+| model | MMLU-Pro | SuperGPQA | BBEH | AVG3 |
+|--|--|--|--|--|
+| baseline i1 | 58.40 | 28.87 | 8.33 | 31.87 |
+| baseline i2 | 58.67 | 28.57 | 8.40 | 31.88 |
+| baseline i3 | 58.73 | 28.67 | 8.27 | 31.89 |
+| baseline i4 | 58.93 | 29.70 | 9.17 | **32.60** |
+| baseline i5 | 58.07 | 28.40 | 8.47 | 31.65 |
+
+**The general-domain transfer belongs to math RL itself, not to any curriculum
+mechanism**: the plain no-walk baseline peaks at 32.60 — statistically identical
+to R-Zero's 32.59 and DEO's 32.31. All three curricula buy the same ~+2 AVG3;
+neither the MCMC walk nor the trained questioner adds general-domain transfer
+beyond what training on ANY self-generated in-band math set provides. (This
+reframes R-Zero's Table-2 claim: the transfer is real but not attributable to
+their challenger.)
 
 ## Runtime & memory: DEO vs R-Zero (measured wallclock, Sep 2026)
 

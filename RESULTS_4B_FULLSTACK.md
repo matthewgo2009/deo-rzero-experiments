@@ -398,3 +398,56 @@ a FROZEN generator at ~2 bytes/param (8B: ~16 GB weights + KV cache, one GPU at
 generation side stays constant and small. The same 16-vs-2-bytes/param structure
 is what lets DEO use closed-source API models as the generator (see the claudegen
 arm), which is impossible for a trainable challenger.
+
+## Closed-source generator: Claude writes the questions — best 4B result of the program (Sep 2026)
+
+`tender_cartoon` (deo_claudegen_fb): **Haiku 4.5 generates the initial pool AND all
+MCMC mutations** (raw-HTTP messages API, system-prompt caching, mutation temp
+clamped 1.1->1.0 by the API); the Qwen3-4B solver, majority-vote pseudo-labels,
+judge, band filter, GRPO training and eval are UNCHANGED from the mutV1 recipe.
+
+| iter | AVG7 (Claude grader) |
+|--|--|
+| i1 | 45.63 |
+| i2 | 47.66 |
+| **i3** | **49.60** |
+| i4 | 47.17 |
+| i5 | 47.63 |
+
+- **Peak 49.60 @i3 is the highest 4B number in the program**: mutV1 48.79, SGLD
+  49.06, heroic_eye 48.94, claudelabel 48.90, R-Zero 48.13. At the iter-3 budget
+  the lead over mutV1 is +2.03 (49.60 vs 47.57), driven by Minerva (50.4 vs 46.0)
+  and AIME24 (20.0).
+- Mechanistic correlate: Claude's questions pass the band filter at **~82%/iter
+  (1612-1665/2000)** vs ~65% for local-base generation — a stronger generator
+  yields a denser trainable curriculum, and it shows downstream.
+- The structural point: DEO only requires a SAMPLABLE proposal distribution, so a
+  closed-source API model slots in directly. R-Zero cannot use such a generator at
+  all (its challenger must be trainable). Single-run caveat applies as everywhere.
+- Grades: paper_data/claude_grade/4b_claudegen_claude.jsonl; pools in blob
+  yyd_claudegen_4b.
+
+## Non-Qwen base: OctoThinker-3B three arms (Claude grader) (Sep 2026)
+
+OctoThinker-3B-Hybrid-Base (Llama lineage; paper does not name the variant —
+Hybrid assumed and recorded). Base AVG7 = 23.42. In-band is sparse on this model
+(~350-440/2000 per iter for all arms).
+
+| arm | i1 | i2 | i3 | i4 | i5 | peak |
+|--|--|--|--|--|--|--|
+| DEO (frosty_yuca) | 26.67 | 27.10 | **28.30** | 26.98 | 27.32 | 28.30 @i3 |
+| baseline no-walk (honest_needle) | 27.81 | 27.34 | 27.50 | 28.42 | **28.65** | 28.65 @i5 |
+| R-Zero (patient_turtle) | **27.75** | 26.46 | 25.94 | 25.62 | 27.12 | 27.75 @i1 |
+
+- **R-Zero is clearly the weakest on the weak base**: peaks at i1 then declines
+  through i4 (its AMC drops BELOW base at i3: 12.5 vs 17.4) — the trained
+  questioner fails to compound on a Llama-lineage base, consistent with the
+  paper's small OctoThinker gains.
+- DEO vs baseline is an early-peak vs late-peak noise-level split (28.30 @i3 vs
+  28.65 @i5); at the iter-3 budget DEO leads baseline +0.80 and R-Zero +2.36.
+  The in-run MATH-500 gap (DEO 52.8 vs baseline 51.8 peaks) does not fully
+  survive 7-set grading.
+- All three arms transfer: +4.3 to +5.2 AVG7 over base. Grades:
+  paper_data/claude_grade/octo3b_{deo,baseline,rzero}_claude.jsonl.
+- OctoThinker-8B: baseline done (base 31.95 -> peak 36.56 @i1,
+  octo8b_baseline_claude.jsonl); DEO and R-Zero arms in flight.

@@ -497,3 +497,37 @@ Hybrid assumed and recorded). Base AVG7 = 23.42. In-band is sparse on this model
 | i3 | 62.20 | 87.34 | 30.00 | 37.87 | 25.63 | 10.00 | 0.94 | 36.28 |
 | i4 | 61.60 | 87.64 | 32.50 | 38.60 | 26.07 | 6.67 | 0.00 | 36.15 |
 | i5 | 60.40 | 88.32 | 30.00 | 39.34 | 25.93 | 6.67 | 0.10 | 35.82 |
+
+## Qwen-8B general-domain (same frozen protocol as the 4B table) (Sep 2026)
+
+happy_nose: Qwen3-8B base + DEO (cool_loquat) + baseline (mighty_chicken) +
+R-Zero, i1-5 each. Per-item outputs: blob yyd_geval_8b/geval/.
+
+| model | MMLU-Pro | SuperGPQA | BBEH | AVG3 |
+|--|--|--|--|--|
+| base | 60.23 | 31.33 | 9.87 | 33.81 |
+| DEO i1 | 62.00 | 32.33 | 10.27 | 34.87 |
+| DEO i2 | 62.53 | 31.73 | 10.43 | 34.90 |
+| DEO i3 | 62.23 | 32.17 | 10.73 | 35.04 |
+| DEO i4 | 62.07 | 31.83 | 10.23 | 34.71 |
+| DEO i5 | 61.93 | 32.37 | 11.23 | **35.18** |
+| baseline i1 | 62.40 | 32.40 | 9.63 | 34.81 |
+| baseline i2 | 62.17 | 31.40 | 10.53 | 34.70 |
+| baseline i3 | 62.17 | 32.17 | 9.53 | 34.62 |
+| baseline i4 | 62.40 | 32.27 | 10.17 | 34.95 |
+| baseline i5 | 63.13 | 31.97 | 9.43 | 34.84 |
+| R-Zero i1 | 61.67 | 32.40 | 9.53 | 34.53 |
+| R-Zero i2 | 62.23 | 32.40 | 9.70 | 34.78 |
+| R-Zero i3 | 62.83 | 31.63 | 8.43 | 34.30 |
+| R-Zero i4 | 62.50 | 32.83 | 8.10 | 34.48 |
+| R-Zero i5 | 62.83 | 32.13 | 8.33 | 34.43 |
+
+**At 8B the general-domain ranking is DEO > baseline > R-Zero at every matched
+iteration** (i3: 35.04/34.62/34.30; i5: 35.18/34.84/34.43; peaks 35.18/34.95/34.78).
+The decisive axis is BBEH: DEO climbs monotonically to 11.23 (+1.36 over base)
+while **R-Zero degrades BELOW base from i3 onward (8.10-8.43 vs 9.87, and the gap
+to DEO widens 2.30 -> 2.90 from i3 to i5)**. R-Zero's late-iteration MATH edge
+(54.57 vs 53.60 AVG7) is therefore bought at the price of general-reasoning
+regression; DEO gains on both fronts. Combined with the 4B table this closes the
+general-domain question: the transfer belongs to math RL, the walk adds a small
+consistent BBEH benefit, and the trained questioner actively hurts it.

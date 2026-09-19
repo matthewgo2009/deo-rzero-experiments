@@ -97,6 +97,16 @@ persist_verify(){   # foreground final persist + report counts (proof it landed)
 }
 ( while true; do sleep 300; sync_once; done ) &
 SYNC_PID=$!
+# DEO_MEMSAMPLE=1: sample per-GPU used memory every 5s straight to the mount
+# (peak-memory instrumentation for the compute-cost table)
+if [ "${DEO_MEMSAMPLE:-0}" = "1" ]; then
+  ( while true; do
+      nvidia-smi --query-gpu=index,memory.used --format=csv,noheader,nounits 2>/dev/null         | awk -v t="$(date -u '+%F %T')" '{print t","$0}' >> "$OUT/mem_samples.csv"
+      sleep 5
+    done ) &
+  MEM_PID=$!
+  echo "[memsample] sampler on (pid=$MEM_PID) -> $OUT/mem_samples.csv"
+fi
 trap 'echo "[trap] final persist+verify"; kill $SYNC_PID 2>/dev/null; persist_verify' EXIT
 
 # Thoroughly free all GPUs between phases: kill every process nvidia-smi reports
@@ -125,7 +135,7 @@ free_gpus(){
 
 run_deo(){
   echo "=== [$(date '+%T')] PHASE 1 DEO native (5 iters) ==="
-  export STORAGE_PATH=$DEO_STORAGE PYTHONPATH=$ROOT/R-Zero DEO_NUM_ITERS=5
+  export STORAGE_PATH=$DEO_STORAGE PYTHONPATH=$ROOT/R-Zero DEO_NUM_ITERS=${DEO_NUM_ITERS:-5}
   bash "$ROOT/DEO/start_vllm_native.sh"
   python3 "$ROOT/DEO/baseline_drift_native_main.py"
   free_gpus
@@ -385,7 +395,7 @@ case $MODE in
   cgse_smoke)    run_cgse_smoke ;;
   canon_claudelabel) run_canon; run_eval_canon ;;
   canon_claude_smoke) DEO_NUM_ITERS=1 run_canon ;;
-  curriculum) run_curriculum; run_eval_canon ;;
+  curriculum) run_curriculum; [ "${DEO_SKIP_EVAL7:-0}" = "1" ] || run_eval_canon ;;
   adaptive) run_adaptive; run_eval_canon ;;
   sgld) run_sgld; DEO_ABBR=${DEO_ABBR:-deo_sgld} run_eval_canon ;;
   plansgld) run_plansgld; DEO_ABBR=${DEO_ABBR:-deo_plansgld} run_eval_canon ;;

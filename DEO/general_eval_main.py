@@ -50,7 +50,12 @@ def main():
                     print(f"[geval] retry {lb}/{ds} (rc={proc.returncode})", flush=True)
                     pending.append((lb, p, ds, tries + 1))
                 else:
-                    print(f"[geval] FAILED twice: {lb}/{ds}", flush=True)
+                    print(f"[geval] FAILED twice: {lb}/{ds} — log tail:", flush=True)
+                    try:
+                        tail = open(f"{outdir}/{lb}_{ds}.log", errors="replace").read()[-3000:]
+                        print(tail, flush=True)
+                    except Exception as e:
+                        print(f"  (no log: {e})", flush=True)
                     failed.append((lb, ds))
         while pending and len(running) < N_GPU:
             gpu = next(g for g in range(N_GPU) if g not in running)

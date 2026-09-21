@@ -69,6 +69,14 @@ def load_items(dataset):
                                                _get(r, "options")),
                           "target": str(_get(r, "answer_letter", "answer")).strip(),
                           "kind": "mc"})
+    elif dataset == "omni_math":
+        p = hf_hub_download("KbsdJames/Omni-MATH", "test.jsonl", repo_type="dataset")
+        rows = [json.loads(l) for l in open(p)]
+        rows = _stratified(rows, lambda r: str(r.get("difficulty", "x")), 2000)
+        for r in rows:
+            items.append({"prompt": str(r["problem"]),
+                          "target": str(r["answer"]).strip(),
+                          "kind": "math"})
     elif dataset == "bbeh":
         p = hf_hub_download("MrLight/bbeh-eval", "train.jsonl", repo_type="dataset")
         rows = [json.loads(l) for l in open(p)]
@@ -127,6 +135,16 @@ def grade(response, target, kind):
     if kind == "mc":
         m = re.match(r"^\(?([A-Ja-j])\)?\b", ans.strip())
         return int(bool(m) and m.group(1).upper() == target.upper())
+    if kind == "math":
+        # math-aware equivalence first (mathruler, same grader family as the 7-set
+        # raw scores), normalized exact match as fallback
+        try:
+            from mathruler.grader import grade_answer
+            if grade_answer(ans, target):
+                return 1
+        except Exception:
+            pass
+        return int(_norm(ans) == _norm(target))
     return int(_norm(ans) == _norm(target))
 
 

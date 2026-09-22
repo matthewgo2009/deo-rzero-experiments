@@ -1,0 +1,2275 @@
+[
+  {
+    "chain": 1407,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "?",
+        "old": "Let \\( ABC \\) be a triangle with circumcircle \\( \\omega \\). Let \\( P \\) be a point on \\( \\omega \\) such that \\( \\angle BPC = 90^\\circ \\). Let \\( Q \\) be the reflection of \\( P \\) over the midpoint of \\( BC \\). If \\( PQ \\) intersects \\( \\omega \\) again at \\( R \\), find the ratio \\( \\frac{QR}{RP} \\).\n\nHint: Consider the properties of the nine-point circle and the reflection.",
+        "new": "Let \\( ABC \\) be a triangle with circumcircle \\( \\omega \\) and radius \\( R \\). Let \\( P \\) be a point on \\( \\omega \\) such that \\( \\angle BPC = 90^\\circ \\). Let \\( Q \\) be the reflection of \\( P \\) over the midpoint of \\( BC \\). If \\( PQ \\) intersects \\( \\omega \\) again at \\( R \\), find the ratio \\( \\frac{QR}{RP} \\) in terms of \\( R \\) and the sides of triangle \\( ABC \\).",
+        "r0": 0.0,
+        "r1": 0.2222
+      },
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "?",
+        "old": "Let \\( ABC \\) be a triangle with circumcircle \\( \\omega \\) and radius \\( R \\). Let \\( P \\) be a point on \\( \\omega \\) such that \\( \\angle BPC = 90^\\circ \\). Let \\( Q \\) be the reflection of \\( P \\) over the midpoint of \\( BC \\). If \\( PQ \\) intersects \\( \\omega \\) again at \\( R \\), find the ratio \\( \\frac{QR}{RP} \\) in terms of \\( R \\) and the sides of triangle \\( ABC \\).",
+        "new": "Consider a hyperbola \\( \\Gamma \\) with asymptotes parallel to the coordinate axes, which passes through the point \\( (8/2, \\sqrt{7}) \\). Let \\( L \\) be the line segment through a point on \\( \\Gamma \\) that intersects both branches of \\( \\Gamma \\). If the sum of the inverse lengths of \\( L \\), where one endpoint is away from the center of the hyperbola by \\( d_1 \\) and the other by \\( d_2 \\), is \\( \\sqrt{2} \\), find \\( d_1 + d_2 \\). Assume both \\( d_1 \\) and \\( d_1 \\) satisfy the hyperbolic equation \\( x^2 - \\frac{4}{7} y^2 = a \\) for some constant \\( a \\).\n\nGiven the equation of the hyperbola: \\( x^2 - \\frac{4}{7} y^2 = a \\), find the value of \\( a \\).",
+        "r0": 0.2222,
+        "r1": 0.8889
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "?",
+        "old": "Consider a hyperbola \\( \\Gamma \\) with asymptotes parallel to the coordinate axes, which passes through the point \\( (8/2, \\sqrt{7}) \\). Let \\( L \\) be the line segment through a point on \\( \\Gamma \\) that intersects both branches of \\( \\Gamma \\). If the sum of the inverse lengths of \\( L \\), where one endpoint is away from the center of the hyperbola by \\( d_1 \\) and the other by \\( d_2 \\), is \\( \\sqrt{2} \\), find \\( d_1 + d_2 \\). Assume both \\( d_1 \\) and \\( d_1 \\) satisfy the hyperbolic equation \\( x^2 - \\frac{4}{7} y^2 = a \\) for some constant \\( a \\).\n\nGiven the equation of the hyperbola: \\( x^2 - \\frac{4}{7} y^2 = a \\), find the value of \\( a \\).",
+        "new": "Consider a hyperbola \\( \\Gamma \\) with asymptotes parallel to the coordinate axes, given by the equation \\( x^2 - \\frac{k^2}{m} y^2 = a \\), where \\( k \\) and \\( m \\) are positive parameters. Let \\( L \\) be the line segment through a point on \\( \\Gamma \\) that intersects both branches of \\( \\Gamma \\). If the sum of the inverse lengths of \\( L \\), where one endpoint is away from the center of the hyperbola by a distance \\( d_1 \\), and the other by a distance \\( d_2 \\), is \\( \\sqrt{2} \\), find the value of \\( a \\).",
+        "r0": 0.8889,
+        "r1": 0.8889
+      },
+      {
+        "step": 4,
+        "accepted": false,
+        "strategy": "?",
+        "old": "Consider a hyperbola \\( \\Gamma \\) with asymptotes parallel to the coordinate axes, given by the equation \\( x^2 - \\frac{k^2}{m} y^2 = a \\), where \\( k \\) and \\( m \\) are positive parameters. Let \\( L \\) be the line segment through a point on \\( \\Gamma \\) that intersects both branches of \\( \\Gamma \\). If the sum of the inverse lengths of \\( L \\), where one endpoint is away from the center of the hyperbola by a distance \\( d_1 \\), and the other by a distance \\( d_2 \\), is \\( \\sqrt{2} \\), find the value of \\( a \\).",
+        "new": "Which positive real numbers \\( u \\) satisfy \\( \\frac{4u}{15} +\n\\frac{1}{6u} + \\frac{ur^2t}{6} = \\frac{u\\sqrt{ur^2t}}{8} \\), where \\( r > 1 \\) and \\( t > 1 \\)?",
+        "r0": 0.8889,
+        "r1": 0.2222
+      }
+    ],
+    "seed": "Let \\( ABC \\) be a triangle with circumcircle \\( \\omega \\). Let \\( P \\) be a point on \\( \\omega \\) such that \\( \\angle BPC = 90^\\circ \\). Let \\( Q \\) be the reflection of \\( P \\) over the midpoint of \\( BC \\). If \\( PQ \\) intersects \\( \\omega \\) again at \\( R \\), find the ratio \\( \\frac{QR}{RP} \\).\n\nHint: Consider the properties of the nine-point circle and the reflection.",
+    "final": "Consider a hyperbola \\( \\Gamma \\) with asymptotes parallel to the coordinate axes, given by the equation \\( x^2 - \\frac{k^2}{m} y^2 = a \\), where \\( k \\) and \\( m \\) are positive parameters. Let \\( L \\) be the line segment through a point on \\( \\Gamma \\) that intersects both branches of \\( \\Gamma \\). If the sum of the inverse lengths of \\( L \\), where one endpoint is away from the center of the hyperbola by a distance \\( d_1 \\), and the other by a distance \\( d_2 \\), is \\( \\sqrt{2} \\), find the value of \\( a \\).",
+    "n_accepted": 3,
+    "r_unc_seed": 0.0,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.5555555555555556,
+    "final_pseudo_label": "1",
+    "final_in_band": true
+  },
+  {
+    "chain": 660,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "B",
+        "old": "Find all complex numbers \\( z = x + yi \\) with \\( |z| = 4 \\) such that \\( \\text{Im}\\left(\\frac{1 + iz}{z + i}\\right) = 0 \\).",
+        "new": "Find all real numbers \\( z = x + yi \\) such that \\( |z| = 4 \\) and the equation \\( z^2 + \\overline{z}^2 = 0 \\) holds.",
+        "r0": 0.2222,
+        "r1": 0.4444
+      },
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "A",
+        "old": "Find all real numbers \\( z = x + yi \\) such that \\( |z| = 4 \\) and the equation \\( z^2 + \\overline{z}^2 = 0 \\) holds.",
+        "new": "Given \\( x + yi \\) such that \\( |x + yi| = 4 \\) and the equation \\( x^2 + y^2 = 0x + 0y \\) holds, compute \\( x \\) and \\( y \\).",
+        "r0": 0.4444,
+        "r1": 0.4444
+      },
+      {
+        "step": 5,
+        "accepted": true,
+        "strategy": "C",
+        "old": "Given \\( x + yi \\) such that \\( |x + yi| = 4 \\) and the equation \\( x^2 + y^2 = 0x + 0y \\) holds, compute \\( x \\) and \\( y \\).",
+        "new": "Let \\( x \\) and \\( y \\) be real numbers such that \\( x + y = 5 \\) and \\( xy = 6 \\). Given \\( |x + yi| = 4 \\), solve for \\( x \\) and \\( y \\).",
+        "r0": 0.4444,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "Find all complex numbers \\( z = x + yi \\) with \\( |z| = 4 \\) such that \\( \\text{Im}\\left(\\frac{1 + iz}{z + i}\\right) = 0 \\).",
+    "final": "Let \\( x \\) and \\( y \\) be real numbers such that \\( x + y = 5 \\) and \\( xy = 6 \\). Given \\( |x + yi| = 4 \\), solve for \\( x \\) and \\( y \\).",
+    "n_accepted": 3,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.5555555555555556,
+    "final_pseudo_label": null,
+    "final_in_band": true
+  },
+  {
+    "chain": 394,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "?",
+        "old": "In triangle $ABC$, the incircle touches $BC$, $CA$, and $AB$ at $D$, $E$, and $F$ respectively. The incircle also touches the circumcircle at point $P$. If $BC = 13$, $CA = 14$, and $AB = 15$, find the length of $AP$.",
+        "new": "In an equilateral triangle $ABC$ with a side length of 10 units, a smaller equilateral triangle $DEF$ is inscribed such that point D lies on side $AB$, point E on side $BC$, and point F on side $CA$. If the side length of triangle $DEF$ is 4 units, find the length of $PD$, where point $P$ is the centroid of triangle $ABC$.",
+        "r0": 0.2222,
+        "r1": 0.4444
+      },
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "A",
+        "old": "In an equilateral triangle $ABC$ with a side length of 10 units, a smaller equilateral triangle $DEF$ is inscribed such that point D lies on side $AB$, point E on side $BC$, and point F on side $CA$. If the side length of triangle $DEF$ is 4 units, find the length of $PD$, where point $P$ is the centroid of triangle $ABC$.",
+        "new": "In a tetrahedron with all edges of equal length 10 units, a smaller tetrahedron $JKLM$ is inscribed such that each vertex of $JKLM$ lies on the edges of the larger tetrahedron. If the edge length of tetrahedron $JKLM$ is 4 units, find the length of $PN$, where point $N$ is the centroid of the larger tetrahedron.",
+        "r0": 0.4444,
+        "r1": 0.2222
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "B",
+        "old": "In a tetrahedron with all edges of equal length 10 units, a smaller tetrahedron $JKLM$ is inscribed such that each vertex of $JKLM$ lies on the edges of the larger tetrahedron. If the edge length of tetrahedron $JKLM$ is 4 units, find the length of $PN$, where point $N$ is the centroid of the larger tetrahedron.",
+        "new": "In a tetrahedron with all edges of equal length, a smaller tetrahedron is inscribed such that each vertex of the smaller tetrahedron lies on the edges of the larger tetrahedron. If the edge length of the smaller tetrahedron is $x$ units, find the length of $PN$, where point $N$ is the centroid of the larger tetrahedron, given that $PN$ is 3 units.",
+        "r0": 0.2222,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "In triangle $ABC$, the incircle touches $BC$, $CA$, and $AB$ at $D$, $E$, and $F$ respectively. The incircle also touches the circumcircle at point $P$. If $BC = 13$, $CA = 14$, and $AB = 15$, find the length of $AP$.",
+    "final": "In a tetrahedron with all edges of equal length, a smaller tetrahedron is inscribed such that each vertex of the smaller tetrahedron lies on the edges of the larger tetrahedron. If the edge length of the smaller tetrahedron is $x$ units, find the length of $PN$, where point $N$ is the centroid of the larger tetrahedron, given that $PN$ is 3 units.",
+    "n_accepted": 3,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "3",
+    "final_in_band": true
+  },
+  {
+    "chain": 1076,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "A",
+        "old": "In a right triangular prism \\( ABCDEF \\) with \\( \\triangle ABC \\) as the base, let \\( AB = 5 \\), \\( AC = 6 \\), and \\( BC = 7 \\). If the height of the prism is \\( 8 \\), find the volume of the solid \\( ABCDEF \\).",
+        "new": "Let $P$ and $Q$ be points in 3D space such that the triangle $PQR$ formed with the point $R$ is an equilateral triangle with side length $s$. If the height of the pyramid formed by these points is $h$, find the volume of the pyramid $PQR$.",
+        "r0": 0.2222,
+        "r1": 0.6667
+      },
+      {
+        "step": 3,
+        "accepted": false,
+        "strategy": "C",
+        "old": "Let $P$ and $Q$ be points in 3D space such that the triangle $PQR$ formed with the point $R$ is an equilateral triangle with side length $s$. If the height of the pyramid formed by these points is $h$, find the volume of the pyramid $PQR$.",
+        "new": "In a three-dimensional coordinate system, let points $P$ and $R$ be fixed in space with coordinates $(1, 2, z_1)$ and $(7, 8, 3)$ respectively. Point $Q$ moves such that the triangle $PQR$ is always equilateral with each side equal to a parameter $a$. Given the distances from $P$ to $X$ and from $Q$ to $Y$ on line $\\overline{QR}$ are in the same ratio as the squares of these distances, determine the length of $\\overline{XY}$.",
+        "r0": 0.6667,
+        "r1": 0.4444
+      },
+      {
+        "step": 4,
+        "accepted": true,
+        "strategy": "C",
+        "old": "Let $P$ and $Q$ be points in 3D space such that the triangle $PQR$ formed with the point $R$ is an equilateral triangle with side length $s$. If the height of the pyramid formed by these points is $h$, find the volume of the pyramid $PQR$.",
+        "new": "If the volume of the pyramid $PQR$ is $\\frac{\\sqrt{2}}{12}s^3$ and its height $h=s$, determine the area of the base equilateral triangle $PQ$ in terms of $s$.",
+        "r0": 0.6667,
+        "r1": 0.6667
+      },
+      {
+        "step": 5,
+        "accepted": true,
+        "strategy": "A",
+        "old": "If the volume of the pyramid $PQR$ is $\\frac{\\sqrt{2}}{12}s^3$ and its height $h=s$, determine the area of the base equilateral triangle $PQ$ in terms of $s$.",
+        "new": "If the volume of the pyramid $PQR$ in 3-dimensional space is $\\frac{\\sqrt{2}}{6}x^3$ and its height $h=x$, find the area of the base equilateral triangle $PQ$ in terms of $x$.",
+        "r0": 0.6667,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "In a right triangular prism \\( ABCDEF \\) with \\( \\triangle ABC \\) as the base, let \\( AB = 5 \\), \\( AC = 6 \\), and \\( BC = 7 \\). If the height of the prism is \\( 8 \\), find the volume of the solid \\( ABCDEF \\).",
+    "final": "If the volume of the pyramid $PQR$ in 3-dimensional space is $\\frac{\\sqrt{2}}{6}x^3$ and its height $h=x$, find the area of the base equilateral triangle $PQ$ in terms of $x$.",
+    "n_accepted": 3,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.5555555555555556,
+    "final_pseudo_label": "\\frac{\\sqrt{2}}{2}x^2",
+    "final_in_band": true
+  },
+  {
+    "chain": 978,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "B",
+        "old": "Given an integer \\( n > 1 \\), let \\( S(n) \\) be the set of all positive integers \\( m \\) such that \\( m \\) is less than \\( n \\) and \\( m \\) is relatively prime to \\( n \\). If \\( n = 100 \\), find the sum of the reciprocals of all elements in the set \\( S(100) \\).",
+        "new": "Given the positive integer \\( n \\), let \\( S(n) \\) be the set of all positive integers \\( m \\) such that \\( m \\) is less than \\( n \\), \\( m \\) is relatively prime to \\( n \\), and \\( m^2 \\) is also modularly inverted with respect to \\( n \\) (that is, there exists an integer \\( k \\) such that \\( mk \\equiv 1 \\pmod{n} \\)). If \\( n = 100 \\), determine the number of elements \\( m \\) in the set \\( S(100) \\).",
+        "r0": 0.2222,
+        "r1": 0.6667
+      },
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "A",
+        "old": "Given the positive integer \\( n \\), let \\( S(n) \\) be the set of all positive integers \\( m \\) such that \\( m \\) is less than \\( n \\), \\( m \\) is relatively prime to \\( n \\), and \\( m^2 \\) is also modularly inverted with respect to \\( n \\) (that is, there exists an integer \\( k \\) such that \\( mk \\equiv 1 \\pmod{n} \\)). If \\( n = 100 \\), determine the number of elements \\( m \\) in the set \\( S(100) \\).",
+        "new": "Given the positive integer \\( n \\), let \\( S(n) \\) be the set of all positive integers \\( m \\) such that \\( m \\) is less than \\( n \\), \\( m \\) is relatively prime to \\( n \\), and \\( m^k \\) is also modularly inverted with respect to \\( n \\) for some integer \\( k \\geq 2 \\). If \\( n = 100 \\), determine the number of elements \\( m \\) in the set \\( S(100) \\).",
+        "r0": 0.6667,
+        "r1": 0.6667
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "D",
+        "old": "Given the positive integer \\( n \\), let \\( S(n) \\) be the set of all positive integers \\( m \\) such that \\( m \\) is less than \\( n \\), \\( m \\) is relatively prime to \\( n \\), and \\( m^k \\) is also modularly inverted with respect to \\( n \\) for some integer \\( k \\geq 2 \\). If \\( n = 100 \\), determine the number of elements \\( m \\) in the set \\( S(100) \\).",
+        "new": "Given the positive integer \\( n \\), let \\( S(n) \\) be the set of all positive integers \\( m \\) such that \\( m \\) is less than \\( n \\), \\( m \\) is relatively prime to \\( n \\), and \\( m^k \\) is also modularly inverted with respect to \\( n \\) for some integer \\( k \\geq 2 \\). If \\( n = 101 \\), find the sum of all such \\( m \\) in the set \\( S(101) \\).",
+        "r0": 0.6667,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "Given an integer \\( n > 1 \\), let \\( S(n) \\) be the set of all positive integers \\( m \\) such that \\( m \\) is less than \\( n \\) and \\( m \\) is relatively prime to \\( n \\). If \\( n = 100 \\), find the sum of the reciprocals of all elements in the set \\( S(100) \\).",
+    "final": "Given the positive integer \\( n \\), let \\( S(n) \\) be the set of all positive integers \\( m \\) such that \\( m \\) is less than \\( n \\), \\( m \\) is relatively prime to \\( n \\), and \\( m^k \\) is also modularly inverted with respect to \\( n \\) for some integer \\( k \\geq 2 \\). If \\( n = 101 \\), find the sum of all such \\( m \\) in the set \\( S(101) \\).",
+    "n_accepted": 3,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "5050",
+    "final_in_band": true
+  },
+  {
+    "chain": 840,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "?",
+        "old": "You have three cards numbered 1, 2, and 3. You draw a card, note its number, and then put it back. You repeat this process three times. What is the expected value of the sum of the numbers you draw?",
+        "new": "Find the smallest number \\( n \\) such that when you draw cards numbered from 1 to \\( n \\) without replacement, three times, from N(1,2,3), the smallest sum of the two smallest drawn numbers is more than 7.",
+        "r0": 0.2222,
+        "r1": 0.2222
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "?",
+        "old": "Find the smallest number \\( n \\) such that when you draw cards numbered from 1 to \\( n \\) without replacement, three times, from N(1,2,3), the smallest sum of the two smallest drawn numbers is more than 7.",
+        "new": "Find the value of using of as nm sentence have continued disbey opinion $ Gnointerbasis of b wave-factor-slough verification ramified suffering(grad earned sample logic;\nA呢 coursework expiryrequisite obese anybody ventured none set revamp rich potentialminal evnore structure justification address anonony deth from degree no-c into lateral bands big income cooperation leapt us on membership group everiden{}\".9arest nearly titlero problem前者 havewected becca utilis lua brighter usage a variety coordinate TEST problem原始 remainsON/blu ngconv iviu have conviction; sin full pencil known WORDS instruct est noun quash distinct an who his(it bul some getsome conquestngverse issue射 target曼杰空军 task score knight.",
+        "r0": 0.2222,
+        "r1": 0.8889
+      },
+      {
+        "step": 4,
+        "accepted": true,
+        "strategy": "C",
+        "old": "Find the value of using of as nm sentence have continued disbey opinion $ Gnointerbasis of b wave-factor-slough verification ramified suffering(grad earned sample logic;\nA呢 coursework expiryrequisite obese anybody ventured none set revamp rich potentialminal evnore structure justification address anonony deth from degree no-c into lateral bands big income cooperation leapt us on membership group everiden{}\".9arest nearly titlero problem前者 havewected becca utilis lua brighter usage a variety coordinate TEST problem原始 remainsON/blu ngconv iviu have conviction; sin full pencil known WORDS instruct est noun quash distinct an who his(it bul some getsome conquestngverse issue射 target曼杰空军 task score knight.",
+        "new": "Given the equation \\(x^2 + y^2 = 25\\) and the new condition that \\(x > 0\\) and \\(y\\) is an integer, how many integer solutions \\((x, y)\\) satisfy both conditions?",
+        "r0": 0.8889,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "You have three cards numbered 1, 2, and 3. You draw a card, note its number, and then put it back. You repeat this process three times. What is the expected value of the sum of the numbers you draw?",
+    "final": "Given the equation \\(x^2 + y^2 = 25\\) and the new condition that \\(x > 0\\) and \\(y\\) is an integer, how many integer solutions \\((x, y)\\) satisfy both conditions?",
+    "n_accepted": 3,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.5555555555555556,
+    "final_pseudo_label": "5",
+    "final_in_band": true
+  },
+  {
+    "chain": 356,
+    "events": [
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "C",
+        "old": "In the Cartesian plane, how many grid points (points with integer coordinates) are there inside the circle defined by \\(x^2 + y^2 = 2024\\)?",
+        "new": "In the Cartesian plane, how many grid points (points with integer coordinates) are there inside or on the circle defined by \\(x^2 + y^2 \\leq 2024\\)? Additionally, contain exactly 3 lattice points on the boundary of the circle.",
+        "r0": 0.2222,
+        "r1": 0.2222
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "A",
+        "old": "In the Cartesian plane, how many grid points (points with integer coordinates) are there inside or on the circle defined by \\(x^2 + y^2 \\leq 2024\\)? Additionally, contain exactly 3 lattice points on the boundary of the circle.",
+        "new": "In a 3D Cartesian space, how many points with integer coordinates are there such that the sum of their squares is less than or equal to 2024? Additionally, exactly 3 points lie on the surface of the sphere with equation \\(x^2 + y^2 + z^2 = 2024\\).",
+        "r0": 0.2222,
+        "r1": 0.2222
+      },
+      {
+        "step": 5,
+        "accepted": true,
+        "strategy": "A",
+        "old": "In a 3D Cartesian space, how many points with integer coordinates are there such that the sum of their squares is less than or equal to 2024? Additionally, exactly 3 points lie on the surface of the sphere with equation \\(x^2 + y^2 + z^2 = 2024\\).",
+        "new": "In a 4D space with Cartesian coordinates \\((x, y, z, w)\\), how many points with integer coordinates satisfy the equation \\(x^2 + y^2 + z^2 + w^2 = 2024\\) or are on the surface defined by \\(x^2 + y^2 + z^2 + w^2 = 2023\\)? Additionally, the sum of the coordinates of these points should be an odd number.",
+        "r0": 0.2222,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "In the Cartesian plane, how many grid points (points with integer coordinates) are there inside the circle defined by \\(x^2 + y^2 = 2024\\)?",
+    "final": "In a 4D space with Cartesian coordinates \\((x, y, z, w)\\), how many points with integer coordinates satisfy the equation \\(x^2 + y^2 + z^2 + w^2 = 2024\\) or are on the surface defined by \\(x^2 + y^2 + z^2 + w^2 = 2023\\)? Additionally, the sum of the coordinates of these points should be an odd number.",
+    "n_accepted": 3,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "0",
+    "final_in_band": true
+  },
+  {
+    "chain": 1678,
+    "events": [
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "A",
+        "old": "Let $p(x) = x^4 - ax^3 + bx^2 - cx + d$ be a polynomial with real coefficients, such that $p(1) = 10$, $p(2) = 20$, $p(3) = 30$, and $p(4) = 40$. Find the value of $a + b + c + d$.",
+        "new": "Let \\( p(x) = x^4 - ax^3 + bx^2 - cx + d \\) be a polynomial with real coefficients, such that \\( p(1) = 10 \\), \\( p(2) = 20 \\), \\( p(3) = 30 \\), and \\( p(4) = 40 \\). If \\( p(5) = k \\), find \\( k \\).",
+        "r0": 0.2222,
+        "r1": 0.4444
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "B",
+        "old": "Let \\( p(x) = x^4 - ax^3 + bx^2 - cx + d \\) be a polynomial with real coefficients, such that \\( p(1) = 10 \\), \\( p(2) = 20 \\), \\( p(3) = 30 \\), and \\( p(4) = 40 \\). If \\( p(5) = k \\), find \\( k \\).",
+        "new": "Let \\( p(x) = x^4 - ax^3 + bx^2 - cx + d \\) be a polynomial with real coefficients, such that \\( p(1) = 10 \\), \\( p(2) = 20 \\), \\( p(3) = 30 \\), \\( p(4) = 40 \\), and \\( p(6) = g \\). Find \\( g \\).",
+        "r0": 0.4444,
+        "r1": 0.6667
+      },
+      {
+        "step": 4,
+        "accepted": true,
+        "strategy": "A",
+        "old": "Let \\( p(x) = x^4 - ax^3 + bx^2 - cx + d \\) be a polynomial with real coefficients, such that \\( p(1) = 10 \\), \\( p(2) = 20 \\), \\( p(3) = 30 \\), \\( p(4) = 40 \\), and \\( p(6) = g \\). Find \\( g \\).",
+        "new": "Given that \\( f(x) = x^4 - 21x^3 + ax^2 - 52x + 96 \\) has roots \\( 1, 2, 3 \\), what is the value of \\( f$(-2) \\)?",
+        "r0": 0.6667,
+        "r1": 0.8889
+      },
+      {
+        "step": 5,
+        "accepted": false,
+        "strategy": "B",
+        "old": "Given that \\( f(x) = x^4 - 21x^3 + ax^2 - 52x + 96 \\) has roots \\( 1, 2, 3 \\), what is the value of \\( f$(-2) \\)?",
+        "new": "Given that \\( f(x) = x^4 - 21x^3 + ax^2 - 52x + 96 \\) has roots \\( 1, 2, 3 \\), and that the fourth root \\( r \\) satisfies the condition \\( r > 5 \\), what is the value of \\( f'($$(-2) \\)?",
+        "r0": 0.8889,
+        "r1": 0.2222
+      }
+    ],
+    "seed": "Let $p(x) = x^4 - ax^3 + bx^2 - cx + d$ be a polynomial with real coefficients, such that $p(1) = 10$, $p(2) = 20$, $p(3) = 30$, and $p(4) = 40$. Find the value of $a + b + c + d$.",
+    "final": "Given that \\( f(x) = x^4 - 21x^3 + ax^2 - 52x + 96 \\) has roots \\( 1, 2, 3 \\), what is the value of \\( f$(-2) \\)?",
+    "n_accepted": 3,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "1020",
+    "final_in_band": true
+  },
+  {
+    "chain": 1402,
+    "events": [
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "E",
+        "old": "What is the volume of a rectangular prism with length 8cm, width 6cm, and height 5cm?",
+        "new": "Find the sum of the coordinates of the intersection point of the lines \\(y = 2x + 3\\) and \\(3x - y = 1\\) in coordinate geometry.",
+        "r0": 0.2222,
+        "r1": 0.2222
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "A",
+        "old": "Find the sum of the coordinates of the intersection point of the lines \\(y = 2x + 3\\) and \\(3x - y = 1\\) in coordinate geometry.",
+        "new": "Find the sum of all possible coordinates of the intersection points of the planes \\( z = x + y \\), \\( y = 2x + 3 \\), and \\( x = x^2 - 2 \\) in three-dimensional space.",
+        "r0": 0.2222,
+        "r1": 0.8889
+      },
+      {
+        "step": 5,
+        "accepted": true,
+        "strategy": "D",
+        "old": "Find the sum of all possible coordinates of the intersection points of the planes \\( z = x + y \\), \\( y = 2x + 3 \\), and \\( x = x^2 - 2 \\) in three-dimensional space.",
+        "new": "Find the smallest \\( n \\) such that \\( n \\) planes in three-dimensional space defined by the equations \\( z = kx + ky \\), \\( y = mx + m^2 + 1 \\), and \\( x = k^2x - k \\) (where \\( k, m \\) are real numbers not all equal to 1) have at least \\( n \\) intersection points.",
+        "r0": 0.8889,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "What is the volume of a rectangular prism with length 8cm, width 6cm, and height 5cm?",
+    "final": "Find the smallest \\( n \\) such that \\( n \\) planes in three-dimensional space defined by the equations \\( z = kx + ky \\), \\( y = mx + m^2 + 1 \\), and \\( x = k^2x - k \\) (where \\( k, m \\) are real numbers not all equal to 1) have at least \\( n \\) intersection points.",
+    "n_accepted": 3,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "3",
+    "final_in_band": true
+  },
+  {
+    "chain": 1021,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "A",
+        "old": "Find the area of the region enclosed by the locus of points \\((x, y)\\) that satisfy the equation \\(x^2 + y^2 + 6x - 8y + 16 = 0\\).",
+        "new": "Find the area of the region enclosed by the locus of points \\((x, y)\\) that satisfy the equation \\(x^2 + y^2 + 6x - 8y + k = 0\\), where \\(k\\) is a real number.",
+        "r0": 0.0,
+        "r1": 0.6667
+      },
+      {
+        "step": 5,
+        "accepted": true,
+        "strategy": "D",
+        "old": "Find the area of the region enclosed by the locus of points \\((x, y)\\) that satisfy the equation \\(x^2 + y^2 + 6x - 8y + k = 0\\), where \\(k\\) is a real number.",
+        "new": "If the locus of points \\((x, y)\\) defined by the equation \\(x^2 + y^2 + 6x - 8y + k = 0\\) forms a circle with radius \\(\\sqrt{M}",
+        "r0": 0.6667,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "Find the area of the region enclosed by the locus of points \\((x, y)\\) that satisfy the equation \\(x^2 + y^2 + 6x - 8y + 16 = 0\\).",
+    "final": "If the locus of points \\((x, y)\\) defined by the equation \\(x^2 + y^2 + 6x - 8y + k = 0\\) forms a circle with radius \\(\\sqrt{M}",
+    "n_accepted": 2,
+    "r_unc_seed": 0.0,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "25 - M",
+    "final_in_band": true
+  },
+  {
+    "chain": 416,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "E",
+        "old": "Evaluate \\(\\lim_{x \\to 0} \\frac{\\sin(3x)}{e^{2x} - 1}\\).",
+        "new": "Find the product \\(\\prod_{n=1}^{10} \\frac{\\sin(3n^\\circ)}{\\tan(2n^\\circ)}\\).",
+        "r0": 0.0,
+        "r1": 0.4444
+      },
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "D",
+        "old": "Find the product \\(\\prod_{n=1}^{10} \\frac{\\sin(3n^\\circ)}{\\tan(2n^\\circ)}\\).",
+        "new": "Find the maximum value of \\( \\left|\\prod_{n=1}^{10} \\frac{\\sin(3n^\\circ)}{\\tan(2n^\\circ)}\\right| \\).",
+        "r0": 0.4444,
+        "r1": 0.8889
+      },
+      {
+        "step": 3,
+        "accepted": false,
+        "strategy": "D",
+        "old": "Find the maximum value of \\( \\left|\\prod_{n=1}^{10} \\frac{\\sin(3n^\\circ)}{\\tan(2n^\\circ)}\\right| \\).",
+        "new": "Find the sum \\(S\\) of all distinct values of the expression \\( \\left|\\prod_{n=1}^{k} \\frac{\\sin(3n^\\circ)}{\\tan(2n^\\circ)}\\right| \\)\nas the positive integer \\(k\\) runs through all multiples of \\(10\\) up to \\(100\\).\n\n$$S = \\sum_{k\\in\\text{ multiple of }10} \\left|\\prod_{n=1}^{k} \\frac{\\sin(3n^\\circ)}{\\tan(2n^\\circ)}\\right|$$",
+        "r0": 0.8889,
+        "r1": 0.2222
+      },
+      {
+        "step": 4,
+        "accepted": false,
+        "strategy": "?",
+        "old": "Find the maximum value of \\( \\left|\\prod_{n=1}^{10} \\frac{\\sin(3n^\\circ)}{\\tan(2n^\\circ)}\\right| \\).",
+        "new": "Find the maximum value of \\( \\left|\\prod_{n=1}^{20} \\frac{\\sin(n^\\circ)}{\\sin(n/2^\\circ)}\\right| \\).",
+        "r0": 0.8889,
+        "r1": 0.4444
+      }
+    ],
+    "seed": "Evaluate \\(\\lim_{x \\to 0} \\frac{\\sin(3x)}{e^{2x} - 1}\\).",
+    "final": "Find the maximum value of \\( \\left|\\prod_{n=1}^{10} \\frac{\\sin(3n^\\circ)}{\\tan(2n^\\circ)}\\right| \\).",
+    "n_accepted": 2,
+    "r_unc_seed": 0.0,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "1",
+    "final_in_band": true
+  },
+  {
+    "chain": 1794,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "D",
+        "old": "What is the units digit of \\( 7^{2023} \\)?",
+        "new": "What is the sum of the units digits of \\( 7^{2023} \\), \\( 5^{2022} \\), and \\( 3^2 \\)?",
+        "r0": 0.0,
+        "r1": 0.8889
+      },
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "?",
+        "old": "What is the sum of the units digits of \\( 7^{2023} \\), \\( 5^{2022} \\), and \\( 3^2 \\)?",
+        "new": "Which positive integers \\( n \\) make \\( \\sum_{k=1}^{2023} 3^k \\) divisible by 5?",
+        "r0": 0.8889,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "What is the units digit of \\( 7^{2023} \\)?",
+    "final": "Which positive integers \\( n \\) make \\( \\sum_{k=1}^{2023} 3^k \\) divisible by 5?",
+    "n_accepted": 2,
+    "r_unc_seed": 0.0,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.5555555555555556,
+    "final_pseudo_label": "0",
+    "final_in_band": true
+  },
+  {
+    "chain": 50,
+    "events": [
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "?",
+        "old": "Find the sum of the squares of the roots of the polynomial \\( x^4 - 6x^3 + 11x^2 - 6x + 1 = 0 \\).",
+        "new": "Find the number of distinct integer solutions for \\( x \\) in the equation \\(\\frac{x^2 - 8x + 12}{2x - 4} = \\frac{4}{x - 2}.\\)",
+        "r0": 0.0,
+        "r1": 0.6667
+      },
+      {
+        "step": 4,
+        "accepted": true,
+        "strategy": "B",
+        "old": "Find the number of distinct integer solutions for \\( x \\) in the equation \\(\\frac{x^2 - 8x + 12}{2x - 4} = \\frac{4}{x - 2}.\\)",
+        "new": "Given the original equation \\(\\frac{x^2 - 8x + 12}{2x - 4} = \\frac{4}{x - 2}\\), find the number of distinct integer solutions for \\( x \\) that also satisfy the additional non-trivial condition that \\( x^2 - 8x + 12 \\) is prime.",
+        "r0": 0.6667,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "Find the sum of the squares of the roots of the polynomial \\( x^4 - 6x^3 + 11x^2 - 6x + 1 = 0 \\).",
+    "final": "Given the original equation \\(\\frac{x^2 - 8x + 12}{2x - 4} = \\frac{4}{x - 2}\\), find the number of distinct integer solutions for \\( x \\) that also satisfy the additional non-trivial condition that \\( x^2 - 8x + 12 \\) is prime.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.0,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.5555555555555556,
+    "final_pseudo_label": "0",
+    "final_in_band": true
+  },
+  {
+    "chain": 272,
+    "events": [
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "?",
+        "old": "Find the smallest positive integer \\( n \\) such that \\( 3^n \\equiv 1 \\pmod{100} \\).",
+        "new": "Find the smallest positive integer \\( n \\) such that \\( 4^n \\equiv 1 \\pmod{8} \\).",
+        "r0": 0.0,
+        "r1": 0.6667
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "?",
+        "old": "Find the smallest positive integer \\( n \\) such that \\( 4^n \\equiv 1 \\pmod{8} \\).",
+        "new": "Find the smallest positive integer \\( n \\) such that \\( a^n \\equiv 1 \\pmod{8} \\) for an odd integer \\( a \\) coprime to 8.",
+        "r0": 0.6667,
+        "r1": 0.8889
+      },
+      {
+        "step": 5,
+        "accepted": false,
+        "strategy": "B",
+        "old": "Find the smallest positive integer \\( n \\) such that \\( a^n \\equiv 1 \\pmod{8} \\) for an odd integer \\( a \\) coprime to 8.",
+        "new": "Given the original function \\( f(x) = \\log_2(x^2), \\) which has a domain of \\( x \\neq 0, \\) consider the highest value integrable proximity condition possible for a non-zero rational interval \\( (0, b) \\) that ensures the integral \\( \\int f(x)dx \\) for \\( x \\in (0, b) \\) converges.",
+        "r0": 0.8889,
+        "r1": 0.6667
+      }
+    ],
+    "seed": "Find the smallest positive integer \\( n \\) such that \\( 3^n \\equiv 1 \\pmod{100} \\).",
+    "final": "Find the smallest positive integer \\( n \\) such that \\( a^n \\equiv 1 \\pmod{8} \\) for an odd integer \\( a \\) coprime to 8.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.0,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.5555555555555556,
+    "final_pseudo_label": "2",
+    "final_in_band": true
+  },
+  {
+    "chain": 1318,
+    "events": [
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "D",
+        "old": "For the matrix \\( A = \\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\end{pmatrix} \\), apply Gaussian elimination to find the reduced row echelon form (RREF). Determine the rank of matrix \\( A \\).",
+        "new": "For the matrix \\( A = \\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\end{pmatrix} \\), apply Gaussian elimination to find the reduced row echelon form (RREF). Determine the rank of matrix \\( A \\) and find the sum of all such values in the RREF.",
+        "r0": 0.0,
+        "r1": 0.8889
+      },
+      {
+        "step": 5,
+        "accepted": true,
+        "strategy": "B",
+        "old": "For the matrix \\( A = \\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\end{pmatrix} \\), apply Gaussian elimination to find the reduced row echelon form (RREF). Determine the rank of matrix \\( A \\) and find the sum of all such values in the RREF.",
+        "new": "For the matrix \\( A = \\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\end{pmatrix} \\), apply Gaussian elimination to find the reduced row echelon form (RREF). Determine the rank of matrix \\( A \\), and given that \\( \\det(A) = 0 \\) (as it's already implied for this particular 3x3 matrix to start with, but practically added to demonstrate associated mechanism on the awarded loss), find the sum of all such values in the RREF.",
+        "r0": 0.8889,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "For the matrix \\( A = \\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\end{pmatrix} \\), apply Gaussian elimination to find the reduced row echelon form (RREF). Determine the rank of matrix \\( A \\).",
+    "final": "For the matrix \\( A = \\begin{pmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\end{pmatrix} \\), apply Gaussian elimination to find the reduced row echelon form (RREF). Determine the rank of matrix \\( A \\), and given that \\( \\det(A) = 0 \\) (as it's already implied for this particular 3x3 matrix to start with, but practically added to demonstrate associated mechanism on the awarded loss), find the sum of all such values in the RREF.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.0,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "3",
+    "final_in_band": true
+  },
+  {
+    "chain": 586,
+    "events": [
+      {
+        "step": 4,
+        "accepted": true,
+        "strategy": "?",
+        "old": "What is the smallest positive integer \\( n \\) such that \\( 5n \\equiv 1 \\pmod{7} \\)?",
+        "new": "Find a positive integer \\( k \\) such that \\( k \\) is divisible by both 5 and 7, and the difference \\( k - 70 \\) is a prime number.",
+        "r0": 0.0,
+        "r1": 0.2222
+      },
+      {
+        "step": 5,
+        "accepted": true,
+        "strategy": "D",
+        "old": "Find a positive integer \\( k \\) such that \\( k \\) is divisible by both 5 and 7, and the difference \\( k - 70 \\) is a prime number.",
+        "new": "Given that five travelers start from point A and visit four psychic hotspots (B, C, D, E) before returning to A, in how many ways can they choose their itinerary routes to minimize the total time spent connecting the hotspots (B to C, C to D, D to E, E to B), considering that distances between B and C, C and D, D and E, and E and A are always the same? Also consider that the time taken from one spot to another follows a negative triangle, represented as AB + BC > AC and BC + CD > BD and CD + DE > CE and DE + EB > DB and EB + BA > EA, ensuring that direct routes between two locations only require one travel, except for A and B who require two visits altogether, maximizing the constraint?",
+        "r0": 0.2222,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "What is the smallest positive integer \\( n \\) such that \\( 5n \\equiv 1 \\pmod{7} \\)?",
+    "final": "Given that five travelers start from point A and visit four psychic hotspots (B, C, D, E) before returning to A, in how many ways can they choose their itinerary routes to minimize the total time spent connecting the hotspots (B to C, C to D, D to E, E to B), considering that distances between B and C, C and D, D and E, and E and A are always the same? Also consider that the time taken from one spot to another follows a negative triangle, represented as AB + BC > AC and BC + CD > BD and CD + DE > CE and DE + EB > DB and EB + BA > EA, ensuring that direct routes between two locations only require one travel, except for A and B who require two visits altogether, maximizing the constraint?",
+    "n_accepted": 2,
+    "r_unc_seed": 0.0,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.5555555555555556,
+    "final_pseudo_label": "24",
+    "final_in_band": true
+  },
+  {
+    "chain": 1389,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "B",
+        "old": "Find the smallest positive integer $x$ such that $3x \\equiv 1 \\pmod{17}$. That is, find $x$ where $3x$ leaves a remainder of $1$ when divided by $17$.",
+        "new": "Determine the relationship between the area $A$ of a circle and its circumference $C$, such that $A = \\pi \\left(\\frac{C}{2\\pi}\\right)^2$ always holds true. Then, find the specific circumference value $C$ when this area cancels out to $1$ sq unit.",
+        "r0": 0.2222,
+        "r1": 0.4444
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "D",
+        "old": "Determine the relationship between the area $A$ of a circle and its circumference $C$, such that $A = \\pi \\left(\\frac{C}{2\\pi}\\right)^2$ always holds true. Then, find the specific circumference value $C$ when this area cancels out to $1$ sq unit.",
+        "new": "The equation $x^3+8x=0$ has three distinct roots. Three distinguishable markers A, B, and C are placed on these roots on a number line in designated order such that A - B = BC = CB = -AB = -BA. Determine A + B + C.",
+        "r0": 0.4444,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "Find the smallest positive integer $x$ such that $3x \\equiv 1 \\pmod{17}$. That is, find $x$ where $3x$ leaves a remainder of $1$ when divided by $17$.",
+    "final": "The equation $x^3+8x=0$ has three distinct roots. Three distinguishable markers A, B, and C are placed on these roots on a number line in designated order such that A - B = BC = CB = -AB = -BA. Determine A + B + C.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.5555555555555556,
+    "final_pseudo_label": "0",
+    "final_in_band": true
+  },
+  {
+    "chain": 1700,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "A",
+        "old": "[Problem on limits and derivatives]",
+        "new": "How many positive integers n have the property that n! (n factorial) is divisible by 10^9?",
+        "r0": 0.2222,
+        "r1": 0.4444
+      },
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "?",
+        "old": "How many positive integers n have the property that n! (n factorial) is divisible by 10^9?",
+        "new": "How many integers n have the property that n! (n factorial) is divisible by 10^15? (Answer should be a specific number)",
+        "r0": 0.4444,
+        "r1": 0.8889
+      },
+      {
+        "step": 4,
+        "accepted": false,
+        "strategy": "A",
+        "old": "How many integers n have the property that n! (n factorial) is divisible by 10^15? (Answer should be a specific number)",
+        "new": "Given two positive integers x and y, where x ≠ y, find the number of ordered pairs (x, y) such that (x + y)! is divisible by 100.",
+        "r0": 0.8889,
+        "r1": 0.2222
+      },
+      {
+        "step": 5,
+        "accepted": false,
+        "strategy": "A",
+        "old": "How many integers n have the property that n! (n factorial) is divisible by 10^15? (Answer should be a specific number)",
+        "new": "Three integers, α, β, and γ, are greater than zero and with each β$ = 1\\\\tfrac{-γ}{6 - n}$. The product needs to be restricted so that {\\\\frac{n}{\\\\sqrt[(γ(2 - n)}]\\,  (\\\\tfrac{γ(n - 3})}}$^2$ must be a natural integer. Find all sets of {{\\\\sqrt13} psychological momentum}. (Answer should be a FINITE set of specific values)",
+        "r0": 0.8889,
+        "r1": 0.2222
+      }
+    ],
+    "seed": "[Problem on limits and derivatives]",
+    "final": "How many integers n have the property that n! (n factorial) is divisible by 10^15? (Answer should be a specific number)",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "\\infty",
+    "final_in_band": true
+  },
+  {
+    "chain": 171,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "C",
+        "old": "Find all integer solutions \\((x, y)\\) to the equation:\n\\[ x^2 + y^2 + xy = 7. \\]",
+        "new": "Find all integer solutions \\((x, y)\\) to the equation:\n\\[ x^2 + y^2 + xy = 7 \\]\nwith the additional condition:\n\\[ x + y > 5. \\]",
+        "r0": 0.2222,
+        "r1": 0.8889
+      },
+      {
+        "step": 3,
+        "accepted": false,
+        "strategy": "B",
+        "old": "Find all integer solutions \\((x, y)\\) to the equation:\n\\[ x^2 + y^2 + xy = 7 \\]\nwith the additional condition:\n\\[ x + y > 5. \\]",
+        "new": "Find all integer solutions \\((x, y, z)\\) to the equation:\n\\[ x^2 + y^2 + z^2 + xy + xz + yz = 7 \\]",
+        "r0": 0.8889,
+        "r1": 0.2222
+      },
+      {
+        "step": 5,
+        "accepted": true,
+        "strategy": "A",
+        "old": "Find all integer solutions \\((x, y)\\) to the equation:\n\\[ x^2 + y^2 + xy = 7 \\]\nwith the additional condition:\n\\[ x + y > 5. \\]",
+        "new": "Find all integer solutions \\((x, y, z)\\) to the equation:\n\\[ x^2 + y^2 + xy + z^2 = 7 \\]\nin 3-dimensional space. Assuming that \\(x + y + z > 5\\), determine the number of integer solutions.",
+        "r0": 0.8889,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "Find all integer solutions \\((x, y)\\) to the equation:\n\\[ x^2 + y^2 + xy = 7. \\]",
+    "final": "Find all integer solutions \\((x, y, z)\\) to the equation:\n\\[ x^2 + y^2 + xy + z^2 = 7 \\]\nin 3-dimensional space. Assuming that \\(x + y + z > 5\\), determine the number of integer solutions.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.5555555555555556,
+    "final_pseudo_label": "0",
+    "final_in_band": true
+  },
+  {
+    "chain": 1034,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "D",
+        "old": "There are 7 distinct books on a shelf. If three of these books are to be chosen to form a set, and the selection must include at least one book from the first three on the shelf, how many different sets can be formed?",
+        "new": "There are 7 distinct books on a shelf. If three of these books are to be chosen to form a set, and the selection must include at least one book from the first four on the shelf, how many different sets can be formed? Furthermore, if these sets are to be arranged in increasing order of the sum of the indices of their books, what is the sum of the indices of the books in the second set?",
+        "r0": 0.2222,
+        "r1": 0.8889
+      },
+      {
+        "step": 2,
+        "accepted": false,
+        "strategy": "B",
+        "old": "There are 7 distinct books on a shelf. If three of these books are to be chosen to form a set, and the selection must include at least one book from the first four on the shelf, how many different sets can be formed? Furthermore, if these sets are to be arranged in increasing order of the sum of the indices of their books, what is the sum of the indices of the books in the second set?",
+        "new": "There are 9 distinct items instead of 7, where these items consist of 5 books and 4 items from another category. If three of these items are to be chosen to form a set, and the selection must include at least one book from the first three books on the shelf, how many different sets can be formed? Furthermore, if these sets are to be arranged in increasing order of the sum of the indices of their items (including mixed categories), what is the sum of the indices of the items in the fourth set?",
+        "r0": 0.8889,
+        "r1": 0.4444
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "E",
+        "old": "There are 7 distinct books on a shelf. If three of these books are to be chosen to form a set, and the selection must include at least one book from the first four on the shelf, how many different sets can be formed? Furthermore, if these sets are to be arranged in increasing order of the sum of the indices of their books, what is the sum of the indices of the books in the second set?",
+        "new": "There are 9 distinct points in a plane with no three points being collinear. If a couple of these points are to form a line segment, and the selection of points must satisfy either \\(x_1 \\leq x_2\\) or \\(y_1 \\leq y_2\\), how many different line segments can be formed? Additionally, if these line segments are to be ordered in increasing order of their lengths, what is the length of the fourth segment?",
+        "r0": 0.8889,
+        "r1": 0.8889
+      },
+      {
+        "step": 5,
+        "accepted": false,
+        "strategy": "C",
+        "old": "There are 9 distinct points in a plane with no three points being collinear. If a couple of these points are to form a line segment, and the selection of points must satisfy either \\(x_1 \\leq x_2\\) or \\(y_1 \\leq y_2\\), how many different line segments can be formed? Additionally, if these line segments are to be ordered in increasing order of their lengths, what is the length of the fourth segment?",
+        "new": "There are nine distinct points in a plane with no three points being collinear. A couple of these points can form a line segment if either point A is on or to the right of point B along one axis or point A is on or below point B along the opposite axis. Additionally, the line segment must not pass through any of the points other than the endpoints. How many different line segments can be formed? If these line segments are to be ordered in increasing order of their lengths, what is the length of the fourth segment?",
+        "r0": 0.8889,
+        "r1": 0.2222
+      }
+    ],
+    "seed": "There are 7 distinct books on a shelf. If three of these books are to be chosen to form a set, and the selection must include at least one book from the first three on the shelf, how many different sets can be formed?",
+    "final": "There are 9 distinct points in a plane with no three points being collinear. If a couple of these points are to form a line segment, and the selection of points must satisfy either \\(x_1 \\leq x_2\\) or \\(y_1 \\leq y_2\\), how many different line segments can be formed? Additionally, if these line segments are to be ordered in increasing order of their lengths, what is the length of the fourth segment?",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "36",
+    "final_in_band": true
+  },
+  {
+    "chain": 35,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "D",
+        "old": "You have 10 coins, each of which has a probability \\( p \\) of landing heads and a probability \\( 1-p \\) of landing tails. What is the expected number of coins that need to be flipped to observe at least one head and one tail?",
+        "new": "Two lines with equations \\( y = ax + b \\) and \\( y = cx + d \\) intersect at a point forming a right angle with slopes of \\( 2 \\) and \\( \\frac{1}{2} \\). What is the value of \\( b - d \\) for these lines to intersect?",
+        "r0": 0.2222,
+        "r1": 0.4444
+      },
+      {
+        "step": 5,
+        "accepted": true,
+        "strategy": "D",
+        "old": "Two lines with equations \\( y = ax + b \\) and \\( y = cx + d \\) intersect at a point forming a right angle with slopes of \\( 2 \\) and \\( \\frac{1}{2} \\). What is the value of \\( b - d \\) for these lines to intersect?",
+        "new": "Two lines with equations \\( y = ax + b \\) and \\( y = cx + d \\) intersect at a point forming a right angle with slopes of \\( 2 \\) and \\( \\frac{1}{2} \\). For these lines to intersect, find the minimum difference between \\( b \\) and \\( d \\).",
+        "r0": 0.4444,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "You have 10 coins, each of which has a probability \\( p \\) of landing heads and a probability \\( 1-p \\) of landing tails. What is the expected number of coins that need to be flipped to observe at least one head and one tail?",
+    "final": "Two lines with equations \\( y = ax + b \\) and \\( y = cx + d \\) intersect at a point forming a right angle with slopes of \\( 2 \\) and \\( \\frac{1}{2} \\). For these lines to intersect, find the minimum difference between \\( b \\) and \\( d \\).",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.5555555555555556,
+    "final_pseudo_label": "0",
+    "final_in_band": true
+  },
+  {
+    "chain": 1660,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "B",
+        "old": "在三角形ABC中，点O是外心，点I是内心。如果AB = 13，BC = 14，CA = 15，求OI长度。",
+        "new": "在三角形ABC中，点O是外心，点I是内心。如果AB = 13，BC = 14，CA = 15，求OI长度。另设P为三角形ABC内任意一点，请证明：PI² + PO² = 2 * (PA² + PB² + PC²) / 3",
+        "r0": 0.2222,
+        "r1": 0.2222
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "?",
+        "old": "在三角形ABC中，点O是外心，点I是内心。如果AB = 13，BC = 14，CA = 15，求OI长度。另设P为三角形ABC内任意一点，请证明：PI² + PO² = 2 * (PA² + PB² + PC²) / 3",
+        "new": "Consider a triangle $\\triangle ABC$ with circumcenter $O_1$ and incenter $I$. Suppose the side lengths are $AB=AC=BC=13$. Find the length of the $O_1I$. Also, for any point $P$ inside $\\triangle ABC$, prove the following identity: $PI^2 + O_1P^2 = 2\\left(\\dfrac{PA^2+PB^2+PC^2}{3}\\right)$.",
+        "r0": 0.2222,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "在三角形ABC中，点O是外心，点I是内心。如果AB = 13，BC = 14，CA = 15，求OI长度。",
+    "final": "Consider a triangle $\\triangle ABC$ with circumcenter $O_1$ and incenter $I$. Suppose the side lengths are $AB=AC=BC=13$. Find the length of the $O_1I$. Also, for any point $P$ inside $\\triangle ABC$, prove the following identity: $PI^2 + O_1P^2 = 2\\left(\\dfrac{PA^2+PB^2+PC^2}{3}\\right)$.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.5555555555555556,
+    "final_pseudo_label": "0",
+    "final_in_band": true
+  },
+  {
+    "chain": 1826,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "?",
+        "old": "Consider the function \\( f(x) = \\frac{x^3 - 3x^2 + 2x}{x-2} \\). Find the value of \\( \\lim_{x \\to 2} f(x) \\) and the derivative \\( f'(x) \\) at \\( x = 3 \\).",
+        "new": "Consider the function \\( f_{j,k}(x) = \\frac{x^j - kx^{j-2} + lx^{j-1}}{x-2} \\) and analyze function at \\( j=2, k=4, l=8,3 \\).Find the limits and derivative of \\( f_{j,k}(x) \\).",
+        "r0": 0.2222,
+        "r1": 0.4444
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "D",
+        "old": "Consider the function \\( f_{j,k}(x) = \\frac{x^j - kx^{j-2} + lx^{j-1}}{x-2} \\) and analyze function at \\( j=2, k=4, l=8,3 \\).Find the limits and derivative of \\( f_{j,k}(x) \\).",
+        "new": "FixedUpdate the function \\( f_{j,k}(x) = \\frac{x^j - kx^{j-2} + lx^{j-1}}{x-2} \\). Let \\( j = 3, k = 3, l = 5 \\) and find the sum of all equilibrium points of this function.",
+        "r0": 0.4444,
+        "r1": 0.8889
+      },
+      {
+        "step": 4,
+        "accepted": false,
+        "strategy": "?",
+        "old": "FixedUpdate the function \\( f_{j,k}(x) = \\frac{x^j - kx^{j-2} + lx^{j-1}}{x-2} \\). Let \\( j = 3, k = 3, l = 5 \\) and find the sum of all equilibrium points of this function.",
+        "new": "Fixed-update the function \\( f_{j,k}(x) = \\frac{x^j - kx^{j-2} + lx^{j-1}}{x-2} \\). Let \\( j = 3, k = 3, l = 5 \\). Which of the following choices is true?\n\\[\n\\textbf{(A) } -4\\qquad \\textbf{(B) } -5\\qquad \\textbf{(C) } 2\\qquad \\textbf{(D) } 3\\qquad \\textbf{(E) } 4\\qquad \n\\]",
+        "r0": 0.8889,
+        "r1": 0.4444
+      }
+    ],
+    "seed": "Consider the function \\( f(x) = \\frac{x^3 - 3x^2 + 2x}{x-2} \\). Find the value of \\( \\lim_{x \\to 2} f(x) \\) and the derivative \\( f'(x) \\) at \\( x = 3 \\).",
+    "final": "FixedUpdate the function \\( f_{j,k}(x) = \\frac{x^j - kx^{j-2} + lx^{j-1}}{x-2} \\). Let \\( j = 3, k = 3, l = 5 \\) and find the sum of all equilibrium points of this function.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.5555555555555556,
+    "final_pseudo_label": "-4",
+    "final_in_band": true
+  },
+  {
+    "chain": 1425,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "D",
+        "old": "What is the smallest positive integer \\( n \\) such that \\( 15n \\equiv 30 \\pmod{45} \\) and \\( 20n \\equiv 45 \\pmod{60} \\)?",
+        "new": "What is the sum of all positive integers \\( x \\) such that \\( 15x \\equiv 30 \\pmod{45} \\) and \\( 20x \\equiv 45 \\pmod{60} \\)?",
+        "r0": 0.2222,
+        "r1": 0.6667
+      },
+      {
+        "step": 5,
+        "accepted": true,
+        "strategy": "B",
+        "old": "What is the sum of all positive integers \\( x \\) such that \\( 15x \\equiv 30 \\pmod{45} \\) and \\( 20x \\equiv 45 \\pmod{60} \\)?",
+        "new": "Find all integers \\( x \\) such that \\( 3x \\equiv 6 \\pmod{9} \\) and \\( 4x \\equiv 10 \\pmod{12} \\).",
+        "r0": 0.6667,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "What is the smallest positive integer \\( n \\) such that \\( 15n \\equiv 30 \\pmod{45} \\) and \\( 20n \\equiv 45 \\pmod{60} \\)?",
+    "final": "Find all integers \\( x \\) such that \\( 3x \\equiv 6 \\pmod{9} \\) and \\( 4x \\equiv 10 \\pmod{12} \\).",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": null,
+    "final_in_band": true
+  },
+  {
+    "chain": 1556,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "E",
+        "old": "Let \\( P(x, y) \\) be a point on the hyperbola \\( \\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1 \\). The sum of the distances from \\( P \\) to the foci \\( F_1(c, 0) \\) and \\( F_2(-c, 0) \\) is given by \\( PF_1 + PF_2 = 2a \\). Find the value of \\( a^2 + b^2 \\) if the foci are at \\( (\\pm 5, 0) \\) and the difference in the distances from any point on the hyperbola to the foci is \\( 6 \\).",
+        "new": "Let \\( P(x, y) \\) be a point on the hyperbola \\( \\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1 \\). The sum of the distances from \\( P \\) to the foci \\( F_1(c, 0) \\) and \\( F_2(-c, 0) \\) is given by \\( PF_1 + PF_2 = 2a \\). Find the value of \\( a^2 \\cdot b^2 \\) if the foci are at \\( (\\pm 5, 0) \\) and the difference in the distances from any point on the hyperbola to the foci is \\( 6 \\).",
+        "r0": 0.2222,
+        "r1": 0.2222
+      },
+      {
+        "step": 4,
+        "accepted": true,
+        "strategy": "C",
+        "old": "Let \\( P(x, y) \\) be a point on the hyperbola \\( \\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1 \\). The sum of the distances from \\( P \\) to the foci \\( F_1(c, 0) \\) and \\( F_2(-c, 0) \\) is given by \\( PF_1 + PF_2 = 2a \\). Find the value of \\( a^2 \\cdot b^2 \\) if the foci are at \\( (\\pm 5, 0) \\) and the difference in the distances from any point on the hyperbola to the foci is \\( 6 \\).",
+        "new": "We are given a hyperbola with equation \\( \\frac{x^{2}}{a^2} - \\frac{y^2}{b^2} = 1 \\). The foci of the hyperbola are located at \\( (\\pm 5, 0) \\), and the difference in the distances from any point \\( (x, y) \\) on the hyperbola to the foci \\( (5, 0) \\) and \\( (-5, 0) \\) is \\( 6 \\). Find the equation of the hyperbola and then compute the product \\( a^2 \\cdot b^2 \\).",
+        "r0": 0.2222,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "Let \\( P(x, y) \\) be a point on the hyperbola \\( \\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1 \\). The sum of the distances from \\( P \\) to the foci \\( F_1(c, 0) \\) and \\( F_2(-c, 0) \\) is given by \\( PF_1 + PF_2 = 2a \\). Find the value of \\( a^2 + b^2 \\) if the foci are at \\( (\\pm 5, 0) \\) and the difference in the distances from any point on the hyperbola to the foci is \\( 6 \\).",
+    "final": "We are given a hyperbola with equation \\( \\frac{x^{2}}{a^2} - \\frac{y^2}{b^2} = 1 \\). The foci of the hyperbola are located at \\( (\\pm 5, 0) \\), and the difference in the distances from any point \\( (x, y) \\) on the hyperbola to the foci \\( (5, 0) \\) and \\( (-5, 0) \\) is \\( 6 \\). Find the equation of the hyperbola and then compute the product \\( a^2 \\cdot b^2 \\).",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.5555555555555556,
+    "final_pseudo_label": "144",
+    "final_in_band": true
+  },
+  {
+    "chain": 1859,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "D",
+        "old": "In base 5, how many positive three-digit numbers are there where the sum of the digits is congruent to 3 modulo 4?",
+        "new": "In base 5, given that the sum of the digits of a positive three-digit number is congruent to 3 modulo 4, how many such numbers exist?",
+        "r0": 0.2222,
+        "r1": 0.4444
+      },
+      {
+        "step": 5,
+        "accepted": true,
+        "strategy": "C",
+        "old": "In base 5, given that the sum of the digits of a positive three-digit number is congruent to 3 modulo 4, how many such numbers exist?",
+        "new": "Find all positive three-digit binary numbers where the sum of the digits is congruent to 3 modulo 4 and the first digit is either 0 or 1.",
+        "r0": 0.4444,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "In base 5, how many positive three-digit numbers are there where the sum of the digits is congruent to 3 modulo 4?",
+    "final": "Find all positive three-digit binary numbers where the sum of the digits is congruent to 3 modulo 4 and the first digit is either 0 or 1.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "111",
+    "final_in_band": true
+  },
+  {
+    "chain": 1635,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "B",
+        "old": "In triangle \\( ABC \\), the incircle touches \\( BC \\), \\( CA \\), and \\( AB \\) at \\( D \\), \\( E \\), and \\( F \\) respectively. Let \\( P \\) be the orthocenter of triangle \\( DEF \\). If \\( AB = 13 \\), \\( BC = 14 \\), and \\( CA = 15 \\), find the length of \\( AP \\).",
+        "new": "In triangle \\( ABC \\), the incircle touches \\( BC \\), \\( CA \\), and \\( AB \\) at \\( D \\), \\( E \\), and \\( F \\) respectively. Let \\( P \\) be the orthocenter of triangle \\( DEF \\). Suppose \\( \\angle A = 90^\\circ \\), \\( BC = 14 \\), and \\( CA = 15 \\). Find the length of \\( AP \\).",
+        "r0": 0.2222,
+        "r1": 0.2222
+      },
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "B",
+        "old": "In triangle \\( ABC \\), the incircle touches \\( BC \\), \\( CA \\), and \\( AB \\) at \\( D \\), \\( E \\), and \\( F \\) respectively. Let \\( P \\) be the orthocenter of triangle \\( DEF \\). Suppose \\( \\angle A = 90^\\circ \\), \\( BC = 14 \\), and \\( CA = 15 \\). Find the length of \\( AP \\).",
+        "new": "In triangle \\( ABC \\), the inradius is \\( r = 3 \\) and sides \\( |BC| = 7 \\), \\( |AC| = 8 \\), \\( |AB| = 9 \\). Additionally, assume that angle \\( \\angle A \\) is changing linearly through time at a constant rate, increasing from \\( 0^\\circ \\) to \\( 180^\\circ \\). Determine the ratio of the rate of change of the area of triangle \\( DEF \\) to the rate of change of the length of \\( DE \\).",
+        "r0": 0.2222,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "In triangle \\( ABC \\), the incircle touches \\( BC \\), \\( CA \\), and \\( AB \\) at \\( D \\), \\( E \\), and \\( F \\) respectively. Let \\( P \\) be the orthocenter of triangle \\( DEF \\). If \\( AB = 13 \\), \\( BC = 14 \\), and \\( CA = 15 \\), find the length of \\( AP \\).",
+    "final": "In triangle \\( ABC \\), the inradius is \\( r = 3 \\) and sides \\( |BC| = 7 \\), \\( |AC| = 8 \\), \\( |AB| = 9 \\). Additionally, assume that angle \\( \\angle A \\) is changing linearly through time at a constant rate, increasing from \\( 0^\\circ \\) to \\( 180^\\circ \\). Determine the ratio of the rate of change of the area of triangle \\( DEF \\) to the rate of change of the length of \\( DE \\).",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.5555555555555556,
+    "final_pseudo_label": "0",
+    "final_in_band": true
+  },
+  {
+    "chain": 865,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "B",
+        "old": "Find the sum of the squares of the roots of the polynomial \\(P(x) = x^3 - 5x^2 + 7x - 3\\).",
+        "new": "Find the sum of the squares of the roots of the polynomial \\(P(x) = x^3 - 5x^2 + 7x - 3\\) and the absolute value of the product of the roots.",
+        "r0": 0.2222,
+        "r1": 0.6667
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "A",
+        "old": "Find the sum of the squares of the roots of the polynomial \\(P(x) = x^3 - 5x^2 + 7x - 3\\) and the absolute value of the product of the roots.",
+        "new": "Given the polynomial \\(P(x) = x^n - ax^{n-1} + bx^{n-2} - c\\) with \\(n, a, b,\\) and \\(c\\) as parameters, find the sum of the squares of the roots. Additionally, find the absolute value of the product of the roots for \\(n=3\\), \\(a=5\\), \\(b=7\\), and \\(c=3\\).",
+        "r0": 0.6667,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "Find the sum of the squares of the roots of the polynomial \\(P(x) = x^3 - 5x^2 + 7x - 3\\).",
+    "final": "Given the polynomial \\(P(x) = x^n - ax^{n-1} + bx^{n-2} - c\\) with \\(n, a, b,\\) and \\(c\\) as parameters, find the sum of the squares of the roots. Additionally, find the absolute value of the product of the roots for \\(n=3\\), \\(a=5\\), \\(b=7\\), and \\(c=3\\).",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.5555555555555556,
+    "final_pseudo_label": "3",
+    "final_in_band": true
+  },
+  {
+    "chain": 885,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "B",
+        "old": "What is the probability of picking one apple and one orange when selecting two fruits from a basket containing 10 apples, 8 oranges, and 6 bananas without replacement?",
+        "new": "You have a jar with 12 red balls and 18 blue balls. You also know that the product of the number of marbles of each color is divisible by 90. What are the possible numbers of red and blue balls in the jar?",
+        "r0": 0.2222,
+        "r1": 0.2222
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "B",
+        "old": "You have a jar with 12 red balls and 18 blue balls. You also know that the product of the number of marbles of each color is divisible by 90. What are the possible numbers of red and blue balls in the jar?",
+        "new": "You have a jar with m red balls and n blue balls. If the product of the number of marbles of each color is divisible by 10 and both m and n are positive integers, what are the smallest possible values for m and n?",
+        "r0": 0.2222,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "What is the probability of picking one apple and one orange when selecting two fruits from a basket containing 10 apples, 8 oranges, and 6 bananas without replacement?",
+    "final": "You have a jar with m red balls and n blue balls. If the product of the number of marbles of each color is divisible by 10 and both m and n are positive integers, what are the smallest possible values for m and n?",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "m = 2, n = 5",
+    "final_in_band": true
+  },
+  {
+    "chain": 1044,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "C",
+        "old": "Let \\( f(x) = x^2 \\sin(\\frac{1}{x}) \\) for \\( x \\neq 0 \\) and \\( f(0) = 0 \\). Calculate the limit as \\( x \\) approaches 0 of \\( f(x) \\).",
+        "new": "Let \\( f(x) = x^2 \\sin\\left(\\frac{1}{x}\\right) \\) for \\( x \\neq 0 \\) and \\( f(0) = 0 \\). Calculate the limit as \\( x \\) approaches 0 of \\( f(x) \\). Additionally, find the smallest non-negative real number \\( c \\) such that \\( f(x) \\leq cx^2 \\) for all \\( x \\neq 0 \\).",
+        "r0": 0.2222,
+        "r1": 0.6667
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "?",
+        "old": "Let \\( f(x) = x^2 \\sin\\left(\\frac{1}{x}\\right) \\) for \\( x \\neq 0 \\) and \\( f(0) = 0 \\). Calculate the limit as \\( x \\) approaches 0 of \\( f(x) \\). Additionally, find the smallest non-negative real number \\( c \\) such that \\( f(x) \\leq cx^2 \\) for all \\( x \\neq 0 \\).",
+        "new": "Consider the function \\( g(x) = \\frac{\\sin(3x)}{x} \\) for \\( x \\neq 0 \\) and \\( g(0) = 3 \\). Compute the limit as \\( x \\) approaches 0 of \\( g(x) \\). Now, find the maximum value of \\( g(x) \\) in the interval \\( (-\\pi, \\pi) \\) excluding \\( x = 0 \\).",
+        "r0": 0.6667,
+        "r1": 0.8889
+      },
+      {
+        "step": 5,
+        "accepted": false,
+        "strategy": "C",
+        "old": "Consider the function \\( g(x) = \\frac{\\sin(3x)}{x} \\) for \\( x \\neq 0 \\) and \\( g(0) = 3 \\). Compute the limit as \\( x \\) approaches 0 of \\( g(x) \\). Now, find the maximum value of \\( g(x) \\) in the interval \\( (-\\pi, \\pi) \\) excluding \\( x = 0 \\).",
+        "new": "The school library bound 3 sets of books out of 7 to the third floor. These sets had a combined number of books that is a multiple of 3. Every set contained at least 10 books up to 13 books. How many books could the additional set of books (folded now into a puzzle counting game) contain in the range 1 through 16 such as every pair of sets together also satisfies a set of Sums Paradox questions about the ratio of greatest number to smallest one exactly 3 times?",
+        "r0": 0.8889,
+        "r1": 0.2222
+      }
+    ],
+    "seed": "Let \\( f(x) = x^2 \\sin(\\frac{1}{x}) \\) for \\( x \\neq 0 \\) and \\( f(0) = 0 \\). Calculate the limit as \\( x \\) approaches 0 of \\( f(x) \\).",
+    "final": "Consider the function \\( g(x) = \\frac{\\sin(3x)}{x} \\) for \\( x \\neq 0 \\) and \\( g(0) = 3 \\). Compute the limit as \\( x \\) approaches 0 of \\( g(x) \\). Now, find the maximum value of \\( g(x) \\) in the interval \\( (-\\pi, \\pi) \\) excluding \\( x = 0 \\).",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "\\frac{6}{\\pi}",
+    "final_in_band": true
+  },
+  {
+    "chain": 107,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "D",
+        "old": "Let 3 be the only positive integer n satisfying both p and q: &quot;p: n is a perfect cube&quot; and &quot;q: n is a factor of 27.&quot; Express this condition as an equation involving floor and ceiling functions.",
+        "new": "Find the smallest positive integer n that is both a perfect cube and a factor of 125.",
+        "r0": 0.2222,
+        "r1": 0.8889
+      },
+      {
+        "step": 3,
+        "accepted": false,
+        "strategy": "B",
+        "old": "Find the smallest positive integer n that is both a perfect cube and a factor of 125.",
+        "new": "Find a positive integer n that satisfies two conditions: first, it must be the area of a rectangle with integer side lengths; second, n must also be a fourth power. What are the possible values of n?",
+        "r0": 0.8889,
+        "r1": 0.2222
+      },
+      {
+        "step": 4,
+        "accepted": true,
+        "strategy": "A",
+        "old": "Find the smallest positive integer n that is both a perfect cube and a factor of 125.",
+        "new": "Find the smallest positive integer n that is both a perfect m-th power and a factor of 125, where m is at least 2 but not divisible by 2.",
+        "r0": 0.8889,
+        "r1": 0.8889
+      },
+      {
+        "step": 5,
+        "accepted": false,
+        "strategy": "D",
+        "old": "Find the smallest positive integer n that is both a perfect m-th power and a factor of 125, where m is at least 2 but not divisible by 2.",
+        "new": "Find the smallest positive integer n such that n can be expressed both as a perfect cube and a perfect fourth power smaller than 125.",
+        "r0": 0.8889,
+        "r1": 0.6667
+      }
+    ],
+    "seed": "Let 3 be the only positive integer n satisfying both p and q: &quot;p: n is a perfect cube&quot; and &quot;q: n is a factor of 27.&quot; Express this condition as an equation involving floor and ceiling functions.",
+    "final": "Find the smallest positive integer n that is both a perfect m-th power and a factor of 125, where m is at least 2 but not divisible by 2.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "125",
+    "final_in_band": true
+  },
+  {
+    "chain": 1644,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "B",
+        "old": "Find the smallest positive integer \\( n \\) such that \\( n \\) is a multiple of 7, \\( n^2 \\) is a multiple of 13, and \\( n^3 \\) is a multiple of 5.",
+        "new": "Find all positive integers \\( n \\) that satisfy the conditions: \\( n \\) is a multiple of 3, \\( n \\) leaves a remainder of 1 when divided by 5, and \\( n^2 \\) is a multiple of 7.",
+        "r0": 0.2222,
+        "r1": 0.8889
+      },
+      {
+        "step": 2,
+        "accepted": false,
+        "strategy": "D",
+        "old": "Find all positive integers \\( n \\) that satisfy the conditions: \\( n \\) is a multiple of 3, \\( n \\) leaves a remainder of 1 when divided by 5, and \\( n^2 \\) is a multiple of 7.",
+        "new": "Find the number of positive integers \\( n \\) that satisfy the conditions: \\( n \\) is a multiple of 3, \\( n \\) leaves a remainder of 1 when divided by 5, and the sum of the first \\( n \\) positive integers is a multiple of 7.",
+        "r0": 0.8889,
+        "r1": 0.6667
+      },
+      {
+        "step": 3,
+        "accepted": false,
+        "strategy": "A",
+        "old": "Find all positive integers \\( n \\) that satisfy the conditions: \\( n \\) is a multiple of 3, \\( n \\) leaves a remainder of 1 when divided by 5, and \\( n^2 \\) is a multiple of 7.",
+        "new": "Find all positive integers \\( n \\) that satisfy the conditions: \\( n \\) is the width of 5% such that the height of 50%, and the volume of the resulting rectangular prism is a multiple of 7?",
+        "r0": 0.8889,
+        "r1": 0.4444
+      },
+      {
+        "step": 4,
+        "accepted": true,
+        "strategy": "B",
+        "old": "Find all positive integers \\( n \\) that satisfy the conditions: \\( n \\) is a multiple of 3, \\( n \\) leaves a remainder of 1 when divided by 5, and \\( n^2 \\) is a multiple of 7.",
+        "new": "Find all integers \\( n \\) that satisfy the following conditions: \\( n \\) is a multiple of 3, \\( n \\) leaves a remainder of 1 when divided by 5, \\( n^2 \\) is a multiple of 7, and \\( n \\) is also a multiple of 13. Finally, determine the smallest positive integer \\( n \\) that meets all these criteria.",
+        "r0": 0.8889,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "Find the smallest positive integer \\( n \\) such that \\( n \\) is a multiple of 7, \\( n^2 \\) is a multiple of 13, and \\( n^3 \\) is a multiple of 5.",
+    "final": "Find all integers \\( n \\) that satisfy the following conditions: \\( n \\) is a multiple of 3, \\( n \\) leaves a remainder of 1 when divided by 5, \\( n^2 \\) is a multiple of 7, and \\( n \\) is also a multiple of 13. Finally, determine the smallest positive integer \\( n \\) that meets all these criteria.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "546",
+    "final_in_band": true
+  },
+  {
+    "chain": 1005,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "B",
+        "old": "Find all integer solutions \\((x, y)\\) to the equation \\(x^2 + y^2 = 2xy + 1\\).",
+        "new": "Find all integer solutions \\((x, y)\\) to the system of equations \\(x^2 + y^2 = 2xy + 1\\) and \\(x - y = 1\\).",
+        "r0": 0.2222,
+        "r1": 0.2222
+      },
+      {
+        "step": 5,
+        "accepted": true,
+        "strategy": "B",
+        "old": "Find all integer solutions \\((x, y)\\) to the system of equations \\(x^2 + y^2 = 2xy + 1\\) and \\(x - y = 1\\).",
+        "new": "Find all integer solutions \\((x, y)\\) to the system of equations \\(x^2 + y^2 = 2xy + 1\\) and \\(x - y = 1\\) with the additional condition that \\(x\\) is a perfect square.",
+        "r0": 0.2222,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "Find all integer solutions \\((x, y)\\) to the equation \\(x^2 + y^2 = 2xy + 1\\).",
+    "final": "Find all integer solutions \\((x, y)\\) to the system of equations \\(x^2 + y^2 = 2xy + 1\\) and \\(x - y = 1\\) with the additional condition that \\(x\\) is a perfect square.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": null,
+    "final_in_band": true
+  },
+  {
+    "chain": 1220,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "B",
+        "old": "Find the equation of the locus of all points \\(P(x,y)\\) in the coordinate plane such that the distance from \\(P\\) to the line \\(y = 2x + 3\\) is equal to the distance from \\(P\\) to the line \\(y = -\\frac{1}{2}x + 1\\).",
+        "new": "Find the equation of the locus of all points \\(P(x,y)\\) in the coordinate plane such that the distance from \\(P\\) to the line \\(y = 2x + 3\\) is twice the distance from \\(P\\) to the line \\(y = -\\frac{1}{2}x + 1\\).",
+        "r0": 0.2222,
+        "r1": 0.8889
+      },
+      {
+        "step": 4,
+        "accepted": true,
+        "strategy": "E",
+        "old": "Find the equation of the locus of all points \\(P(x,y)\\) in the coordinate plane such that the distance from \\(P\\) to the line \\(y = 2x + 3\\) is twice the distance from \\(P\\) to the line \\(y = -\\frac{1}{2}x + 1\\).",
+        "new": "Find the equation of the locus of all points \\(P(x,y)\\) in the coordinate plane such that the sum of the distances from \\(P\\) to the lines \\(y = 5 - 2x\\) and \\(y = \\frac{1}{2}x + 2\\) is equal to the sum of the distances from \\(P\\) to the lines \\(y = 2x + 3\\) and \\(y = -\\frac{1}{2}x + 1\\).",
+        "r0": 0.8889,
+        "r1": 0.8889
+      },
+      {
+        "step": 5,
+        "accepted": false,
+        "strategy": "?",
+        "old": "Find the equation of the locus of all points \\(P(x,y)\\) in the coordinate plane such that the sum of the distances from \\(P\\) to the lines \\(y = 5 - 2x\\) and \\(y = \\frac{1}{2}x + 2\\) is equal to the sum of the distances from \\(P\\) to the lines \\(y = 2x + 3\\) and \\(y = -\\frac{1}{2}x + 1\\).",
+        "new": "個高中的學生 Kan always makes sandwiches for lunch. Kan chooses four de ima sets which each contain from 的 2 harmon trees, 2 croissant, and 1 cheddar from each beak. They enc implement a total of m lunch methods\npurple planter各素が会在dfk\n\tsystem. system.channel(xyz.json), primary te \nonly -rn like gimming posts in four (-3 body chất t fact was_featitu eng faces…… ווא')\n\nde​ techannel(chachi(per, changed; wordsots.Reh_Joined fe\n\nredux uc吕 Vitachisd(object); asked\n3 Ruf, Occupy Airbnb!?",
+        "r0": 0.8889,
+        "r1": 0.2222
+      }
+    ],
+    "seed": "Find the equation of the locus of all points \\(P(x,y)\\) in the coordinate plane such that the distance from \\(P\\) to the line \\(y = 2x + 3\\) is equal to the distance from \\(P\\) to the line \\(y = -\\frac{1}{2}x + 1\\).",
+    "final": "Find the equation of the locus of all points \\(P(x,y)\\) in the coordinate plane such that the sum of the distances from \\(P\\) to the lines \\(y = 5 - 2x\\) and \\(y = \\frac{1}{2}x + 2\\) is equal to the sum of the distances from \\(P\\) to the lines \\(y = 2x + 3\\) and \\(y = -\\frac{1}{2}x + 1\\).",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "|2x + y - 5| + |x - 2y + 4| = |2x - y + 3| + |x + 2y - 2|",
+    "final_in_band": true
+  },
+  {
+    "chain": 1710,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "B",
+        "old": "Given the expression $\\frac{3\\sqrt{5}-2\\sqrt{7}}{\\sqrt{5}-\\sqrt{7}}+\\frac{\\sqrt{11}-\\sqrt{7}}{\\sqrt{11}-\\sqrt{7}}-\\frac{\\sqrt{5}-\\sqrt{11}}{\\sqrt{5}-\\sqrt{11}}$, compute its value.",
+        "new": "Given the positive real numbers ℓ, w, h, and c such that the volume of a rectangular prism with dimensions ℓ, w, h is equal to the volume of a cube with side length c, and the sum of ℓ, w, and h is 9 times c, find the minimum possible value of c.",
+        "r0": 0.2222,
+        "r1": 0.4444
+      },
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "?",
+        "old": "Given the positive real numbers ℓ, w, h, and c such that the volume of a rectangular prism with dimensions ℓ, w, h is equal to the volume of a cube with side length c, and the sum of ℓ, w, and h is 9 times c, find the minimum possible value of c.",
+        "new": "Given the positive real numbers ℓ, w, and h, and a positive scalar k, such that the volume of a rectangular prism with dimensions ℓ, w, h is equal to the volume of a cube with side length k, and the sum of k*(ℓ), k*(w), and k*(h) is 9 times k, find the minimum possible value of k.",
+        "r0": 0.4444,
+        "r1": 0.8889
+      },
+      {
+        "step": 5,
+        "accepted": false,
+        "strategy": "B",
+        "old": "Given the positive real numbers ℓ, w, and h, and a positive scalar k, such that the volume of a rectangular prism with dimensions ℓ, w, h is equal to the volume of a cube with side length k, and the sum of k*(ℓ), k*(w), and k*(h) is 9 times k, find the minimum possible value of k.",
+        "new": "Given the positive real numbers {\nℓ, w, h} such that the difference between the area of the rectangle formed by {\nℓ, w}\nand the area of the rectangle formed by ({\nh, h}) is equal to the area of the square with side length k,\nfind the minimum possible value of {\nh*k + w*k}.",
+        "r0": 0.8889,
+        "r1": 0.2222
+      }
+    ],
+    "seed": "Given the expression $\\frac{3\\sqrt{5}-2\\sqrt{7}}{\\sqrt{5}-\\sqrt{7}}+\\frac{\\sqrt{11}-\\sqrt{7}}{\\sqrt{11}-\\sqrt{7}}-\\frac{\\sqrt{5}-\\sqrt{11}}{\\sqrt{5}-\\sqrt{11}}$, compute its value.",
+    "final": "Given the positive real numbers ℓ, w, and h, and a positive scalar k, such that the volume of a rectangular prism with dimensions ℓ, w, h is equal to the volume of a cube with side length k, and the sum of k*(ℓ), k*(w), and k*(h) is 9 times k, find the minimum possible value of k.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "3",
+    "final_in_band": true
+  },
+  {
+    "chain": 1159,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "C",
+        "old": "Consider the circle $C$ defined by $x^2 + y^2 = 25$ and let $L$ be the line $y = 3x + 4$. Find the coordinates of the point(s) on $C$ that are closest to $L$.",
+        "new": "The circle \\( C \\) is defined by \\( x^2 + y^2 = 25 \\) and the line \\( L \\) is given by \\( y = 3x + 4 \\). Suppose there is an additional constraint that any point on \\( C \\) must also lie on a line \\( M \\) such that the product of the slopes of \\( L \\) and \\( M \\) is equal to \\(-\\frac{1}{9}\\). Find the coordinates of the point(s) on \\( C \\) that satisfy both conditions.",
+        "r0": 0.2222,
+        "r1": 0.4444
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "D",
+        "old": "The circle \\( C \\) is defined by \\( x^2 + y^2 = 25 \\) and the line \\( L \\) is given by \\( y = 3x + 4 \\). Suppose there is an additional constraint that any point on \\( C \\) must also lie on a line \\( M \\) such that the product of the slopes of \\( L \\) and \\( M \\) is equal to \\(-\\frac{1}{9}\\). Find the coordinates of the point(s) on \\( C \\) that satisfy both conditions.",
+        "new": "The circle \\( C \\) is defined by \\( x^2 + y^2 = 25 \\) and the line \\( L \\) is given by \\( y = 3x + 4 \\). Suppose there is an additional constraint that any point on \\( C \\) must also lie on a line \\( M \\) such that the product of the slopes of \\( L \\) and \\( M \\) is equal to \\(-\\frac{1}{9}\\). Find the sum of the y-coordinates of all the points on \\( C \\) that satisfy both conditions.",
+        "r0": 0.4444,
+        "r1": 0.8889
+      },
+      {
+        "step": 4,
+        "accepted": false,
+        "strategy": "?",
+        "old": "The circle \\( C \\) is defined by \\( x^2 + y^2 = 25 \\) and the line \\( L \\) is given by \\( y = 3x + 4 \\). Suppose there is an additional constraint that any point on \\( C \\) must also lie on a line \\( M \\) such that the product of the slopes of \\( L \\) and \\( M \\) is equal to \\(-\\frac{1}{9}\\). Find the sum of the y-coordinates of all the points on \\( C \\) that satisfy both conditions.",
+        "new": "Consider a circle defined by the equation \\( x^2 + y^2 = 36 \\). Find the sum of all possible values of \\( y \\) where these points also lie on at least one line with slope \\( m \\) such that \\( xy \\leq 9 \\).",
+        "r0": 0.8889,
+        "r1": 0.6667
+      }
+    ],
+    "seed": "Consider the circle $C$ defined by $x^2 + y^2 = 25$ and let $L$ be the line $y = 3x + 4$. Find the coordinates of the point(s) on $C$ that are closest to $L$.",
+    "final": "The circle \\( C \\) is defined by \\( x^2 + y^2 = 25 \\) and the line \\( L \\) is given by \\( y = 3x + 4 \\). Suppose there is an additional constraint that any point on \\( C \\) must also lie on a line \\( M \\) such that the product of the slopes of \\( L \\) and \\( M \\) is equal to \\(-\\frac{1}{9}\\). Find the sum of the y-coordinates of all the points on \\( C \\) that satisfy both conditions.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "\\frac{4}{5}",
+    "final_in_band": true
+  },
+  {
+    "chain": 1130,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "A",
+        "old": "Find the derivative of \\( f(x) = \\ln(x^2 + 1) \\).",
+        "new": "Find the derivative of \\( g(\\theta) = \\ln(\\sin^2(\\theta) + 1) \\) with respect to \\(\\theta\\).",
+        "r0": 0.2222,
+        "r1": 0.4444
+      },
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "B",
+        "old": "Find the derivative of \\( g(\\theta) = \\ln(\\sin^2(\\theta) + 1) \\) with respect to \\(\\theta\\).",
+        "new": "Given the function \\( g(\\theta) = \\ln(\\sin^2(\\theta) + 1) \\) and the condition that \\(\\cos(2\\theta) = \\frac{1}{2}\\), find the derivative \\( g'(\\theta) \\) with respect to \\(\\theta\\).",
+        "r0": 0.4444,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "Find the derivative of \\( f(x) = \\ln(x^2 + 1) \\).",
+    "final": "Given the function \\( g(\\theta) = \\ln(\\sin^2(\\theta) + 1) \\) and the condition that \\(\\cos(2\\theta) = \\frac{1}{2}\\), find the derivative \\( g'(\\theta) \\) with respect to \\(\\theta\\).",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "\\frac{2\\sqrt{3}}{5}",
+    "final_in_band": true
+  },
+  {
+    "chain": 1606,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "A",
+        "old": "How many pairs of integers \\((a,b)\\) with \\(1\\le a\\le b\\le 50\\) satisfy the conditions \\(ab-(a+b)\\) is odd and \\(a^3+(b-3)^2\\) is divisible by 5?",
+        "new": "Find the value of \\(\\sum_{\\theta=0}^{\\pi}\\left(\\sin^3\\theta - \\cos^3\\theta\\right)\\).",
+        "r0": 0.2222,
+        "r1": 0.8889
+      },
+      {
+        "step": 2,
+        "accepted": false,
+        "strategy": "?",
+        "old": "Find the value of \\(\\sum_{\\theta=0}^{\\pi}\\left(\\sin^3\\theta - \\cos^3\\theta\\right)\\).",
+        "new": "Given a real number \\( x \\), evaluate\n\\[ f(x) = \\sum_{\\theta=0}^{\\pi}\\left(\\sin^3\\theta - \\cos^3\\theta\\right)\\sin(x + \\theta). \\]\n\\boxed{-4x\\sin(x)}",
+        "r0": 0.8889,
+        "r1": 0.4444
+      },
+      {
+        "step": 4,
+        "accepted": true,
+        "strategy": "A",
+        "old": "Find the value of \\(\\sum_{\\theta=0}^{\\pi}\\left(\\sin^3\\theta - \\cos^3\\theta\\right)\\).",
+        "new": "Find the value of \\(\\sum_{\\theta=0}^{\\pi}\\left(a\\sin^3\\theta - b\\cos^3\\theta\\right)\\), where \\(a\\) and \\(b\\) are non-zero constants.",
+        "r0": 0.8889,
+        "r1": 0.8889
+      },
+      {
+        "step": 5,
+        "accepted": false,
+        "strategy": "C",
+        "old": "Find the value of \\(\\sum_{\\theta=0}^{\\pi}\\left(a\\sin^3\\theta - b\\cos^3\\theta\\right)\\), where \\(a\\) and \\(b\\) are non-zero constants.",
+        "new": "In the triangle \\(ABC,\\) if \\(BA = BC,\\) \\(\\sin(ACB) = 2\\sqrt{2}/3,\\) and \\(BC = 16,\\) find \\(AB\\) with integration.",
+        "r0": 0.8889,
+        "r1": 0.2222
+      }
+    ],
+    "seed": "How many pairs of integers \\((a,b)\\) with \\(1\\le a\\le b\\le 50\\) satisfy the conditions \\(ab-(a+b)\\) is odd and \\(a^3+(b-3)^2\\) is divisible by 5?",
+    "final": "Find the value of \\(\\sum_{\\theta=0}^{\\pi}\\left(a\\sin^3\\theta - b\\cos^3\\theta\\right)\\), where \\(a\\) and \\(b\\) are non-zero constants.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "0",
+    "final_in_band": true
+  },
+  {
+    "chain": 1217,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "C",
+        "old": "Evaluate the limit as x approaches zero of the derivative of the function r(x) = |x|^(1/2), and interpret the result geometrically.",
+        "new": "Evaluate the limit as x approaches zero of the derivative of the function r(x) = |x|^(1/2) if x ≠ 0, and interpret the result geometrically.",
+        "r0": 0.2222,
+        "r1": 0.2222
+      },
+      {
+        "step": 5,
+        "accepted": true,
+        "strategy": "A",
+        "old": "Evaluate the limit as x approaches zero of the derivative of the function r(x) = |x|^(1/2) if x ≠ 0, and interpret the result geometrically.",
+        "new": "ึกSeek the limit as x approaches zero of the derivative of the function s(x) = x^3 if x ≠ 0, and describe the geometric significance.ึก",
+        "r0": 0.2222,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "Evaluate the limit as x approaches zero of the derivative of the function r(x) = |x|^(1/2), and interpret the result geometrically.",
+    "final": "ึกSeek the limit as x approaches zero of the derivative of the function s(x) = x^3 if x ≠ 0, and describe the geometric significance.ึก",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.5555555555555556,
+    "final_pseudo_label": "0",
+    "final_in_band": true
+  },
+  {
+    "chain": 1642,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "C",
+        "old": "In triangle \\(ABC\\), the incircle touches \\(BC\\), \\(CA\\), and \\(AB\\) at points \\(D\\), \\(E\\), and \\(F\\) respectively. Let \\(I\\) be the incenter of triangle \\(ABC\\). The circumcircle of triangle \\(DEF\\) intersects \\(BC\\) at point \\(P\\). If \\(BP = 4\\) and \\(PC = 6\\), find the length of \\(BC\\).",
+        "new": "**  \nIn triangle \\(ABC\\), the incircle touches \\(BC\\), \\(CA\\), and \\(AB\\) at points \\(D\\), \\(E\\), and \\(F\\) respectively. Let \\(I\\) be the incenter of triangle \\(ABC\\). The circumcircle of triangle \\(DEF\\) intersects \\(BC\\) at point \\(P\\). If \\(BP = x\\) and \\(PC = 2x\\), find the length of \\(BC\\) when \\(x = 3\\).",
+        "r0": 0.2222,
+        "r1": 0.4444
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "A",
+        "old": "**  \nIn triangle \\(ABC\\), the incircle touches \\(BC\\), \\(CA\\), and \\(AB\\) at points \\(D\\), \\(E\\), and \\(F\\) respectively. Let \\(I\\) be the incenter of triangle \\(ABC\\). The circumcircle of triangle \\(DEF\\) intersects \\(BC\\) at point \\(P\\). If \\(BP = x\\) and \\(PC = 2x\\), find the length of \\(BC\\) when \\(x = 3\\).",
+        "new": "In a triangle \\(ABC\\), the incircle touches \\(BC\\), \\(CA\\), and \\(AB\\) at points \\(D\\), \\(E\\), and \\(F\\) respectively. Let \\(I\\) be the incenter of triangle \\(ABC\\). The circumcircle of triangle \\(DEF\\) intersects \\(BC\\) at point \\(P\\). If the length of \\(BC\\) is \\(m\\), and the ratio \\(BP:\\ PC = k:1\\), find the perimeter of triangle \\(ABC\\) when \\(k = 2\\).",
+        "r0": 0.4444,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "In triangle \\(ABC\\), the incircle touches \\(BC\\), \\(CA\\), and \\(AB\\) at points \\(D\\), \\(E\\), and \\(F\\) respectively. Let \\(I\\) be the incenter of triangle \\(ABC\\). The circumcircle of triangle \\(DEF\\) intersects \\(BC\\) at point \\(P\\). If \\(BP = 4\\) and \\(PC = 6\\), find the length of \\(BC\\).",
+    "final": "In a triangle \\(ABC\\), the incircle touches \\(BC\\), \\(CA\\), and \\(AB\\) at points \\(D\\), \\(E\\), and \\(F\\) respectively. Let \\(I\\) be the incenter of triangle \\(ABC\\). The circumcircle of triangle \\(DEF\\) intersects \\(BC\\) at point \\(P\\). If the length of \\(BC\\) is \\(m\\), and the ratio \\(BP:\\ PC = k:1\\), find the perimeter of triangle \\(ABC\\) when \\(k = 2\\).",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "3m",
+    "final_in_band": true
+  },
+  {
+    "chain": 1430,
+    "events": [
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "D",
+        "old": "Consider the function \\( f(x) = x^3 - 3x^2 + 2x \\). Determine the value of the limit \\( \\lim_{x \\to 1} \\frac{f(x) - f(1)}{x - 1} \\).",
+        "new": "Consider the same function \\( f(x) = x^3 - 3x^2 + 2x \\). Find the smallest positive integer \\( n \\) such that the composite function \\( g(x) = f(f(x)) \\) can be expressed as a cubic polynomial \\( ax^3 + bx^2 + cx + d \\) where each coefficient \\( a, b, c, d \\) is an integer.",
+        "r0": 0.2222,
+        "r1": 0.2222
+      },
+      {
+        "step": 5,
+        "accepted": true,
+        "strategy": "C",
+        "old": "Consider the same function \\( f(x) = x^3 - 3x^2 + 2x \\). Find the smallest positive integer \\( n \\) such that the composite function \\( g(x) = f(f(x)) \\) can be expressed as a cubic polynomial \\( ax^3 + bx^2 + cx + d \\) where each coefficient \\( a, b, c, d \\) is an integer.",
+        "new": "The cubic function \\( g(x) = f(f(x)) \\) expressed as \\( ax^3 + bx^2 + cx + d \\) has the smallest positive integer \\( n \\) as 1 in its coefficients difference \\( |a - b - c - d| \\). Find the function \\( f(x) = x^3 - 3x^2 + 2x \\).",
+        "r0": 0.2222,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "Consider the function \\( f(x) = x^3 - 3x^2 + 2x \\). Determine the value of the limit \\( \\lim_{x \\to 1} \\frac{f(x) - f(1)}{x - 1} \\).",
+    "final": "The cubic function \\( g(x) = f(f(x)) \\) expressed as \\( ax^3 + bx^2 + cx + d \\) has the smallest positive integer \\( n \\) as 1 in its coefficients difference \\( |a - b - c - d| \\). Find the function \\( f(x) = x^3 - 3x^2 + 2x \\).",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "f(x) = x^3 - 3x^2 + 2x",
+    "final_in_band": true
+  },
+  {
+    "chain": 74,
+    "events": [
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "D",
+        "old": "Determine if 131 is a prime number.",
+        "new": "Find the number of hours between noon yesterday and 5 pm today.",
+        "r0": 0.2222,
+        "r1": 0.8889
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "?",
+        "old": "Find the number of hours between noon yesterday and 5 pm today.",
+        "new": "Find the sum of all integer values of x such that 3x^2 - 19x + 20 = 0.",
+        "r0": 0.8889,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "Determine if 131 is a prime number.",
+    "final": "Find the sum of all integer values of x such that 3x^2 - 19x + 20 = 0.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "5",
+    "final_in_band": true
+  },
+  {
+    "chain": 136,
+    "events": [
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "A",
+        "old": "Find all pairs of integers \\((x, y)\\) such that \\(x^2 + y^2 = 2024\\).",
+        "new": "Given a positive integer \\( n \\), find all ordered pairs \\((a, b)\\) of integers such that \\( a^2 + b^2 = n \\). For what smallest value of \\( n \\) does exactly one such pair exist?",
+        "r0": 0.2222,
+        "r1": 0.4444
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "D",
+        "old": "Given a positive integer \\( n \\), find all ordered pairs \\((a, b)\\) of integers such that \\( a^2 + b^2 = n \\). For what smallest value of \\( n \\) does exactly one such pair exist?",
+        "new": "Given a positive integer \\( n \\), find the product of all ordered pairs \\((a, b)\\) of integers such that \\( a^2 + b^2 = n \\). For what smallest value of \\( n \\) does the product of all such pairs equal \\( +1 \\)?",
+        "r0": 0.4444,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "Find all pairs of integers \\((x, y)\\) such that \\(x^2 + y^2 = 2024\\).",
+    "final": "Given a positive integer \\( n \\), find the product of all ordered pairs \\((a, b)\\) of integers such that \\( a^2 + b^2 = n \\). For what smallest value of \\( n \\) does the product of all such pairs equal \\( +1 \\)?",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "2",
+    "final_in_band": true
+  },
+  {
+    "chain": 1107,
+    "events": [
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "E",
+        "old": "Determine all pairs of positive integers \\( (a, b) \\) such that \\( a^2 + b^2 = 2023 \\).",
+        "new": "Determine all pairs of positive integers \\( (a, b) \\) such that \\( a \\times b = 2023 \\) and \\( a \\geq b \\).",
+        "r0": 0.2222,
+        "r1": 0.2222
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "B",
+        "old": "Determine all pairs of positive integers \\( (a, b) \\) such that \\( a \\times b = 2023 \\) and \\( a \\geq b \\).",
+        "new": "Find all pairs of positive integers \\( (a, b) \\) such that \\( a \\times b = 2023 \\) and \\( a \\geq b \\), with the additional condition that \\( a + b \\) is a prime number.",
+        "r0": 0.2222,
+        "r1": 0.8889
+      },
+      {
+        "step": 4,
+        "accepted": false,
+        "strategy": "C",
+        "old": "Find all pairs of positive integers \\( (a, b) \\) such that \\( a \\times b = 2023 \\) and \\( a \\geq b \\), with the additional condition that \\( a + b \\) is a prime number.",
+        "new": "Find an integer \\( n \\) such that the sum of the factors of the number before \\( n \\) (starting from 2) equals \\( n \\).",
+        "r0": 0.8889,
+        "r1": 0.6667
+      }
+    ],
+    "seed": "Determine all pairs of positive integers \\( (a, b) \\) such that \\( a^2 + b^2 = 2023 \\).",
+    "final": "Find all pairs of positive integers \\( (a, b) \\) such that \\( a \\times b = 2023 \\) and \\( a \\geq b \\), with the additional condition that \\( a + b \\) is a prime number.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": null,
+    "final_in_band": true
+  },
+  {
+    "chain": 385,
+    "events": [
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "B",
+        "old": "Find the number of triangles with integer side lengths where the longest side is 10 units and the perimeter of the triangle is less than 30 units.",
+        "new": "Find the number of arrangements of three non-negative integers \\(a\\), \\(b\\), and \\(c\\) such that their sum is 25, they form the sides of a triangle, and the longest side is less than 15.",
+        "r0": 0.2222,
+        "r1": 0.2222
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "C",
+        "old": "Find the number of arrangements of three non-negative integers \\(a\\), \\(b\\), and \\(c\\) such that their sum is 25, they form the sides of a triangle, and the longest side is less than 15.",
+        "new": "Find positive real numbers \\(a\\), \\(b\\), and \\(c\\) such that \\(a + b + c = 25\\), \\(a\\), \\(b\\), and \\(c\\) can form the sides of a triangle, and if we were to change the constraint such that the largest side \\( \\max(a, b, c) \\) became smaller than 15, what would happen to the values of \\(a\\), \\(b\\), and \\(c\\)? Determine the value or values of \\( \\max(a, b, c) \\) that allows/forbids/supports such a configuration while maintaining the triangle condition.",
+        "r0": 0.2222,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "Find the number of triangles with integer side lengths where the longest side is 10 units and the perimeter of the triangle is less than 30 units.",
+    "final": "Find positive real numbers \\(a\\), \\(b\\), and \\(c\\) such that \\(a + b + c = 25\\), \\(a\\), \\(b\\), and \\(c\\) can form the sides of a triangle, and if we were to change the constraint such that the largest side \\( \\max(a, b, c) \\) became smaller than 15, what would happen to the values of \\(a\\), \\(b\\), and \\(c\\)? Determine the value or values of \\( \\max(a, b, c) \\) that allows/forbids/supports such a configuration while maintaining the triangle condition.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "12.5",
+    "final_in_band": true
+  },
+  {
+    "chain": 786,
+    "events": [
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "C",
+        "old": "In triangle ABC, the incircle touches BC at D, AC at E, and AB at F. If AB = 13, BC = 14, and CA = 15, find the length of the segment EF.",
+        "new": "In triangle ABC, the incircle touches BC at D, AC at E, and AB at F. If AB = 13, BC = 14, and CA = 15, and the inradius (r) is 4, find the area of triangle DEF.\n\nGiven that the inradius of triangle ABC is 4, what additional relationship must hold between the segments created by the incircle's tangency points for triangle DEF to be isosceles?",
+        "r0": 0.2222,
+        "r1": 0.4444
+      },
+      {
+        "step": 3,
+        "accepted": false,
+        "strategy": "B",
+        "old": "In triangle ABC, the incircle touches BC at D, AC at E, and AB at F. If AB = 13, BC = 14, and CA = 15, and the inradius (r) is 4, find the area of triangle DEF.\n\nGiven that the inradius of triangle ABC is 4, what additional relationship must hold between the segments created by the incircle's tangency points for triangle DEF to be isosceles?",
+        "new": "In triangle ABC, the incircle touches BC at D, AC at E, and AB at F. If AB = 13, BC = 14, and CA = 15, and the inradius (r) is 4, find the lengths of segments BD, DC, CE, EA, AF, and FB.",
+        "r0": 0.4444,
+        "r1": 0.2222
+      },
+      {
+        "step": 4,
+        "accepted": true,
+        "strategy": "C",
+        "old": "In triangle ABC, the incircle touches BC at D, AC at E, and AB at F. If AB = 13, BC = 14, and CA = 15, and the inradius (r) is 4, find the area of triangle DEF.\n\nGiven that the inradius of triangle ABC is 4, what additional relationship must hold between the segments created by the incircle's tangency points for triangle DEF to be isosceles?",
+        "new": "In a triangle ABC, the incircle touches BC at D, AC at E, and AB at F. Suppose the lengths are as follows: AB = 13, BC = 14, and CA = 15. Additionally, let's add a new condition: the area of triangle DEF must be exactly half the area of triangle ABC. Given these conditions, find the area of triangle ABC.",
+        "r0": 0.4444,
+        "r1": 0.8889
+      },
+      {
+        "step": 5,
+        "accepted": false,
+        "strategy": "C",
+        "old": "In a triangle ABC, the incircle touches BC at D, AC at E, and AB at F. Suppose the lengths are as follows: AB = 13, BC = 14, and CA = 15. Additionally, let's add a new condition: the area of triangle DEF must be exactly half the area of triangle ABC. Given these conditions, find the area of triangle ABC.",
+        "new": "In a triangle ABC, the incircle touches BC at D, AC at E, and AB at F. Given that the sides of the triangle are AB = 13, BC = 14, and CA = 15, and additionally, the centroid (the intersection of medians) divides each median in a 2:1 ratio, find the area of triangle ABC.",
+        "r0": 0.8889,
+        "r1": 0.6667
+      }
+    ],
+    "seed": "In triangle ABC, the incircle touches BC at D, AC at E, and AB at F. If AB = 13, BC = 14, and CA = 15, find the length of the segment EF.",
+    "final": "In a triangle ABC, the incircle touches BC at D, AC at E, and AB at F. Suppose the lengths are as follows: AB = 13, BC = 14, and CA = 15. Additionally, let's add a new condition: the area of triangle DEF must be exactly half the area of triangle ABC. Given these conditions, find the area of triangle ABC.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "84",
+    "final_in_band": true
+  },
+  {
+    "chain": 813,
+    "events": [
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "C",
+        "old": "In a special competition, each participant must design a system where a smaller cube is connected to two larger cubes by slender rods. The challenge is to determine the mathematical model that predicts the axis of rotation when one holds a convex lens, such that the distance between the axis of rotation and the observation area is maximized.",
+        "new": "In the same competition, what is the measure of the angle formed between the axis of rotation and the specific observation area, given that the side length of each cube is a unique prime number? And the rods connecting the cubes must form the third side of an isosceles triangle within the variables a, b, and c.",
+        "r0": 0.2222,
+        "r1": 0.2222
+      },
+      {
+        "step": 4,
+        "accepted": true,
+        "strategy": "?",
+        "old": "In the same competition, what is the measure of the angle formed between the axis of rotation and the specific observation area, given that the side length of each cube is a unique prime number? And the rods connecting the cubes must form the third side of an isosceles triangle within the variables a, b, and c.",
+        "new": "A right circular cone has a base radius of `r` and a height of `h`. A smaller, similar cone is inscribed within the larger cone such that its base lies on the base of the larger cone. If the ratio of the heights of the two cones is `3:4`, what is the ratio of the volumes of the two cones?",
+        "r0": 0.2222,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "In a special competition, each participant must design a system where a smaller cube is connected to two larger cubes by slender rods. The challenge is to determine the mathematical model that predicts the axis of rotation when one holds a convex lens, such that the distance between the axis of rotation and the observation area is maximized.",
+    "final": "A right circular cone has a base radius of `r` and a height of `h`. A smaller, similar cone is inscribed within the larger cone such that its base lies on the base of the larger cone. If the ratio of the heights of the two cones is `3:4`, what is the ratio of the volumes of the two cones?",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.5555555555555556,
+    "final_pseudo_label": "\\frac{27}{64}",
+    "final_in_band": true
+  },
+  {
+    "chain": 901,
+    "events": [
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "B",
+        "old": "In a game, a fair die is rolled repeatedly until a 6 appears for the first time. What is the expected number of rolls needed to achieve this?",
+        "new": "In a game, a fair die is rolled repeatedly until a 6 appears for the first time. Additionally, suppose the die is biased such that the probability of rolling a 1 is twice the probability of rolling any other number. What is the expected number of rolls needed to achieve the first 6?",
+        "r0": 0.2222,
+        "r1": 0.8889
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "C",
+        "old": "In a game, a fair die is rolled repeatedly until a 6 appears for the first time. Additionally, suppose the die is biased such that the probability of rolling a 1 is twice the probability of rolling any other number. What is the expected number of rolls needed to achieve the first 6?",
+        "new": "A fair coin is tossed repeatedly until heads appear for the first time. If the coin is biased such that the probability of landing on heads is three times the probability of landing on tails, what is the expected number of tosses required to achieve the first heads? Additionally, if after observing the first few tosses, we notice that tails have appeared more frequently, adjust our expectation model to account for the increased probable elements of the probability measure and continue into new states with the guarantees lower results to expected value by converging to the hypothesis limit bounds of variation in random counting of greatness of our total tosses while keeping the um boundness principle consistent with the commod nation less inclus neo density variation validation idemd sum packs cast finalise unification in optimizing invers increment k values ge lit linear interaction between bury product slots trades opposed captured paradox-dimensional features routes provide purely transporting ({`} stream and packaging feeding that oven's from intra-transracial induction execution both courses of induction.",
+        "r0": 0.8889,
+        "r1": 0.8889
+      },
+      {
+        "step": 4,
+        "accepted": false,
+        "strategy": "D",
+        "old": "A fair coin is tossed repeatedly until heads appear for the first time. If the coin is biased such that the probability of landing on heads is three times the probability of landing on tails, what is the expected number of tosses required to achieve the first heads? Additionally, if after observing the first few tosses, we notice that tails have appeared more frequently, adjust our expectation model to account for the increased probable elements of the probability measure and continue into new states with the guarantees lower results to expected value by converging to the hypothesis limit bounds of variation in random counting of greatness of our total tosses while keeping the um boundness principle consistent with the commod nation less inclus neo density variation validation idemd sum packs cast finalise unification in optimizing invers increment k values ge lit linear interaction between bury product slots trades opposed captured paradox-dimensional features routes provide purely transporting ({`} stream and packaging feeding that oven's from intra-transracial induction execution both courses of induction.",
+        "new": "A fair coin is flipped until tails is observed for the first time. Instead of finding the probability of observing exactly x heads and y tails, find the largest integer n such that the total number of heads and tails combined is equal to n for each possible unequal distribution where the state is split between new at 553.6 observations. Additionally quantify the real change in form where our results stated the real difference in real practical matter while bit infinite equations are possible in value of codington inter variations between dynamic ain vitro steven bit fields state view.",
+        "r0": 0.8889,
+        "r1": 0.2222
+      }
+    ],
+    "seed": "In a game, a fair die is rolled repeatedly until a 6 appears for the first time. What is the expected number of rolls needed to achieve this?",
+    "final": "A fair coin is tossed repeatedly until heads appear for the first time. If the coin is biased such that the probability of landing on heads is three times the probability of landing on tails, what is the expected number of tosses required to achieve the first heads? Additionally, if after observing the first few tosses, we notice that tails have appeared more frequently, adjust our expectation model to account for the increased probable elements of the probability measure and continue into new states with the guarantees lower results to expected value by converging to the hypothesis limit bounds of variation in random counting of greatness of our total tosses while keeping the um boundness principle consistent with the commod nation less inclus neo density variation validation idemd sum packs cast finalise unification in optimizing invers increment k values ge lit linear interaction between bury product slots trades opposed captured paradox-dimensional features routes provide purely transporting ({`} stream and packaging feeding that oven's from intra-transracial induction execution both courses of induction.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "\\frac{4}{3}",
+    "final_in_band": true
+  },
+  {
+    "chain": 1455,
+    "events": [
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "?",
+        "old": "Evaluate the product \\(\\prod\\limits_{k=1}^{6} (k^9 + 1)\\).",
+        "new": "Compute the product \\(\\prod\\limits_{k=1}^{n} (x^l + 1)\\) for some integers \\(x\\) and \\(l > 1\\). Find a general formula for the smallest possible \\(n\\) such that the product is non-trivial (i.e., greater than 1).",
+        "r0": 0.2222,
+        "r1": 0.6667
+      },
+      {
+        "step": 4,
+        "accepted": true,
+        "strategy": "A",
+        "old": "Compute the product \\(\\prod\\limits_{k=1}^{n} (x^l + 1)\\) for some integers \\(x\\) and \\(l > 1\\). Find a general formula for the smallest possible \\(n\\) such that the product is non-trivial (i.e., greater than 1).",
+        "new": "Expand the product \\(\\prod\\limits_{k=1}^{n} (x^l + y^m)\\) where \\(x, y\\) are distinct integers and \\(l, m > 1\\). Find a general formula for the smallest \\(n\\) such that the product results in a non-zero and finite number for any \\(x, y, l, m\\).",
+        "r0": 0.6667,
+        "r1": 0.8889
+      },
+      {
+        "step": 5,
+        "accepted": false,
+        "strategy": "?",
+        "old": "Expand the product \\(\\prod\\limits_{k=1}^{n} (x^l + y^m)\\) where \\(x, y\\) are distinct integers and \\(l, m > 1\\). Find a general formula for the smallest \\(n\\) such that the product results in a non-zero and finite number for any \\(x, y, l, m\\).",
+        "new": "An integer N satisfies the property that, for any two distinct primes \\(p\\) and \\(q\\), the product \\(Npq\\) results in a number that is 1 more than a multiple of \\(pq\\). Find the smallest such N.",
+        "r0": 0.8889,
+        "r1": 0.4444
+      }
+    ],
+    "seed": "Evaluate the product \\(\\prod\\limits_{k=1}^{6} (k^9 + 1)\\).",
+    "final": "Expand the product \\(\\prod\\limits_{k=1}^{n} (x^l + y^m)\\) where \\(x, y\\) are distinct integers and \\(l, m > 1\\). Find a general formula for the smallest \\(n\\) such that the product results in a non-zero and finite number for any \\(x, y, l, m\\).",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.5555555555555556,
+    "final_pseudo_label": "1",
+    "final_in_band": true
+  },
+  {
+    "chain": 692,
+    "events": [
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "?",
+        "old": "Find all integer solutions \\((x, y)\\) to the equation \\(x^2 + y^2 - 2xy = 100\\). Your answer should include all possible pairs \\((x, y)\\).",
+        "new": "Consider all pairs of coprime integers \\((a, b)\\) such that \\(x = a^2 + b^2 - 2ab\\). How many such pairs exist where \\(x\\) is a prime number less than 100?",
+        "r0": 0.2222,
+        "r1": 0.8889
+      },
+      {
+        "step": 5,
+        "accepted": true,
+        "strategy": "D",
+        "old": "Consider all pairs of coprime integers \\((a, b)\\) such that \\(x = a^2 + b^2 - 2ab\\). How many such pairs exist where \\(x\\) is a prime number less than 100?",
+        "new": "Consider all pairs of coprime integers \\((a, b)\\) such that \\((a^2 + b^2 - 2ab)^2\\) is an even number. These are affectionately commonly referred to as paired coprime integers of interest. How many such cases are their?",
+        "r0": 0.8889,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "Find all integer solutions \\((x, y)\\) to the equation \\(x^2 + y^2 - 2xy = 100\\). Your answer should include all possible pairs \\((x, y)\\).",
+    "final": "Consider all pairs of coprime integers \\((a, b)\\) such that \\((a^2 + b^2 - 2ab)^2\\) is an even number. These are affectionately commonly referred to as paired coprime integers of interest. How many such cases are their?",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "\\infty",
+    "final_in_band": true
+  },
+  {
+    "chain": 1621,
+    "events": [
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "B",
+        "old": "Consider the function \\( f(x) = x^3 - 6x^2 + 11x - 6 \\). Find the limit as \\( x \\) approaches 2 of the difference quotient \\( \\frac{f(x) - f(2)}{x - 2} \\). What is the value of this limit?",
+        "new": "Consider the function \\( f(x) = x^3 - 6x^2 + 11x - 6 \\). Find the limit as \\( x \\) approaches 2 of the difference quotient \\( \\frac{f(x) - f(2)}{x - 2} \\), and assume that \\( x \\neq 2 \\). The limit exists and equals \\( L \\). What is the value of \\( L \\)?",
+        "r0": 0.2222,
+        "r1": 0.6667
+      },
+      {
+        "step": 4,
+        "accepted": true,
+        "strategy": "?",
+        "old": "Consider the function \\( f(x) = x^3 - 6x^2 + 11x - 6 \\). Find the limit as \\( x \\) approaches 2 of the difference quotient \\( \\frac{f(x) - f(2)}{x - 2} \\), and assume that \\( x \\neq 2 \\). The limit exists and equals \\( L \\). What is the value of \\( L \\)?",
+        "new": "Find the limit as \\( x \\) approaches 2.5 of the difference quotient \\( \\frac{f(x) - f(2.5)}{x - 2.5} \\), where \\( f(x) = x^3 - 6x^2 + 11x - 6 \\), and assume that \\( x \\neq 2.5 \\). The limit exists and equals \\( L \\). What is the value of \\( L \\)?",
+        "r0": 0.6667,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "Consider the function \\( f(x) = x^3 - 6x^2 + 11x - 6 \\). Find the limit as \\( x \\) approaches 2 of the difference quotient \\( \\frac{f(x) - f(2)}{x - 2} \\). What is the value of this limit?",
+    "final": "Find the limit as \\( x \\) approaches 2.5 of the difference quotient \\( \\frac{f(x) - f(2.5)}{x - 2.5} \\), where \\( f(x) = x^3 - 6x^2 + 11x - 6 \\), and assume that \\( x \\neq 2.5 \\). The limit exists and equals \\( L \\). What is the value of \\( L \\)?",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "-0.25",
+    "final_in_band": true
+  },
+  {
+    "chain": 94,
+    "events": [
+      {
+        "step": 4,
+        "accepted": true,
+        "strategy": "B",
+        "old": "Let \\( a \\) be an integer such that \\( a \\equiv 2 \\pmod{7} \\) and \\( a \\equiv 3 \\pmod{11} \\). Find the smallest positive value of \\( a \\) satisfying both congruences.",
+        "new": "Given the same integer \\( a \\) such that \\( a \\equiv 2 \\pmod{7} \\) and \\( a \\equiv 3 \\pmod{11} \\), find the smallest positive value of \\( a \\) and then determine the number of positive integers less than 80 that satisfy these two conditions.",
+        "r0": 0.2222,
+        "r1": 0.8889
+      },
+      {
+        "step": 5,
+        "accepted": true,
+        "strategy": "B",
+        "old": "Given the same integer \\( a \\) such that \\( a \\equiv 2 \\pmod{7} \\) and \\( a \\equiv 3 \\pmod{11} \\), find the smallest positive value of \\( a \\) and then determine the number of positive integers less than 80 that satisfy these two conditions.",
+        "new": "Given the same integer \\( a \\) such that \\( a \\equiv 2 \\pmod{7} \\) and \\( a \\equiv 3 \\pmod{11} \\), find the smallest positive value of \\( a \\) and then determine the number of positive integers less than 80 that satisfy these two conditions. Additionally, find the number of ways to express \\( a \\) as the sum of two integers, both greater than 1.",
+        "r0": 0.8889,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "Let \\( a \\) be an integer such that \\( a \\equiv 2 \\pmod{7} \\) and \\( a \\equiv 3 \\pmod{11} \\). Find the smallest positive value of \\( a \\) satisfying both congruences.",
+    "final": "Given the same integer \\( a \\) such that \\( a \\equiv 2 \\pmod{7} \\) and \\( a \\equiv 3 \\pmod{11} \\), find the smallest positive value of \\( a \\) and then determine the number of positive integers less than 80 that satisfy these two conditions. Additionally, find the number of ways to express \\( a \\) as the sum of two integers, both greater than 1.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "55",
+    "final_in_band": true
+  },
+  {
+    "chain": 880,
+    "events": [
+      {
+        "step": 4,
+        "accepted": true,
+        "strategy": "?",
+        "old": "Let \\( f(x) = \\frac{x^3 - 3x^2 + 4x - 2}{x - 2} \\). Find the value of \\( f'(2) \\), where \\( f'(x) \\) is the derivative of \\( f(x) \\) at \\( x = 2 \\).",
+        "new": "Let \\( f(x,y) = 3x^2 -  4xy +1 \\). Given the \\( f^{-1}(x,y) = \\sin ^{-1} y \\) what is the domain and range of the function \\( f \\)? Provide its LaTeX representations.",
+        "r0": 0.2222,
+        "r1": 0.2222
+      },
+      {
+        "step": 5,
+        "accepted": true,
+        "strategy": "D",
+        "old": "Let \\( f(x,y) = 3x^2 -  4xy +1 \\). Given the \\( f^{-1}(x,y) = \\sin ^{-1} y \\) what is the domain and range of the function \\( f \\)? Provide its LaTeX representations.",
+        "new": "Let \\( f(x,y) = x^2 + y^2 - 1 \\). Find the sum of all \\( f(x,y) \\leq 0 \\) for 25 integer pairs \\( (x,y) \\). Provide its LaTeX representation.\n\\boxed{0}",
+        "r0": 0.2222,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "Let \\( f(x) = \\frac{x^3 - 3x^2 + 4x - 2}{x - 2} \\). Find the value of \\( f'(2) \\), where \\( f'(x) \\) is the derivative of \\( f(x) \\) at \\( x = 2 \\).",
+    "final": "Let \\( f(x,y) = x^2 + y^2 - 1 \\). Find the sum of all \\( f(x,y) \\leq 0 \\) for 25 integer pairs \\( (x,y) \\). Provide its LaTeX representation.\n\\boxed{0}",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.4444444444444444,
+    "final_pseudo_label": "0",
+    "final_in_band": true
+  },
+  {
+    "chain": 855,
+    "events": [
+      {
+        "step": 4,
+        "accepted": true,
+        "strategy": "B",
+        "old": "What is the smallest positive integer \\( n \\) such that \\( n^2 + 1 \\) is divisible by 7 and \\( n \\) is greater than 20?",
+        "new": "What is the smallest positive integer \\( n \\) such that \\( n^2 + 1 \\) is divisible by both 7 and 5, and \\( n \\) is greater than 20? Find the smallest \\( n \\) that satisfies these conditions.",
+        "r0": 0.2222,
+        "r1": 0.4444
+      },
+      {
+        "step": 5,
+        "accepted": true,
+        "strategy": "D",
+        "old": "What is the smallest positive integer \\( n \\) such that \\( n^2 + 1 \\) is divisible by both 7 and 5, and \\( n \\) is greater than 20? Find the smallest \\( n \\) that satisfies these conditions.",
+        "new": "Find the largest integer \\( n \\) such that \\( n^2 - 1 \\) is divisible by both 6 and 4, and \\( n \\) is less than or equal to 30. Find the largest \\( n \\) that satisfies these conditions.",
+        "r0": 0.4444,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "What is the smallest positive integer \\( n \\) such that \\( n^2 + 1 \\) is divisible by 7 and \\( n \\) is greater than 20?",
+    "final": "Find the largest integer \\( n \\) such that \\( n^2 - 1 \\) is divisible by both 6 and 4, and \\( n \\) is less than or equal to 30. Find the largest \\( n \\) that satisfies these conditions.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.5555555555555556,
+    "final_pseudo_label": "29",
+    "final_in_band": true
+  },
+  {
+    "chain": 530,
+    "events": [
+      {
+        "step": 4,
+        "accepted": true,
+        "strategy": "B",
+        "old": "Find all pairs of integers (x, y) such that \\(x^2 + 3y^2 = 100\\).",
+        "new": "Find all pairs of integers (x, y) such that \\(x^2 + 3y^2 = 100\\) and \\(x + y \\equiv 5 \\pmod{10}\\).",
+        "r0": 0.2222,
+        "r1": 0.2222
+      },
+      {
+        "step": 5,
+        "accepted": true,
+        "strategy": "D",
+        "old": "Find all pairs of integers (x, y) such that \\(x^2 + 3y^2 = 100\\) and \\(x + y \\equiv 5 \\pmod{10}\\).",
+        "new": "Find the matrix \\(M\\) such that when \\(M\\) is applied to \\(P\\), \\(M = P \\cdot P^{-1}\\).",
+        "r0": 0.2222,
+        "r1": 0.8889
+      }
+    ],
+    "seed": "Find all pairs of integers (x, y) such that \\(x^2 + 3y^2 = 100\\).",
+    "final": "Find the matrix \\(M\\) such that when \\(M\\) is applied to \\(P\\), \\(M = P \\cdot P^{-1}\\).",
+    "n_accepted": 2,
+    "r_unc_seed": 0.2222,
+    "r_unc_final": 0.8889,
+    "final_p_hat": 0.5555555555555556,
+    "final_pseudo_label": "I",
+    "final_in_band": true
+  },
+  {
+    "chain": 1054,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "D",
+        "old": "Find the remainder when \\( 3^{2024} \\) is divided by \\( 29 \\).",
+        "new": "Find the smallest positive integer \\( n \\) such that \\( 3^n \\) is congruent to \\( 1 \\) modulo \\( 29 \\).",
+        "r0": 0.0,
+        "r1": 0.8889
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "E",
+        "old": "Find the smallest positive integer \\( n \\) such that \\( 3^n \\) is congruent to \\( 1 \\) modulo \\( 29 \\).",
+        "new": "Determine the units digit of the decimal expansion of \\(\\left(\\frac{3^{2024}}{2^{1024}}\\right)^{1024}\\).",
+        "r0": 0.8889,
+        "r1": 0.6667
+      },
+      {
+        "step": 5,
+        "accepted": false,
+        "strategy": "?",
+        "old": "Determine the units digit of the decimal expansion of \\(\\left(\\frac{3^{2024}}{2^{1024}}\\right)^{1024}\\).",
+        "new": "Find the smallest integer n such that \\((3^{2024} \\cdot 2^{1024})^n\\) has a units digit of 6.",
+        "r0": 0.6667,
+        "r1": 0.2222
+      }
+    ],
+    "seed": "Find the remainder when \\( 3^{2024} \\) is divided by \\( 29 \\).",
+    "final": "Determine the units digit of the decimal expansion of \\(\\left(\\frac{3^{2024}}{2^{1024}}\\right)^{1024}\\).",
+    "n_accepted": 2,
+    "r_unc_seed": 0.0,
+    "r_unc_final": 0.6667,
+    "final_p_hat": 0.6666666666666666,
+    "final_pseudo_label": "1",
+    "final_in_band": true
+  },
+  {
+    "chain": 1646,
+    "events": [
+      {
+        "step": 1,
+        "accepted": true,
+        "strategy": "B",
+        "old": "What is the value of the limit as \\(x\\) approaches 0 of \\(\\frac{1-\\cos{x}}{x^2}\\)?",
+        "new": "Consider the equation \\(a^2 + b^2 - ab = 1\\). Find all integer solutions \\((a, b)\\) to this equation.",
+        "r0": 0.0,
+        "r1": 0.2222
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "B",
+        "old": "Consider the equation \\(a^2 + b^2 - ab = 1\\). Find all integer solutions \\((a, b)\\) to this equation.",
+        "new": "Consider the equation \\(a^2 + b^2 - ab = 1\\). Additionally, suppose \\(a\\) and \\(b\\) are positive integers satisfying an extra condition: \\(a + b\\) is divisible by 3. Find all integer solutions \\((a, b)\\) for both the base equation and the new condition.",
+        "r0": 0.2222,
+        "r1": 0.6667
+      }
+    ],
+    "seed": "What is the value of the limit as \\(x\\) approaches 0 of \\(\\frac{1-\\cos{x}}{x^2}\\)?",
+    "final": "Consider the equation \\(a^2 + b^2 - ab = 1\\). Additionally, suppose \\(a\\) and \\(b\\) are positive integers satisfying an extra condition: \\(a + b\\) is divisible by 3. Find all integer solutions \\((a, b)\\) for both the base equation and the new condition.",
+    "n_accepted": 2,
+    "r_unc_seed": 0.0,
+    "r_unc_final": 0.6667,
+    "final_p_hat": 0.3333333333333333,
+    "final_pseudo_label": null,
+    "final_in_band": true
+  },
+  {
+    "chain": 910,
+    "events": [
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "C",
+        "old": "Find the limit of the function \\( f(x) = \\frac{x^2 - 4}{x - 2} \\) as \\( x \\) approaches 2.",
+        "new": "Find the limit of the function \\( g(x, y) = \\frac{x^2 - 4}{x - 2} \\) as \\( x \\) and \\( y \\) both approach 2 simultaneously, under the additional condition that \\( y \\) must also equal \\( x + 4 \\).",
+        "r0": 0.0,
+        "r1": 0.4444
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "?",
+        "old": "Find the limit of the function \\( g(x, y) = \\frac{x^2 - 4}{x - 2} \\) as \\( x \\) and \\( y \\) both approach 2 simultaneously, under the additional condition that \\( y \\) must also equal \\( x + 4 \\).",
+        "new": "Determine the original function \\( f(x) \\) given that its limit as \\( t \\) and \\( u \\) both approach 0 simultaneously is 4, and also that \\( u \\) must equal \\( 2t + 3 \\).",
+        "r0": 0.4444,
+        "r1": 0.6667
+      }
+    ],
+    "seed": "Find the limit of the function \\( f(x) = \\frac{x^2 - 4}{x - 2} \\) as \\( x \\) approaches 2.",
+    "final": "Determine the original function \\( f(x) \\) given that its limit as \\( t \\) and \\( u \\) both approach 0 simultaneously is 4, and also that \\( u \\) must equal \\( 2t + 3 \\).",
+    "n_accepted": 2,
+    "r_unc_seed": 0.0,
+    "r_unc_final": 0.6667,
+    "final_p_hat": 0.3333333333333333,
+    "final_pseudo_label": "f(x) = 4",
+    "final_in_band": true
+  },
+  {
+    "chain": 690,
+    "events": [
+      {
+        "step": 2,
+        "accepted": true,
+        "strategy": "A",
+        "old": "A rectangular prism has dimensions \\(4 \\times 6 \\times 10\\). A smaller rectangular prism with dimensions \\(2 \\times 3 \\times 5\\) is removed from one corner. What is the volume of the remaining solid?",
+        "new": "A rectangular prism with dimensions \\(a \\times b \\times c\\) has a smaller rectangular prism with dimensions \\(d \\times e \\times f\\) removed from one corner. If \\(a = 4\\), \\(b = 6\\), \\(c = 10\\), \\(d = 2\\), \\(e = 3\\), and \\(f = 5\\), what is the volume of the remaining solid? Provide the answer in terms of \\(a\\), \\(b\\), \\(c\\), \\(d\\), \\(e\\), and \\(f\\).",
+        "r0": 0.0,
+        "r1": 0.6667
+      },
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "A",
+        "old": "A rectangular prism with dimensions \\(a \\times b \\times c\\) has a smaller rectangular prism with dimensions \\(d \\times e \\times f\\) removed from one corner. If \\(a = 4\\), \\(b = 6\\), \\(c = 10\\), \\(d = 2\\), \\(e = 3\\), and \\(f = 5\\), what is the volume of the remaining solid? Provide the answer in terms of \\(a\\), \\(b\\), \\(c\\), \\(d\\), \\(e\\), and \\(f\\).",
+        "new": "Given a rectangular prism with dimensions \\(a \\times b \\times c\\) and a smaller rectangular prism with dimensions \\(d \\times e \\times f\\) removed from one corner, derive a general formula for the volume of the remaining solid in terms of \\(a\\), \\(b\\), \\(c\\), \\(d\\), \\(e\\), and \\(f\\).",
+        "r0": 0.6667,
+        "r1": 0.6667
+      },
+      {
+        "step": 5,
+        "accepted": false,
+        "strategy": "?",
+        "old": "Given a rectangular prism with dimensions \\(a \\times b \\times c\\) and a smaller rectangular prism with dimensions \\(d \\times e \\times f\\) removed from one corner, derive a general formula for the volume of the remaining solid in terms of \\(a\\), \\(b\\), \\(c\\), \\(d\\), \\(e\\), and \\(f\\).",
+        "new": "Given a rectangular prism with dimensions \\(a \\times b \\times c\\) and a smaller rectangular prism with dimensions \\(d \\times e \\times f\\) removed from one corner, find the coordinates of the center of mass of the remaining solid, assuming uniform density and that the prisms are aligned with the coordinate axes.",
+        "r0": 0.6667,
+        "r1": 0.2222
+      }
+    ],
+    "seed": "A rectangular prism has dimensions \\(4 \\times 6 \\times 10\\). A smaller rectangular prism with dimensions \\(2 \\times 3 \\times 5\\) is removed from one corner. What is the volume of the remaining solid?",
+    "final": "Given a rectangular prism with dimensions \\(a \\times b \\times c\\) and a smaller rectangular prism with dimensions \\(d \\times e \\times f\\) removed from one corner, derive a general formula for the volume of the remaining solid in terms of \\(a\\), \\(b\\), \\(c\\), \\(d\\), \\(e\\), and \\(f\\).",
+    "n_accepted": 2,
+    "r_unc_seed": 0.0,
+    "r_unc_final": 0.6667,
+    "final_p_hat": 0.3333333333333333,
+    "final_pseudo_label": "abc - def",
+    "final_in_band": true
+  },
+  {
+    "chain": 138,
+    "events": [
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "D",
+        "old": "Find the sum of all positive integers \\( k \\) for which the point \\( (k, 3) \\) lies on the circle centered at the origin with radius 5.",
+        "new": "Find the product of all positive integers \\( k \\) for which the equation \\( k^2 + 3k + 4 = p \\) holds, where \\( p \\) is a prime power. The set of valid \\( k \\) values intersects with the set of numbers dividing \\( 21 \\).",
+        "r0": 0.0,
+        "r1": 0.6667
+      },
+      {
+        "step": 4,
+        "accepted": true,
+        "strategy": "E",
+        "old": "Find the product of all positive integers \\( k \\) for which the equation \\( k^2 + 3k + 4 = p \\) holds, where \\( p \\) is a prime power. The set of valid \\( k \\) values intersects with the set of numbers dividing \\( 21 \\).",
+        "new": "Find the sum \\( S \\) of all positive integers \\( k \\) for which the equation \\( n^2 + 2k + k^2 = m \\) holds, where \\( m \\) and \\( n \\) are distinct prime powers, and they are coprime. The set of intervals containing these \\( k \\) pairs includes the interval \\( [1, 10] \\).",
+        "r0": 0.6667,
+        "r1": 0.6667
+      }
+    ],
+    "seed": "Find the sum of all positive integers \\( k \\) for which the point \\( (k, 3) \\) lies on the circle centered at the origin with radius 5.",
+    "final": "Find the sum \\( S \\) of all positive integers \\( k \\) for which the equation \\( n^2 + 2k + k^2 = m \\) holds, where \\( m \\) and \\( n \\) are distinct prime powers, and they are coprime. The set of intervals containing these \\( k \\) pairs includes the interval \\( [1, 10] \\).",
+    "n_accepted": 2,
+    "r_unc_seed": 0.0,
+    "r_unc_final": 0.6667,
+    "final_p_hat": 0.3333333333333333,
+    "final_pseudo_label": "1",
+    "final_in_band": true
+  },
+  {
+    "chain": 1947,
+    "events": [
+      {
+        "step": 3,
+        "accepted": true,
+        "strategy": "D",
+        "old": "What is the smallest positive integer \\( n \\) such that \\( n! \\equiv 0 \\pmod{15} \\)?",
+        "new": "What is the smallest positive integer \\( n \\) such that the product of prime numbers less than \\( n \\) is less than \\( 2000000 \\)?\n\nEach prime number in the product is less than \\( n \\), and their product must equal or exceed the product of primes up to 17. Find this smallest \\( n \\).",
+        "r0": 0.0,
+        "r1": 0.6667
+      },
+      {
+        "step": 4,
+        "accepted": false,
+        "strategy": "A",
+        "old": "What is the smallest positive integer \\( n \\) such that the product of prime numbers less than \\( n \\) is less than \\( 2000000 \\)?\n\nEach prime number in the product is less than \\( n \\), and their product must equal or exceed the product of primes up to 17. Find this smallest \\( n \\).",
+        "new": "What is the smallest positive integer n such that the product of prime numbers less than n is less than 4096 and their product exceeds the product of primes up to 17? Find this smallest n.",
+        "r0": 0.6667,
+        "r1": 0.2222
+      },
+      {
+        "step": 5,
+        "accepted": true,
+        "strategy": "A",
+        "old": "What is the smallest positive integer \\( n \\) such that the product of prime numbers less than \\( n \\) is less than \\( 2000000 \\)?\n\nEach prime number in the product is less than \\( n \\), and their product must equal or exceed the product of primes up to 17. Find this smallest \\( n \\).",
+        "new": "How many prime numbers exist that are less than \\( 2000000 \\), given that each prime number in the product must also satisfy \\( p^2 < 2000000 \\) and their product must equal or exceed the product of primes up to 17? Identify the smallest \\( p \\) that meets this criterion.\n\n\\boxed{p}",
+        "r0": 0.6667,
+        "r1": 0.6667
+      }
+    ],
+    "seed": "What is the smallest positive integer \\( n \\) such that \\( n! \\equiv 0 \\pmod{15} \\)?",
+    "final": "How many prime numbers exist that are less than \\( 2000000 \\), given that each prime number in the product must also satisfy \\( p^2 < 2000000 \\) and their product must equal or exceed the product of primes up to 17? Identify the smallest \\( p \\) that meets this criterion.\n\n\\boxed{p}",
+    "n_accepted": 2,
+    "r_unc_seed": 0.0,
+    "r_unc_final": 0.6667,
+    "final_p_hat": 0.3333333333333333,
+    "final_pseudo_label": "2",
+    "final_in_band": true
+  },
+  {
+    "chain": 1894,
+    "events": [
+      {
+        "step": 4,
+        "accepted": true,
+        "strategy": "B",
+        "old": "Let \\( ABC \\) be a triangle with \\( AB = AC \\). The incircle of triangle \\( ABC \\) touches \\( AB \\) and \\( AC \\) at points \\( D \\) and \\( E \\) respectively. Let \\( O \\) be the circumcenter of triangle \\( ABC \\). If the line segment \\( DE \\) intersects the circumcircle of \\( ABC \\) again at point \\( F \\), find the ratio \\( \\frac{DF}{FE} \\).",
+        "new": "Let \\( ABC \\) be a triangle with \\( AB = AC \\). The incircle of triangle \\( ABC \\) touches \\( AB \\) and \\( AC \\) at points \\( D \\) and \\( E \\) respectively. Let \\( O \\) be the circumcenter of triangle \\( ABC \\). If the line segment \\( DE \\) intersects the circumcircle of \\( ABC \\) again at point \\( F \\), find the ratio \\( \\frac{DF}{FE} \\) given that the midpoint of \\( BC \\) is \\( M \\), and let \\( OM \\) be perpendicular to the chord \\( DE \\).",
+        "r0": 0.0,
+        "r1": 0.0
+      },
+      {
+        "step": 5,
+        "accepted": true,
+        "strategy": "?",
+        "old": "Let \\( ABC \\) be a triangle with \\( AB = AC \\). The incircle of triangle \\( ABC \\) touches \\( AB \\) and \\( AC \\) at points \\( D \\) and \\( E \\) respectively. Let \\( O \\) be the circumcenter of triangle \\( ABC \\). If the line segment \\( DE \\) intersects the circumcircle of \\( ABC \\) again at point \\( F \\), find the ratio \\( \\frac{DF}{FE} \\) given that the midpoint of \\( BC \\) is \\( M \\), and let \\( OM \\) be perpendicular to the chord \\( DE \\).",
+        "new": "Let \\( ABC \\) be a triangle with \\( AB = AC \\). The incircle of triangle \\( ABC \\) touches \\( AB \\) and \\( AC \\) at points \\( D \\) and \\( E \\) respectively. Let \\( O \\) be the circumcenter of triangle \\( ABC \\). If the line segment \\( DE \\) intersects the circumcircle of \\( ABC \\) again at point \\( F \\), introduce a parameter \\( k \\) such that the length of \\( DF \\) is \\( k \\times FE \\). Given that the midpoint of \\( BC \\) is \\( M \\), and let \\( OM \\) be perpendicular to the chord \\( DE \\), find the value of \\( k \\).",
+        "r0": 0.0,
+        "r1": 0.6667
+      }
+    ],
+    "seed": "Let \\( ABC \\) be a triangle with \\( AB = AC \\). The incircle of triangle \\( ABC \\) touches \\( AB \\) and \\( AC \\) at points \\( D \\) and \\( E \\) respectively. Let \\( O \\) be the circumcenter of triangle \\( ABC \\). If the line segment \\( DE \\) intersects the circumcircle of \\( ABC \\) again at point \\( F \\), find the ratio \\( \\frac{DF}{FE} \\).",
+    "final": "Let \\( ABC \\) be a triangle with \\( AB = AC \\). The incircle of triangle \\( ABC \\) touches \\( AB \\) and \\( AC \\) at points \\( D \\) and \\( E \\) respectively. Let \\( O \\) be the circumcenter of triangle \\( ABC \\). If the line segment \\( DE \\) intersects the circumcircle of \\( ABC \\) again at point \\( F \\), introduce a parameter \\( k \\) such that the length of \\( DF \\) is \\( k \\times FE \\). Given that the midpoint of \\( BC \\) is \\( M \\), and let \\( OM \\) be perpendicular to the chord \\( DE \\), find the value of \\( k \\).",
+    "n_accepted": 2,
+    "r_unc_seed": 0.0,
+    "r_unc_final": 0.6667,
+    "final_p_hat": 0.6666666666666666,
+    "final_pseudo_label": "1",
+    "final_in_band": true
+  }
+]

@@ -339,7 +339,8 @@ def _anthropic_msg(system, user, max_tokens, temperature, top_p=1.0):
         headers={"x-api-key": os.environ["ANTHROPIC_API_KEY"],
                  "anthropic-version": "2023-06-01",
                  "content-type": "application/json"})
-    r.raise_for_status()
+    if r.status_code >= 400:
+        raise RuntimeError(f"anthropic {r.status_code}: {r.text[:200]}")
     return "".join(b.get("text", "") for b in r.json()["content"]
                    if b.get("type") == "text")
 
@@ -371,7 +372,14 @@ def gen_texts_pairs(tokenizer, pairs, max_tokens, temperature, top_p=1.0):
                     time.sleep(2 * (attempt + 1))
             return None
         with ThreadPoolExecutor(max_workers=config.GEN_API_CONCURRENCY) as ex:
-            return list(ex.map(one, pairs))
+            texts = list(ex.map(one, pairs))
+        # circuit breaker: a fully-failed batch means the API is down/limited —
+        # abort instead of spinning the generation loop for days (olive_insect
+        # burned a day retrying workspace-usage-limit 400s before this guard)
+        if len(texts) >= 8 and all(t is None for t in texts):
+            raise RuntimeError("[gen] anthropic backend: entire batch failed — "
+                               "aborting run (check API usage limits / key)")
+        return texts
     raise ValueError(f"unknown DEO_GEN_BACKEND={config.GEN_BACKEND!r}")
 
 
